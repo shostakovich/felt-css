@@ -183,56 +183,13 @@ description: Group a series of buttons together on a single line or stack them i
 </example>
 
 <h2>Vertical variation</h2>
-<p>Make a set of buttons appear vertically stacked rather than horizontally. <strong>Split button dropdowns are not supported here.</strong></p>
+<p>Make a set of buttons appear vertically stacked rather than horizontally. <strong>Split button dropdowns are not supported here.</strong> felt-css also doesn't style dropdowns nested in a vertical group (Bootstrap's <code>.btn-group</code> inside <code>.btn-group-vertical</code>), so keep vertical groups to buttons and toggles.</p>
 <example>
 <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
   <button type="button" class="btn btn-primary">Button</button>
   <button type="button" class="btn btn-primary">Button</button>
   <button type="button" class="btn btn-primary">Button</button>
   <button type="button" class="btn btn-primary">Button</button>
-</div>
-</example>
-
-<example>
-<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-  <div class="btn-group" role="group">
-    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      Dropdown
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
-      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
-    </ul>
-  </div>
-  <button type="button" class="btn btn-primary">Button</button>
-  <button type="button" class="btn btn-primary">Button</button>
-  <div class="btn-group dropstart" role="group">
-    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      Dropdown
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
-      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
-    </ul>
-  </div>
-  <div class="btn-group dropend" role="group">
-    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      Dropdown
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
-      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
-    </ul>
-  </div>
-  <div class="btn-group dropup" role="group">
-    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      Dropdown
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
-      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
-    </ul>
-  </div>
 </div>
 </example>
 

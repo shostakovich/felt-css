@@ -276,6 +276,7 @@ myModal.addEventListener('shown.bs.modal', () => {
 <h3>Tooltips and popovers</h3>
 <p><a href="../tooltips/">Tooltips</a> and <a href="../popovers/">popovers</a> can be placed within modals as needed. When modals are closed, any tooltips and popovers within are also automatically dismissed.</p>
 
+<example code="false">
 <div class="modal fade" id="exampleModalPopovers" tabindex="-1" aria-labelledby="exampleModalPopoversLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -297,8 +298,6 @@ myModal.addEventListener('shown.bs.modal', () => {
     </div>
   </div>
 </div>
-
-<example code="false">
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalPopovers">Launch demo modal</button>
 </example>
 
@@ -515,7 +514,7 @@ if (exampleModal) {
 
 <h2 id="native-dialog">Native dialog</h2>
 <p>felt-css also styles the browser's own <code>&lt;dialog&gt;</code> element. Give it the <code>.modal</code> class and put the usual <code>.modal-dialog</code> and <code>.modal-content</code> inside: it looks exactly like the plugin's modal, but needs no Bootstrap JavaScript. The browser draws the backdrop (styled through <code>::backdrop</code>), keeps focus inside, makes the rest of the page inert and closes the dialog on <kbd>Esc</kbd>; felt-css stops the page from scrolling behind it.</p>
-<p>Any submit button inside a <code>&lt;form method="dialog"&gt;</code> closes the dialog without a line of script, and the button's <code>value</code> ends up in <code>dialog.returnValue</code>. Here the whole <code>.modal-content</code> is that form. Buttons with <code>type="button"</code> (like the field below would need) don't close it.</p>
+<p>Any submit button inside a <code>&lt;form method="dialog"&gt;</code> closes the dialog without a line of script, and the button's <code>value</code> ends up in <code>dialog.returnValue</code>. Here the whole <code>.modal-content</code> is that form. Give any other button inside it <code>type="button"</code> so it doesn't close the dialog.</p>
 
 <dialog class="modal" id="nativeDialog" aria-labelledby="nativeDialogLabel" closedby="any">
   <div class="modal-dialog modal-dialog-centered">

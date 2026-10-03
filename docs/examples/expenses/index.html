@@ -24,8 +24,11 @@
     .app-fab > * { pointer-events: auto; }
     .app-icon { width: 1.375rem; height: 1.375rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .app-avatar { width: 2.5rem; height: 2.5rem; flex-shrink: 0; }
+    @media (min-width: 576px) {
+      .app { border-inline: 1px solid var(--border); box-shadow: var(--shadow-lg); }
+    }
     @media (min-width: 992px) {
-      .app-demo { position: fixed; top: var(--space-3); left: var(--space-3); margin: 0 !important; }
+      .app-demo { position: fixed; top: var(--space-3); left: var(--space-3); }
     }
   </style>
 </head>
@@ -93,12 +96,12 @@
       <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3">
         <span class="app-avatar rounded-circle bg-success-subtle text-success-emphasis d-flex align-items-center justify-content-center"><svg class="app-icon" aria-hidden="true"><use href="#i-cart"/></svg></span>
         <span class="me-auto"><span class="d-block fw-semibold">Weekly groceries</span><span class="small text-body-secondary">Anna paid · split 3 ways</span></span>
-        <span class="text-end"><span class="d-block fw-bold tabular-nums">48.70 €</span><span class="small text-danger tabular-nums">you owe 16.23</span></span>
+        <span class="text-end text-nowrap"><span class="d-block fw-bold tabular-nums">48.70 €</span><span class="small text-danger tabular-nums">you owe 16.23</span></span>
       </a>
       <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3">
         <span class="app-avatar rounded-circle bg-warning-subtle text-warning-emphasis d-flex align-items-center justify-content-center"><svg class="app-icon" aria-hidden="true"><use href="#i-fork"/></svg></span>
         <span class="me-auto"><span class="d-block fw-semibold">Bakery run</span><span class="small text-body-secondary">You paid · split 3 ways</span></span>
-        <span class="text-end"><span class="d-block fw-bold tabular-nums">15.50 €</span><span class="small text-success tabular-nums">you lent 10.33</span></span>
+        <span class="text-end text-nowrap"><span class="d-block fw-bold tabular-nums">15.50 €</span><span class="small text-success tabular-nums">you lent 10.33</span></span>
       </a>
     </div>
 
@@ -107,12 +110,12 @@
       <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3">
         <span class="app-avatar rounded-circle bg-info-subtle text-info-emphasis d-flex align-items-center justify-content-center"><svg class="app-icon" aria-hidden="true"><use href="#i-bolt"/></svg></span>
         <span class="me-auto"><span class="d-block fw-semibold">Electricity, October</span><span class="small text-body-secondary">You paid · split 3 ways</span></span>
-        <span class="text-end"><span class="d-block fw-bold tabular-nums">84.00 €</span><span class="small text-success tabular-nums">you lent 56.00</span></span>
+        <span class="text-end text-nowrap"><span class="d-block fw-bold tabular-nums">84.00 €</span><span class="small text-success tabular-nums">you lent 56.00</span></span>
       </a>
       <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3">
         <span class="app-avatar rounded-circle bg-danger-subtle text-danger-emphasis d-flex align-items-center justify-content-center"><svg class="app-icon" aria-hidden="true"><use href="#i-fork"/></svg></span>
         <span class="me-auto"><span class="d-block fw-semibold">Pizza night</span><span class="small text-body-secondary">Jonas paid · split 3 ways</span></span>
-        <span class="text-end"><span class="d-block fw-bold tabular-nums">37.00 €</span><span class="small text-danger tabular-nums">you owe 12.33</span></span>
+        <span class="text-end text-nowrap"><span class="d-block fw-bold tabular-nums">37.00 €</span><span class="small text-danger tabular-nums">you owe 12.33</span></span>
       </a>
     </div>
 
@@ -121,12 +124,12 @@
       <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3">
         <span class="app-avatar rounded-circle bg-primary-subtle text-primary-emphasis d-flex align-items-center justify-content-center"><svg class="app-icon" aria-hidden="true"><use href="#i-train"/></svg></span>
         <span class="me-auto"><span class="d-block fw-semibold">Train to the lake</span><span class="small text-body-secondary">Anna paid · Anna &amp; you</span></span>
-        <span class="text-end"><span class="d-block fw-bold tabular-nums">32.40 €</span><span class="small text-danger tabular-nums">you owe 16.20</span></span>
+        <span class="text-end text-nowrap"><span class="d-block fw-bold tabular-nums">32.40 €</span><span class="small text-danger tabular-nums">you owe 16.20</span></span>
       </a>
       <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3">
         <span class="app-avatar rounded-circle bg-secondary-subtle text-secondary-emphasis d-flex align-items-center justify-content-center"><svg class="app-icon" aria-hidden="true"><use href="#i-gift"/></svg></span>
         <span class="me-auto"><span class="d-block fw-semibold">Birthday flowers for Oma</span><span class="small text-body-secondary">Jonas paid · not involved</span></span>
-        <span class="text-end"><span class="d-block fw-bold tabular-nums">26.00 €</span><span class="small text-body-secondary">—</span></span>
+        <span class="text-end text-nowrap"><span class="d-block fw-bold tabular-nums">26.00 €</span><span class="small text-body-secondary">—</span></span>
       </a>
       <div class="list-group-item d-flex align-items-center gap-3 bg-body-tertiary">
         <span class="app-avatar rounded-circle bg-success-subtle text-success-emphasis d-flex align-items-center justify-content-center"><svg class="app-icon" aria-hidden="true"><use href="#i-swap"/></svg></span>
@@ -135,7 +138,7 @@
       </div>
     </div>
 
-    <div class="app-demo d-flex flex-wrap align-items-center gap-2 mt-5 small">
+    <div class="app-demo d-flex flex-wrap flex-lg-column align-items-center align-items-lg-start gap-2 mt-5 mt-lg-0 small">
       <a href="../" class="link-secondary me-2">← Examples</a>
       <div class="btn-group btn-group-sm" role="group" aria-label="Look">
         <input type="radio" class="btn-check" name="look" id="look-felt" value="felt" autocomplete="off">
@@ -180,14 +183,14 @@
             <input type="text" class="form-control" id="exp-title" placeholder="e.g. Weekly groceries" required>
           </div>
           <div class="row g-3 mb-3">
-            <div class="col-7">
+            <div class="col-6">
               <label for="exp-amount" class="form-label">Amount</label>
               <div class="input-group">
                 <input type="text" class="form-control tabular-nums" id="exp-amount" inputmode="decimal" placeholder="0.00" required>
                 <span class="input-group-text">€</span>
               </div>
             </div>
-            <div class="col-5">
+            <div class="col-6">
               <label for="exp-date" class="form-label">Date</label>
               <input type="date" class="form-control" id="exp-date" value="2026-10-03">
             </div>
@@ -214,13 +217,13 @@
           </div>
           <fieldset class="mb-3">
             <legend class="form-label fs-6 fw-normal">Split</legend>
-            <div class="btn-group w-100 mb-3" role="group" aria-label="Split mode">
+            <div class="btn-group btn-group-sm w-100 mb-3" role="group" aria-label="Split mode">
               <input type="radio" class="btn-check" name="split-mode" id="split-equal" autocomplete="off" checked>
-              <label class="btn btn-outline-secondary" for="split-equal">Equally</label>
+              <label class="btn btn-outline-secondary flex-fill" for="split-equal">Equally</label>
               <input type="radio" class="btn-check" name="split-mode" id="split-shares" autocomplete="off">
-              <label class="btn btn-outline-secondary" for="split-shares">By shares</label>
+              <label class="btn btn-outline-secondary flex-fill" for="split-shares">By shares</label>
               <input type="radio" class="btn-check" name="split-mode" id="split-amounts" autocomplete="off">
-              <label class="btn btn-outline-secondary" for="split-amounts">By amount</label>
+              <label class="btn btn-outline-secondary flex-fill" for="split-amounts">By amount</label>
             </div>
             <ul class="list-group">
               <li class="list-group-item d-flex align-items-center">

@@ -74,11 +74,11 @@
       <div class="bd-toc">
         <details class="bd-toc-details">
           <summary>On this page</summary>
-          <nav aria-label="On this page"><ul><li><a href="#how-it-works">How it works</a></li><li><a href="#examples">Examples</a><ul><li><a href="#modal-components">Modal components</a></li><li><a href="#live-demo">Live demo</a></li><li><a href="#static-backdrop">Static backdrop</a></li><li><a href="#scrolling-long-content">Scrolling long content</a></li><li><a href="#vertically-centered">Vertically centered</a></li><li><a href="#tooltips-and-popovers">Tooltips and popovers</a></li></ul></li><li><a href="#popover-in-a-modal">Popover in a modal</a></li><li><a href="#tooltips-in-a-modal">Tooltips in a modal</a><ul><li><a href="#using-the-grid">Using the grid</a></li><li><a href="#varying-modal-content">Varying modal content</a></li><li><a href="#toggle-between-modals">Toggle between modals</a></li><li><a href="#remove-animation">Remove animation</a></li><li><a href="#dynamic-heights">Dynamic heights</a></li><li><a href="#accessibility">Accessibility</a></li></ul></li><li><a href="#native-dialog">Native dialog</a></li><li><a href="#optional-sizes">Optional sizes</a></li><li><a href="#fullscreen-modal">Fullscreen Modal</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul></nav>
+          <nav aria-label="On this page"><ul><li><a href="#how-it-works">How it works</a></li><li><a href="#examples">Examples</a><ul><li><a href="#modal-components">Modal components</a></li><li><a href="#live-demo">Live demo</a></li><li><a href="#static-backdrop">Static backdrop</a></li><li><a href="#scrolling-long-content">Scrolling long content</a></li><li><a href="#vertically-centered">Vertically centered</a></li><li><a href="#tooltips-and-popovers">Tooltips and popovers</a></li><li><a href="#using-the-grid">Using the grid</a></li><li><a href="#varying-modal-content">Varying modal content</a></li><li><a href="#toggle-between-modals">Toggle between modals</a></li><li><a href="#remove-animation">Remove animation</a></li><li><a href="#dynamic-heights">Dynamic heights</a></li><li><a href="#accessibility">Accessibility</a></li></ul></li><li><a href="#native-dialog">Native dialog</a></li><li><a href="#optional-sizes">Optional sizes</a></li><li><a href="#fullscreen-modal">Fullscreen Modal</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul></nav>
         </details>
         <nav class="bd-toc-side" aria-label="On this page (sidebar)">
           <strong>On this page</strong>
-          <ul><li><a href="#how-it-works">How it works</a></li><li><a href="#examples">Examples</a><ul><li><a href="#modal-components">Modal components</a></li><li><a href="#live-demo">Live demo</a></li><li><a href="#static-backdrop">Static backdrop</a></li><li><a href="#scrolling-long-content">Scrolling long content</a></li><li><a href="#vertically-centered">Vertically centered</a></li><li><a href="#tooltips-and-popovers">Tooltips and popovers</a></li></ul></li><li><a href="#popover-in-a-modal">Popover in a modal</a></li><li><a href="#tooltips-in-a-modal">Tooltips in a modal</a><ul><li><a href="#using-the-grid">Using the grid</a></li><li><a href="#varying-modal-content">Varying modal content</a></li><li><a href="#toggle-between-modals">Toggle between modals</a></li><li><a href="#remove-animation">Remove animation</a></li><li><a href="#dynamic-heights">Dynamic heights</a></li><li><a href="#accessibility">Accessibility</a></li></ul></li><li><a href="#native-dialog">Native dialog</a></li><li><a href="#optional-sizes">Optional sizes</a></li><li><a href="#fullscreen-modal">Fullscreen Modal</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul>
+          <ul><li><a href="#how-it-works">How it works</a></li><li><a href="#examples">Examples</a><ul><li><a href="#modal-components">Modal components</a></li><li><a href="#live-demo">Live demo</a></li><li><a href="#static-backdrop">Static backdrop</a></li><li><a href="#scrolling-long-content">Scrolling long content</a></li><li><a href="#vertically-centered">Vertically centered</a></li><li><a href="#tooltips-and-popovers">Tooltips and popovers</a></li><li><a href="#using-the-grid">Using the grid</a></li><li><a href="#varying-modal-content">Varying modal content</a></li><li><a href="#toggle-between-modals">Toggle between modals</a></li><li><a href="#remove-animation">Remove animation</a></li><li><a href="#dynamic-heights">Dynamic heights</a></li><li><a href="#accessibility">Accessibility</a></li></ul></li><li><a href="#native-dialog">Native dialog</a></li><li><a href="#optional-sizes">Optional sizes</a></li><li><a href="#fullscreen-modal">Fullscreen Modal</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul>
         </nav>
       </div>
       
@@ -364,6 +364,7 @@ myModal.addEventListener(<span class="tok-val">'shown.bs.modal'</span>, () =&gt;
 <h3 id="tooltips-and-popovers">Tooltips and popovers<a class="bd-anchor" href="#tooltips-and-popovers" aria-label="Link to this section">#</a></h3>
 <p><a href="../tooltips/">Tooltips</a> and <a href="../popovers/">popovers</a> can be placed within modals as needed. When modals are closed, any tooltips and popovers within are also automatically dismissed.</p>
 
+<div class="bd-example-snippet"><div class="bd-example">
 <div class="modal fade" id="exampleModalPopovers" tabindex="-1" aria-labelledby="exampleModalPopoversLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -372,10 +373,10 @@ myModal.addEventListener(<span class="tok-val">'shown.bs.modal'</span>, () =&gt;
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h2 class="fs-5" id="popover-in-a-modal">Popover in a modal<a class="bd-anchor" href="#popover-in-a-modal" aria-label="Link to this section">#</a></h2>
+        <h2 class="fs-5">Popover in a modal</h2>
         <p>This <button class="btn btn-secondary" data-bs-toggle="popover" title="Popover title" data-bs-content="Popover body content is set in this attribute." data-bs-container="#exampleModalPopovers">button</button> triggers a popover on click.</p>
         <hr>
-        <h2 class="fs-5" id="tooltips-in-a-modal">Tooltips in a modal<a class="bd-anchor" href="#tooltips-in-a-modal" aria-label="Link to this section">#</a></h2>
+        <h2 class="fs-5">Tooltips in a modal</h2>
         <p><a href="#" data-bs-toggle="tooltip" title="Tooltip" data-bs-container="#exampleModalPopovers">This link</a> and <a href="#" data-bs-toggle="tooltip" title="Tooltip" data-bs-container="#exampleModalPopovers">that link</a> have tooltips on hover.</p>
       </div>
       <div class="modal-footer">
@@ -385,8 +386,6 @@ myModal.addEventListener(<span class="tok-val">'shown.bs.modal'</span>, () =&gt;
     </div>
   </div>
 </div>
-
-<div class="bd-example-snippet"><div class="bd-example">
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalPopovers">Launch demo modal</button>
 </div></div>
 
@@ -656,7 +655,7 @@ myModal.addEventListener(<span class="tok-val">'shown.bs.modal'</span>, () =&gt;
 
 <h2 id="native-dialog">Native dialog<a class="bd-anchor" href="#native-dialog" aria-label="Link to this section">#</a></h2>
 <p>felt-css also styles the browser's own <code>&lt;dialog&gt;</code> element. Give it the <code>.modal</code> class and put the usual <code>.modal-dialog</code> and <code>.modal-content</code> inside: it looks exactly like the plugin's modal, but needs no Bootstrap JavaScript. The browser draws the backdrop (styled through <code>::backdrop</code>), keeps focus inside, makes the rest of the page inert and closes the dialog on <kbd>Esc</kbd>; felt-css stops the page from scrolling behind it.</p>
-<p>Any submit button inside a <code>&lt;form method="dialog"&gt;</code> closes the dialog without a line of script, and the button's <code>value</code> ends up in <code>dialog.returnValue</code>. Here the whole <code>.modal-content</code> is that form. Buttons with <code>type="button"</code> (like the field below would need) don't close it.</p>
+<p>Any submit button inside a <code>&lt;form method="dialog"&gt;</code> closes the dialog without a line of script, and the button's <code>value</code> ends up in <code>dialog.returnValue</code>. Here the whole <code>.modal-content</code> is that form. Give any other button inside it <code>type="button"</code> so it doesn't close the dialog.</p>
 
 <dialog class="modal" id="nativeDialog" aria-labelledby="nativeDialogLabel" closedby="any">
   <div class="modal-dialog modal-dialog-centered">

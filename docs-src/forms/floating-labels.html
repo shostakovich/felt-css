@@ -1,0 +1,165 @@
+<!--
+title: Floating labels
+description: Create beautifully simple form labels that float over your input fields.
+-->
+<h2>Example</h2>
+<p>Wrap a pair of <code>&lt;input class="form-control"&gt;</code> and <code>&lt;label&gt;</code> elements in <code>.form-floating</code> to enable floating labels with textual form fields. No JavaScript is needed.</p>
+<p>A non-empty <code>placeholder</code> attribute is required on each <code>&lt;input&gt;</code> as the CSS-only floating label implementation relies on the <code>:placeholder-shown</code> pseudo-class to detect when the input is empty. The placeholder text itself is not visible; only the <code>&lt;label&gt;</code> is shown to users.</p>
+<p>Also note that the <code>&lt;input&gt;</code> must come first so we can utilize a sibling selector (i.e., <code>~</code>).</p>
+
+<example>
+<div class="form-floating mb-3">
+  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+  <label for="floatingInput">Email address</label>
+</div>
+<div class="form-floating">
+  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+  <label for="floatingPassword">Password</label>
+</div>
+</example>
+
+<p>When there's a <code>value</code> already defined, <code>&lt;label&gt;</code>s will automatically adjust to their floated position.</p>
+
+<example>
+<form class="form-floating">
+  <input type="email" class="form-control" id="floatingInputValue" placeholder="name@example.com" value="test@example.com">
+  <label for="floatingInputValue">Input with value</label>
+</form>
+</example>
+
+<p>Form validation styles also work as expected.</p>
+
+<example>
+<form class="form-floating">
+  <input type="email" class="form-control is-invalid" id="floatingInputInvalid" placeholder="name@example.com" value="test@example.com">
+  <label for="floatingInputInvalid">Invalid input</label>
+</form>
+</example>
+
+<h2>Textareas</h2>
+<p>By default, <code>&lt;textarea&gt;</code>s with <code>.form-control</code> will be the same height as <code>&lt;input&gt;</code>s.</p>
+
+<example>
+<div class="form-floating">
+  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+  <label for="floatingTextarea">Comments</label>
+</div>
+</example>
+
+<p>To set a custom height on your <code>&lt;textarea&gt;</code>, do not use the <code>rows</code> attribute. Instead, set an explicit <code>height</code> (either inline or via custom CSS).</p>
+
+<example>
+<div class="form-floating">
+  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+  <label for="floatingTextarea2">Comments</label>
+</div>
+</example>
+
+<h2>Selects</h2>
+<p>Other than <code>.form-control</code>, floating labels are only available on <code>.form-select</code>s. They work in the same way, but unlike <code>&lt;input&gt;</code>s, they'll always show the <code>&lt;label&gt;</code> in its floated state. <strong>Selects with <code>size</code> and <code>multiple</code> are not supported.</strong></p>
+
+<example>
+<div class="form-floating">
+  <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+    <option selected>Open this select menu</option>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+  <label for="floatingSelect">Works with selects</label>
+</div>
+</example>
+
+<h2>Disabled</h2>
+<p>Add the <code>disabled</code> boolean attribute on an input, a textarea or a select to give it a grayed out appearance, remove pointer events, and prevent focusing.</p>
+
+<example>
+<div class="form-floating mb-3">
+  <input type="email" class="form-control" id="floatingInputDisabled" placeholder="name@example.com" disabled>
+  <label for="floatingInputDisabled">Email address</label>
+</div>
+<div class="form-floating mb-3">
+  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextareaDisabled" disabled></textarea>
+  <label for="floatingTextareaDisabled">Comments</label>
+</div>
+<div class="form-floating mb-3">
+  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2Disabled" style="height: 100px" disabled>Disabled textarea with some text inside</textarea>
+  <label for="floatingTextarea2Disabled">Comments</label>
+</div>
+<div class="form-floating">
+  <select class="form-select" id="floatingSelectDisabled" aria-label="Floating label disabled select example" disabled>
+    <option selected>Open this select menu</option>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+  <label for="floatingSelectDisabled">Works with selects</label>
+</div>
+</example>
+
+<h2>Readonly plaintext</h2>
+<p>Floating labels also support <code>.form-control-plaintext</code>, which can be helpful for toggling from an editable <code>&lt;input&gt;</code> to a plaintext value without affecting the page layout.</p>
+
+<example>
+<div class="form-floating mb-3">
+  <input type="email" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput" placeholder="name@example.com">
+  <label for="floatingEmptyPlaintextInput">Empty input</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="email" readonly class="form-control-plaintext" id="floatingPlaintextInput" placeholder="name@example.com" value="name@example.com">
+  <label for="floatingPlaintextInput">Input with value</label>
+</div>
+</example>
+
+<h2>Input groups</h2>
+<p>Floating labels also support <code>.input-group</code>.</p>
+
+<example>
+<div class="input-group mb-3">
+  <span class="input-group-text">@</span>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
+    <label for="floatingInputGroup1">Username</label>
+  </div>
+</div>
+</example>
+
+<p>When using <code>.input-group</code> and <code>.form-floating</code> along with form validation, place the <code>-feedback</code> after the <code>.input-group</code>. It is no longer a sibling of the invalid field there, so show it with <a href="../../utilities/display/"><code>.d-block</code></a> (felt-css has no <code>.has-validation</code>).</p>
+
+<example>
+<div class="input-group">
+  <span class="input-group-text">@</span>
+  <div class="form-floating">
+    <input type="text" class="form-control is-invalid" id="floatingInputGroup2" placeholder="Username" aria-describedby="floatingInputGroup2Feedback" required>
+    <label for="floatingInputGroup2">Username</label>
+  </div>
+</div>
+<div class="invalid-feedback d-block" id="floatingInputGroup2Feedback">
+  Please choose a username.
+</div>
+</example>
+
+<h2>Layout</h2>
+<p>When working with the grid system, be sure to place form elements within column classes.</p>
+
+<example>
+<div class="row g-2">
+  <div class="col-md">
+    <div class="form-floating">
+      <input type="email" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="mdo@example.com">
+      <label for="floatingInputGrid">Email address</label>
+    </div>
+  </div>
+  <div class="col-md">
+    <div class="form-floating">
+      <select class="form-select" id="floatingSelectGrid">
+        <option selected>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+      <label for="floatingSelectGrid">Works with selects</label>
+    </div>
+  </div>
+</div>
+</example>
