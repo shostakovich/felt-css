@@ -21,7 +21,7 @@ description: Reboot, a small set of element-specific CSS changes at the top of f
   <li>No base <code>font-size</code> is declared on the <code>&lt;html&gt;</code> or the <code>&lt;body&gt;</code>; the browser's default (typically <code>16px</code>) applies, so visitors can change it.</li>
   <li>The <code>&lt;body&gt;</code> sets a global <code>font-family</code> (<code>--font</code>), <code>line-height: 1.5</code>, <code>color</code> (<code>--text</code>) and font smoothing.</li>
   <li>The <code>&lt;body&gt;</code> also has a declared <code>background</code>: <code>--body-bg</code>, a very light grey in the clean look and cream felt in the felt look (charcoal in dark mode). Cards and other surfaces sit on it in <code>--surface</code>.</li>
-  <li><code>&lt;img&gt;</code> and <code>&lt;svg&gt;</code> get <code>max-width: 100%</code> and <code>vertical-align: middle</code>, so images never overflow their container, even without <a href="../images/"><code>.img-fluid</code></a>.</li>
+  <li><code>&lt;img&gt;</code> and <code>&lt;svg&gt;</code> get <code>max-width: 100%</code> and <code>vertical-align: middle</code>, and an <code>&lt;img&gt;</code> also <code>height: auto</code>, so images never overflow their container or lose their aspect ratio, even without <a href="../images/"><code>.img-fluid</code></a>.</li>
   <li>Every focusable element gets a visible focus ring on <code>:focus-visible</code>: a 3px outline in <code>--focus</code> (a translucent primary), 2px away from the element.</li>
 </ul>
 
@@ -80,7 +80,7 @@ description: Reboot, a small set of element-specific CSS changes at the top of f
 </example>
 
 <div class="bd-callout bd-callout-felt">
-  <p>In the felt look, an <code>&lt;hr&gt;</code> is a row of running stitches instead of a line, in a darker tone of the felt underneath, so a <code>color</code> set on it or its parent doesn't tint it. With border utilities you get a plain coloured line, as in the clean look.</p>
+  <p>In the felt look, an <code>&lt;hr&gt;</code> is a row of running stitches instead of a line. Like Bootstrap's line, the thread follows <code>color</code>, set on the <code>&lt;hr&gt;</code> or its parent, warmed a little towards the felt. With border utilities you get a plain coloured line, as in the clean look.</p>
 </div>
 
 <h2>Lists</h2>

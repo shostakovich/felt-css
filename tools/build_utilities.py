@@ -24,13 +24,16 @@ COLUMNS = 12
 ROW_COLS = 6
 
 COLOURS = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"]
-TONED = COLOURS[:6]              # these have a darker --*-text tone that reads as text on the page
-TEXT = {**{c: f"var(--{c}-text)" for c in TONED}, "light": "var(--light)", "dark": "var(--dark)",
-        "black": "#000", "white": "#fff", "body": "var(--text)"}
-BG = {**{c: f"var(--{c})" for c in COLOURS}, "black": "#000", "white": "#fff", "body": "var(--body-bg)",
+TONED = COLOURS[:6]
+# light and dark keep their tone in dark mode, like Bootstrap's: .bg-light .text-dark stays dark on light
+FIXED = {"light": "var(--light-fixed)", "dark": "var(--dark-fixed)"}
+LINK = {**{c: f"var(--{c}-text)" for c in TONED}, **FIXED}   # --*-text: the tone that reads as text on the page
+TEXT = {**LINK, "black": "#000", "white": "#fff", "body": "var(--text)"}
+FILL = {**{c: f"var(--{c})" for c in TONED}, **FIXED}
+BG = {**FILL, "black": "#000", "white": "#fff", "body": "var(--body-bg)",
       "body-secondary": "light-dark(var(--surface-sunk), var(--surface-raised))", "body-tertiary": "var(--surface-raised)"}
-BORDER = {**{c: f"var(--{c})" for c in COLOURS}, "black": "#000", "white": "#fff"}
-LINK = {**{c: f"var(--{c}-text)" for c in TONED}, "light": "var(--light)", "dark": "var(--dark)"}
+BORDER = {**FILL, "black": "#000", "white": "#fff"}
+HOVER_INK = {"light": "#fff", "dark": "#000"}   # links hover towards --state-ink; these two always go lighter and darker
 OPACITY = {"10": ".1", "25": ".25", "50": ".5", "75": ".75", "100": "1"}
 OFFSETS = {1: ".125em", 2: ".25em", 3: ".375em"}
 RADII = {0: "0", 1: "var(--radius-sm)", 2: "var(--radius)", 3: "var(--radius-lg)", 4: "var(--radius-xl)",
@@ -99,7 +102,7 @@ def colour_family(cls, prop, colours, opacities):
 
 def links():
     names = [f"link-{c}" for c in LINK] + ["link-body-emphasis"]
-    out = [f".link-{c} {{ --link-color: {v}; --link-hover-color: color-mix(in oklab, {v} 80%, {'#fff' if c == 'light' else 'var(--state-ink)'}); }}"
+    out = [f".link-{c} {{ --link-color: {v}; --link-hover-color: color-mix(in oklab, {v} 80%, {HOVER_INK.get(c, 'var(--state-ink)')}); }}"
            for c, v in LINK.items()]
     out.append(".link-body-emphasis { --link-color: var(--emphasis); --link-hover-color: color-mix(in srgb, var(--emphasis) 75%, transparent); }")
     every = ", ".join(f".{n}" for n in names)
@@ -133,7 +136,7 @@ def families():
         for k, v in {"": "var(--radius)", **{f"-{k}": v for k, v in RADII.items()}}.items():
             out.append(f".rounded-{side}{k} {{ border-{a}-radius: {v} !important; border-{b}-radius: {v} !important; }}")
     out += links()
-    out += [f".focus-ring-{c} {{ --focus-ring-color: color-mix(in oklab, var(--{c}) 50%, transparent); }}" for c in COLOURS]
+    out += [f".focus-ring-{c} {{ --focus-ring-color: color-mix(in oklab, {v} 50%, transparent); }}" for c, v in FILL.items()]
     out += important((f"{p}-{v}", f"{p}: {v}") for p in ("overflow", "overflow-x", "overflow-y") for v in OVERFLOW)
     out += important((f"{side}-{n}", f"{prop}: {n}{'%' if n else ''}") for side, prop in INSET.items() for n in (0, 50, 100))
     return ["  " + rule for rule in out]

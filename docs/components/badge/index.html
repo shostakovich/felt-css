@@ -114,18 +114,18 @@
 <p>Note that depending on how they are used, badges may be confusing for users of screen readers and similar assistive technologies. While the styling of badges provides a visual cue as to their purpose, these users will simply be presented with the content of the badge. Unless the context is clear (as with the “Notifications” example, where it is understood that the “4” is the number of notifications), consider including additional context with a visually hidden piece of additional text.</p>
 
 <h3 id="positioned">Positioned<a class="bd-anchor" href="#positioned" aria-label="Link to this section">#</a></h3>
-<p>Use utilities to modify a <code>.badge</code> and position it in the corner of a link or button. A felt-css badge has no light text by default, so pair a background color with its text color via <code>.text-bg-*</code>.</p>
+<p>Use utilities to modify a <code>.badge</code> and position it in the corner of a link or button.</p>
 <div class="bd-example-snippet"><div class="bd-example">
 <button type="button" class="btn btn-primary position-relative">
   Inbox
-  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
     99+
     <span class="visually-hidden">unread messages</span>
   </span>
 </button>
 </div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary position-relative"</span><span class="tok-punct">&gt;</span>
   Inbox
-  <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"</span><span class="tok-punct">&gt;</span>
     99+
     <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>unread messages<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
