@@ -55,6 +55,11 @@ document.addEventListener("click", e => {
   if (link) e.preventDefault();
 });
 
+// example forms don't submit
+document.addEventListener("submit", e => {
+  if (e.target.closest(".bd-example")) e.preventDefault();
+});
+
 // Bootstrap leaves these to the page: tooltips and popovers are opt-in, toasts are shown from code,
 // and a native <dialog class="modal"> opens itself.
 (() => {

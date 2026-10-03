@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Toasts · felt-css</title>
-  <meta name="description" content="This page has not been written yet.">
+  <meta name="description" content="Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.">
   <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
   <link rel="stylesheet" href="../../../felt.css">
   <link rel="stylesheet" href="../../assets/docs.css">
@@ -66,12 +66,440 @@
       <div class="bd-intro">
         <p class="bd-section">Components</p>
         <h1>Toasts</h1>
-        <p class="lead">This page has not been written yet.</p>
+        <p class="lead">Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.</p>
         <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/components/toasts.html">View page source on GitHub</a>
       </div>
       
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#overview">Overview</a></li><li><a href="#examples">Examples</a><ul><li><a href="#basic">Basic</a></li><li><a href="#live-example">Live example</a></li><li><a href="#stacking">Stacking</a></li><li><a href="#custom-content">Custom content</a></li><li><a href="#color-schemes">Color schemes</a></li></ul></li><li><a href="#placement">Placement</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#overview">Overview</a></li><li><a href="#examples">Examples</a><ul><li><a href="#basic">Basic</a></li><li><a href="#live-example">Live example</a></li><li><a href="#stacking">Stacking</a></li><li><a href="#custom-content">Custom content</a></li><li><a href="#color-schemes">Color schemes</a></li></ul></li><li><a href="#placement">Placement</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul>
+        </nav>
+      </div>
+      
       <div class="bd-content">
-        <p class="text-body-secondary">Coming soon.</p>
+        
+<style>
+  .bd-example-toast-static .toast:not(.show) { display: block; }
+</style>
+
+<p>Toasts are lightweight notifications designed to mimic the push notifications that have been popularized by mobile and desktop operating systems. They're built with flexbox, so they're easy to align and position.</p>
+
+<h2 id="overview">Overview<a class="bd-anchor" href="#overview" aria-label="Link to this section">#</a></h2>
+<p>Things to know when using the toast plugin:</p>
+<ul>
+  <li>Toasts are opt-in for performance reasons, so <strong>you must initialize them yourself</strong>.</li>
+  <li>Toasts will automatically hide if you do not specify <code>autohide: false</code>.</li>
+  <li>A <code>.toast</code> stays hidden until Bootstrap's JavaScript adds <code>.show</code>. The static examples on this page are drawn visible by the docs.</li>
+</ul>
+
+<h2 id="examples">Examples<a class="bd-anchor" href="#examples" aria-label="Link to this section">#</a></h2>
+<h3 id="basic">Basic<a class="bd-anchor" href="#basic" aria-label="Link to this section">#</a></h3>
+<p>To encourage extensible and predictable toasts, we recommend a header and body. Toast headers use <code>display: flex</code>, allowing easy alignment of content thanks to margin and flexbox utilities.</p>
+<p>Toasts are as flexible as you need and have very little required markup. At a minimum, we require a single element to contain your "toasted" content and strongly encourage a dismiss button.</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-toast-static">
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+    <img src="../../assets/plush/nav_dashboard.webp" class="rounded me-2" width="20" height="20" alt="">
+    <strong class="me-auto">felt-css</strong>
+    <small>11 mins ago</small>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+  <div class="toast-body">
+    Hello, world! This is a toast message.
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"assertive"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-header"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../assets/plush/nav_dashboard.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"rounded me-2"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">strong</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"me-auto"</span><span class="tok-punct">&gt;</span>felt-css<span class="tok-punct">&lt;/</span><span class="tok-tag">strong</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>11 mins ago<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-body"</span><span class="tok-punct">&gt;</span>
+    Hello, world! This is a toast message.
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>Unlike Bootstrap's slightly translucent toasts, felt-css toasts are opaque: a light piece of felt, sewn round with a fine stitch, with a row of stitches under the header.</p>
+</div>
+
+<h3 id="live-example">Live example<a class="bd-anchor" href="#live-example" aria-label="Link to this section">#</a></h3>
+<p>Click the button below to show a toast (positioned with utilities in the lower right corner) that has been hidden by default.</p>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="../../assets/plush/nav_dashboard.webp" class="rounded me-2" width="20" height="20" alt="">
+      <strong class="me-auto">felt-css</strong>
+      <small>11 mins ago</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+  </div>
+</div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-primary" data-bd-toast="#liveToast">Show live toast</button>
+</div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"liveToastBtn"</span><span class="tok-punct">&gt;</span>Show live toast<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-container position-fixed bottom-0 end-0 p-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"liveToast"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"assertive"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-header"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"..."</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"rounded me-2"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"..."</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">strong</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"me-auto"</span><span class="tok-punct">&gt;</span>felt-css<span class="tok-punct">&lt;/</span><span class="tok-tag">strong</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>11 mins ago<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-body"</span><span class="tok-punct">&gt;</span>
+      Hello, world! This is a toast message.
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<p>We use the following JavaScript to trigger the live toast demo:</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> toastTrigger = <span class="tok-tag">document</span>.getElementById(<span class="tok-val">'liveToastBtn'</span>)
+<span class="tok-tag">const</span> toastLiveExample = <span class="tok-tag">document</span>.getElementById(<span class="tok-val">'liveToast'</span>)
+
+<span class="tok-tag">if</span> (toastTrigger) {
+  <span class="tok-tag">const</span> toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger.addEventListener(<span class="tok-val">'click'</span>, () =&gt; {
+    toastBootstrap.show()
+  })
+}</code></pre></div>
+
+<h3 id="stacking">Stacking<a class="bd-anchor" href="#stacking" aria-label="Link to this section">#</a></h3>
+<p>You can stack toasts by wrapping them in a toast container, which will vertically add some spacing.</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-toast-static">
+<div class="toast-container position-static">
+  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="../../assets/plush/nav_dashboard.webp" class="rounded me-2" width="20" height="20" alt="">
+      <strong class="me-auto">felt-css</strong>
+      <small class="text-body-secondary">just now</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      See? Just like this.
+    </div>
+  </div>
+
+  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="../../assets/plush/nav_dashboard.webp" class="rounded me-2" width="20" height="20" alt="">
+      <strong class="me-auto">felt-css</strong>
+      <small class="text-body-secondary">2 seconds ago</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Heads up, toasts will stack automatically
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-container position-static"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"assertive"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-header"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../assets/plush/nav_dashboard.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"rounded me-2"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">strong</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"me-auto"</span><span class="tok-punct">&gt;</span>felt-css<span class="tok-punct">&lt;/</span><span class="tok-tag">strong</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">small</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"text-body-secondary"</span><span class="tok-punct">&gt;</span>just now<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-body"</span><span class="tok-punct">&gt;</span>
+      See? Just like this.
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"assertive"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-header"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../assets/plush/nav_dashboard.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"rounded me-2"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">strong</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"me-auto"</span><span class="tok-punct">&gt;</span>felt-css<span class="tok-punct">&lt;/</span><span class="tok-tag">strong</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">small</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"text-body-secondary"</span><span class="tok-punct">&gt;</span>2 seconds ago<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-body"</span><span class="tok-punct">&gt;</span>
+      Heads up, toasts will stack automatically
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="custom-content">Custom content<a class="bd-anchor" href="#custom-content" aria-label="Link to this section">#</a></h3>
+<p>Customize your toasts by removing sub-components, tweaking them with utilities, or by adding your own markup. Here we've created a simpler toast by removing the default <code>.toast-header</code>, and using some <a href="../../utilities/flex/">flexbox utilities</a> to adjust the layout.</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-toast-static">
+<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast align-items-center"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"assertive"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-body"</span><span class="tok-punct">&gt;</span>
+      Hello, world! This is a toast message.
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close me-2 m-auto"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Alternatively, you can also add additional controls and components to toasts.</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-toast-static">
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-body">
+    Hello, world! This is a toast message.
+    <div class="mt-2 pt-2 border-top">
+      <button type="button" class="btn btn-primary btn-sm">Take action</button>
+      <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Close</button>
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"assertive"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-body"</span><span class="tok-punct">&gt;</span>
+    Hello, world! This is a toast message.
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mt-2 pt-2 border-top"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary btn-sm"</span><span class="tok-punct">&gt;</span>Take action<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary btn-sm"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span><span class="tok-punct">&gt;</span>Close<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="color-schemes">Color schemes<a class="bd-anchor" href="#color-schemes" aria-label="Link to this section">#</a></h3>
+<p>Building on the above example, you can create different toast color schemes with <a href="../../utilities/colors/">color</a> and <a href="../../utilities/background/">background</a> utilities. Here we've added <code>.text-bg-primary</code> to the <code>.toast</code>, and then added <code>.btn-close-white</code> to our close button. For a crisp edge, we remove the default border with <code>.border-0</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-toast-static">
+<div class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast align-items-center text-bg-primary border-0"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"assertive"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-body"</span><span class="tok-punct">&gt;</span>
+      Hello, world! This is a toast message.
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close btn-close-white me-2 m-auto"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="placement">Placement<a class="bd-anchor" href="#placement" aria-label="Link to this section">#</a></h2>
+<p>Place toasts with custom CSS as you need them. The top right is often used for notifications, as is the top middle. If you're only ever going to show one toast at a time, put the positioning styles right on the <code>.toast</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<form>
+  <div class="mb-3">
+    <label for="selectToastPlacement">Toast placement</label>
+    <select class="form-select mt-2" id="selectToastPlacement">
+      <option value="" selected>Select a position...</option>
+      <option value="top-0 start-0">Top left</option>
+      <option value="top-0 start-50 translate-middle-x">Top center</option>
+      <option value="top-0 end-0">Top right</option>
+      <option value="top-50 start-0 translate-middle-y">Middle left</option>
+      <option value="top-50 start-50 translate-middle">Middle center</option>
+      <option value="top-50 end-0 translate-middle-y">Middle right</option>
+      <option value="bottom-0 start-0">Bottom left</option>
+      <option value="bottom-0 start-50 translate-middle-x">Bottom center</option>
+      <option value="bottom-0 end-0">Bottom right</option>
+    </select>
+  </div>
+</form>
+<div aria-live="polite" aria-atomic="true" class="bg-body-secondary position-relative bd-example-toasts rounded-3">
+  <div class="toast-container p-3" id="toastPlacement">
+      <div class="toast">
+        <div class="toast-header">
+          <img src="../../assets/plush/nav_dashboard.webp" class="rounded me-2" width="20" height="20" alt="">
+          <strong class="me-auto">felt-css</strong>
+          <small>11 mins ago</small>
+        </div>
+        <div class="toast-body">
+          Hello, world! This is a toast message.
+        </div>
+      </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"selectToastPlacement"</span><span class="tok-punct">&gt;</span>Toast placement<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">select</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-select mt-2"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"selectToastPlacement"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">selected</span><span class="tok-punct">&gt;</span>Select a position...<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"top-0 start-0"</span><span class="tok-punct">&gt;</span>Top left<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"top-0 start-50 translate-middle-x"</span><span class="tok-punct">&gt;</span>Top center<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"top-0 end-0"</span><span class="tok-punct">&gt;</span>Top right<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"top-50 start-0 translate-middle-y"</span><span class="tok-punct">&gt;</span>Middle left<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"top-50 start-50 translate-middle"</span><span class="tok-punct">&gt;</span>Middle center<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"top-50 end-0 translate-middle-y"</span><span class="tok-punct">&gt;</span>Middle right<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"bottom-0 start-0"</span><span class="tok-punct">&gt;</span>Bottom left<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"bottom-0 start-50 translate-middle-x"</span><span class="tok-punct">&gt;</span>Bottom center<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"bottom-0 end-0"</span><span class="tok-punct">&gt;</span>Bottom right<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">select</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"polite"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"bg-body-secondary position-relative bd-example-toasts rounded-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-container p-3"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"toastPlacement"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-header"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../assets/plush/nav_dashboard.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"rounded me-2"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">strong</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"me-auto"</span><span class="tok-punct">&gt;</span>felt-css<span class="tok-punct">&lt;/</span><span class="tok-tag">strong</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>11 mins ago<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-body"</span><span class="tok-punct">&gt;</span>
+          Hello, world! This is a toast message.
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<script>
+(() => {
+  const toastPlacement = document.getElementById('toastPlacement')
+  document.getElementById('selectToastPlacement').addEventListener('change', function () {
+    if (!toastPlacement.dataset.originalClass) toastPlacement.dataset.originalClass = toastPlacement.className
+    toastPlacement.className = `${toastPlacement.dataset.originalClass} ${this.value}`
+  })
+})()
+</script>
+
+<p>For systems that generate more notifications, consider using a wrapping element so they can easily stack.</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-toasts p-0">
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+  <!-- Position it: -->
+  <!-- - `.toast-container` for spacing between toasts -->
+  <!-- - `top-0` & `end-0` to position the toasts in the upper right corner -->
+  <!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
+  <div class="toast-container top-0 end-0 p-3">
+
+    <!-- Then put toasts within -->
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <img src="../../assets/plush/nav_dashboard.webp" class="rounded me-2" width="20" height="20" alt="">
+          <strong class="me-auto">felt-css</strong>
+          <small class="text-body-secondary">just now</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          See? Just like this.
+        </div>
+      </div>
+
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <img src="../../assets/plush/nav_dashboard.webp" class="rounded me-2" width="20" height="20" alt="">
+          <strong class="me-auto">felt-css</strong>
+          <small class="text-body-secondary">2 seconds ago</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          Heads up, toasts will stack automatically
+        </div>
+      </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"polite"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"position-relative"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-com">&lt;!-- Position it: --&gt;</span>
+  <span class="tok-com">&lt;!-- - `.toast-container` for spacing between toasts --&gt;</span>
+  <span class="tok-com">&lt;!-- - `top-0` &amp; `end-0` to position the toasts in the upper right corner --&gt;</span>
+  <span class="tok-com">&lt;!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  --&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-container top-0 end-0 p-3"</span><span class="tok-punct">&gt;</span>
+
+    <span class="tok-com">&lt;!-- Then put toasts within --&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"assertive"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-header"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../assets/plush/nav_dashboard.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"rounded me-2"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">strong</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"me-auto"</span><span class="tok-punct">&gt;</span>felt-css<span class="tok-punct">&lt;/</span><span class="tok-tag">strong</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">small</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"text-body-secondary"</span><span class="tok-punct">&gt;</span>just now<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-body"</span><span class="tok-punct">&gt;</span>
+          See? Just like this.
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"assertive"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-header"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../assets/plush/nav_dashboard.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"rounded me-2"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">strong</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"me-auto"</span><span class="tok-punct">&gt;</span>felt-css<span class="tok-punct">&lt;/</span><span class="tok-tag">strong</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">small</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"text-body-secondary"</span><span class="tok-punct">&gt;</span>2 seconds ago<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-body"</span><span class="tok-punct">&gt;</span>
+          Heads up, toasts will stack automatically
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>You can also get fancy with flexbox utilities to align toasts horizontally and/or vertically.</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-toasts d-flex">
+<!-- Flexbox container for aligning the toasts -->
+<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
+
+  <!-- Then put toasts within -->
+  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="../../assets/plush/nav_dashboard.webp" class="rounded me-2" width="20" height="20" alt="">
+      <strong class="me-auto">felt-css</strong>
+      <small>11 mins ago</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-com">&lt;!-- Flexbox container for aligning the toasts --&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"polite"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex justify-content-center align-items-center w-100"</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-com">&lt;!-- Then put toasts within --&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"assertive"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-header"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../assets/plush/nav_dashboard.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"rounded me-2"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">strong</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"me-auto"</span><span class="tok-punct">&gt;</span>felt-css<span class="tok-punct">&lt;/</span><span class="tok-tag">strong</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>11 mins ago<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-body"</span><span class="tok-punct">&gt;</span>
+      Hello, world! This is a toast message.
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="accessibility">Accessibility<a class="bd-anchor" href="#accessibility" aria-label="Link to this section">#</a></h2>
+<p>Toasts are intended to be small interruptions to your visitors or users, so to help those with screen readers and similar assistive technologies, you should wrap your toasts in an <code>aria-live</code> region. Changes to live regions (such as injecting/updating a toast component) are automatically announced by screen readers without needing to move the user's focus or otherwise interrupt the user. Additionally, include <code>aria-atomic="true"</code> to ensure that the entire toast is always announced as a single (atomic) unit, rather than just announcing what was changed.</p>
+<p>You also need to adapt the <code>role</code> and <code>aria-live</code> level depending on the content. If it's an important message like an error, use <code>role="alert" aria-live="assertive"</code>, otherwise use <code>role="status" aria-live="polite"</code> attributes.</p>
+<p>As the content you're displaying changes, be sure to update the <code>delay</code> timeout so that users have enough time to read the toast.</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"polite"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">data-bs-delay</span><span class="tok-punct">=</span><span class="tok-val">"10000"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"assertive"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<p>When using <code>autohide: false</code>, you must add a close button to allow users to dismiss the toast.</p>
+
+<h2 id="javascript-behavior">JavaScript behavior<a class="bd-anchor" href="#javascript-behavior" aria-label="Link to this section">#</a></h2>
+<p>felt-css is CSS only; showing, hiding and the auto-hide timer come from Bootstrap's toast plugin. Initialize toasts via JavaScript:</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> toastElList = <span class="tok-tag">document</span>.querySelectorAll(<span class="tok-val">'.toast'</span>)
+<span class="tok-tag">const</span> toastList = [...toastElList].map(toastEl =&gt; <span class="tok-tag">new</span> bootstrap.Toast(toastEl, option))</code></pre></div>
+
+<p>Options (<code>animation</code>, <code>autohide</code>, <code>delay</code>), methods (<code>show</code>, <code>hide</code>, <code>isShown</code>, <code>dispose</code>, <code>getInstance</code>, <code>getOrCreateInstance</code>) and events (<code>show.bs.toast</code>, <code>shown.bs.toast</code>, <code>hide.bs.toast</code>, <code>hidden.bs.toast</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/toasts/#usage">Bootstrap's toast documentation</a>.</p>
+
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/stat/"><small>Previous</small>Stat tiles</a><a class="bd-pager-next" href="../../components/tooltips/"><small>Next</small>Tooltips</a></nav>
       </div>
     </main>
