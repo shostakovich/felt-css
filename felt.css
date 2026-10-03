@@ -32,18 +32,19 @@
      * which is "light dark" (system) by default and pinned by data-bs-theme. */
     color-scheme: light dark;
 
-    /* semantic: fill, ink on fill, emphasis (text on tints), text (coloured text on the page) */
-    --primary: var(--denim);
+    /* semantic: fill, ink on fill, emphasis (text on tints), text (coloured text on the page).
+     * Dark mode mutes the fills a little: they glare less and white ink stays >= 4.5:1. */
+    --primary: light-dark(var(--denim), #385c93);
     --primary-ink: #fff;
-    --secondary: var(--taupe);
+    --secondary: light-dark(var(--taupe), #6a5f52);
     --secondary-ink: #fff;
-    --success: var(--moss);
+    --success: light-dark(var(--moss), #527530);
     --success-ink: #fff;
-    --danger: var(--tomato);
+    --danger: light-dark(var(--tomato), #b23f29);
     --danger-ink: #fff;
-    --warning: var(--mustard);
+    --warning: light-dark(var(--mustard), #cf9520);
     --warning-ink: #3a2a06;
-    --info: var(--petrol);
+    --info: light-dark(var(--petrol), #276f75);
     --info-ink: #fff;
     --light: light-dark(#f8f9fa, #3b4148);
     --light-ink: light-dark(#1f2633, #e9ecef);
@@ -76,7 +77,24 @@
     --subtle-text: light-dark(#8a92a3, #7d858f);
     --link: light-dark(var(--primary), #8fb2e8);
     --field-disabled: light-dark(#f1f3f5, #343a40);
-    --focus: color-mix(in oklab, var(--primary) 30%, transparent);
+    /* interaction states change the surface, never the text: a step darker in light mode, lighter in dark mode */
+    --surface-hover: light-dark(#eef0f3, color-mix(in oklab, var(--text) 8%, var(--surface)));
+    --surface-pressed: light-dark(#d4d9e0, color-mix(in oklab, var(--text) 18%, var(--surface)));
+    /* hover mixes the fill towards --state-ink, pressing towards --press-ink: away from the ink, so it keeps its contrast */
+    --state-ink: light-dark(#000, #fff);
+    --press-ink: #000;
+    --hover-mix: 8%;   /* the most the success fill takes in dark mode before white ink drops below 4.5:1 */
+    --active-mix: 14%;
+    --select-mix: 18%;   /* a neutral button pressed or chosen: a clear step past its hover */
+    /* the empty part of progress bars */
+    --track: light-dark(#e3e7ec, #3a4047);
+    /* what floats above the page (menus, popovers, modals, offcanvas): never darker than what it lies on */
+    --surface-overlay: light-dark(#fff, #343a40);
+    /* input-group addons and the file button: a step lighter than the field in dark mode, not a hole */
+    --field-addon: light-dark(#f1f3f5, #2b3035);
+    /* control outlines (checkboxes, radios) that have to read at >= 3:1 */
+    --border-strong: light-dark(#858f9e, #737b84);
+    --focus: light-dark(color-mix(in oklab, var(--primary) 50%, transparent), color-mix(in oklab, var(--link) 60%, transparent));
     --backdrop: light-dark(rgb(16 24 40 / .45), rgb(0 0 0 / .6));
 
     --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -128,23 +146,20 @@
   [data-bs-theme="dark"] { color-scheme: dark; }
 
   :root[data-look="felt"] {
-    /* charcoal felt mutes the patches a little, which also keeps white ink >= 4.5:1 */
-    --primary: light-dark(var(--denim), #385c93);
-    --secondary: light-dark(var(--taupe), #6a5f52);
-    --success: light-dark(var(--moss), #527530);
-    --danger: light-dark(var(--tomato), #b23f29);
-    --warning: light-dark(var(--mustard), #cf9520);
-    --info: light-dark(var(--petrol), #276f75);
     --light: light-dark(#f3ece0, #4a443d);
     --light-ink: light-dark(var(--navy), #efe7da);
-    --dark: light-dark(var(--navy), #1d2230);
+    --dark: light-dark(var(--navy), #202840);
     --body-bg: light-dark(#e7dccb, #242220);
-    --surface: light-dark(#faf5ee, #37332f);
+    --surface: light-dark(#faf5ee, #34312d);
     --surface-raised: light-dark(#fffcf7, #413c37);
     --surface-sunk: light-dark(#ece4d4, #2d2a27);
-    --field-disabled: light-dark(#ece4d4, #47413b);
+    --surface-overlay: light-dark(#fdf9f2, #48423c);
+    --field-disabled: light-dark(#ece4d4, #3a3631);   /* dark: no longer a hole, flush with the felt */
     --field: light-dark(#fffdf8, #2b2724);
-    --border: light-dark(#e2d8c6, #48423b);
+    --field-addon: light-dark(#f3eee4, #3a3530);
+    --border: light-dark(#c9bba3, #48423b);
+    --border-strong: light-dark(#847b6a, #857a6c);
+    --dark-subtle: color-mix(in oklab, var(--secondary) 18%, var(--surface));
     --text: light-dark(var(--navy), #efe7da);
     --muted: light-dark(#665f50, #b8ad9c);
     --subtle-text: light-dark(#8d8574, #8f8676);
@@ -156,7 +171,7 @@
     --danger-text: light-dark(#a33a25, #ef8c76);
     --warning-text: light-dark(#7b560c, var(--warning));
     --info-text: light-dark(#22666b, #6cc3c8);
-    --backdrop: light-dark(rgb(50 35 15 / .26), rgb(10 8 5 / .62));
+    --backdrop: light-dark(rgb(50 35 15 / .26), rgb(10 8 5 / .5));
 
     --radius-sm: 5px;
     --radius: 12px;
@@ -175,16 +190,17 @@
     --sheet-size: var(--felt-light-size);
     --sheet-blend: multiply;
     --shadow-felt:
-      0 0 1px .5px light-dark(rgb(236 229 217 / .45), rgb(0 0 0 / .35)),
+      0 0 1px .5px light-dark(transparent, rgb(0 0 0 / .35)),
+      0 0 0 .5px light-dark(transparent, rgb(255 240 220 / .06)),
       inset 0 -2px 0 light-dark(rgb(0 0 0 / .05), rgb(0 0 0 / .14)),
-      inset 0 1px 0 light-dark(transparent, rgb(255 240 220 / .045)),
+      inset 0 1px 0 light-dark(transparent, rgb(255 240 220 / .09)),
       0 1px 0 light-dark(rgb(90 70 40 / .10), rgb(0 0 0 / .45)),
       0 6px 14px -6px light-dark(rgb(90 70 40 / .25), rgb(0 0 0 / .6));
     --patch-dome: radial-gradient(120% 95% at 35% 10%, rgb(255 255 255 / .16), transparent 60%);
     /* felt details: grooves, controls and shadows, so every piece agrees on light and depth */
-    --felt-groove: light-dark(#dcd2be, #201e1c);
+    /* a groove is the felt itself pressed in: a translucent shade, so the fibres of the piece run through */
+    --felt-groove: light-dark(rgb(90 70 40 / .13), rgb(0 0 0 / .3));
     --felt-knob: light-dark(#fbf7ee, #e4dccd);
-    --felt-addon: light-dark(#f3eee4, #3a3530);
     --field-invalid: light-dark(#fdf3ee, #3a2823);
     --felt-cut: light-dark(#2a1a08, #000);
     --felt-edge-light: light-dark(#cbbca2, #1d1a17);
@@ -193,7 +209,12 @@
     --felt-inset: light-dark(rgb(70 50 20 / .25), rgb(0 0 0 / .5));
     --felt-inset-field: light-dark(rgb(60 40 20 / .08), rgb(0 0 0 / .3));
     --felt-highlight: light-dark(rgb(255 255 255 / .5), rgb(255 240 220 / .07));
-    --felt-hover: light-dark(rgb(90 70 40 / .07), rgb(255 240 220 / .06));
+    /* interaction states on felt are a translucent shade, so the fibres of the piece run through */
+    --surface-hover: light-dark(rgb(90 70 40 / .07), rgb(255 240 220 / .06));
+    --surface-pressed: light-dark(rgb(90 70 40 / .18), rgb(255 240 220 / .14));
+    /* a fold pressed into one piece, where two parts of it meet (left edge) */
+    --felt-fold: inset 1px 0 0 color-mix(in srgb, var(--felt-inset) 55%, transparent), inset 2px 0 0 color-mix(in srgb, var(--felt-highlight) 40%, transparent);
+    --felt-fold-y: inset 0 1px 0 color-mix(in srgb, var(--felt-inset) 55%, transparent), inset 0 2px 0 color-mix(in srgb, var(--felt-highlight) 40%, transparent);
     --patch-seam-filter: brightness(.9);
     --patch-seam-strength: .4;
 
@@ -204,14 +225,17 @@
     --seam-lg-slice: 24; --seam-lg-width: 12px;
     --seam-md-slice: 20; --seam-md-width: 10px;
     --seam-pill-slice: 40; --seam-pill-width: 20px;
-    --seam-row-size: 10.5px 6px;
+    --seam-row-size: 30px 6px;
     /* stitches:end */
     --seam-img: url("img/seam-md.webp");
     --seam-slice: var(--seam-md-slice);
     --seam-width: var(--seam-md-width);
     --seam-inset: 5px;
-    --seam-filter: brightness(.42) sepia(.3);
+    --seam-filter: brightness(.42) sepia(.3) drop-shadow(0 .5px 0 rgb(255 255 255 / .3));
     --seam-strength: .6;
+    --seam-row-strength: .7;   /* dividers inside a piece, relative to its outer seam */
+    --disabled-tone: 50%; --disabled-ink: 68%;
+    --tip-felt: var(--felt); --tip-blend: soft-light;
     --select-chevron: var(--chevron-felt);
   }
 
@@ -219,25 +243,33 @@
    * system setting unless pinned light, or any data-bs-theme="dark" subtree. Charcoal felt shows its
    * fibres in soft-light; the thread is a warm grey, a little lighter than the felt. */
   @media (prefers-color-scheme: dark) {
-    :root:not([data-bs-theme="light"]) { --select-chevron: var(--chevron-clean-dark); --disabled-opacity: .6; }
+    :root:not([data-bs-theme="light"]) { --select-chevron: var(--chevron-clean-dark); --disabled-opacity: .45; }
     :root[data-look="felt"]:not([data-bs-theme="light"]) {
       --sheet: var(--felt-dark); --sheet-blend: soft-light;
-      --seam-filter: brightness(.66) sepia(.15); --seam-strength: .42;
+      --seam-filter: brightness(.6) sepia(.25) drop-shadow(0 1px 0 rgb(0 0 0 / .7)) drop-shadow(0 -.5px 0 rgb(255 240 220 / .12)); --seam-strength: .46; --seam-row-strength: .56;
       --patch-seam-filter: brightness(.8); --patch-seam-strength: .3;
+      --tip-felt: var(--felt-light); --tip-blend: multiply;
+      --disabled-tone: 35%; --disabled-ink: 80%;
+      --page-veil: color-mix(in srgb, var(--body-bg) 30%, transparent);
       --select-chevron: var(--chevron-felt-dark);
     }
   }
-  [data-bs-theme="dark"] { --select-chevron: var(--chevron-clean-dark); --disabled-opacity: .6; }
+  [data-bs-theme="dark"] { --select-chevron: var(--chevron-clean-dark); --disabled-opacity: .45; }
   :root[data-look="felt"][data-bs-theme="dark"], :root[data-look="felt"] [data-bs-theme="dark"] {
     --sheet: var(--felt-dark); --sheet-blend: soft-light;
-    --seam-filter: brightness(.66) sepia(.15); --seam-strength: .42;
+    --seam-filter: brightness(.6) sepia(.25) drop-shadow(0 1px 0 rgb(0 0 0 / .7)) drop-shadow(0 -.5px 0 rgb(255 240 220 / .12)); --seam-strength: .46; --seam-row-strength: .56;
     --patch-seam-filter: brightness(.8); --patch-seam-strength: .3;
+    --tip-felt: var(--felt-light); --tip-blend: multiply;
+    --disabled-tone: 35%; --disabled-ink: 80%;
+    --page-veil: color-mix(in srgb, var(--body-bg) 30%, transparent);
     --select-chevron: var(--chevron-felt-dark);
   }
   [data-bs-theme="light"] { --select-chevron: var(--chevron-clean); --disabled-opacity: .55; }
   :root[data-look="felt"] [data-bs-theme="light"] {
     --sheet: var(--felt-light); --sheet-blend: multiply;
-    --seam-filter: brightness(.42) sepia(.3); --seam-strength: .6;
+    --seam-filter: brightness(.42) sepia(.3) drop-shadow(0 .5px 0 rgb(255 255 255 / .3)); --seam-strength: .6; --seam-row-strength: .7;
+    --tip-felt: var(--felt); --tip-blend: soft-light;
+    --disabled-tone: 50%; --disabled-ink: 68%; --page-veil: transparent;
     --patch-seam-filter: brightness(.9); --patch-seam-strength: .4;
     --select-chevron: var(--chevron-felt);
   }
@@ -457,7 +489,8 @@
     font-weight: 600;
     text-decoration: none;
   }
-  .nav-link:hover { color: var(--text); background: var(--surface-sunk); }
+  .nav-link:hover { color: var(--text); background: var(--surface-hover); }
+  .nav-link:active { background: var(--surface-pressed); }
   .nav-link.active, .nav-link[aria-current="page"] { background: var(--primary); color: var(--primary-ink); }
 
   /* card */
@@ -472,6 +505,8 @@
   .card-header, .card-footer { padding: var(--space-3) var(--space-4); }
   .card-header { border-bottom: 1px solid var(--border); font-weight: 700; }
   .card-footer { border-top: 1px solid var(--border); margin-top: auto; }
+  .card-header:first-child { border-radius: calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px) 0 0; }
+  .card-footer:last-child { border-radius: 0 0 calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px); }
   .card-body { padding: var(--space-4); }
   .card-title { font-size: 1.125rem; margin-bottom: var(--space-2); }
   .card-text { color: var(--muted); }
@@ -498,28 +533,30 @@
     text-decoration: none;
     white-space: nowrap;
     user-select: none;
-    transition: transform .08s ease, box-shadow .12s ease, filter .12s ease;
+    transition: transform .08s ease, box-shadow .12s ease, filter .12s ease, background-color .12s ease;
   }
-  .btn:hover { filter: brightness(.96); }
-  .btn:active { transform: translateY(1px); }
+  .btn:hover { background-color: color-mix(in oklab, var(--tone), var(--state-ink) var(--hover-mix)); }
+  .btn:active { transform: translateY(1px); background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
   .btn:disabled, .btn.disabled { opacity: var(--disabled-opacity); pointer-events: none; }
 
   .btn-primary   { --tone: var(--primary);   color: var(--primary-ink);   border-color: transparent; }
   .btn-secondary { --tone: var(--secondary); color: var(--secondary-ink); border-color: transparent; }
   .btn-success   { --tone: var(--success);   color: var(--success-ink);   border-color: transparent; }
   .btn-danger    { --tone: var(--danger);    color: var(--danger-ink);    border-color: transparent; }
-  .btn-warning   { --tone: var(--warning);   color: var(--warning-ink);   border-color: transparent; }
+  .btn-warning   { --tone: var(--warning);   color: var(--warning-ink);   border-color: transparent; --state-ink: #fff; --press-ink: #fff; }   /* dark ink: states lighten, as in Bootstrap */
   .btn-light     { --tone: var(--surface-raised); border-color: var(--border); }
   .btn-link      { color: light-dark(var(--primary), var(--link)); text-decoration: underline; text-underline-offset: .2em; }
-  .btn:not([class*="btn-"]):hover, .btn-link:hover { --tone: var(--surface-sunk); filter: none; }
+  .btn:not([class*="btn-"]):hover, .btn-link:hover { background-color: var(--surface-hover); }
+  .btn:not([class*="btn-"]):active, .btn-link:active { background-color: var(--surface-pressed); }
   [class*="btn-outline-"] { border-color: currentColor; }
-  [class*="btn-outline-"]:hover { filter: none; background-color: color-mix(in oklab, currentColor 10%, transparent); }
+  [class*="btn-outline-"]:hover { background-color: color-mix(in oklab, currentColor 10%, transparent); }
+  [class*="btn-outline-"]:active { background-color: var(--fill); border-color: var(--fill); color: var(--ink); }
   .btn-outline-primary   { color: light-dark(var(--primary), var(--primary-text)); }
   .btn-outline-secondary { color: light-dark(var(--secondary), var(--secondary-text)); }
   .btn-outline-success   { color: var(--success-emphasis); }
   .btn-outline-danger    { color: var(--danger-emphasis); }
   .btn-outline-warning   { color: var(--warning-emphasis); }
-  .btn.active { transform: translateY(1px); filter: brightness(.88); }
+  .btn.active { transform: translateY(1px); background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
 
   .btn-sm { padding: .45rem .9rem; font-size: .875rem; }
   .btn-lg { padding: .8rem 1.5rem; font-size: 1.125rem; }
@@ -546,7 +583,14 @@
   .invalid-feedback, .valid-feedback { display: none; margin: var(--space-1) 0 0; font-size: .8125rem; font-weight: 600; }
   .invalid-feedback { color: var(--danger-emphasis); }
   .valid-feedback { color: var(--success-emphasis); }
-  .is-invalid ~ .invalid-feedback, .is-valid ~ .valid-feedback { display: block; }
+  .is-invalid ~ :is(.invalid-feedback, .invalid-tooltip), .is-valid ~ :is(.valid-feedback, .valid-tooltip) { display: block; }
+  /* tooltip-style feedback: needs a positioned parent (e.g. .position-relative) */
+  .invalid-tooltip, .valid-tooltip {
+    position: absolute; top: 100%; z-index: 5; display: none; max-width: 100%; margin-top: .25rem; padding: .25rem .6rem;
+    border-radius: var(--radius-sm); font-size: .8125rem; font-weight: 600;
+  }
+  .invalid-tooltip { --tone: var(--danger); background-color: var(--danger); color: var(--danger-ink); }
+  .valid-tooltip { --tone: var(--success); background-color: var(--success); color: var(--success-ink); }
   .form-select {
     padding-right: 2.25rem;
     background-image: var(--select-chevron);
@@ -565,7 +609,7 @@
     width: 1.25rem; height: 1.25rem; margin: 0;
     appearance: none;
     background-color: var(--field);
-    border: 1.5px solid color-mix(in oklab, var(--border) 60%, var(--muted));
+    border: 1.5px solid var(--border-strong);
     border-radius: var(--radius-sm);
     background-repeat: no-repeat; background-position: center; background-size: 80%;
     cursor: pointer;
@@ -644,16 +688,19 @@
   .btn-check { position: absolute; clip: rect(0, 0, 0, 0); pointer-events: none; }
   .btn-check:focus-visible + .btn { outline: 3px solid var(--focus); outline-offset: 2px; }
   .btn-check:disabled + .btn, .btn-check[disabled] + .btn { opacity: var(--disabled-opacity); pointer-events: none; }
-  .btn-check:checked + .btn { filter: brightness(.88); }
-  .btn-check:checked + :is(.btn-light, .btn:not([class*="btn-"])) { filter: none; --tone: var(--surface-sunk); box-shadow: inset 0 1px 3px rgb(0 0 0 / .15); }
-  .btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, .show) { filter: none; background-color: var(--fill); border-color: var(--fill); color: var(--ink); }
+  .btn-check:checked + .btn { background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
+  /* neutral buttons are surfaces: pressed or chosen, they take their hover a clear step further the same way */
+  :is(.btn-light, .btn:not([class*="btn-"]), .btn-link):is(:active, .active, .btn-check:checked + *) { box-shadow: inset 0 1px 3px rgb(0 0 0 / .15); }
+  .btn-light:is(:active, .active, .btn-check:checked + *) { background-color: color-mix(in oklab, var(--tone), var(--state-ink) var(--select-mix)); }
+  :is(.btn:not([class*="btn-"]), .btn-link):is(.active, .btn-check:checked + *) { background-color: var(--surface-pressed); }
+  .btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, .show) { background-color: var(--fill); border-color: var(--fill); color: var(--ink); }
 
   .btn-group, .btn-group-vertical { position: relative; display: inline-flex; vertical-align: middle; }
   .btn-group > .btn, .btn-group-vertical > .btn { position: relative; flex: 1 1 auto; }
   .btn-group > .btn:is(:hover, :focus, .active), .btn-group-vertical > .btn:is(:hover, :focus, .active), :is(.btn-group, .btn-group-vertical) > .btn-check:checked + .btn { z-index: 1; }
   :is(.btn-group, .btn-group-vertical) > .btn-check:focus-visible + .btn { z-index: 2; }
   .btn-group > :not(.btn-check:first-child) + .btn, .btn-group > .btn-group:not(:first-child) { margin-left: -1px; }
-  .btn-group > .btn:not(:last-child), .btn-group > .btn-group:not(:last-child) > .btn { border-start-end-radius: 0; border-end-end-radius: 0; }
+  .btn-group > .btn:not(:last-child, .dropdown-toggle), .btn-group > .btn.dropdown-toggle-split:first-child, .btn-group > .btn-group:not(:last-child) > .btn { border-start-end-radius: 0; border-end-end-radius: 0; }
   .btn-group > .btn:nth-child(n+3), .btn-group > :not(.btn-check) + .btn, .btn-group > .btn-group:not(:first-child) > .btn { border-start-start-radius: 0; border-end-start-radius: 0; }
   .btn-group-sm > .btn { padding: .45rem .9rem; font-size: .875rem; }
   .btn-group-lg > .btn { padding: .8rem 1.5rem; font-size: 1.125rem; }
@@ -671,7 +718,7 @@
   /* close button */
   .btn-close { position: relative; box-sizing: content-box; width: 1em; height: 1em; padding: .25em; border: 0; border-radius: var(--radius-sm); background: none; color: inherit; opacity: .5; }
   .btn-close::before { content: ""; position: absolute; inset: .25em; background: currentColor; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 3.5 9 9m0-9-9 9' stroke='%23000' stroke-width='1.8' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / contain no-repeat; }
-  .btn-close:hover { opacity: .75; }
+  .btn-close:hover { opacity: .75; background: var(--surface-hover); }
   .btn-close:focus-visible { opacity: 1; }
   .btn-close:disabled, .btn-close.disabled { opacity: .25; pointer-events: none; }
   .btn-close-white { color: #fff; }
@@ -693,7 +740,7 @@
   .nav-tabs { --tab-bg: var(--body-bg); gap: 0; border-bottom: 1px solid var(--border); }
   .card .nav-tabs { --tab-bg: var(--surface); }
   .nav-tabs .nav-link { margin-bottom: -1px; padding: .5rem 1rem; border: 1px solid transparent; border-radius: var(--radius) var(--radius) 0 0; background: none; }
-  .nav-tabs .nav-link:hover { background: none; border-color: var(--surface-sunk) var(--surface-sunk) var(--border); }
+  .nav-tabs .nav-link:hover { background: none; border-color: var(--surface-hover) var(--surface-hover) var(--border); }
   .nav-tabs .nav-link.active { color: var(--text); background: var(--tab-bg); border-color: var(--border) var(--border) var(--tab-bg); }
   .nav-tabs .nav-link.disabled { border-color: transparent; }
   .nav-underline { gap: var(--space-3); }
@@ -751,7 +798,8 @@
   .page-item:not(:first-child) .page-link { margin-left: -1px; }
   .page-item:first-child .page-link { border-start-start-radius: var(--pr); border-end-start-radius: var(--pr); }
   .page-item:last-child .page-link { border-start-end-radius: var(--pr); border-end-end-radius: var(--pr); }
-  .page-link:hover { z-index: 2; background: var(--surface-sunk); }
+  .page-link:hover { z-index: 2; background: var(--surface-hover); }
+  .page-link:active { background: var(--surface-pressed); }
   .page-link:focus-visible { z-index: 3; }
   .page-item.active .page-link { z-index: 3; border-color: var(--primary); background: var(--primary); color: var(--primary-ink); }
   .page-item.disabled .page-link { background: var(--surface); color: var(--subtle-text); pointer-events: none; }
@@ -765,6 +813,7 @@
   .list-group-item:first-child { border-start-start-radius: inherit; border-start-end-radius: inherit; }
   .list-group-item:last-child { border-end-start-radius: inherit; border-end-end-radius: inherit; }
   .list-group-item-action { width: 100%; text-align: inherit; }
+  .list-group-item-action:focus-visible { outline-offset: -3px; }
   .list-group-item-action:is(:hover, :focus-visible) { z-index: 1; background-color: color-mix(in oklab, var(--li-bg), currentColor 6%); }
   .list-group-item-action:active { background-color: color-mix(in oklab, var(--li-bg), currentColor 12%); }
   .list-group-item:is(.disabled, :disabled) { --li-bg: var(--surface); color: var(--subtle-text); pointer-events: none; }
@@ -826,7 +875,7 @@
   .align-middle { vertical-align: middle !important; }
 
   /* progress */
-  .progress, .progress-stacked { display: flex; height: 1rem; overflow: hidden; border-radius: var(--radius-pill); background: var(--surface-sunk); font-size: .75rem; }
+  .progress, .progress-stacked { display: flex; height: 1rem; overflow: hidden; border-radius: var(--radius-pill); background: var(--track); font-size: .75rem; }
   .progress-bar { display: flex; flex-direction: column; justify-content: center; overflow: hidden; background-color: var(--primary); color: var(--primary-ink); text-align: center; white-space: nowrap; transition: width .6s ease; }
   .progress > .progress-bar:only-child { border-radius: inherit; }
   .progress-bar.bg-warning { color: var(--warning-ink); }
@@ -876,12 +925,15 @@
     background-color: var(--muted); transition: transform .2s ease;
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 6 4.5 4.5L12.5 6' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat;
   }
-  .accordion-button:hover { background: var(--surface-sunk); }
+  .accordion-button:hover { background: var(--surface-hover); }
   .accordion-button:not(.collapsed, summary), details[open] > .accordion-button {
     background: var(--primary-subtle); color: var(--primary-emphasis); box-shadow: inset 0 -1px 0 var(--border);
   }
   .accordion-button:not(.collapsed, summary)::after, details[open] > .accordion-button::after { background-color: currentColor; transform: rotate(180deg); }
   .accordion-button:focus-visible { outline: 0; box-shadow: inset 0 0 0 .2rem var(--focus); }
+  .accordion-item:first-of-type .accordion-button { border-start-start-radius: calc(var(--radius-lg) - 1px); border-start-end-radius: calc(var(--radius-lg) - 1px); }
+  .accordion-item:last-of-type :is(.accordion-button.collapsed, details:not([open]) > .accordion-button) { border-end-start-radius: calc(var(--radius-lg) - 1px); border-end-end-radius: calc(var(--radius-lg) - 1px); }
+  .accordion-flush .accordion-button { border-radius: 0; }
   .accordion-body { padding: var(--space-3) 1.25rem; }
   .accordion-flush > .accordion-item { background: none; border-width: 1px 0; border-radius: 0; }
   .accordion-flush > .accordion-item:first-of-type { border-top: 0; }
@@ -911,7 +963,7 @@
   }
   .modal-content {
     position: relative; display: flex; flex-direction: column; width: 100%; pointer-events: auto;
-    background: var(--surface); color: var(--text);
+    background: var(--surface-overlay); color: var(--text);
     border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
   }
   .modal-header, .modal-footer { display: flex; flex-shrink: 0; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); }
@@ -942,8 +994,8 @@
 
   /* alert extras */
   .alert-info  { --tone: var(--info);  --tone-emphasis: var(--info-emphasis); }
-  .alert-light { --tone: var(--muted); --tone-emphasis: var(--light-emphasis); }
-  .alert-dark  { --tone: var(--dark);  --tone-emphasis: var(--dark-emphasis); border-color: light-dark(color-mix(in oklab, var(--dark) 18%, var(--surface)), var(--border)); }
+  .alert-light { --tone: var(--muted); --tone-emphasis: var(--light-emphasis); background-color: var(--surface-raised); border-color: var(--border); }
+  .alert-dark  { --tone: var(--dark);  --tone-emphasis: var(--dark-emphasis); background-color: light-dark(color-mix(in oklab, var(--dark) 16%, var(--surface)), color-mix(in oklab, var(--dark) 60%, var(--surface))); border-color: light-dark(color-mix(in oklab, var(--dark) 26%, var(--surface)), var(--border)); }
   .alert-dismissible { padding-right: 3.5rem; }
   .alert-dismissible .btn-close { position: absolute; top: .75rem; right: .75rem; }
   .alert-link { font-weight: 700; color: inherit; }
@@ -988,7 +1040,7 @@
   .input-group > :focus { box-shadow: none; }
   .input-group-text {
     display: flex; align-items: center; padding: 0 .85rem; white-space: nowrap;
-    background: var(--surface-sunk); border: 1px solid var(--border);
+    background: var(--field-addon); border: 1px solid var(--border);
     border-radius: var(--radius); color: var(--muted); font-weight: 600;
   }
 
@@ -997,9 +1049,9 @@
   .form-control::file-selector-button {
     margin: -.6rem .85rem -.6rem -.85rem; padding: .6rem .85rem;
     border: 0; border-right: 1px solid var(--border); border-radius: 0;
-    background: var(--surface-sunk); color: var(--text); font: inherit; font-weight: 600; cursor: pointer;
+    background: var(--field-addon); color: var(--text); font: inherit; font-weight: 600; cursor: pointer;
   }
-  .form-control:hover:not(:disabled, [readonly])::file-selector-button { background: color-mix(in oklab, var(--text) 7%, var(--surface-sunk)); }
+  .form-control:hover:not(:disabled, [readonly])::file-selector-button { background: color-mix(in oklab, var(--text) 7%, var(--field-addon)); }
   .form-control-color { width: 3rem; height: calc(1.4em + 1.2rem + 2px); padding: .35rem; cursor: pointer; }
   .form-control-color::-webkit-color-swatch-wrapper { padding: 0; }
   .form-control-color::-webkit-color-swatch { border: 0; border-radius: var(--radius-sm); }
@@ -1018,7 +1070,7 @@
 
   /* forms: range. The filled part is --fill (default 0%): set it inline or from JS,
    * e.g. el.style.setProperty("--fill", (el.value - el.min) / (el.max - el.min) * 100 + "%") */
-  .form-range { --fill: 0%; --range-track: light-dark(color-mix(in oklab, var(--text) 12%, var(--surface-sunk)), color-mix(in oklab, var(--text) 28%, var(--surface))); display: block; width: 100%; height: 1.5rem; padding: 0; background: none; appearance: none; }
+  .form-range { --fill: 0%; --thumb-shadow: var(--shadow); --range-track: light-dark(color-mix(in oklab, var(--text) 12%, var(--surface-sunk)), color-mix(in oklab, var(--text) 16%, var(--surface))); display: block; width: 100%; height: 1.5rem; padding: 0; background: none; appearance: none; }
   .form-range:focus-visible { outline: 0; }
   .form-range::-webkit-slider-runnable-track {
     height: .5rem; border-radius: var(--radius-pill);
@@ -1032,15 +1084,165 @@
   }
   .form-range::-webkit-slider-thumb {
     width: 1.25rem; height: 1.25rem; margin-top: -.375rem; appearance: none;
-    border: 2px solid var(--surface); border-radius: 50%; background: var(--primary); box-shadow: var(--shadow);
+    border: 2px solid var(--surface); border-radius: 50%; background: var(--primary); box-shadow: var(--thumb-shadow);
   }
   .form-range::-moz-range-thumb {
     width: 1.25rem; height: 1.25rem; box-sizing: border-box;
-    border: 2px solid var(--surface); border-radius: 50%; background: var(--primary); box-shadow: var(--shadow);
+    border: 2px solid var(--surface); border-radius: 50%; background: var(--primary); box-shadow: var(--thumb-shadow);
   }
-  .form-range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 .25rem var(--focus), var(--shadow); }
-  .form-range:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 .25rem var(--focus), var(--shadow); }
+  .form-range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 .25rem var(--focus), var(--thumb-shadow); }
+  .form-range:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 .25rem var(--focus), var(--thumb-shadow); }
   .form-range:disabled { opacity: .5; pointer-events: none; }
+
+  /* forms: floating labels. The placeholder must be set (any text); it stays invisible */
+  .form-floating { position: relative; }
+  .form-floating > :is(.form-control, .form-control-plaintext, .form-select) { height: calc(3.5rem + 2px); min-height: calc(3.5rem + 2px); line-height: 1.25; }
+  .form-floating > textarea.form-control { height: auto; min-height: calc(3.5rem + 2px); }
+  .form-floating > label {
+    position: absolute; top: 0; left: 0; z-index: 2; max-width: 100%; height: 100%; padding: 1rem .85rem;
+    overflow: hidden; color: var(--muted); font-weight: 400; text-align: start; text-overflow: ellipsis; white-space: nowrap;
+    pointer-events: none; border: 1px solid transparent; transform-origin: 0 0; transition: opacity .1s ease-in-out, transform .1s ease-in-out;
+  }
+  .form-floating > :is(.form-control, .form-control-plaintext) { padding: 1rem .85rem; }
+  .form-floating > :is(.form-control, .form-control-plaintext)::placeholder { color: transparent; }
+  .form-floating > :is(.form-control, .form-control-plaintext):is(:focus, :not(:placeholder-shown), :-webkit-autofill),
+  .form-floating > .form-select { padding-top: 1.625rem; padding-bottom: .625rem; }
+  .form-floating > :is(.form-control:is(:focus, :not(:placeholder-shown), :-webkit-autofill), .form-control-plaintext, .form-select) ~ label {
+    transform: scale(.85) translateY(-.5rem) translateX(.15rem);
+  }
+  /* a scrolled textarea runs under its floated label: the label gets a strip of the field behind it */
+  .form-floating > textarea:is(:focus, :not(:placeholder-shown)) ~ label::after {
+    content: ""; position: absolute; inset: 1rem .375rem; z-index: -1; height: 1.5em; border-radius: var(--radius-sm); background-color: var(--field);
+  }
+  .form-floating > :disabled ~ label { color: var(--subtle-text); }
+  .input-group > .form-floating { position: relative; flex: 1 1 auto; width: 1%; min-width: 0; }
+  .input-group > .form-floating:not(:first-child) > :is(.form-control, .form-select) { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+  .input-group > .form-floating:not(:last-child) > :is(.form-control, .form-select) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+
+  /* dropdown. Positioned by Bootstrap's JS (Popper); [data-bs-popper] is its static fallback, e.g. in a navbar */
+  :is(.dropdown, .dropup, .dropend, .dropstart, .dropdown-center, .dropup-center) { position: relative; }
+  .dropdown-toggle { white-space: nowrap; }
+  .dropdown-toggle:not(.btn)::after, .btn.dropdown-toggle::before {
+    content: ""; display: inline-block; flex: none; width: .75em; height: .75em; margin-left: .3em; vertical-align: -.05em;
+    background: currentColor; transition: transform .15s ease;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 6 4.5 4.5L12.5 6' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  /* on buttons the caret is ::before moved behind the label, since a felt button's ::after is its seam */
+  .btn.dropdown-toggle::before { order: 1; margin-left: 0; }
+  .dropup :is(.dropdown-toggle:not(.btn)::after, .btn.dropdown-toggle::before) { transform: rotate(180deg); }
+  .dropend :is(.dropdown-toggle:not(.btn)::after, .btn.dropdown-toggle::before) { transform: rotate(-90deg); }
+  .dropstart :is(.dropdown-toggle:not(.btn)::after, .btn.dropdown-toggle::before) { transform: rotate(90deg); }
+  .dropdown-toggle-split { padding-inline: .75rem; }
+  .btn-sm.dropdown-toggle-split, .btn-group-sm > .dropdown-toggle-split { padding-inline: .6rem; }
+  .dropdown-menu {
+    position: absolute; z-index: 1000; display: none; min-width: 11rem; margin: 0; padding: .5rem;
+    color: var(--text); font-size: 1rem; text-align: left; list-style: none;
+    background: var(--surface-overlay); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-lg);
+    contain: layout;   /* stays the containing block of its own decoration, even when shown statically (.position-static) */
+  }
+  .dropdown-menu.show { display: block; }
+  .dropdown-menu[data-bs-popper] { top: 100%; left: 0; margin-top: .25rem; }
+  .dropdown-menu-end[data-bs-popper] { right: 0; left: auto; }
+  .dropup .dropdown-menu[data-bs-popper] { top: auto; bottom: 100%; margin: 0 0 .25rem; }
+  .dropend .dropdown-menu[data-bs-popper] { top: 0; left: 100%; margin: 0 0 0 .25rem; }
+  .dropstart .dropdown-menu[data-bs-popper] { top: 0; right: 100%; left: auto; margin: 0 .25rem 0 0; }
+  .dropdown-item {
+    display: flex; align-items: center; gap: .6rem; width: 100%; padding: .45rem .75rem;
+    border: 0; border-radius: var(--radius-sm); background: none; color: var(--text);
+    font-weight: 500; text-align: inherit; text-decoration: none; white-space: nowrap;
+  }
+  .dropdown-item:is(:hover, :focus-visible) { outline: 0; background-color: var(--surface-hover); }
+  .dropdown-item:is(.active, :active) { background-color: var(--primary); color: var(--primary-ink); }
+  .dropdown-item:is(.disabled, :disabled) { background: none; color: var(--subtle-text); pointer-events: none; }
+  .dropdown-header { display: block; margin: 0; padding: .45rem .75rem .25rem; color: var(--muted); font-size: .8125rem; font-weight: 700; letter-spacing: .02em; white-space: nowrap; }
+  .dropdown-item-text { display: block; padding: .45rem .75rem; color: var(--muted); }
+  .dropdown-divider { height: 0; margin: .375rem .25rem; overflow: hidden; border-top: 1px solid var(--border); opacity: 1; }
+  .navbar-nav .dropdown-menu { position: static; }
+  .navbar-expand .navbar-nav .dropdown-menu { position: absolute; }
+  @media (min-width: 576px) { .navbar-expand-sm .navbar-nav .dropdown-menu { position: absolute; } }
+  @media (min-width: 768px) { .navbar-expand-md .navbar-nav .dropdown-menu { position: absolute; } }
+  @media (min-width: 992px) { .navbar-expand-lg .navbar-nav .dropdown-menu { position: absolute; } }
+
+  /* offcanvas: a sheet sliding in from a screen edge; Bootstrap's JS adds .showing/.show/.hiding */
+  .offcanvas {
+    --w: 400px; --h: 40vh;
+    position: fixed; z-index: 1045; display: flex; flex-direction: column; max-width: 100%;
+    background: var(--surface-overlay); color: var(--text); outline: 0; box-shadow: var(--shadow-lg);
+    visibility: hidden; transition: transform .3s ease-in-out;
+  }
+  .offcanvas-start { top: 0; left: 0; bottom: 0; width: var(--w); border-right: 1px solid var(--border); transform: translateX(-100%); }
+  .offcanvas-end { top: 0; right: 0; bottom: 0; width: var(--w); border-left: 1px solid var(--border); transform: translateX(100%); }
+  .offcanvas-top { top: 0; right: 0; left: 0; height: var(--h); max-height: 100%; border-bottom: 1px solid var(--border); border-radius: 0 0 var(--radius-lg) var(--radius-lg); transform: translateY(-100%); }
+  .offcanvas-bottom { right: 0; bottom: 0; left: 0; height: var(--h); max-height: 100%; border-top: 1px solid var(--border); border-radius: var(--radius-lg) var(--radius-lg) 0 0; transform: translateY(100%); }
+  .offcanvas:is(.showing, .show:not(.hiding)) { transform: none; }
+  .offcanvas:is(.showing, .hiding, .show) { visibility: visible; }
+  .offcanvas-backdrop { position: fixed; inset: 0; z-index: 1040; background: var(--backdrop); }
+  .offcanvas-header { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); }
+  .offcanvas-header .btn-close { margin-left: auto; }
+  .offcanvas-title { margin: 0; font-size: 1.125rem; font-weight: 700; line-height: 1.4; }
+  .offcanvas-body { flex-grow: 1; padding: 0 var(--space-4) var(--space-4); overflow-y: auto; }
+  @media (prefers-reduced-motion: reduce) { .offcanvas { transition: none; } }
+
+  /* placeholders: loading skeletons, sized with .col-* and the text they stand in for */
+  .placeholder { display: inline-block; min-height: 1em; vertical-align: middle; cursor: wait; border-radius: var(--radius-sm); background-color: currentColor; opacity: .25; }
+  .placeholder.btn::before { content: ""; display: inline-block; }
+  .placeholder.btn { background-color: var(--tone); opacity: var(--disabled-opacity); }
+  .placeholder-xs { min-height: .6em; }
+  .placeholder-sm { min-height: .8em; }
+  .placeholder-lg { min-height: 1.2em; }
+  .placeholder-glow .placeholder { animation: placeholder-glow 2s ease-in-out infinite; }
+  @keyframes placeholder-glow { 50% { opacity: .1; } }
+  .placeholder-wave { mask-image: linear-gradient(130deg, #000 55%, rgb(0 0 0 / .8) 75%, #000 95%); mask-size: 200% 100%; animation: placeholder-wave 2s linear infinite; }
+  @keyframes placeholder-wave { 100% { mask-position: -200% 0%; } }
+  @media (prefers-reduced-motion: reduce) { .placeholder-glow .placeholder, .placeholder-wave { animation: none; } }
+
+  /* touch: small controls grow to comfortable targets on coarse pointers (same in both looks) */
+  @media (pointer: coarse) {
+    .page-link { display: flex; align-items: center; justify-content: center; min-width: 2.75rem; min-height: 2.75rem; }
+    .btn-sm, .btn-group-sm > .btn { min-height: 2.75rem; }
+    .btn-close::after { content: ""; position: absolute; inset: -.6rem; }
+    .dropdown-item { min-height: 2.75rem; }
+  }
+
+  /* tooltip and popover: positioned by Bootstrap's JS (Popper), which sets data-popper-placement */
+  .tooltip {
+    --arrow-w: .8rem; --arrow-h: .4rem; --tip-bg: var(--text); --tip-ink: var(--body-bg);
+    position: absolute; z-index: 1080; display: block; margin: 0;
+    font-size: .8125rem; font-weight: 500; line-height: 1.4; overflow-wrap: break-word;
+  }
+  .tooltip-inner { max-width: 220px; padding: .3rem .65rem; border-radius: var(--radius-sm); background: var(--tip-bg); color: var(--tip-ink); text-align: center; }
+  :is(.tooltip-arrow, .popover-arrow) { position: absolute; display: block; width: var(--arrow-w); height: var(--arrow-h); }
+  :is(.tooltip-arrow, .popover-arrow)::before, .popover-arrow::after { content: ""; position: absolute; border: 0 solid transparent; }
+  .popover {
+    --arrow-w: 1rem; --arrow-h: .5rem;
+    position: absolute; top: 0; left: 0; z-index: 1070; display: block; max-width: 280px;
+    font-size: .875rem; overflow-wrap: break-word;
+    background: var(--surface-overlay); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-lg);
+  }
+  .popover-header { margin: 0; padding: .6rem 1rem; border-bottom: 1px solid var(--border); font-size: .9375rem; font-weight: 700; }
+  .popover-header:empty { display: none; }
+  .popover-body { padding: .75rem 1rem; color: var(--text); }
+  /* the arrow: an outline triangle (::before) with a fill triangle (::after) 1px inside it */
+  :is(.bs-tooltip-top, .bs-tooltip-auto[data-popper-placement^="top"]) .tooltip-arrow { bottom: calc(-1 * var(--arrow-h)); }
+  :is(.bs-tooltip-top, .bs-tooltip-auto[data-popper-placement^="top"]) .tooltip-arrow::before { top: -1px; border-width: var(--arrow-h) calc(var(--arrow-w) * .5) 0; border-top-color: var(--tip-bg); }
+  :is(.bs-tooltip-bottom, .bs-tooltip-auto[data-popper-placement^="bottom"]) .tooltip-arrow { top: calc(-1 * var(--arrow-h)); }
+  :is(.bs-tooltip-bottom, .bs-tooltip-auto[data-popper-placement^="bottom"]) .tooltip-arrow::before { bottom: -1px; border-width: 0 calc(var(--arrow-w) * .5) var(--arrow-h); border-bottom-color: var(--tip-bg); }
+  :is(.bs-tooltip-end, .bs-tooltip-auto[data-popper-placement^="right"]) .tooltip-arrow { left: calc(-1 * var(--arrow-h)); width: var(--arrow-h); height: var(--arrow-w); }
+  :is(.bs-tooltip-end, .bs-tooltip-auto[data-popper-placement^="right"]) .tooltip-arrow::before { right: -1px; border-width: calc(var(--arrow-w) * .5) var(--arrow-h) calc(var(--arrow-w) * .5) 0; border-right-color: var(--tip-bg); }
+  :is(.bs-tooltip-start, .bs-tooltip-auto[data-popper-placement^="left"]) .tooltip-arrow { right: calc(-1 * var(--arrow-h)); width: var(--arrow-h); height: var(--arrow-w); }
+  :is(.bs-tooltip-start, .bs-tooltip-auto[data-popper-placement^="left"]) .tooltip-arrow::before { left: -1px; border-width: calc(var(--arrow-w) * .5) 0 calc(var(--arrow-w) * .5) var(--arrow-h); border-left-color: var(--tip-bg); }
+  :is(.bs-popover-top, .bs-popover-auto[data-popper-placement^="top"]) > .popover-arrow { bottom: calc(-1 * var(--arrow-h) - 1px); }
+  :is(.bs-popover-top, .bs-popover-auto[data-popper-placement^="top"]) > .popover-arrow::before { bottom: 0; border-width: var(--arrow-h) calc(var(--arrow-w) * .5) 0; border-top-color: var(--border); }
+  :is(.bs-popover-top, .bs-popover-auto[data-popper-placement^="top"]) > .popover-arrow::after { bottom: 1px; border-width: var(--arrow-h) calc(var(--arrow-w) * .5) 0; border-top-color: var(--surface-overlay); }
+  :is(.bs-popover-bottom, .bs-popover-auto[data-popper-placement^="bottom"]) > .popover-arrow { top: calc(-1 * var(--arrow-h) - 1px); }
+  :is(.bs-popover-bottom, .bs-popover-auto[data-popper-placement^="bottom"]) > .popover-arrow::before { top: 0; border-width: 0 calc(var(--arrow-w) * .5) var(--arrow-h); border-bottom-color: var(--border); }
+  :is(.bs-popover-bottom, .bs-popover-auto[data-popper-placement^="bottom"]) > .popover-arrow::after { top: 1px; border-width: 0 calc(var(--arrow-w) * .5) var(--arrow-h); border-bottom-color: var(--surface-overlay); }
+  :is(.bs-popover-end, .bs-popover-auto[data-popper-placement^="right"]) > .popover-arrow { left: calc(-1 * var(--arrow-h) - 1px); width: var(--arrow-h); height: var(--arrow-w); }
+  :is(.bs-popover-end, .bs-popover-auto[data-popper-placement^="right"]) > .popover-arrow::before { left: 0; border-width: calc(var(--arrow-w) * .5) var(--arrow-h) calc(var(--arrow-w) * .5) 0; border-right-color: var(--border); }
+  :is(.bs-popover-end, .bs-popover-auto[data-popper-placement^="right"]) > .popover-arrow::after { left: 1px; border-width: calc(var(--arrow-w) * .5) var(--arrow-h) calc(var(--arrow-w) * .5) 0; border-right-color: var(--surface-overlay); }
+  :is(.bs-popover-start, .bs-popover-auto[data-popper-placement^="left"]) > .popover-arrow { right: calc(-1 * var(--arrow-h) - 1px); width: var(--arrow-h); height: var(--arrow-w); }
+  :is(.bs-popover-start, .bs-popover-auto[data-popper-placement^="left"]) > .popover-arrow::before { right: 0; border-width: calc(var(--arrow-w) * .5) 0 calc(var(--arrow-w) * .5) var(--arrow-h); border-left-color: var(--border); }
+  :is(.bs-popover-start, .bs-popover-auto[data-popper-placement^="left"]) > .popover-arrow::after { right: 1px; border-width: calc(var(--arrow-w) * .5) 0 calc(var(--arrow-w) * .5) var(--arrow-h); border-left-color: var(--surface-overlay); }
 }
 
 /* ------------------------------------------------------------ utilities */
@@ -1053,7 +1255,7 @@
   .text-bg-warning { --tone: var(--warning); background-color: var(--warning); color: var(--warning-ink); border-color: transparent; }
   .text-bg-info { --tone: var(--info); background-color: var(--info); color: var(--info-ink); border-color: transparent; }
   .text-bg-light { --tone: var(--light); background-color: var(--light); color: var(--light-ink); border-color: transparent; box-shadow: inset 0 0 0 1px var(--border); }
-  .text-bg-dark { --tone: var(--dark); background-color: var(--dark); color: var(--dark-ink); border-color: transparent; }
+  .text-bg-dark { --tone: var(--dark); background-color: var(--dark); color: var(--dark-ink); border-color: light-dark(transparent, rgb(255 255 255 / .1)); }
 
   /* the rest follows Bootstrap and uses !important like it does */
   .d-none { display: none !important; }
@@ -1401,9 +1603,9 @@
   :where([data-look="felt"]) :where(.btn, .btn-group, .btn-group-vertical, .badge, .alert, .toast, .page-link, .progress-bar, [class*="text-bg-"]) {
     --felt-edge: color-mix(in oklab, var(--tone, light-dark(#d8ccb6, #24211e)) 70%, var(--felt-cut) 30%);
     --shadow-patch:
-      0 0 1px .5px color-mix(in oklab, var(--tone, light-dark(#f3ecdf, #3a3531)) 45%, transparent),
+      0 0 1px .5px color-mix(in oklab, color-mix(in oklab, var(--tone, light-dark(#f3ecdf, #3a3531)) 75%, var(--felt-cut)) 45%, transparent),
       inset 0 0 0 1px rgb(0 0 0 / .06),
-      inset 0 1px 0 rgb(255 255 255 / .22),
+      inset 0 1px 0 var(--patch-gloss, rgb(255 255 255 / .22)),
       inset 0 -3px 4px -1px rgb(0 0 0 / .18),
       inset 0 0 7px rgb(0 0 0 / .10),
       0 var(--felt-edge-y, 1.5px) 1px var(--felt-edge),
@@ -1419,14 +1621,21 @@
 
   /* --- recipe 1: light felt (page, cards, navbar, alerts, light buttons, chips, …), cut from --sheet */
   :where([data-look="felt"]) :where(body, .card, .navbar, .btn, .badge, .alert, .list-group-item, .accordion-item, .modal-content,
-    .toast, .nav-tabs .nav-link.active, .progress, .progress-stacked, pre,
+    .toast, .dropdown-menu, .offcanvas, .popover, .nav-tabs .nav-link.active, pre,
     .bg-body, .bg-body-secondary, .bg-body-tertiary, [class*="bg-"][class*="-subtle"]) {
     background-image: var(--sheet);
     background-size: var(--sheet-size);
     background-blend-mode: var(--sheet-blend);
   }
-  :where([data-look="felt"]) :where(.card, .navbar, .btn, .badge, .alert, .list-group-item, .accordion-item, .modal-content, .toast, .page-link) {
+  :where([data-look="felt"]) :where(.card, .navbar, .btn, .badge, .alert, .list-group-item, .accordion-item, .modal-content, .toast, .page-link,
+    .dropdown-menu, .offcanvas, .popover) {
     border-color: transparent;
+  }
+  /* the page is the quietest felt of all (a veil over its fibres in dark mode) */
+  :where([data-look="felt"]) body {
+    background-image: linear-gradient(var(--page-veil, transparent) 0 0), var(--sheet);
+    background-size: auto, var(--sheet-size);
+    background-blend-mode: normal, var(--sheet-blend);
   }
   :where([data-look="felt"]) :where(.card, .navbar, .list-group, .accordion, .modal-content) { box-shadow: var(--shadow-felt); }
   :where([data-look="felt"]) :where(.list-group, .accordion) { position: relative; isolation: isolate; border-radius: var(--radius-lg); }
@@ -1435,31 +1644,43 @@
   /* light pieces that are sewn on as well: same depth as the coloured patches */
   :where([data-look="felt"]) :where(.btn-light, [class*="btn-outline-"], .text-bg-light, .toast) {
     --felt-edge: var(--felt-edge-light);
+    --patch-gloss: transparent;   /* cream has no sheen: a white top edge would read as a second frame */
     box-shadow: var(--shadow-patch);
   }
   :where([data-look="felt"]) :where(.btn-light, [class*="btn-outline-"], .toast) { background-color: var(--surface-raised); }
+  /* cream shades towards the warm cut colour, not grey */
+  :where([data-look="felt"]) :where(.btn-light, [class*="btn-outline-"]) {
+    &:hover { background-color: color-mix(in oklab, var(--surface-raised), light-dark(var(--felt-cut), #fff) var(--hover-mix)); }
+    &:is(:active, .active, .btn-check:checked + *) { background-color: color-mix(in oklab, var(--surface-raised), light-dark(var(--felt-cut), #fff) var(--select-mix)); }
+  }
   /* alerts: a large tinted piece, so it lies flatter than the small patches */
   :where([data-look="felt"]) :where(.alert) {
     --felt-edge: color-mix(in oklab, var(--tone) 35%, light-dark(#a8987c, #15130f));
     --seam-strength: .8;
-    background-color: color-mix(in oklab, var(--tone) 20%, var(--surface));
+    background-color: color-mix(in oklab, var(--tone) var(--alert-mix, 20%), var(--surface));
     box-shadow:
-      0 0 1px .5px color-mix(in oklab, var(--tone) 20%, light-dark(rgb(236 229 217 / .5), rgb(0 0 0 / .3))),
+      0 0 1px .5px color-mix(in oklab, var(--tone) 20%, light-dark(transparent, rgb(0 0 0 / .3))),
       inset 0 1px 0 color-mix(in srgb, var(--felt-highlight) 60%, transparent),
       0 1px 1px var(--felt-edge),
       0 3px 6px -1px color-mix(in srgb, var(--felt-shadow-near) 80%, transparent),
       0 10px 18px -8px color-mix(in srgb, var(--felt-shadow-far) 80%, transparent);
   }
 
+  :where([data-look="felt"]) .alert-secondary { --alert-mix: 14%; }
+  /* in the dark the light alert is a raised piece and the dark one a deep navy piece, so neither reads as the page */
+  :where([data-look="felt"]) .alert-dark { background-color: light-dark(color-mix(in oklab, var(--tone) 26%, var(--surface)), color-mix(in oklab, var(--tone) 55%, var(--surface))); }
+  :where([data-look="felt"]) .alert-light { background-color: light-dark(color-mix(in oklab, var(--tone) 6%, var(--surface)), color-mix(in oklab, var(--text) 6%, var(--surface-raised))); }
+
   /* --- recipe 2: patch (saturated felt, sewn on); solid bg-* fills get the same felt */
   :where([data-look="felt"]) :where(.bg-primary, .bg-secondary, .bg-success, .bg-danger, .bg-warning, .bg-info, .bg-dark) {
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / .08), 0 1px 0 color-mix(in srgb, var(--felt-cut) 40%, transparent);
     background-image: var(--felt);
     background-size: var(--felt-size);
     background-blend-mode: soft-light;
   }
   :where([data-look="felt"]) :where(.text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger, .text-bg-warning, .text-bg-info, .text-bg-dark,
     .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark,
-    .list-group-item.active, .btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"].active) {
+    .list-group-item.active, .btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, :active)) {
     background-image: var(--felt), var(--patch-dome);
     background-size: var(--felt-size), 100% 100%;
     background-repeat: repeat, no-repeat;
@@ -1469,12 +1690,17 @@
     --seam-filter: var(--patch-seam-filter);
     --seam-strength: var(--patch-seam-strength);
   }
+  :where([data-look="felt"]) :is(.btn-dark, .text-bg-dark) { box-shadow: var(--shadow-patch), 0 0 0 1px light-dark(transparent, rgb(255 240 220 / .14)); }
+  /* neighbouring pieces are cut from different parts of the sheet, so their fibres don't repeat */
+  :where([data-look="felt"]) :where(.card, .btn, .badge, .alert, [class*="text-bg-"]):nth-child(2n) { background-position: 97px 41px; }
+  :where([data-look="felt"]) :where(.card, .btn, .badge, .alert, [class*="text-bg-"]):nth-child(3n) { background-position: 173px 118px; }
 
   /* --- seams: a 9-slice image of thread, blended tone-on-tone into the felt.
    * Sewn: navbar, cards, list groups, accordions, modals, toasts, alerts and all filled/outline buttons;
    * not badges, pills or inputs. --seam-inset is measured from the outer edge, so the seam radius is
    * radius − inset. */
   :where([data-look="felt"]) :where(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link,
+    .dropdown-menu, .offcanvas, .popover,
     .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, [class*="btn-outline-"])::after {
     content: "";
     position: absolute;
@@ -1494,7 +1720,7 @@
   /* photos lie on top of the felt: the seam runs underneath */
   :where([data-look="felt"]) :is(.card-img, .card-img-top, .card-img-bottom, .card > .row img) { position: relative; z-index: 4; }
   :where([data-look="felt"]) .card-img-overlay { z-index: 5; }
-  :where([data-look="felt"]) :is(.card, .navbar, .alert, .list-group, .accordion, .modal-content) {
+  :where([data-look="felt"]) :is(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .offcanvas) {
     --seam-img: url("img/seam-lg.webp"); --seam-slice: var(--seam-lg-slice); --seam-width: var(--seam-lg-width); --seam-inset: 9px;
   }
   :where([data-look="felt"]) :is(.btn-pill, .btn-icon, .rounded-pill) {
@@ -1502,7 +1728,11 @@
   }
   :where([data-look="felt"]) :is(.btn-sm, .btn-group-sm > .btn) { --seam-inset: 3.5px; --seam-width: calc(var(--seam-md-width) * .7); }
   :where([data-look="felt"]) :is(.btn-sm, .btn-group-sm > .btn):is(.btn-pill, .btn-icon, .rounded-pill) { --seam-width: calc(var(--seam-pill-width) * .7); }
-  :where([data-look="felt"]) .input-group > .btn { --seam-inset: 3px; --seam-width: calc(var(--seam-md-width) * .6); }
+  /* a button in an input group is cut off where it meets the field: sewn along its free edges only */
+  :where([data-look="felt"]) .input-group > .btn { overflow: hidden; }
+  :where([data-look="felt"]) .input-group > .btn:not(:first-child)::after { left: -40px; }
+  :where([data-look="felt"]) .input-group > .btn:not(:last-child)::after { right: -40px; }
+  :where([data-look="felt"]) .input-group > .btn { --seam-inset: 5px; --seam-width: calc(var(--seam-md-width) * .6); }
     /* a bar fixed to the screen edge is sewn along its inner edge only */
   :where([data-look="felt"]) .navbar:is(.fixed-top, .fixed-bottom)::after {
     inset: auto 0; height: calc(2 * var(--seam-margin)); border-image: none;
@@ -1515,12 +1745,12 @@
 
   /* dividers inside a piece: a straight row of stitches that stops at the outer seam; quieter than
    * the outer seam so it reads as a divider */
-  :where([data-look="felt"]) :where(.card-header, .card-footer, .modal-header, .modal-footer, .toast-header,
+  :where([data-look="felt"]) :where(.card-header, .card-footer, .modal-header, .modal-footer, .toast-header, .popover-header,
     .list-group-item + .list-group-item, .accordion-item + .accordion-item, .table > :not(caption) > tr > *, hr) {
     position: relative; border-color: transparent;
   }
   :where([data-look="felt"]) hr { overflow: visible; opacity: 1; }
-  :where([data-look="felt"]) :where(.card-header, .card-footer, .modal-header, .modal-footer, .toast-header)::after,
+  :where([data-look="felt"]) :where(.card-header, .card-footer, .modal-header, .modal-footer, .toast-header, .popover-header)::after,
   :where([data-look="felt"]) :where(.list-group-item + .list-group-item:not(.active))::after,
   :where([data-look="felt"]) :where(.accordion-item + .accordion-item, .table > tbody > tr + tr > *, .table > thead > tr > *, hr)::before {
     content: "";
@@ -1531,9 +1761,9 @@
     background: url("img/seam-row.webp") left center / var(--seam-row-size) round no-repeat;
     mix-blend-mode: hard-light;
     filter: var(--seam-filter);
-    opacity: calc(var(--seam-strength) * .7);
+    opacity: calc(var(--seam-strength) * var(--seam-row-strength));
   }
-  :where([data-look="felt"]) :where(.card-header, .modal-header, .toast-header)::after { bottom: calc(-.5px - var(--seam-margin)); }
+  :where([data-look="felt"]) :where(.card-header, .modal-header, .toast-header, .popover-header)::after { bottom: calc(-.5px - var(--seam-margin)); }
   :where([data-look="felt"]) :where(.card-footer, .modal-footer)::after { top: calc(-.5px - var(--seam-margin)); }
   :where([data-look="felt"]) :where(.list-group-item + .list-group-item)::after,
   :where([data-look="felt"]) :where(.accordion-item + .accordion-item, .table > tbody > tr + tr > *, hr)::before { top: calc(-.5px - var(--seam-margin)); }
@@ -1542,21 +1772,39 @@
   :where([data-look="felt"]) .toast-header::after { left: 11px; right: 11px; }
   :where([data-look="felt"]) :where(.list-group-flush, .card .list-group) > .list-group-item::after { left: 0; right: 0; }
   :where([data-look="felt"]) .list-group[class*="horizontal"] > .list-group-item:not(.active)::after { content: none; }
-  :where([data-look="felt"]) .list-group[class*="horizontal"] > .list-group-item + .list-group-item { border-left-color: color-mix(in oklab, var(--border) 60%, var(--muted)); }
+  :where([data-look="felt"]) .list-group[class*="horizontal"] > .list-group-item + .list-group-item:not(.active) { border-left-color: transparent; box-shadow: var(--felt-fold); }
   :where([data-look="felt"]) :is(.text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger, .text-bg-info, .text-bg-dark) :is(.card-header, .card-footer) {
     --border: rgb(255 255 255 / .2);
   }
 
   /* --- buttons */
-  :where([data-look="felt"]) .btn:hover { filter: brightness(1.04); }
-  :where([data-look="felt"]) :is(.btn:active, .btn.active, .btn-check:checked + .btn) {
-    filter: brightness(.92);
-    box-shadow: var(--shadow-patch-pressed);
-  }
+  :where([data-look="felt"]) :is(.btn:active, .btn.active, .btn-check:checked + .btn) { box-shadow: var(--shadow-patch-pressed); }
   :where([data-look="felt"]) :is(.btn:active, .btn.active) { transform: translateY(1px); }
+  /* felt is opaque: a disabled piece goes pale and flat instead of see-through */
+  :where([data-look="felt"]) :is(.btn:disabled, .btn.disabled, .btn-check:disabled + .btn) {
+    opacity: 1; filter: saturate(.6); box-shadow: var(--shadow-patch-pressed);
+    background-color: color-mix(in oklab, var(--tone) var(--disabled-tone), var(--body-bg));
+    color: color-mix(in oklab, var(--text) var(--disabled-ink), var(--body-bg));
+    &::after { opacity: calc(var(--seam-strength) * .5); }
+  }
+  /* buttons without a piece of felt (plain, link) stay flat in every state */
+  :where([data-look="felt"]) :where(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-link, [class*="btn-outline-"]), .btn-link) { background: none; box-shadow: none; }
+  /* the felt layer outranks the components, so the chosen nav item is left out or it would lose its fill */
+  :where([data-look="felt"]) :is(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-link, [class*="btn-outline-"]), .btn-link, .nav-link:not(.active, [aria-current="page"]), .accordion-button) {
+    &:hover { background-color: var(--surface-hover); }
+    &:active { background-color: var(--surface-pressed); }
+  }
+  :where([data-look="felt"]) :is(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-link, [class*="btn-outline-"]), .btn-link) {
+    &:is(:active, .active, .btn-check:checked + *) { background-color: var(--surface-pressed); box-shadow: inset 0 1px 2px var(--felt-inset-field); }
+    &:is(:disabled, .disabled) { filter: none; background: none; box-shadow: none; color: var(--subtle-text); }
+  }
   /* outline: a cream felt patch, sewn on with thread in the button colour; checked, it becomes a patch */
   :where([data-look="felt"]) [class*="btn-outline-"] { border-color: transparent; }
-  :where([data-look="felt"]) :is(.btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"].active) { --tone: var(--fill); background-color: var(--fill); filter: none; }
+  /* inset shading stops at the padding box, so the 1px border of a light piece would stay its brightest
+   * pixel, a light rim. A translucent border carries the shading out to the cut edge. */
+  :where([data-look="felt"]) :is(.btn-light, [class*="btn-outline-"], .text-bg-light, .toast) { border-color: light-dark(rgb(60 40 15 / .12), rgb(0 0 0 / .2)); }
+  :where([data-look="felt"]) :is(.btn-light, [class*="btn-outline-"]):is(:disabled, .disabled) { border-color: light-dark(rgb(60 40 15 / .08), rgb(0 0 0 / .08)); }
+  :where([data-look="felt"]) :is(.btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, :active)) { --tone: var(--fill); background-color: var(--fill); }
   @supports (-webkit-mask-box-image: none) {
     :where([data-look="felt"]) [class*="btn-outline-"]::after {
       border: 0;
@@ -1567,54 +1815,80 @@
       filter: none;
       opacity: .75;
     }
-    :where([data-look="felt"]) :is(.btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"].active)::after { opacity: .45; }
+    :where([data-look="felt"]) :is(.btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, :active))::after { opacity: .45; }
   }
-  :where([data-look="felt"]) .btn-check:checked + :is(.btn-light, .btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-link, [class*="btn-outline-"])) { background-color: var(--surface-sunk); filter: none; }
-  :where([data-look="felt"]) :where(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-link, [class*="btn-outline-"]), .btn-link) { background: none; box-shadow: none; }
-  :where([data-look="felt"]) :is(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-link, [class*="btn-outline-"]), .btn-link, .nav-link, .accordion-button):hover {
-    background-color: var(--felt-hover);
-  }
-  /* button groups: pieces sewn edge to edge, one seam running through */
-  /* button groups. Filled action groups are one piece with one seam around it, carried by the first
+  /* button groups. A group of filled buttons is one piece with one seam around it, carried by the first
    * button (positioned against the group; no filter/transform, which would make the button the seam's
-   * containing block). Toggle groups are a plain strip of light felt with the chosen segment sewn on top
-   * as a raised patch. */
-  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical) > .btn { filter: none; transform: none; }
-  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical):not(:has(> .btn-check, > [class*="btn-outline-"], > .btn-light)) > .btn { position: static; }
-  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical):not(:has(> .btn-check, > [class*="btn-outline-"], > .btn-light)) > .btn:not(:first-child)::after { content: none; }
-  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical):not(:has(> .btn-check, > [class*="btn-outline-"], > .btn-light)) > .btn:not(:active, .active):hover { box-shadow: var(--shadow-patch), inset 0 0 0 99px rgb(255 255 255 / .06); }
+   * containing block). A toggle group (checks, outline or light buttons) is a groove pressed into the
+   * felt, with the chosen segment sewn into it as a raised patch; pagination follows the same recipe. */
+  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical) {
+    > .btn { filter: none; transform: none; }
+    /* the piece's shading and seam are drawn once, by the first button, across the whole group */
+    /* the piece's shading and seam are drawn once, by the first button, across the whole group; where two
+     * buttons meet, the piece has a fold */
+    &:has(> .btn ~ .btn):not(:has(> .btn-check, > [class*="btn-outline-"], > .btn-light)) > .btn {
+      --fold: 0 0 transparent;
+      position: static; box-shadow: var(--fold);
+      & + .btn { --fold: var(--felt-fold); }
+      &:first-child { --seam-inset: 5px; }
+      &:first-child::before { content: ""; position: absolute; inset: 0; border-radius: var(--radius); pointer-events: none; box-shadow: var(--shadow-patch); }
+      &:not(:first-child)::after { content: none; }
+      &:hover { box-shadow: var(--fold), inset 0 0 0 99px rgb(255 255 255 / .06); }
+      &:is(:active, .active) { box-shadow: var(--fold), inset 0 2px 4px rgb(0 0 0 / .22); }
+    }
+    &.btn-group-vertical > .btn + .btn { --fold: var(--felt-fold-y); }
+    &.btn-group-sm:has(> .btn ~ .btn):not(:has(> .btn-check, > [class*="btn-outline-"], > .btn-light)) > .btn:first-child { --seam-inset: 4.5px; }
+  }
   :where([data-look="felt"]) :is(:is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light), .page-link) {
-    border-radius: var(--radius);
-    background: var(--sheet) var(--felt-groove);
-    background-size: var(--sheet-size);
-    background-blend-mode: var(--sheet-blend);
-    box-shadow: inset 0 1px 3px var(--felt-inset), 0 1px 0 var(--felt-highlight);
+    background: var(--groove-bg, var(--felt-groove));
+    box-shadow: var(--groove-inset, inset 0 1px 3px var(--felt-inset)), 0 1px 0 var(--felt-highlight);
   }
-  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > .btn { background: none; box-shadow: none; }
-  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > .btn:not(:is(.active, .btn-check:checked + .btn))::after { content: none; }
-  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > .btn:not(:is(.active, .btn-check:checked + .btn)):hover { background-color: var(--felt-hover); }
-  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > :is(.active, .btn-check:checked + .btn) { position: relative; isolation: isolate; color: var(--ink, var(--text)); }
-  :where([data-look="felt"]) .page-item.active .page-link { --tone: var(--primary); isolation: isolate; background-color: var(--felt-groove); }
-  :where([data-look="felt"]) :is(:is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > :is(.active, .btn-check:checked + .btn), .page-item.active .page-link)::before {
-    content: ""; position: absolute; z-index: -1; inset: 3px; border-radius: calc(var(--radius) - 3px);
-    background: var(--felt) var(--tone, var(--surface-raised));
-    background-size: var(--felt-size);
-    background-blend-mode: soft-light;
-    box-shadow: var(--shadow-patch);
+  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) { border-radius: var(--radius); }
+  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > .btn {
+    background: none; box-shadow: none; border-color: transparent;
+    &:not(:is(.active, .btn-check:checked + .btn)) {
+      &::after { content: none; }
+      &:hover { background-color: var(--surface-hover); }
+      &:active { background-color: var(--surface-pressed); }
+    }
+    &:is(.active, .btn-check:checked + .btn) { position: relative; isolation: isolate; color: var(--ink, var(--text)); }
   }
-  :where([data-look="felt"]) :is(:is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > :is(.active, .btn-check:checked + .btn), .page-item.active .page-link)::after { inset: calc(var(--seam-inset) + 3px - var(--seam-margin) - 1px); }
+  :where([data-look="felt"]) .page-item.active .page-link { --tone: var(--primary); isolation: isolate; }
+  :where([data-look="felt"]) :is(:is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > :is(.active, .btn-check:checked + .btn), .page-item.active .page-link) {
+    &::before {
+      content: ""; position: absolute; z-index: -1; inset: var(--patch-inset, 3px) var(--patch-inset-x, var(--patch-inset, 3px)); border-radius: var(--patch-radius, calc(var(--radius) - 3px));
+      background: var(--felt) var(--tone, var(--surface-raised));
+      background-size: var(--felt-size);
+      background-blend-mode: soft-light;
+      box-shadow: var(--shadow-patch);
+    }
+    &::after {
+      inset: calc(var(--seam-inset) + var(--patch-inset, 3px) - var(--seam-margin) - 1px)
+        calc(var(--seam-inset) + var(--patch-inset-x, var(--patch-inset, 3px)) - var(--seam-margin) - 1px);
+    }
+  }
   /* a horizontal toggle is a capsule: groove and patch share the pill shape and the pill seam */
-  :where([data-look="felt"]) .btn-group:has(> .btn-check, > [class*="btn-outline-"], > .btn-light) { border-radius: var(--radius-pill); }
-  /* pagination: the groove is laid on the links themselves, so the list keeps Bootstrap's layout */
-  :where([data-look="felt"]) .pagination { --pr: var(--radius-pill); }
-  :where([data-look="felt"]) .page-item:not(:first-child) .page-link { border-start-start-radius: 0; border-end-start-radius: 0; }
-  :where([data-look="felt"]) .page-item:not(:last-child) .page-link { border-start-end-radius: 0; border-end-end-radius: 0; }
-  :where([data-look="felt"]) .btn-group:has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > :is(.active, .btn-check:checked + .btn) {
-    --seam-img: url("img/seam-pill.webp"); --seam-slice: var(--seam-pill-slice); --seam-width: calc(var(--seam-pill-width) * .8);
+  :where([data-look="felt"]) .btn-group:has(> .btn-check, > [class*="btn-outline-"], > .btn-light) {
+    border-radius: var(--radius-pill);
+    > :is(.active, .btn-check:checked + .btn) { --patch-radius: var(--radius-pill); --seam-img: url("img/seam-pill.webp"); --seam-slice: var(--seam-pill-slice); --seam-width: calc(var(--seam-pill-width) * .8); }
+    &.btn-group-sm > :is(.active, .btn-check:checked + .btn) { --seam-width: calc(var(--seam-pill-width) * .6); }
   }
-  :where([data-look="felt"]) .btn-group-sm:has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > :is(.active, .btn-check:checked + .btn) { --seam-width: calc(var(--seam-pill-width) * .6); }
-  :where([data-look="felt"]) .page-item.active .page-link { --seam-img: url("img/seam-pill.webp"); --seam-slice: var(--seam-pill-slice); --seam-width: calc(var(--seam-pill-width) * .6); --seam-inset: 3.5px; }
-  :where([data-look="felt"]) :is(.btn-group:has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > :is(.active, .btn-check:checked + .btn), .page-item.active .page-link)::before { border-radius: var(--radius-pill); }
+  /* pagination: a capsule groove laid on the links themselves, so the list keeps Bootstrap's layout. Each
+   * link shades only its own stretch of the groove: the top everywhere, the sides only at the two ends, and
+   * not the pixel it overlaps its neighbour by. */
+  :where([data-look="felt"]) .pagination { --pr: var(--radius-pill); }
+  :where([data-look="felt"]) .page-item {
+    --groove-inset: inset 0 7px 3px -6px var(--felt-inset);
+    &:first-child { --groove-inset: inset 6px 7px 3px -6px var(--felt-inset); }
+    &:last-child { --groove-inset: inset -6px 7px 3px -6px var(--felt-inset); }
+    &:only-child { --groove-inset: inset 0 1px 3px var(--felt-inset); }
+    &:not(:first-child) { --groove-bg: linear-gradient(to right, transparent 1px, var(--felt-groove) 0) border-box; }
+    &.active .page-link {
+      /* a narrow page number still gets a pill, not a disc: the patch may reach a little past its link */
+      --patch-inset: 4px; --patch-inset-x: min(4px, (100% - 2.5em) / 2); --patch-radius: var(--radius-pill);
+      --seam-img: url("img/seam-pill.webp"); --seam-slice: var(--seam-pill-slice); --seam-width: calc(var(--seam-pill-width) * .6); --seam-inset: 3.5px;
+    }
+  }
 
   /* --- nav: the active pill is a small felt chip, the active tab a flap of the sheet below */
   :where([data-look="felt"]) :is(.nav-link.active, .nav-link[aria-current="page"]):not(:is(.nav-tabs, .nav-underline) .nav-link, .flex-column),
@@ -1628,13 +1902,15 @@
   :where([data-look="felt"]) .nav-tabs::after {
     content: ""; position: absolute; left: 0; right: 0; bottom: calc(-.5px - var(--seam-margin)); height: calc(2 * var(--seam-margin));
     pointer-events: none; background: url("img/seam-row.webp") left center / var(--seam-row-size) round no-repeat;
-    mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: calc(var(--seam-strength) * .7);
+    mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: calc(var(--seam-strength) * var(--seam-row-strength));
   }
   :where([data-look="felt"]) .card-header .nav-tabs::after { content: none; }
   :where([data-look="felt"]) .nav-tabs .nav-link.active {
     z-index: 1; border-color: transparent;
-    box-shadow: 0 -1px 2px color-mix(in srgb, var(--felt-inset) 50%, transparent), inset 0 1px 0 var(--felt-highlight);
+    box-shadow: 0 -1px 2px color-mix(in srgb, var(--felt-inset) 50%, transparent), inset 1px 1px 0 var(--felt-highlight), inset -1px 0 0 var(--felt-highlight);
   }
+  /* in a card the tabs sit on a strip pressed into the felt, so the flap of the active one stands out */
+  :where([data-look="felt"]) .card-header:has(> .card-header-tabs) { background-color: var(--felt-groove); }
   /* below the active tab the stitch row is covered by a strip of the same felt: the flap stays open */
   :where([data-look="felt"]) .nav-tabs .nav-link.active::before {
     content: ""; position: absolute; left: 1px; right: 1px; bottom: -5px; height: 6px;
@@ -1651,36 +1927,64 @@
     box-shadow: inset 0 -1px 2px rgb(0 0 0 / .14), 0 1px 0 var(--felt-edge), 0 2px 3px var(--felt-shadow-near);
   }
   :where([data-look="felt"]) .badge.border { background-color: var(--surface-raised); }
-  :where([data-look="felt"]) .page-link:hover { box-shadow: inset 0 1px 3px var(--felt-inset), inset 0 0 0 99px var(--felt-hover); }
+  :where([data-look="felt"]) .page-link:hover { box-shadow: var(--groove-inset), inset 0 0 0 99px var(--surface-hover); }
+  :where([data-look="felt"]) .page-link:active { box-shadow: var(--groove-inset), inset 0 0 0 99px var(--surface-pressed); }
 
   /* --- list group and accordion: a sewn sheet; the active entry is a patch on it */
-  :where([data-look="felt"]) .list-group-item.active { box-shadow: inset 0 1px 0 rgb(255 255 255 / .2), inset 0 -1px 2px rgb(0 0 0 / .15); }
+  :where([data-look="felt"]) .list-group-item.active { box-shadow: inset 0 1px 0 rgb(255 255 255 / .2), inset 0 -1px 2px rgb(0 0 0 / .15), inset 1px 0 0 rgb(255 255 255 / .12), inset -1px 0 0 rgb(0 0 0 / .18), 0 1px 0 color-mix(in srgb, var(--felt-cut) 25%, transparent); }
+  /* the list's seam runs across the active entry; on the patch it is redrawn in the patch's thread, which
+   * stays visible on saturated felt (the stretch outside the entry is clipped away) */
+  :where([data-look="felt"]) .list-group:not(.list-group-flush, .card .list-group) > .list-group-item.active {
+    overflow: hidden;
+    &::after {
+      content: ""; position: absolute; inset: -40px 4px; pointer-events: none;
+      border: 0 solid transparent; border-image: var(--seam-img) var(--seam-slice) / var(--seam-width) round;
+      mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: var(--seam-strength);
+    }
+    &:first-child::after { top: 4px; }
+    &:last-child::after { bottom: 4px; }
+  }
+  :where([data-look="felt"]) .list-group[class*="horizontal"]:not(.list-group-flush) > .list-group-item.active {
+    &::after { inset: 4px -40px; }
+    &:first-child::after { left: 4px; }
+    &:last-child::after { right: 4px; }
+  }
   :where([data-look="felt"]) .list-group-item.active + .list-group-item::after { opacity: 0; }
+  /* a sticky header (e.g. a month above a list) covers the next entry's stitch row, so it carries the row itself */
+  :where([data-look="felt"]) .list-group-item.sticky-top + .list-group-item::after { content: none; }
+  :where([data-look="felt"]) .list-group-item.sticky-top::after {
+    content: ""; position: absolute; left: calc(var(--seam-inset) + 6px); right: calc(var(--seam-inset) + 6px); bottom: calc(-.5px - var(--seam-margin));
+    height: calc(2 * var(--seam-margin)); pointer-events: none;
+    background: url("img/seam-row.webp") left center / var(--seam-row-size) round no-repeat;
+    mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: calc(var(--seam-strength) * var(--seam-row-strength));
+  }
   :where([data-look="felt"]) .accordion-item + .accordion-item::before { top: 0; }
-  :where([data-look="felt"]) :is(.accordion-button:not(.collapsed, summary), details[open] > .accordion-button) { background-color: color-mix(in srgb, var(--primary-text) 7%, transparent); box-shadow: none; }
+  :where([data-look="felt"]) :is(.accordion-button:not(.collapsed, summary), details[open] > .accordion-button) { background-color: color-mix(in oklab, var(--primary) 6%, var(--surface-hover)); box-shadow: none; }
 
   /* --- table: nearly clean, a tinted head and quiet rows of stitches between the rows */
-  :where([data-look="felt"]) .table > thead { background-color: var(--felt-hover); }
+  :where([data-look="felt"]) .table > thead { background-color: var(--surface-hover); }
   :where([data-look="felt"]) .table > thead.table-light { --t-bg: transparent; }
   :where([data-look="felt"]) .table > thead > tr > *::before { bottom: calc(-.5px - var(--seam-margin)); }
   :where([data-look="felt"]) .table > :not(caption) > tr > *::before { left: 0; right: 0; opacity: var(--seam-strength); }
   /* bordered: the columns are pressed folds, no outer frame; the table lies on its piece */
   :where([data-look="felt"]) .table-bordered > :not(caption) > * > * { border-color: transparent; }
-  :where([data-look="felt"]) .table-bordered > :not(caption) > * > * + * {
-    box-shadow: inset 1px 0 0 color-mix(in srgb, var(--felt-inset) 45%, transparent), inset 2px 0 0 color-mix(in srgb, var(--felt-highlight) 40%, transparent), inset 0 0 0 9999px var(--a, transparent);
-  }
+  :where([data-look="felt"]) .table-bordered > :not(caption) > * > * + * { box-shadow: var(--felt-fold), inset 0 0 0 9999px var(--a, transparent); }
   :where([data-look="felt"]) .table-borderless > :not(caption) > * > *::before { content: none; }
 
   /* --- progress: a groove pressed into the felt, the bar a patch laid in it */
   :where([data-look="felt"]) :is(.progress, .progress-stacked) {
     background-color: var(--felt-groove);
-    box-shadow: inset 0 1px 3px var(--felt-inset);
+    box-shadow: inset 0 1px 3px color-mix(in srgb, var(--felt-inset) 80%, transparent), inset 0 -1px 0 light-dark(rgb(255 255 255 / .35), rgb(255 240 220 / .08));
   }
   :where([data-look="felt"]) .progress-bar {
     background-image: var(--felt), var(--patch-dome);
     background-size: var(--felt-size), 100% 100%;
     background-blend-mode: soft-light, normal;
     box-shadow: inset 0 1px 0 rgb(255 255 255 / .2), inset 0 -1px 2px rgb(0 0 0 / .2), 1px 0 1px rgb(0 0 0 / .15);
+  }
+  /* stacked: pieces laid edge to edge, each with its own cut */
+  :where([data-look="felt"]) .progress-stacked > .progress + .progress > .progress-bar {
+    box-shadow: inset 1px 0 0 rgb(255 255 255 / .18), -1px 0 2px rgb(0 0 0 / .3), inset 0 1px 0 rgb(255 255 255 / .2), inset 0 -1px 2px rgb(0 0 0 / .2);
   }
   :where([data-look="felt"]) .progress-bar-striped {
     background-image: linear-gradient(45deg, rgb(255 255 255 / .15) 25%, transparent 25%, transparent 50%, rgb(255 255 255 / .15) 50%, rgb(255 255 255 / .15) 75%, transparent 75%), var(--felt);
@@ -1690,7 +1994,7 @@
 
   /* --- spinners: a turning ring of felt, a pulsing felt dot */
   :where([data-look="felt"]) :is(.spinner-border, .spinner-grow) {
-    background: var(--felt) currentColor; background-size: 64px; background-blend-mode: soft-light;
+    background: var(--felt) currentColor; background-size: var(--felt-size); background-blend-mode: soft-light;
   }
   :where([data-look="felt"]) .spinner-border {
     border-color: transparent;
@@ -1699,19 +2003,55 @@
   }
   :where([data-look="felt"]) .spinner-grow { box-shadow: inset 0 1px 0 rgb(255 255 255 / .25), inset 0 -2px 3px rgb(0 0 0 / .2); }
 
+  /* --- dropdown, popover, offcanvas: flat pieces of felt lying above the page, sewn round */
+  :where([data-look="felt"]) :is(.dropdown-menu, .popover, .offcanvas) {
+    box-shadow: var(--shadow-felt), 0 16px 32px -12px var(--felt-shadow-far);
+  }
+  :where([data-look="felt"]) :is(.dropdown-menu, .popover) {
+    --seam-img: url("img/seam-md.webp"); --seam-slice: var(--seam-md-slice); --seam-width: var(--seam-md-width); --seam-inset: 5px;
+  }
+  /* the medium seam is finer than the cards' large one: a little more thread, so it carries the same weight */
+  :where([data-look="felt"]) :is(.dropdown-menu, .popover, .toast)::after { opacity: min(1, calc(var(--seam-strength) * 1.2)); }
+  :where([data-look="felt"]) .popover-arrow::before { border-color: transparent; }
+  :where([data-look="felt"]) .dropdown-item:is(:hover, :focus-visible) { background-color: var(--surface-hover); }
+  :where([data-look="felt"]) .dropdown-item:is(.active, :active) {
+    background-image: var(--felt); background-size: var(--felt-size); background-blend-mode: soft-light;
+    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .12), 0 1px 2px var(--felt-inset);
+  }
+  /* an offcanvas is fixed to a screen edge: its seam runs past that edge, so only the free edges are sewn */
+  :where([data-look="felt"]) .offcanvas { --seam-inset: 9px; --off: -40px; }
+  :where([data-look="felt"]) .offcanvas-start::after { inset: var(--off) 5px var(--off) var(--off); }
+  :where([data-look="felt"]) .offcanvas-end::after { inset: var(--off) var(--off) var(--off) 5px; }
+  :where([data-look="felt"]) .offcanvas-top::after { inset: var(--off) 5px 5px; }
+  :where([data-look="felt"]) .offcanvas-bottom::after { inset: 5px 5px var(--off); }
+  :where([data-look="felt"]) .offcanvas { overflow: hidden; }
+  /* tooltip: a small patch, not sewn (like badges) */
+  :where([data-look="felt"]) .tooltip-inner {
+    background-image: var(--tip-felt); background-size: var(--felt-size); background-blend-mode: var(--tip-blend);
+    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .2), 0 1px 0 color-mix(in oklab, var(--tip-bg) 70%, var(--felt-cut)), 0 3px 6px -1px var(--felt-shadow-near);
+  }
+
+  /* --- placeholders: soft felt pressed into the piece; validation tooltips are small patches */
+  :where([data-look="felt"]) .placeholder { background-image: var(--felt); background-size: var(--felt-size); background-blend-mode: soft-light; box-shadow: inset 0 1px 2px rgb(0 0 0 / .25); }
+  :where([data-look="felt"]) :is(.invalid-tooltip, .valid-tooltip) {
+    background-image: var(--felt); background-size: var(--felt-size); background-blend-mode: soft-light;
+    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .18), 0 1px 0 color-mix(in oklab, var(--tone) 70%, var(--felt-cut)), 0 3px 6px -1px var(--felt-shadow-near);
+  }
+
   /* --- photos lie on the felt */
   :where([data-look="felt"]) :where(.figure-img, .img-thumbnail, img.rounded) { box-shadow: 0 0 0 1px rgb(0 0 0 / .06), 0 1px 2px var(--felt-shadow-near); }
   :where([data-look="felt"]) mark { background-color: light-dark(#f0d8a2, color-mix(in oklab, var(--warning) 35%, var(--surface))); }
 
   /* --- modal: a flat sheet of felt lying on the dimmed page */
-  :where([data-look="felt"]) .modal-content { background-color: light-dark(var(--surface), var(--surface-raised)); box-shadow: var(--shadow-felt), 0 24px 48px -12px var(--felt-shadow-far); }
+  :where([data-look="felt"]) .modal-content { box-shadow: var(--shadow-felt), 0 24px 48px -12px var(--felt-shadow-far); }
 
   /* --- form controls: nearly clean, pressed slightly into the felt */
   :where([data-look="felt"]) :is(.form-control, .form-select) {
     background-color: var(--field);
     box-shadow: inset 0 2px 3px var(--felt-inset-field);
   }
-  :where([data-look="felt"]) :is(.form-control, .input-group-text) {
+  :where([data-look="felt"]) :is(.form-control, .input-group-text),
+  :where([data-look="felt"]) .form-floating > textarea ~ label::after {
     background-image: var(--sheet);
     background-size: var(--sheet-size);
     background-blend-mode: var(--sheet-blend);
@@ -1720,7 +2060,7 @@
     border-color: color-mix(in oklab, var(--danger-emphasis) 80%, transparent);
     background-color: var(--field-invalid);
   }
-  :where([data-look="felt"]) :is(.form-control, .form-select):is(:disabled, [readonly]) { background-color: var(--field-disabled); }
+  :where([data-look="felt"]) :is(.form-control, .form-select):is(:disabled, [readonly]) { background-color: var(--field-disabled); box-shadow: none; }
   :where([data-look="felt"]) .input-group > :is(.form-control, .form-select):focus { box-shadow: inset 0 2px 3px var(--felt-inset-field); }
   :where([data-look="felt"]) .form-select {
     background-image: var(--select-chevron), var(--sheet);
@@ -1735,11 +2075,9 @@
   :where([data-look="felt"]) :is(.form-control, .form-select):is(.is-invalid, .is-valid):focus {
     box-shadow: inset 0 2px 3px var(--felt-inset-field), 0 0 0 .25rem color-mix(in oklab, var(--state) 30%, transparent);
   }
-  :where([data-look="felt"]) .input-group-text { background-color: var(--felt-addon); }
 
   /* checkbox: a little felt square */
   :where([data-look="felt"]) .form-check-input {
-    border-color: color-mix(in oklab, var(--border) 50%, var(--muted));
     box-shadow: inset 0 1px 2px var(--felt-inset-field);
   }
   :where([data-look="felt"]) .form-check-input:checked {
@@ -1761,50 +2099,30 @@
   :where([data-look="felt"]) .form-switch .form-check-input {
     --knob: radial-gradient(circle closest-side, var(--felt-knob) 82%, var(--felt-inset) 90%, transparent 100%);
     background-color: var(--felt-groove);
-    background-image: var(--knob), var(--sheet);
-    background-size: 1.25rem 1.25rem, var(--sheet-size);
-    background-repeat: no-repeat, repeat;
-    background-position: 1px center, 0 0;
-    background-blend-mode: normal, var(--sheet-blend);
-    border-color: transparent;
-    box-shadow: inset 0 1px 3px var(--felt-inset);
+    background-image: var(--knob);
+    background-size: 1.25rem 1.25rem;
+    background-position: 1px center;
+    box-shadow: inset 0 1px 3px var(--felt-inset);   /* keeps the control outline, like the checkboxes */
   }
   :where([data-look="felt"]) .form-switch .form-check-input:checked {
     background-color: var(--primary);
     background-image: var(--knob), var(--felt);
     background-size: 1.25rem 1.25rem, var(--felt-size);
+    background-repeat: no-repeat, repeat;
     background-position: calc(100% - 1px) center, 0 0;
     background-blend-mode: normal, soft-light;
+    border-color: transparent;
   }
 
   /* range: a felt groove with a patch as knob */
-  :where([data-look="felt"]) .form-range { --range-track: var(--felt-groove); }
-  :where([data-look="felt"]) .form-range::-webkit-slider-runnable-track {
-    background: linear-gradient(to right, var(--primary) var(--fill), transparent 0), var(--felt) var(--range-track);
-    background-size: auto, var(--felt-size);
-    background-blend-mode: normal, soft-light;
-    box-shadow: inset 0 1px 3px var(--felt-inset);
+  :where([data-look="felt"]) .form-range {
+    --range-track: var(--felt-groove);
+    --thumb-shadow: inset 0 1px 0 rgb(255 255 255 / .25), inset 0 -2px 3px rgb(0 0 0 / .2), 0 1px 1px color-mix(in oklab, var(--primary) 70%, #000), 0 3px 5px var(--felt-shadow-far);
   }
-  :where([data-look="felt"]) .form-range::-moz-range-track {
-    background: linear-gradient(to right, var(--primary) var(--fill), transparent 0), var(--felt) var(--range-track);
-    background-size: auto, var(--felt-size);
-    background-blend-mode: normal, soft-light;
-    box-shadow: inset 0 1px 3px var(--felt-inset);
-  }
-  :where([data-look="felt"]) .form-range::-webkit-slider-thumb {
-    border-color: transparent;
-    background: var(--felt) var(--primary);
-    background-size: var(--felt-size);
-    background-blend-mode: soft-light;
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / .25), inset 0 -2px 3px rgb(0 0 0 / .2), 0 1px 1px color-mix(in oklab, var(--primary) 70%, #000), 0 3px 5px var(--felt-shadow-far);
-  }
-  :where([data-look="felt"]) .form-range::-moz-range-thumb {
-    border-color: transparent;
-    background: var(--felt) var(--primary);
-    background-size: var(--felt-size);
-    background-blend-mode: soft-light;
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / .25), inset 0 -2px 3px rgb(0 0 0 / .2), 0 1px 1px color-mix(in oklab, var(--primary) 70%, #000), 0 3px 5px var(--felt-shadow-far);
-  }
+  :where([data-look="felt"]) .form-range::-webkit-slider-runnable-track { box-shadow: inset 0 1px 3px var(--felt-inset); }
+  :where([data-look="felt"]) .form-range::-moz-range-track { box-shadow: inset 0 1px 3px var(--felt-inset); }
+  :where([data-look="felt"]) .form-range::-webkit-slider-thumb { border-color: transparent; background: var(--felt) var(--primary); background-size: var(--felt-size); background-blend-mode: soft-light; }
+  :where([data-look="felt"]) .form-range::-moz-range-thumb { border-color: transparent; background: var(--felt) var(--primary); background-size: var(--felt-size); background-blend-mode: soft-light; }
 }
 
 @media (prefers-reduced-motion: reduce) {

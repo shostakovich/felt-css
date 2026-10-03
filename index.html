@@ -23,7 +23,7 @@
     .icon { width: 1.375rem; height: 1.375rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .demo-saldo .progress { position: relative; }
     .demo-saldo .progress::after { content: ""; position: absolute; inset: 0 auto 0 50%; width: 2px; margin-left: -1px; background: var(--text); opacity: .55; z-index: 1; }
-    .demo-bs-modal .modal { position: relative; display: block; }
+    .demo-bs-modal .modal { position: relative; display: block; overflow: visible; }
     .demo-phone { width: 375px; max-width: 100%; height: 720px; border: 1px solid var(--border); border-radius: 2.25rem; background-color: var(--body-bg); background-image: var(--sheet, none); background-size: var(--sheet-size, auto); background-blend-mode: var(--sheet-blend, normal); box-shadow: var(--shadow-lg); overflow: hidden; transform: translateZ(0); }
     .demo-phone-screen { height: 100%; overflow: auto; padding-bottom: 9.5rem; }
   </style>
@@ -91,12 +91,13 @@
           <li class="col"><a href="#accordion">11 · Accordion</a></li>
           <li class="col"><a href="#modal">12 · Modal</a></li>
           <li class="col"><a href="#toast">13 · Toast</a></li>
-          <li class="col"><a href="#spinner">14 · Spinner</a></li>
-          <li class="col"><a href="#cards">15 · Cards</a></li>
-          <li class="col"><a href="#prose">16 · Prosa</a></li>
-          <li class="col"><a href="#mobile">17 · Mobil</a></li>
-          <li class="col"><a href="#utilities">18 · Grid &amp; Utilities</a></li>
-          <li class="col"><a href="#bootstrap">19 · Bootstrap-Doku 1:1</a></li>
+          <li class="col"><a href="#overlays">14 · Dropdown &amp; Co.</a></li>
+          <li class="col"><a href="#spinner">15 · Spinner</a></li>
+          <li class="col"><a href="#cards">16 · Cards</a></li>
+          <li class="col"><a href="#prose">17 · Prosa</a></li>
+          <li class="col"><a href="#mobile">18 · Mobil</a></li>
+          <li class="col"><a href="#utilities">19 · Grid &amp; Utilities</a></li>
+          <li class="col"><a href="#bootstrap">20 · Bootstrap-Doku 1:1</a></li>
         </ol>
       </div>
     </nav>
@@ -367,6 +368,39 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <h3 class="demo-label">Floating Labels</h3>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="form-floating"><input type="email" class="form-control" id="fl-mail" placeholder="name@example.com" value="kasse@example.com"><label for="fl-mail">E-Mail</label></div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-floating"><input type="text" class="form-control" id="fl-name" placeholder="Gruppe"><label for="fl-name">Name der Gruppe</label></div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-floating">
+            <select class="form-select" id="fl-cur"><option selected>Euro (€)</option><option>Schweizer Franken (CHF)</option></select>
+            <label for="fl-cur">Währung</label>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-floating"><textarea class="form-control" id="fl-note" placeholder="Notiz" style="height: 6rem">Pfand nicht vergessen.</textarea><label for="fl-note">Notiz</label></div>
+        </div>
+      </div>
+
+      <h3 class="demo-label">Validierung als Tooltip</h3>
+      <div class="row g-3 pb-5">
+        <div class="col-md-4 position-relative">
+          <label class="form-label" for="tt-amount">Betrag</label>
+          <input class="form-control is-invalid" id="tt-amount" value="-3,00">
+          <div class="invalid-tooltip">Der Betrag muss größer als 0 sein.</div>
+        </div>
+        <div class="col-md-4 position-relative">
+          <label class="form-label" for="tt-name">Name</label>
+          <input class="form-control is-valid" id="tt-name" value="WG Küche">
+          <div class="valid-tooltip">Passt.</div>
         </div>
       </div>
     </section>
@@ -777,7 +811,7 @@
         </div>
         <div class="col-lg-5">
           <h3 class="demo-label mt-0">Echt: natives &lt;dialog&gt;</h3>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dlg">Dialog öffnen</button>
+          <button type="button" class="btn btn-primary" data-demo-dialog="#dlg">Dialog öffnen</button>
           <p class="form-text mt-2">Esc oder „Abbrechen“ schließt.</p>
           <dialog class="modal" id="dlg" aria-labelledby="dlg-title">
             <div class="modal-dialog modal-dialog-centered">
@@ -820,7 +854,7 @@
         </div>
         <div class="col-lg-5">
           <h3 class="demo-label mt-0">Echt</h3>
-          <button type="button" class="btn btn-primary" data-bs-toggle="toast" data-bs-target="#liveToast">Toast zeigen</button>
+          <button type="button" class="btn btn-primary" data-demo-toast="#liveToast">Toast zeigen</button>
           <div class="toast-container position-fixed bottom-0 end-0 p-3">
             <div class="toast" id="liveToast" role="status" aria-live="polite" aria-atomic="true">
               <div class="toast-header">
@@ -835,9 +869,128 @@
       </div>
     </section>
 
-    <!-- 14 Spinner -->
+    <!-- 14 Overlays -->
+    <section class="demo-section" id="overlays">
+      <h2>14 · Dropdown, Offcanvas, Tooltip &amp; Popover</h2>
+      <p class="text-body-secondary">Das Verhalten (Öffnen, Positionieren, Fokus) kommt aus Bootstraps eigenem JavaScript; felt.css liefert nur das Aussehen.</p>
+      <div class="row g-4 align-items-start">
+        <div class="col-md-5 col-lg-4">
+          <h3 class="demo-label mt-0">Dropdown, statisch</h3>
+          <ul class="dropdown-menu d-block position-static">
+            <li><h6 class="dropdown-header">Ausgabe „Rewe“</h6></li>
+            <li><a class="dropdown-item" href="#overlays">Bearbeiten</a></li>
+            <li><a class="dropdown-item active" href="#overlays" aria-current="true">Gleich aufteilen</a></li>
+            <li><a class="dropdown-item" href="#overlays">Nach Anteilen aufteilen</a></li>
+            <li><a class="dropdown-item disabled" aria-disabled="true">Exportieren (nur Admins)</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><button class="dropdown-item text-danger" type="button">Löschen</button></li>
+          </ul>
+        </div>
+        <div class="col-md-7 col-lg-8">
+          <h3 class="demo-label mt-0">Echt</h3>
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <div class="dropdown">
+              <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Sortieren</button>
+              <ul class="dropdown-menu">
+                <li><button class="dropdown-item active" type="button">Neueste zuerst</button></li>
+                <li><button class="dropdown-item" type="button">Betrag</button></li>
+                <li><button class="dropdown-item" type="button">Bezahlt von</button></li>
+              </ul>
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary">Speichern</button>
+              <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"><span class="visually-hidden">Weitere Optionen</span></button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><button class="dropdown-item" type="button">Speichern und neu</button></li>
+                <li><button class="dropdown-item" type="button">Als Vorlage speichern</button></li>
+              </ul>
+            </div>
+            <div class="dropup">
+              <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Szene</button>
+              <ul class="dropdown-menu">
+                <li><button class="dropdown-item" type="button">Abendrot</button></li>
+                <li><button class="dropdown-item" type="button">Lesen</button></li>
+                <li><button class="dropdown-item" type="button">Kino</button></li>
+              </ul>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#oc-filter" aria-controls="oc-filter">Filter (Offcanvas)</button>
+            <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#oc-sheet" aria-controls="oc-sheet">Bottom Sheet</button>
+          </div>
+          <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-title="Alle Lichter im Wohnzimmer">Tooltip oben</button>
+            <button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Rechts daneben">Tooltip rechts</button>
+            <button type="button" class="btn btn-light" data-bs-toggle="popover" data-bs-title="Wie wird geteilt?" data-bs-content="Gleichmäßig auf alle vier Mitglieder; jede Person trägt 8,55 €.">Popover</button>
+          </div>
+        </div>
+      </div>
+      <div class="row g-4 mt-1 align-items-start">
+        <div class="col-md-6">
+          <h3 class="demo-label mt-0">Offcanvas, statisch</h3>
+          <!-- .showing instead of .show: Bootstrap's JS opens every .offcanvas.show on page load -->
+          <div class="demo-stage demo-dim p-0 overflow-hidden" style="height: 320px">
+            <div class="offcanvas offcanvas-start showing position-relative z-0 h-100" style="--w: 290px" tabindex="-1" aria-labelledby="oc-static-title">
+              <div class="offcanvas-header">
+                <h3 class="offcanvas-title" id="oc-static-title">Filter</h3>
+                <button type="button" class="btn-close" aria-label="Schließen"></button>
+              </div>
+              <div class="offcanvas-body vstack gap-3">
+                <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="oc-open" checked><label class="form-check-label" for="oc-open">Nur offene Salden</label></div>
+                <div>
+                  <label class="form-label" for="oc-range">Zeitraum</label>
+                  <select class="form-select" id="oc-range"><option>Dieser Monat</option><option>Letzte 90 Tage</option></select>
+                </div>
+                <button type="button" class="btn btn-primary">Anwenden</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h3 class="demo-label mt-0">Tooltip &amp; Popover, statisch</h3>
+          <div class="d-flex flex-wrap align-items-start gap-4 mb-4">
+            <div class="tooltip bs-tooltip-top show position-relative z-0" role="tooltip"><div class="tooltip-arrow" style="left: calc(50% - .4rem)"></div><div class="tooltip-inner">Kaffeemaschine: 1,2 kWh heute</div></div>
+            <div class="tooltip bs-tooltip-bottom show position-relative z-0 mt-2" role="tooltip"><div class="tooltip-arrow" style="left: calc(50% - .4rem)"></div><div class="tooltip-inner">Unten</div></div>
+          </div>
+          <div class="popover bs-popover-end position-relative z-0 ms-2" role="tooltip">
+            <div class="popover-arrow" style="top: calc(50% - .5rem)"></div>
+            <h3 class="popover-header">Wie wird geteilt?</h3>
+            <div class="popover-body">Gleichmäßig auf alle vier Mitglieder; jede Person trägt <strong>8,55 €</strong>.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="oc-filter" aria-labelledby="oc-filter-title">
+        <div class="offcanvas-header">
+          <h3 class="offcanvas-title" id="oc-filter-title">Filter</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Schließen"></button>
+        </div>
+        <div class="offcanvas-body vstack gap-3">
+          <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="oc2-open" checked><label class="form-check-label" for="oc2-open">Nur offene Salden</label></div>
+          <div>
+            <label class="form-label" for="oc2-range">Zeitraum</label>
+            <select class="form-select" id="oc2-range"><option>Dieser Monat</option><option>Letzte 90 Tage</option></select>
+          </div>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="offcanvas">Anwenden</button>
+        </div>
+      </div>
+      <div class="offcanvas offcanvas-bottom" tabindex="-1" id="oc-sheet" aria-labelledby="oc-sheet-title">
+        <div class="offcanvas-header">
+          <h3 class="offcanvas-title" id="oc-sheet-title">Schnell schalten</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Schließen"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="list-group">
+            <label class="list-group-item form-switch d-flex justify-content-between align-items-center">Kaffeemaschine <input class="form-check-input" type="checkbox" role="switch" checked></label>
+            <label class="list-group-item form-switch d-flex justify-content-between align-items-center">Stehlampe <input class="form-check-input" type="checkbox" role="switch"></label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15 Spinner -->
     <section class="demo-section" id="spinner">
-      <h2>14 · Spinner</h2>
+      <h2>15 · Spinner</h2>
       <div class="d-flex flex-wrap align-items-center gap-3">
         <div class="spinner-border" role="status"><span class="visually-hidden">Lädt …</span></div>
         <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Lädt …</span></div>
@@ -848,9 +1001,9 @@
       </div>
     </section>
 
-    <!-- 15 Cards -->
+    <!-- 16 Cards -->
     <section class="demo-section" id="cards">
-      <h2>15 · Card-Extras</h2>
+      <h2>16 · Card-Extras</h2>
       <div class="row g-4">
         <div class="col-md-5">
           <div class="card h-100">
@@ -891,11 +1044,31 @@
           </div>
         </div>
       </div>
+
+      <h3 class="demo-label">Lade-Platzhalter</h3>
+      <div class="row g-4">
+        <div class="col-md-5">
+          <div class="card" aria-hidden="true">
+            <div class="card-body">
+              <h3 class="card-title placeholder-glow"><span class="placeholder col-6"></span></h3>
+              <p class="card-text placeholder-glow"><span class="placeholder col-7"></span> <span class="placeholder col-4"></span> <span class="placeholder col-4"></span> <span class="placeholder col-6"></span></p>
+              <a class="btn btn-primary disabled placeholder col-4" aria-disabled="true"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <ul class="list-group placeholder-wave" aria-hidden="true">
+            <li class="list-group-item d-flex justify-content-between"><span class="placeholder col-5"></span><span class="placeholder col-2"></span></li>
+            <li class="list-group-item d-flex justify-content-between"><span class="placeholder col-4"></span><span class="placeholder col-2"></span></li>
+            <li class="list-group-item d-flex justify-content-between"><span class="placeholder col-6"></span><span class="placeholder col-2"></span></li>
+          </ul>
+        </div>
+      </div>
     </section>
 
-    <!-- 16 Prose -->
+    <!-- 17 Prose -->
     <section class="demo-section" id="prose">
-      <h2>16 · Prosa</h2>
+      <h2>17 · Prosa</h2>
       <article class="card">
         <div class="card-body" style="max-width: 72ch">
           <nav aria-label="breadcrumb">
@@ -953,9 +1126,9 @@
       </article>
     </section>
 
-    <!-- 17 Mobile -->
+    <!-- 18 Mobile -->
     <section class="demo-section" id="mobile">
-      <h2>17 · Mobil</h2>
+      <h2>18 · Mobil</h2>
       <p>Tab-Bar als <code>nav.navbar.fixed-bottom</code> mit <code>nav-pills nav-fill</code>, FAB per <code>position-fixed</code>. Das Telefon ist transformiert, damit <code>fixed</code> darin bleibt.</p>
       <div class="row g-4 justify-content-center">
 
@@ -1040,9 +1213,9 @@
       </div>
     </section>
 
-    <!-- 18 Grid & utilities -->
+    <!-- 19 Grid & utilities -->
     <section class="demo-section" id="utilities">
-      <h2>18 · Grid &amp; Utilities</h2>
+      <h2>19 · Grid &amp; Utilities</h2>
       <h3 class="demo-label mt-0">Grid</h3>
       <div class="row g-2 mb-2">
         <div class="col-12"><div class="p-2 border rounded bg-body-secondary text-center">col-12</div></div>
@@ -1125,9 +1298,9 @@
       </div>
     </section>
 
-    <!-- 19 Bootstrap docs 1:1 -->
+    <!-- 20 Bootstrap docs 1:1 -->
     <section class="demo-section" id="bootstrap">
-      <h2>19 · Bootstrap-Doku 1:1</h2>
+      <h2>20 · Bootstrap-Doku 1:1</h2>
       <p>Vier Beispiele, unverändert aus der Bootstrap-5.3-Dokumentation kopiert (List Group, Modal, Accordion, Pagination).</p>
       <div class="row g-4">
         <div class="col-lg-6">
@@ -1222,6 +1395,7 @@
     </main>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   <script>
     // look + theme switches
     (() => {
@@ -1241,44 +1415,17 @@
       }));
     })();
 
-    // minimal stand-in for Bootstrap's data-api: collapse, tab, modal (<dialog>), toast, dismiss
+    // Behaviour comes from Bootstrap's own JS (bootstrap.bundle, loaded above). Bootstrap leaves three things
+    // to the page: tooltips and popovers are opt-in, toasts are shown from code, and a native <dialog> opens itself.
     (() => {
-      const $ = s => document.querySelector(s);
-      const setOpen = (pane, open) => {
-        pane.classList.toggle("show", open);
-        document.querySelectorAll(`[data-bs-toggle=collapse][data-bs-target="#${pane.id}"]`).forEach(b => {
-          b.classList.toggle("collapsed", !open);
-          b.setAttribute("aria-expanded", open);
-        });
-      };
+      document.querySelectorAll("[data-bs-toggle=tooltip]").forEach(el => new bootstrap.Tooltip(el));
+      document.querySelectorAll("[data-bs-toggle=popover]").forEach(el => new bootstrap.Popover(el));
       document.addEventListener("click", e => {
-        if (e.target.matches("dialog.modal")) return e.target.close();
-        const el = e.target.closest("[data-bs-toggle], [data-bs-dismiss]");
-        if (!el) return;
-        if (el.tagName === "A") e.preventDefault();
-        const kind = el.dataset.bsToggle, dismiss = el.dataset.bsDismiss;
-        const target = kind && $(el.dataset.bsTarget || el.getAttribute("href"));
-        if (kind === "collapse" && target) {
-          const open = !target.classList.contains("show");
-          const parent = open && target.dataset.bsParent && $(target.dataset.bsParent);
-          if (parent) parent.querySelectorAll(".collapse.show").forEach(p => setOpen(p, false));
-          setOpen(target, open);
-        } else if (kind === "tab" && target) {
-          el.closest(".nav, .list-group").querySelectorAll("[data-bs-toggle=tab]").forEach(t => {
-            t.classList.toggle("active", t === el);
-            t.setAttribute("aria-selected", t === el);
-          });
-          target.parentElement.querySelectorAll(":scope > .tab-pane").forEach(p => p.classList.toggle("active", p === target));
-          target.parentElement.querySelectorAll(":scope > .tab-pane").forEach(p => p.classList.toggle("show", p === target));
-        } else if (kind === "modal" && target) {
-          target.showModal();
-        } else if (kind === "toast" && target) {
-          target.classList.toggle("show");
-          clearTimeout(target.timer);
-          target.timer = setTimeout(() => target.classList.remove("show"), 5000);
-        } else if (dismiss === "modal") el.closest("dialog")?.close();
-        else if (dismiss === "toast") el.closest(".toast")?.classList.remove("show");
-        else if (dismiss === "alert") el.closest(".alert")?.remove();
+        const toast = e.target.closest("[data-demo-toast]"), dialog = e.target.closest("[data-demo-dialog]");
+        if (toast) bootstrap.Toast.getOrCreateInstance(document.querySelector(toast.dataset.demoToast)).show();
+        if (dialog) document.querySelector(dialog.dataset.demoDialog).showModal();
+        if (e.target.matches("dialog.modal")) e.target.close();
+        if (e.target.closest("dialog.modal [data-bs-dismiss=modal]")) e.target.closest("dialog").close();
       });
     })();
   </script>
