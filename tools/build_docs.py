@@ -3,8 +3,7 @@
 
     python3 tools/build_docs.py            # plain python3, no packages
     python3 tools/build_docs.py --strict   # fail on missing pages or unknown classes
-    python3 tools/build_docs.py --site _site   # the published layout: home page at the root, the
-                                               # kitchen sink at kitchen-sink.html, docs under docs/
+    python3 tools/build_docs.py --site _site   # the published layout: home page at the root, docs under docs/
 
 Each fragment starts with a front-matter comment (title, description, optional layout) and holds the
 page body. Two tags are expanded:
@@ -326,7 +325,7 @@ def prev_next(current, prefix):
     return f'<nav class="bd-pager" aria-label="Pages">{"".join(links)}</nav>'
 
 
-def render(layout, meta, body, prefix, repo, kitchen, current=None):
+def render(layout, meta, body, prefix, repo, current=None):
     body, blocks = expand(body)
     body, toc = add_heading_ids(body)
     body = restore(body, blocks)
@@ -339,7 +338,6 @@ def render(layout, meta, body, prefix, repo, kitchen, current=None):
         "section": section_title,
         "root": prefix,
         "repo": repo,
-        "kitchen": kitchen,
         "repo_url": REPO_URL,
         "sidebar": sidebar(current, prefix) if current else "",
         "toc": toc_markup,
@@ -358,7 +356,7 @@ def render(layout, meta, body, prefix, repo, kitchen, current=None):
     if not toc_markup:
         out = re.sub(r"<!-- toc:start -->.*?<!-- toc:end -->", "", out, flags=re.S)
     out = re.sub(r"<!-- (?:toc):(?:start|end) -->", "", out)
-    for key in ("root", "repo", "kitchen"):
+    for key in ("root", "repo"):
         replacements["body"] = replacements["body"].replace("{{" + key + "}}", replacements[key])
     for key, value in replacements.items():
         if key != "body":
@@ -400,7 +398,6 @@ def main():
     strict = "--strict" in sys.argv
     site = Path(sys.argv[sys.argv.index("--site") + 1]).resolve() if "--site" in sys.argv else None
     out = site / "docs" if site else OUT
-    kitchen = "kitchen-sink.html" if site else "index.html"
     layout = (SRC / "_layout.html").read_text()
     known = known_classes() | RUNTIME_CLASSES
     problems = []
@@ -422,9 +419,9 @@ def main():
             missing = unknown_classes(body, known)
             if missing:
                 warn(f"{source.relative_to(ROOT)} uses classes felt.css does not define: {' '.join(sorted(missing))}", problems)
-        write(target, render(layout, meta, body, prefix, prefix + "../", kitchen, current))
+        write(target, render(layout, meta, body, prefix, prefix + "../", current))
         if site and name == "index":
-            write(site / "index.html", render(layout, meta, body, "docs/", "", kitchen, current))
+            write(site / "index.html", render(layout, meta, body, "docs/", "", current))
 
     print(f"built {len(jobs)} pages into {out}")
     if strict and problems:

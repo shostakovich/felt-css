@@ -2,7 +2,7 @@
 
 # felt-css
 
-**[Documentation](https://felt-css.rocu.de/)** · [Examples](https://felt-css.rocu.de/docs/examples/) · [Kitchen sink](https://felt-css.rocu.de/kitchen-sink.html)
+**[Documentation](https://felt-css.rocu.de/)** · [Examples](https://felt-css.rocu.de/docs/examples/)
 
 **Bootstrap, but made of wool felt.** A small, dependency-free CSS toolkit with Bootstrap 5 class names
 and two looks: a clean one for everyday work, and a cosy one where every card is cut from felt and every
@@ -162,7 +162,7 @@ python3 tools/build_docs.py --strict   # also fails on classes felt.css doesn't 
 ```
 
 Pushing to `main` publishes the site with GitHub Pages (`.github/workflows/pages.yml`): the docs home at
-the root, the kitchen sink at `kitchen-sink.html`, the docs under `docs/`.
+the root, the docs under `docs/`.
 
 ## Browser notes
 

@@ -191,10 +191,10 @@ description: Create consistent cross-browser and cross-device checkboxes and rad
 </example>
 
 <h2>Reverse</h2>
-<p>felt-css has no <code>.form-check-reverse</code>. Because <code>.form-check</code> is a flex row, putting the label before the input gives the same result for checkboxes, radios, and switches; the label's disabled style then needs your own CSS.</p>
+<p>felt-css has no <code>.form-check-reverse</code>. Because <code>.form-check</code> is a flex row, putting the label before the input and adding <a href="../../utilities/flex/#justify-content"><code>.justify-content-end</code></a> gives the same result for checkboxes, radios, and switches. The label's disabled style then needs your own CSS, as it relies on the label following the input.</p>
 
 <example>
-<div class="form-check form-switch">
+<div class="form-check form-switch justify-content-end">
   <label class="form-check-label" for="switchCheckReverse">Reverse switch checkbox input</label>
   <input class="form-check-input" type="checkbox" role="switch" id="switchCheckReverse">
 </div>

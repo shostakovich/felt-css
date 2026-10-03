@@ -30,7 +30,6 @@ jobs:
         run: |
           mkdir _site
           cp -r felt.css img docs _site/
-          cp index.html _site/kitchen-sink.html
           python3 tools/build_docs.py --site _site
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5

@@ -30,7 +30,6 @@
           <ul class="navbar-nav me-auto">
             <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
             <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
-            <li class="nav-item"><a class="nav-link" href="../../../index.html">Kitchen sink</a></li>
             <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
           </ul>
           <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
@@ -387,14 +386,14 @@
 <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 
 <h2 id="reverse">Reverse<a class="bd-anchor" href="#reverse" aria-label="Link to this section">#</a></h2>
-<p>felt-css has no <code>.form-check-reverse</code>. Because <code>.form-check</code> is a flex row, putting the label before the input gives the same result for checkboxes, radios, and switches; the label's disabled style then needs your own CSS.</p>
+<p>felt-css has no <code>.form-check-reverse</code>. Because <code>.form-check</code> is a flex row, putting the label before the input and adding <a href="../../utilities/flex/#justify-content"><code>.justify-content-end</code></a> gives the same result for checkboxes, radios, and switches. The label's disabled style then needs your own CSS, as it relies on the label following the input.</p>
 
 <div class="bd-example-snippet"><div class="bd-example">
-<div class="form-check form-switch">
+<div class="form-check form-switch justify-content-end">
   <label class="form-check-label" for="switchCheckReverse">Reverse switch checkbox input</label>
   <input class="form-check-input" type="checkbox" role="switch" id="switchCheckReverse">
 </div>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-switch"</span><span class="tok-punct">&gt;</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-switch justify-content-end"</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"switchCheckReverse"</span><span class="tok-punct">&gt;</span>Reverse switch checkbox input<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"switch"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"switchCheckReverse"</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
