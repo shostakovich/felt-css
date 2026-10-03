@@ -212,7 +212,8 @@ def column(sprites):
     size = (round(w * DPR / S), round(length * DPR / S))
     render(layers, w, length, out, size, groove=f"line {w / 2:.1f},-10 {w / 2:.1f},{length + 10:.1f}")
     print(f"{out.name}: {os.path.getsize(out)} bytes")
-    return f"    --seam-col-size: {MARGIN_CSS * 2}px {size[1] / DPR:g}px;"
+    # stitches 4/5 as long as the row's, so a rule only 1em tall still shows two whole ones
+    return f"    --seam-col-size: {MARGIN_CSS * 2}px {size[1] / DPR * .8:g}px;"
 
 
 def write_tokens(lines):

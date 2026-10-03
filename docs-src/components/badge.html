@@ -26,11 +26,11 @@ description: Documentation and examples for badges, our small count and labeling
 <p>Note that depending on how they are used, badges may be confusing for users of screen readers and similar assistive technologies. While the styling of badges provides a visual cue as to their purpose, these users will simply be presented with the content of the badge. Unless the context is clear (as with the “Notifications” example, where it is understood that the “4” is the number of notifications), consider including additional context with a visually hidden piece of additional text.</p>
 
 <h3>Positioned</h3>
-<p>Use utilities to modify a <code>.badge</code> and position it in the corner of a link or button. A felt-css badge has no light text by default, so pair a background color with its text color via <code>.text-bg-*</code>.</p>
+<p>Use utilities to modify a <code>.badge</code> and position it in the corner of a link or button.</p>
 <example>
 <button type="button" class="btn btn-primary position-relative">
   Inbox
-  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
     99+
     <span class="visually-hidden">unread messages</span>
   </span>

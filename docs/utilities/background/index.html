@@ -90,7 +90,7 @@
 <h2 id="background-color">Background color<a class="bd-anchor" href="#background-color" aria-label="Link to this section">#</a></h2>
 <p>Similar to the contextual text color classes, set the background of an element to any contextual class. Background utilities <strong>do not set <code>color</code></strong>, so in some cases you'll want to use <code>.text-*</code> <a href="../colors/">color utilities</a>, or the <a href="../../helpers/color-background/"><code>.text-bg-*</code> helpers</a> that set both.</p>
 <div class="bd-callout bd-callout-info">
-  <p>Unlike in Bootstrap, every <code>.bg-*</code> utility responds to color modes, not just the <code>.bg-*-subtle</code> ones: all theme colors are <code>light-dark()</code> pairs. That includes <code>.bg-light</code> and <code>.bg-dark</code>, so pair <code>.bg-light</code> with <code>.text-body</code> rather than <code>.text-dark</code>.</p>
+  <p>Unlike in Bootstrap, the <code>.bg-*</code> utilities of the theme colors respond to color modes: they are <code>light-dark()</code> pairs. <code>.bg-light</code> and <code>.bg-dark</code> keep their tone like Bootstrap's, so <code>.bg-light .text-dark</code> and <code>.bg-dark .text-light</code> stay readable in both modes.</p>
 </div>
 <div class="bd-example-snippet"><div class="bd-example">
 <div class="p-3 mb-2 bg-primary text-white">.bg-primary</div>
@@ -105,7 +105,7 @@
 <div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis">.bg-warning-subtle</div>
 <div class="p-3 mb-2 bg-info text-white">.bg-info</div>
 <div class="p-3 mb-2 bg-info-subtle text-info-emphasis">.bg-info-subtle</div>
-<div class="p-3 mb-2 bg-light text-body">.bg-light</div>
+<div class="p-3 mb-2 bg-light text-dark">.bg-light</div>
 <div class="p-3 mb-2 bg-light-subtle text-light-emphasis">.bg-light-subtle</div>
 <div class="p-3 mb-2 bg-dark text-white">.bg-dark</div>
 <div class="p-3 mb-2 bg-dark-subtle text-dark-emphasis">.bg-dark-subtle</div>
@@ -127,7 +127,7 @@
 <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-3 mb-2 bg-warning-subtle text-warning-emphasis"</span><span class="tok-punct">&gt;</span>.bg-warning-subtle<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-3 mb-2 bg-info text-white"</span><span class="tok-punct">&gt;</span>.bg-info<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-3 mb-2 bg-info-subtle text-info-emphasis"</span><span class="tok-punct">&gt;</span>.bg-info-subtle<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
-<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-3 mb-2 bg-light text-body"</span><span class="tok-punct">&gt;</span>.bg-light<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-3 mb-2 bg-light text-dark"</span><span class="tok-punct">&gt;</span>.bg-light<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-3 mb-2 bg-light-subtle text-light-emphasis"</span><span class="tok-punct">&gt;</span>.bg-light-subtle<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-3 mb-2 bg-dark text-white"</span><span class="tok-punct">&gt;</span>.bg-dark<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-3 mb-2 bg-dark-subtle text-dark-emphasis"</span><span class="tok-punct">&gt;</span>.bg-dark-subtle<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
@@ -138,7 +138,7 @@
 <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-3 mb-2 bg-white text-dark"</span><span class="tok-punct">&gt;</span>.bg-white<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-3 mb-2 bg-transparent text-body"</span><span class="tok-punct">&gt;</span>.bg-transparent<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 <div class="bd-callout bd-callout-felt">
-  <p>In the felt look the solid theme fills are cut from saturated felt, and <code>.bg-body*</code> and <code>.bg-*-subtle</code> from the same cream (or charcoal) felt as the page. A fill made see-through with <code>.bg-opacity-*</code> is a tint instead: the felt underneath shows through it.</p>
+  <p>In the felt look the solid theme fills are cut from saturated felt (<code>.bg-light</code> from cream felt, in both modes), and <code>.bg-body*</code> and <code>.bg-*-subtle</code> from the same cream (or charcoal) felt as the page. A fill made see-through with <code>.bg-opacity-*</code> is a tint instead: the felt underneath shows through it.</p>
 </div>
 
 <h2 id="background-gradient">Background gradient<a class="bd-anchor" href="#background-gradient" aria-label="Link to this section">#</a></h2>
@@ -151,7 +151,7 @@
 <div class="p-3 mb-2 bg-danger bg-gradient text-white">.bg-danger.bg-gradient</div>
 <div class="p-3 mb-2 bg-warning bg-gradient text-dark">.bg-warning.bg-gradient</div>
 <div class="p-3 mb-2 bg-info bg-gradient text-white">.bg-info.bg-gradient</div>
-<div class="p-3 mb-2 bg-light bg-gradient text-body">.bg-light.bg-gradient</div>
+<div class="p-3 mb-2 bg-light bg-gradient text-dark">.bg-light.bg-gradient</div>
 <div class="p-3 mb-2 bg-dark bg-gradient text-white">.bg-dark.bg-gradient</div>
 <div class="p-3 mb-2 bg-black bg-gradient text-white">.bg-black.bg-gradient</div>
 </div></div>
