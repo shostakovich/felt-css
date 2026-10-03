@@ -68,9 +68,13 @@ Some things need no JavaScript at all: floating labels, `<details class="accordi
 Bootstrap names, Bootstrap behaviour, felt finish:
 
 - **Layout:** `.container(-fluid|-sm|-md|-lg)`, Bootstrap's grid (`.row`, `.col-*`, `.row-cols-*`,
-  `.g-*`, `.offset-md-*`), `.hstack`, `.vstack`
-- **Utilities:** spacing, display, flex, text, colour, background, border, rounded, shadow, position,
-  sizing, `z-*`, `.ratio`, `.visually-hidden`, as in Bootstrap 5.3 (and `!important` like there)
+  `.g-*`, `.offset-*`), `.hstack`, `.vstack`
+- **Utilities:** all of Bootstrap 5.3's (and `!important` like there): spacing, display, flex, text,
+  colour with `*-opacity-*`, background, border, rounded, shadow, overflow, position, sizing, `z-*`, links
+  (`.link-*`, `.link-underline-*`, `.link-offset-*`), `.focus-ring`, `.icon-link`, `.vr`, `.ratio`,
+  `.visually-hidden`. Grid, display, flex, order, spacing, gap, text alignment, float, object-fit and
+  sticky also come per breakpoint (`-sm`, `-md`, `-lg`; no `-xl`/`-xxl`), e.g. `.px-md-4`; `.d-print-*`
+  for print
 - **Prose:** headings, `.display-*`, `.lead`, lists, `blockquote`, `figure`, `code`/`pre`/`kbd`, `mark`, `hr`
 - **Navbar and nav:** `.navbar` with `.navbar-expand-*`, `.navbar-toggler`, `.navbar-collapse`,
   `.fixed-top|bottom`; `.nav-pills`, `.nav-tabs`, `.nav-underline`, `.nav-fill|justified`, `.tab-content`
@@ -119,7 +123,7 @@ active tab gets a felt chip behind its icon.
 - **Opt-out friendly.** All felt rules sit in `@layer felt` behind `:where([data-look="felt"])`, so they
   have zero specificity and your own CSS always wins.
 
-Weight: `felt.css` is about 25 KB gzipped, all images together about 42 KB.
+Weight: `felt.css` is about 33 KB gzipped, all images together about 42 KB.
 
 ## Rebuilding the assets
 
@@ -133,6 +137,15 @@ python3 tools/build_assets.py   # needs numpy and ImageMagick
 
 Want chunkier stitches or rounder corners? Change `STITCH_CSS`, `GAP_CSS` or `SHAPES` at the top of the
 script and run it again.
+
+The grid and the repetitive utilities (everything per breakpoint, the colour helpers with their
+opacities, rounded corners) are written the same way, by `tools/build_utilities.py` between the `grid:`,
+`families:` and `utilities:` markers. Change the lists at its top (spacers, breakpoints, colours, …),
+not the generated lines:
+
+```sh
+python3 tools/build_utilities.py   # plain python3, no packages
+```
 
 ## Browser notes
 
