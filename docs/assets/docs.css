@@ -86,12 +86,13 @@
 .bd-callout-felt::before { content: "🧵 In felt"; display: block; margin-bottom: var(--space-1); font-weight: 700; }
 
 /* ------------------------------------------------------------ examples and code */
-.bd-example-snippet { margin-block: var(--space-3) var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+/* no overflow: hidden on the frame, so live dropdowns and popovers can leave it */
+.bd-example-snippet { margin-block: var(--space-3) var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-lg); }
 .bd-example { position: relative; padding: var(--space-4); }
 .bd-example::after { content: ""; display: block; clear: both; }
 .bd-example > :last-child { margin-bottom: 0; }
 .bd-example-snippet > .bd-code { border-top: 1px solid var(--border); }
-.bd-example-snippet > .bd-code pre { border: 0; border-radius: 0; }
+.bd-example-snippet > .bd-code pre { border: 0; border-radius: 0 0 calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px); }
 
 .bd-code { position: relative; margin-block: var(--space-3) var(--space-4); }
 .bd-example-snippet > .bd-code { margin: 0; }
@@ -111,7 +112,7 @@
 .bd-example > .form-control + .form-control, .bd-example > .form-select + .form-select { margin-top: .5rem; }
 .bd-example > .progress + .progress, .bd-example > .alert + .alert, .bd-example > .nav + .nav, .bd-example > .navbar + .navbar, .bd-example > .card + .card, .bd-example > .list-group + .list-group, .bd-example > .pagination + .pagination, .bd-example > .toast + .toast { margin-top: var(--space-3); }
 
-.bd-example > :is(.dropdown, .dropup, .dropend, .dropstart) { display: inline-block; }
+.bd-example > :is(.dropdown, .dropup, .dropend, .dropstart):not(.btn-group) { display: inline-block; }
 
 /* grid and flex visualisation */
 .bd-example-row :is(.row > *, .col, [class^="col-"]) { padding-block: .75rem; background-color: color-mix(in oklab, var(--primary) 12%, transparent); border: 1px solid color-mix(in oklab, var(--primary) 30%, transparent); }
