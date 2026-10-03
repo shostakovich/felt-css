@@ -7,10 +7,12 @@
 /* ---------------------------------------------------------------- reset */
 @layer reset {
   *, *::before, *::after { box-sizing: border-box; }
-  body, h1, h2, h3, h4, p, figure, blockquote, dl, dd { margin: 0; }
-  img, svg { display: block; max-width: 100%; }
-  input, button, select, textarea { font: inherit; color: inherit; }
+  body { margin: 0; }
+  img, svg { max-width: 100%; vertical-align: middle; }
+  input, button, select, textarea { margin: 0; font: inherit; color: inherit; }
   button { cursor: pointer; }
+  textarea { resize: vertical; }
+  [hidden] { display: none !important; }
 }
 
 /* --------------------------------------------------------------- tokens */
@@ -24,36 +26,81 @@
     --taupe: #7a6e60;
     --navy: #1e2b45;
 
-    /* semantic */
-    --primary: var(--denim);
-    --primary-ink: #fff;
-    --secondary: var(--taupe);
-    --secondary-ink: #fff;
-    --success: var(--moss);
-    --success-ink: #fff;
-    --danger: var(--tomato);
-    --danger-ink: #fff;
-    --warning: var(--mustard);
-    --warning-ink: #3a2a06;
-    /* dark variants for text on tinted surfaces (Bootstrap's *-text-emphasis), >= 4.5:1 */
-    --primary-emphasis: #26406a;
-    --secondary-emphasis: #4a4136;
-    --success-emphasis: #36501d;
-    --danger-emphasis: #7d2a1b;
-    --warning-emphasis: #6b4e12;
+    --petrol: #2b7a80;
 
-    --body-bg: #f6f7f9;
-    --surface: #fff;
-    --surface-sunk: #f1f3f5;
-    --surface-raised: #f8f9fa;
-    --field: #fff;
-    --border: #e2e5ea;
-    --text: #1f2633;
-    --muted: #677084;
-    --focus: color-mix(in oklab, var(--primary) 30%, transparent);
+    /* Colours are written as light-dark(light, dark): the theme follows color-scheme,
+     * which is "light dark" (system) by default and pinned by data-bs-theme. */
+    color-scheme: light dark;
+
+    /* semantic: fill, ink on fill, emphasis (text on tints), text (coloured text on the page).
+     * Dark mode mutes the fills a little: they glare less and white ink stays >= 4.5:1. */
+    --primary: light-dark(var(--denim), #385c93);
+    --primary-ink: #fff;
+    --secondary: light-dark(var(--taupe), #6a5f52);
+    --secondary-ink: #fff;
+    --success: light-dark(var(--moss), #527530);
+    --success-ink: #fff;
+    --danger: light-dark(var(--tomato), #b23f29);
+    --danger-ink: #fff;
+    --warning: light-dark(var(--mustard), #cf9520);
+    --warning-ink: #3a2a06;
+    --info: light-dark(var(--petrol), #276f75);
+    --info-ink: #fff;
+    --light: light-dark(#f8f9fa, #3b4148);
+    --light-ink: light-dark(#1f2633, #e9ecef);
+    --dark: light-dark(#212529, #111315);
+    --dark-ink: #f8f9fa;
+    /* text on tinted surfaces (Bootstrap's *-text-emphasis), >= 4.5:1 */
+    --primary-emphasis: light-dark(#26406a, #a9c4ee);
+    --secondary-emphasis: light-dark(#4a4136, #d6cdbf);
+    --success-emphasis: light-dark(#36501d, #b0d18c);
+    --danger-emphasis: light-dark(#7d2a1b, #f3a593);
+    --warning-emphasis: light-dark(#6b4e12, #f1cb72);
+    --info-emphasis: light-dark(#1b4f53, #94d3d6);
+    --light-emphasis: light-dark(#495057, #dee2e6);
+    --dark-emphasis: light-dark(#343a40, #adb5bd);
+    --primary-text: light-dark(var(--primary), #8fb2e8);
+    --secondary-text: light-dark(var(--secondary), #c4b9aa);
+    --success-text: light-dark(#4e6f2c, #98c26c);
+    --danger-text: light-dark(var(--danger), #ef8c76);
+    --warning-text: light-dark(#8a5f0c, var(--warning));
+    --info-text: light-dark(var(--info), #6cc3c8);
+
+    --body-bg: light-dark(#f6f7f9, #212529);
+    --surface: light-dark(#fff, #2b3035);
+    --surface-sunk: light-dark(#f1f3f5, #1c1f23);
+    --surface-raised: light-dark(#f8f9fa, #343a40);
+    --field: light-dark(#fff, #212529);
+    --border: light-dark(#e2e5ea, #41474f);
+    --text: light-dark(#1f2633, #dee2e6);
+    --muted: light-dark(#677084, #a2aab4);
+    --subtle-text: light-dark(#8a92a3, #7d858f);
+    --link: light-dark(var(--primary), #8fb2e8);
+    --field-disabled: light-dark(#f1f3f5, #343a40);
+    /* interaction states change the surface, never the text: a step darker in light mode, lighter in dark mode */
+    --surface-hover: light-dark(#eef0f3, color-mix(in oklab, var(--text) 8%, var(--surface)));
+    --surface-pressed: light-dark(#d4d9e0, color-mix(in oklab, var(--text) 18%, var(--surface)));
+    /* hover mixes the fill towards --state-ink, pressing towards --press-ink: away from the ink, so it keeps its contrast */
+    --state-ink: light-dark(#000, #fff);
+    --press-ink: #000;
+    --hover-mix: 8%;   /* the most the success fill takes in dark mode before white ink drops below 4.5:1 */
+    --active-mix: 14%;
+    --select-mix: 18%;   /* a neutral button pressed or chosen: a clear step past its hover */
+    /* the empty part of progress bars */
+    --track: light-dark(#e3e7ec, #3a4047);
+    /* what floats above the page (menus, popovers, modals, offcanvas): never darker than what it lies on */
+    --surface-overlay: light-dark(#fff, #343a40);
+    /* input-group addons and the file button: a step lighter than the field in dark mode, not a hole */
+    --field-addon: light-dark(#f1f3f5, #2b3035);
+    /* control outlines (checkboxes, radios) that have to read at >= 3:1 */
+    --border-strong: light-dark(#858f9e, #737b84);
+    --focus: light-dark(color-mix(in oklab, var(--primary) 50%, transparent), color-mix(in oklab, var(--link) 60%, transparent));
+    --backdrop: light-dark(rgb(16 24 40 / .45), rgb(0 0 0 / .6));
 
     --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-heading: var(--font);
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --container-max: 1080px;
 
     --radius-sm: 6px;
     --radius: 10px;
@@ -66,19 +113,65 @@
     --space-4: 1.5rem;
     --space-5: 3rem;
 
-    --shadow-sm: 0 1px 2px rgb(16 24 40 / .06);
-    --shadow: 0 1px 3px rgb(16 24 40 / .08), 0 1px 2px rgb(16 24 40 / .04);
+    --shadow-sm: inset 0 1px 0 light-dark(transparent, rgb(255 255 255 / .04)), 0 1px 2px light-dark(rgb(16 24 40 / .06), rgb(0 0 0 / .3));
+    --shadow: inset 0 1px 0 light-dark(transparent, rgb(255 255 255 / .04)), 0 1px 3px light-dark(rgb(16 24 40 / .08), rgb(0 0 0 / .35)), 0 1px 2px light-dark(rgb(16 24 40 / .04), rgb(0 0 0 / .2));
+    --shadow-lg: 0 12px 32px -8px light-dark(rgb(16 24 40 / .22), rgb(0 0 0 / .6)), 0 2px 6px light-dark(rgb(16 24 40 / .08), rgb(0 0 0 / .3));
+
+    /* tinted surfaces derive from the fill and the surface, so they follow the theme */
+    --primary-subtle: color-mix(in oklab, var(--primary) 14%, var(--surface));
+    --secondary-subtle: color-mix(in oklab, var(--secondary) 14%, var(--surface));
+    --success-subtle: color-mix(in oklab, var(--success) 14%, var(--surface));
+    --danger-subtle: color-mix(in oklab, var(--danger) 14%, var(--surface));
+    --warning-subtle: color-mix(in oklab, var(--warning) 18%, var(--surface));
+    --info-subtle: color-mix(in oklab, var(--info) 14%, var(--surface));
+    --light-subtle: color-mix(in oklab, var(--light) 50%, var(--surface));
+    --dark-subtle: color-mix(in oklab, var(--dark) 20%, var(--surface));
+    --primary-border-subtle: color-mix(in oklab, var(--primary) 32%, var(--surface));
+    --secondary-border-subtle: color-mix(in oklab, var(--secondary) 32%, var(--surface));
+    --success-border-subtle: color-mix(in oklab, var(--success) 32%, var(--surface));
+    --danger-border-subtle: color-mix(in oklab, var(--danger) 32%, var(--surface));
+    --warning-border-subtle: color-mix(in oklab, var(--warning) 40%, var(--surface));
+    --info-border-subtle: color-mix(in oklab, var(--info) 32%, var(--surface));
+    --light-border-subtle: var(--border);
+    --dark-border-subtle: color-mix(in oklab, var(--dark) 40%, var(--surface));
+    /* the select chevron is an image and can't follow color-scheme: one per look and theme */
+    --chevron-clean: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 6 4.5 4.5L12.5 6' fill='none' stroke='%23677084' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --chevron-clean-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 6 4.5 4.5L12.5 6' fill='none' stroke='%23a2aab4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --chevron-felt: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 6 4.5 4.5L12.5 6' fill='none' stroke='%231e2b45' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --chevron-felt-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 6 4.5 4.5L12.5 6' fill='none' stroke='%23efe7da' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --select-chevron: var(--chevron-clean);
+    --disabled-opacity: .55;
   }
+  [data-bs-theme="light"] { color-scheme: light; }
+  [data-bs-theme="dark"] { color-scheme: dark; }
 
   :root[data-look="felt"] {
-    --body-bg: #e7dccb;
-    --surface: #faf5ee;
-    --surface-raised: #fffcf7;
-    --surface-sunk: #ece4d4;
-    --field: #fcfaf5;
-    --border: #e2d8c6;
-    --text: var(--navy);
-    --muted: #6d6656;
+    --light: light-dark(#f3ece0, #4a443d);
+    --light-ink: light-dark(var(--navy), #efe7da);
+    --dark: light-dark(var(--navy), #202840);
+    --body-bg: light-dark(#e7dccb, #242220);
+    --surface: light-dark(#faf5ee, #34312d);
+    --surface-raised: light-dark(#fffcf7, #413c37);
+    --surface-sunk: light-dark(#ece4d4, #2d2a27);
+    --surface-overlay: light-dark(#fdf9f2, #48423c);
+    --field-disabled: light-dark(#ece4d4, #3a3631);   /* dark: no longer a hole, flush with the felt */
+    --field: light-dark(#fffdf8, #2b2724);
+    --field-addon: light-dark(#f3eee4, #3a3530);
+    --border: light-dark(#c9bba3, #48423b);
+    --border-strong: light-dark(#847b6a, #857a6c);
+    --dark-subtle: color-mix(in oklab, var(--secondary) 18%, var(--surface));
+    --text: light-dark(var(--navy), #efe7da);
+    --muted: light-dark(#665f50, #b8ad9c);
+    --subtle-text: light-dark(#8d8574, #8f8676);
+    /* coloured text sits on the darker felt page as well, so it is a shade deeper */
+    --link: light-dark(#34578c, #8fb2e8);
+    --primary-text: var(--link);
+    --secondary-text: light-dark(#5c5247, #c4b9aa);
+    --success-text: light-dark(#46642a, #98c26c);
+    --danger-text: light-dark(#a33a25, #ef8c76);
+    --warning-text: light-dark(#7b560c, var(--warning));
+    --info-text: light-dark(#22666b, #6cc3c8);
+    --backdrop: light-dark(rgb(50 35 15 / .26), rgb(10 8 5 / .5));
 
     --radius-sm: 5px;
     --radius: 12px;
@@ -91,12 +184,39 @@
     --felt-light-size: 256px;
     --felt: url("img/felt.webp");
     --felt-size: 256px;
+    --felt-dark: url("img/felt-dark.webp");
+    /* the sheet all light-felt pieces are cut from; charcoal in dark mode (see below) */
+    --sheet: var(--felt-light);
+    --sheet-size: var(--felt-light-size);
+    --sheet-blend: multiply;
     --shadow-felt:
-      0 0 1px .5px rgb(236 229 217 / .55),
-      inset 0 -2px 0 rgb(0 0 0 / .05),
-      0 1px 0 rgb(90 70 40 / .10),
-      0 6px 14px -6px rgb(90 70 40 / .25);
+      0 0 1px .5px light-dark(transparent, rgb(0 0 0 / .35)),
+      0 0 0 .5px light-dark(transparent, rgb(255 240 220 / .06)),
+      inset 0 -2px 0 light-dark(rgb(0 0 0 / .05), rgb(0 0 0 / .14)),
+      inset 0 1px 0 light-dark(transparent, rgb(255 240 220 / .09)),
+      0 1px 0 light-dark(rgb(90 70 40 / .10), rgb(0 0 0 / .45)),
+      0 6px 14px -6px light-dark(rgb(90 70 40 / .25), rgb(0 0 0 / .6));
     --patch-dome: radial-gradient(120% 95% at 35% 10%, rgb(255 255 255 / .16), transparent 60%);
+    /* felt details: grooves, controls and shadows, so every piece agrees on light and depth */
+    /* a groove is the felt itself pressed in: a translucent shade, so the fibres of the piece run through */
+    --felt-groove: light-dark(rgb(90 70 40 / .13), rgb(0 0 0 / .3));
+    --felt-knob: light-dark(#fbf7ee, #e4dccd);
+    --field-invalid: light-dark(#fdf3ee, #3a2823);
+    --felt-cut: light-dark(#2a1a08, #000);
+    --felt-edge-light: light-dark(#cbbca2, #1d1a17);
+    --felt-shadow-near: light-dark(rgb(60 40 15 / .18), rgb(0 0 0 / .35));
+    --felt-shadow-far: light-dark(rgb(60 40 15 / .28), rgb(0 0 0 / .5));
+    --felt-inset: light-dark(rgb(70 50 20 / .25), rgb(0 0 0 / .5));
+    --felt-inset-field: light-dark(rgb(60 40 20 / .08), rgb(0 0 0 / .3));
+    --felt-highlight: light-dark(rgb(255 255 255 / .5), rgb(255 240 220 / .07));
+    /* interaction states on felt are a translucent shade, so the fibres of the piece run through */
+    --surface-hover: light-dark(rgb(90 70 40 / .07), rgb(255 240 220 / .06));
+    --surface-pressed: light-dark(rgb(90 70 40 / .18), rgb(255 240 220 / .14));
+    /* a fold pressed into one piece, where two parts of it meet (left edge) */
+    --felt-fold: inset 1px 0 0 color-mix(in srgb, var(--felt-inset) 55%, transparent), inset 2px 0 0 color-mix(in srgb, var(--felt-highlight) 40%, transparent);
+    --felt-fold-y: inset 0 1px 0 color-mix(in srgb, var(--felt-inset) 55%, transparent), inset 0 2px 0 color-mix(in srgb, var(--felt-highlight) 40%, transparent);
+    --patch-seam-filter: brightness(.9);
+    --patch-seam-strength: .4;
 
     /* Stitched seams: 9-slice images of real thread (tools/build_assets.py), tinted by hard-light.
      * Default thread is for light felt: a darker tone of the felt underneath. */
@@ -105,14 +225,53 @@
     --seam-lg-slice: 24; --seam-lg-width: 12px;
     --seam-md-slice: 20; --seam-md-width: 10px;
     --seam-pill-slice: 40; --seam-pill-width: 20px;
-    --seam-row-size: 10.5px 6px;
+    --seam-row-size: 30px 6px;
     /* stitches:end */
     --seam-img: url("img/seam-md.webp");
     --seam-slice: var(--seam-md-slice);
     --seam-width: var(--seam-md-width);
     --seam-inset: 5px;
-    --seam-filter: brightness(.42) sepia(.3);
+    --seam-filter: brightness(.42) sepia(.3) drop-shadow(0 .5px 0 rgb(255 255 255 / .3));
     --seam-strength: .6;
+    --seam-row-strength: .7;   /* dividers inside a piece, relative to its outer seam */
+    --disabled-tone: 50%; --disabled-ink: 68%;
+    --tip-felt: var(--felt); --tip-blend: soft-light;
+    --select-chevron: var(--chevron-felt);
+  }
+
+  /* Dark mode for what light-dark() can't express (images, filters, blend modes, opacities): the
+   * system setting unless pinned light, or any data-bs-theme="dark" subtree. Charcoal felt shows its
+   * fibres in soft-light; the thread is a warm grey, a little lighter than the felt. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-bs-theme="light"]) { --select-chevron: var(--chevron-clean-dark); --disabled-opacity: .45; }
+    :root[data-look="felt"]:not([data-bs-theme="light"]) {
+      --sheet: var(--felt-dark); --sheet-blend: soft-light;
+      --seam-filter: brightness(.6) sepia(.25) drop-shadow(0 1px 0 rgb(0 0 0 / .7)) drop-shadow(0 -.5px 0 rgb(255 240 220 / .12)); --seam-strength: .46; --seam-row-strength: .56;
+      --patch-seam-filter: brightness(.8); --patch-seam-strength: .3;
+      --tip-felt: var(--felt-light); --tip-blend: multiply;
+      --disabled-tone: 35%; --disabled-ink: 80%;
+      --page-veil: color-mix(in srgb, var(--body-bg) 30%, transparent);
+      --select-chevron: var(--chevron-felt-dark);
+    }
+  }
+  [data-bs-theme="dark"] { --select-chevron: var(--chevron-clean-dark); --disabled-opacity: .45; }
+  :root[data-look="felt"][data-bs-theme="dark"], :root[data-look="felt"] [data-bs-theme="dark"] {
+    --sheet: var(--felt-dark); --sheet-blend: soft-light;
+    --seam-filter: brightness(.6) sepia(.25) drop-shadow(0 1px 0 rgb(0 0 0 / .7)) drop-shadow(0 -.5px 0 rgb(255 240 220 / .12)); --seam-strength: .46; --seam-row-strength: .56;
+    --patch-seam-filter: brightness(.8); --patch-seam-strength: .3;
+    --tip-felt: var(--felt-light); --tip-blend: multiply;
+    --disabled-tone: 35%; --disabled-ink: 80%;
+    --page-veil: color-mix(in srgb, var(--body-bg) 30%, transparent);
+    --select-chevron: var(--chevron-felt-dark);
+  }
+  [data-bs-theme="light"] { --select-chevron: var(--chevron-clean); --disabled-opacity: .55; }
+  :root[data-look="felt"] [data-bs-theme="light"] {
+    --sheet: var(--felt-light); --sheet-blend: multiply;
+    --seam-filter: brightness(.42) sepia(.3) drop-shadow(0 .5px 0 rgb(255 255 255 / .3)); --seam-strength: .6; --seam-row-strength: .7;
+    --tip-felt: var(--felt); --tip-blend: soft-light;
+    --disabled-tone: 50%; --disabled-ink: 68%; --page-veil: transparent;
+    --patch-seam-filter: brightness(.9); --patch-seam-strength: .4;
+    --select-chevron: var(--chevron-felt);
   }
 }
 
@@ -126,21 +285,187 @@
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; font-weight: 700; }
-  h1 { font-size: 2rem; }
-  h2 { font-size: 1.375rem; }
-  h3 { font-size: 1.125rem; }
-  a { color: var(--primary); }
+  /* colour is inherited as a resolved value, so a re-themed subtree re-reads it */
+  [data-bs-theme] { color: var(--text); }
+  /* prose spacing follows Bootstrap's Reboot */
+  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { margin: 0 0 .5rem; font-family: var(--font-heading); line-height: 1.2; font-weight: 700; }
+  h1, .h1 { font-size: 2rem; }
+  h2, .h2 { font-size: 1.375rem; }
+  h3, .h3 { font-size: 1.125rem; }
+  h4, .h4 { font-size: 1rem; }
+  h5, .h5 { font-size: .9375rem; }
+  h6, .h6 { font-size: .875rem; }
+  p, ul, ol, dl, blockquote, figure, pre, address { margin: 0 0 1rem; }
+  ul, ol { padding-left: 2rem; }
+  ul ul, ol ol, ul ol, ol ul { margin-bottom: 0; }
+  dt { font-weight: 700; }
+  dd { margin: 0 0 .5rem; }
+  b, strong { font-weight: bolder; }
+  small, .small { font-size: .875em; }
+  sub, sup { position: relative; font-size: .75em; line-height: 0; vertical-align: baseline; }
+  sub { bottom: -.25em; }
+  sup { top: -.5em; }
+  mark, .mark { padding: .1875em; background-color: var(--warning-subtle); color: inherit; }
+  abbr[title] { text-decoration: underline dotted; cursor: help; text-decoration-skip-ink: none; }
+  address { font-style: normal; }
+  hr { margin: 1rem 0; border: 0; border-top: 1px solid; color: inherit; opacity: .25; }
+  pre, code, kbd, samp { font-family: var(--font-mono); font-size: .875em; }
+  pre { display: block; padding: var(--space-3); overflow: auto; background: var(--surface-sunk); border: 1px solid var(--border); border-radius: var(--radius); }
+  pre code { font-size: inherit; color: inherit; word-break: normal; }
+  code { color: var(--danger-emphasis); overflow-wrap: break-word; }
+  kbd { padding: .2rem .4rem; border-radius: var(--radius-sm); background: var(--dark); color: var(--dark-ink); }
+  kbd kbd { padding: 0; font-size: 1em; font-weight: 700; }
+  table { caption-side: bottom; border-collapse: collapse; }
+  caption { padding-block: .5rem; color: var(--muted); text-align: left; }
+  th { text-align: inherit; }
+  label { display: inline-block; }
+  fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+  legend { float: left; width: 100%; margin-bottom: .5rem; padding: 0; font-size: 1.5rem; line-height: inherit; }
+  legend + * { clear: left; }
+  /* no trailing space inside components that hold prose */
+  :where(.card-body, .alert, .blockquote) > :last-child { margin-bottom: 0; }
+
+  .lead { font-size: 1.25rem; }
+  .display-1, .display-2, .display-3, .display-4 { font-weight: 800; line-height: 1.1; letter-spacing: -.02em; }
+  .display-1 { font-size: clamp(2.5rem, 9vw, 4.5rem); }
+  .display-2 { font-size: clamp(2.25rem, 8vw, 4rem); }
+  .display-3 { font-size: clamp(2rem, 7vw, 3.5rem); }
+  .display-4 { font-size: clamp(1.75rem, 6vw, 3rem); }
+  .blockquote { font-size: 1.25rem; }
+  .blockquote-footer { margin: -1rem 0 1rem; font-size: .875em; color: var(--muted); }
+  .blockquote-footer::before { content: "\2014\00A0"; }
+  .figure { display: inline-block; }
+  .figure-img { margin-bottom: .5rem; line-height: 1; }
+  .figure-caption { font-size: .875em; color: var(--muted); }
+  .list-unstyled, .list-inline { padding-left: 0; list-style: none; }
+  .list-inline-item { display: inline-block; }
+  .list-inline-item:not(:last-child) { margin-right: .5rem; }
+  .initialism { font-size: .875em; text-transform: uppercase; }
+  a { color: var(--link); }
   :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 }
 
 /* ----------------------------------------------------------- components */
 @layer components {
   /* layout */
-  .container { width: 100%; max-width: 1080px; margin-inline: auto; padding-inline: var(--space-3); }
-  .grid { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min, 220px)), 1fr)); }
-  .stack { display: flex; flex-direction: column; gap: var(--space-3); }
-  .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+  .container, .container-fluid, .container-sm, .container-md, .container-lg { width: 100%; margin-inline: auto; padding-inline: var(--space-3); }
+  .container { max-width: var(--container-max); }
+  @media (min-width: 576px) { .container-sm { max-width: var(--container-max); } }
+  @media (min-width: 768px) { .container-md { max-width: var(--container-max); } }
+  @media (min-width: 992px) { .container-lg { max-width: var(--container-max); } }
+
+  .row { --gutter-x: 1.5rem; --gutter-y: 0rem; display: flex; flex-wrap: wrap; margin: calc(-1 * var(--gutter-y)) calc(-.5 * var(--gutter-x)) 0; }
+  .row > * { flex-shrink: 0; width: 100%; max-width: 100%; padding-inline: calc(.5 * var(--gutter-x)); margin-top: var(--gutter-y); }
+  .col { flex: 1 0 0%; }
+  .row-cols-auto > * { flex: 0 0 auto; width: auto; }
+  .row-cols-1 > * { flex: 0 0 auto; width: 100%; }
+  .row-cols-2 > * { flex: 0 0 auto; width: 50%; }
+  .row-cols-3 > * { flex: 0 0 auto; width: 33.333333%; }
+  .row-cols-4 > * { flex: 0 0 auto; width: 25%; }
+  .row-cols-5 > * { flex: 0 0 auto; width: 20%; }
+  .row-cols-6 > * { flex: 0 0 auto; width: 16.666667%; }
+  .col-auto { flex: 0 0 auto; width: auto; }
+  .col-1 { flex: 0 0 auto; width: 8.333333%; }
+  .col-2 { flex: 0 0 auto; width: 16.666667%; }
+  .col-3 { flex: 0 0 auto; width: 25%; }
+  .col-4 { flex: 0 0 auto; width: 33.333333%; }
+  .col-5 { flex: 0 0 auto; width: 41.666667%; }
+  .col-6 { flex: 0 0 auto; width: 50%; }
+  .col-7 { flex: 0 0 auto; width: 58.333333%; }
+  .col-8 { flex: 0 0 auto; width: 66.666667%; }
+  .col-9 { flex: 0 0 auto; width: 75%; }
+  .col-10 { flex: 0 0 auto; width: 83.333333%; }
+  .col-11 { flex: 0 0 auto; width: 91.666667%; }
+  .col-12 { flex: 0 0 auto; width: 100%; }
+  @media (min-width: 576px) {
+    .col-sm { flex: 1 0 0%; }
+    .row-cols-sm-auto > * { flex: 0 0 auto; width: auto; }
+    .row-cols-sm-1 > * { flex: 0 0 auto; width: 100%; }
+    .row-cols-sm-2 > * { flex: 0 0 auto; width: 50%; }
+    .row-cols-sm-3 > * { flex: 0 0 auto; width: 33.333333%; }
+    .row-cols-sm-4 > * { flex: 0 0 auto; width: 25%; }
+    .row-cols-sm-5 > * { flex: 0 0 auto; width: 20%; }
+    .row-cols-sm-6 > * { flex: 0 0 auto; width: 16.666667%; }
+    .col-sm-auto { flex: 0 0 auto; width: auto; }
+    .col-sm-1 { flex: 0 0 auto; width: 8.333333%; }
+    .col-sm-2 { flex: 0 0 auto; width: 16.666667%; }
+    .col-sm-3 { flex: 0 0 auto; width: 25%; }
+    .col-sm-4 { flex: 0 0 auto; width: 33.333333%; }
+    .col-sm-5 { flex: 0 0 auto; width: 41.666667%; }
+    .col-sm-6 { flex: 0 0 auto; width: 50%; }
+    .col-sm-7 { flex: 0 0 auto; width: 58.333333%; }
+    .col-sm-8 { flex: 0 0 auto; width: 66.666667%; }
+    .col-sm-9 { flex: 0 0 auto; width: 75%; }
+    .col-sm-10 { flex: 0 0 auto; width: 83.333333%; }
+    .col-sm-11 { flex: 0 0 auto; width: 91.666667%; }
+    .col-sm-12 { flex: 0 0 auto; width: 100%; }
+  }
+  @media (min-width: 768px) {
+    .col-md { flex: 1 0 0%; }
+    .row-cols-md-auto > * { flex: 0 0 auto; width: auto; }
+    .row-cols-md-1 > * { flex: 0 0 auto; width: 100%; }
+    .row-cols-md-2 > * { flex: 0 0 auto; width: 50%; }
+    .row-cols-md-3 > * { flex: 0 0 auto; width: 33.333333%; }
+    .row-cols-md-4 > * { flex: 0 0 auto; width: 25%; }
+    .row-cols-md-5 > * { flex: 0 0 auto; width: 20%; }
+    .row-cols-md-6 > * { flex: 0 0 auto; width: 16.666667%; }
+    .col-md-auto { flex: 0 0 auto; width: auto; }
+    .col-md-1 { flex: 0 0 auto; width: 8.333333%; }
+    .col-md-2 { flex: 0 0 auto; width: 16.666667%; }
+    .col-md-3 { flex: 0 0 auto; width: 25%; }
+    .col-md-4 { flex: 0 0 auto; width: 33.333333%; }
+    .col-md-5 { flex: 0 0 auto; width: 41.666667%; }
+    .col-md-6 { flex: 0 0 auto; width: 50%; }
+    .col-md-7 { flex: 0 0 auto; width: 58.333333%; }
+    .col-md-8 { flex: 0 0 auto; width: 66.666667%; }
+    .col-md-9 { flex: 0 0 auto; width: 75%; }
+    .col-md-10 { flex: 0 0 auto; width: 83.333333%; }
+    .col-md-11 { flex: 0 0 auto; width: 91.666667%; }
+    .col-md-12 { flex: 0 0 auto; width: 100%; }
+    .offset-md-0 { margin-left: 0; }
+    .offset-md-1 { margin-left: 8.333333%; }
+    .offset-md-2 { margin-left: 16.666667%; }
+    .offset-md-3 { margin-left: 25%; }
+    .offset-md-4 { margin-left: 33.333333%; }
+    .offset-md-5 { margin-left: 41.666667%; }
+    .offset-md-6 { margin-left: 50%; }
+    .offset-md-7 { margin-left: 58.333333%; }
+    .offset-md-8 { margin-left: 66.666667%; }
+    .offset-md-9 { margin-left: 75%; }
+    .offset-md-10 { margin-left: 83.333333%; }
+    .offset-md-11 { margin-left: 91.666667%; }
+  }
+  @media (min-width: 992px) {
+    .col-lg { flex: 1 0 0%; }
+    .row-cols-lg-auto > * { flex: 0 0 auto; width: auto; }
+    .row-cols-lg-1 > * { flex: 0 0 auto; width: 100%; }
+    .row-cols-lg-2 > * { flex: 0 0 auto; width: 50%; }
+    .row-cols-lg-3 > * { flex: 0 0 auto; width: 33.333333%; }
+    .row-cols-lg-4 > * { flex: 0 0 auto; width: 25%; }
+    .row-cols-lg-5 > * { flex: 0 0 auto; width: 20%; }
+    .row-cols-lg-6 > * { flex: 0 0 auto; width: 16.666667%; }
+    .col-lg-auto { flex: 0 0 auto; width: auto; }
+    .col-lg-1 { flex: 0 0 auto; width: 8.333333%; }
+    .col-lg-2 { flex: 0 0 auto; width: 16.666667%; }
+    .col-lg-3 { flex: 0 0 auto; width: 25%; }
+    .col-lg-4 { flex: 0 0 auto; width: 33.333333%; }
+    .col-lg-5 { flex: 0 0 auto; width: 41.666667%; }
+    .col-lg-6 { flex: 0 0 auto; width: 50%; }
+    .col-lg-7 { flex: 0 0 auto; width: 58.333333%; }
+    .col-lg-8 { flex: 0 0 auto; width: 66.666667%; }
+    .col-lg-9 { flex: 0 0 auto; width: 75%; }
+    .col-lg-10 { flex: 0 0 auto; width: 83.333333%; }
+    .col-lg-11 { flex: 0 0 auto; width: 91.666667%; }
+    .col-lg-12 { flex: 0 0 auto; width: 100%; }
+  }
+  .g-0 { --gutter-x: 0rem; --gutter-y: 0rem; } .gx-0 { --gutter-x: 0rem; } .gy-0 { --gutter-y: 0rem; }
+  .g-1 { --gutter-x: .25rem; --gutter-y: .25rem; } .gx-1 { --gutter-x: .25rem; } .gy-1 { --gutter-y: .25rem; }
+  .g-2 { --gutter-x: .5rem; --gutter-y: .5rem; } .gx-2 { --gutter-x: .5rem; } .gy-2 { --gutter-y: .5rem; }
+  .g-3 { --gutter-x: 1rem; --gutter-y: 1rem; } .gx-3 { --gutter-x: 1rem; } .gy-3 { --gutter-y: 1rem; }
+  .g-4 { --gutter-x: 1.5rem; --gutter-y: 1.5rem; } .gx-4 { --gutter-x: 1.5rem; } .gy-4 { --gutter-y: 1.5rem; }
+  .g-5 { --gutter-x: 3rem; --gutter-y: 3rem; } .gx-5 { --gutter-x: 3rem; } .gy-5 { --gutter-y: 3rem; }
+  .hstack { display: flex; flex-direction: row; align-items: center; align-self: stretch; }
+  .vstack { display: flex; flex: 1 1 auto; flex-direction: column; align-self: stretch; }
 
   /* navbar */
   .navbar {
@@ -164,7 +489,8 @@
     font-weight: 600;
     text-decoration: none;
   }
-  .nav-link:hover { color: var(--text); background: var(--surface-sunk); }
+  .nav-link:hover { color: var(--text); background: var(--surface-hover); }
+  .nav-link:active { background: var(--surface-pressed); }
   .nav-link.active, .nav-link[aria-current="page"] { background: var(--primary); color: var(--primary-ink); }
 
   /* card */
@@ -179,14 +505,18 @@
   .card-header, .card-footer { padding: var(--space-3) var(--space-4); }
   .card-header { border-bottom: 1px solid var(--border); font-weight: 700; }
   .card-footer { border-top: 1px solid var(--border); margin-top: auto; }
+  .card-header:first-child { border-radius: calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px) 0 0; }
+  .card-footer:last-child { border-radius: 0 0 calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px); }
   .card-body { padding: var(--space-4); }
   .card-title { font-size: 1.125rem; margin-bottom: var(--space-2); }
   .card-text { color: var(--muted); }
+  :is([class*="text-bg-"], .card-img-overlay) .card-text { color: inherit; opacity: .85; }
+  .card-text:last-child { margin-bottom: 0; }
 
   /* stat / KPI */
-  .stat { display: flex; flex-direction: column; gap: .15rem; }
-  .stat-label { font-size: .8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; opacity: .75; }
-  .stat-value { font-size: 1.75rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .stat { margin: 0; display: flex; flex-direction: column; gap: .15rem; }
+  .stat-label { margin: 0; font-size: .8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; opacity: .75; }
+  .stat-value { margin: 0; font-size: 1.75rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
 
   /* button */
   .btn {
@@ -203,28 +533,30 @@
     text-decoration: none;
     white-space: nowrap;
     user-select: none;
-    transition: transform .08s ease, box-shadow .12s ease, filter .12s ease;
+    transition: transform .08s ease, box-shadow .12s ease, filter .12s ease, background-color .12s ease;
   }
-  .btn:hover { filter: brightness(.96); }
-  .btn:active { transform: translateY(1px); }
-  .btn:disabled, .btn.disabled { opacity: .55; pointer-events: none; }
+  .btn:hover { background-color: color-mix(in oklab, var(--tone), var(--state-ink) var(--hover-mix)); }
+  .btn:active { transform: translateY(1px); background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
+  .btn:disabled, .btn.disabled { opacity: var(--disabled-opacity); pointer-events: none; }
 
   .btn-primary   { --tone: var(--primary);   color: var(--primary-ink);   border-color: transparent; }
   .btn-secondary { --tone: var(--secondary); color: var(--secondary-ink); border-color: transparent; }
   .btn-success   { --tone: var(--success);   color: var(--success-ink);   border-color: transparent; }
   .btn-danger    { --tone: var(--danger);    color: var(--danger-ink);    border-color: transparent; }
-  .btn-warning   { --tone: var(--warning);   color: var(--warning-ink);   border-color: transparent; }
+  .btn-warning   { --tone: var(--warning);   color: var(--warning-ink);   border-color: transparent; --state-ink: #fff; --press-ink: #fff; }   /* dark ink: states lighten, as in Bootstrap */
   .btn-light     { --tone: var(--surface-raised); border-color: var(--border); }
-  .btn-link      { color: var(--primary); text-decoration: underline; text-underline-offset: .2em; }
-  .btn:not([class*="btn-"]):hover, .btn-link:hover { --tone: var(--surface-sunk); filter: none; }
+  .btn-link      { color: light-dark(var(--primary), var(--link)); text-decoration: underline; text-underline-offset: .2em; }
+  .btn:not([class*="btn-"]):hover, .btn-link:hover { background-color: var(--surface-hover); }
+  .btn:not([class*="btn-"]):active, .btn-link:active { background-color: var(--surface-pressed); }
   [class*="btn-outline-"] { border-color: currentColor; }
-  [class*="btn-outline-"]:hover { filter: none; background-color: color-mix(in oklab, currentColor 10%, transparent); }
-  .btn-outline-primary   { color: var(--primary); }
-  .btn-outline-secondary { color: var(--secondary); }
+  [class*="btn-outline-"]:hover { background-color: color-mix(in oklab, currentColor 10%, transparent); }
+  [class*="btn-outline-"]:active { background-color: var(--fill); border-color: var(--fill); color: var(--ink); }
+  .btn-outline-primary   { color: light-dark(var(--primary), var(--primary-text)); }
+  .btn-outline-secondary { color: light-dark(var(--secondary), var(--secondary-text)); }
   .btn-outline-success   { color: var(--success-emphasis); }
   .btn-outline-danger    { color: var(--danger-emphasis); }
   .btn-outline-warning   { color: var(--warning-emphasis); }
-  .btn.active { transform: translateY(1px); filter: brightness(.88); }
+  .btn.active { transform: translateY(1px); background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
 
   .btn-sm { padding: .45rem .9rem; font-size: .875rem; }
   .btn-lg { padding: .8rem 1.5rem; font-size: 1.125rem; }
@@ -233,7 +565,7 @@
 
   /* forms */
   .form-label { display: block; margin-bottom: var(--space-1); font-weight: 600; font-size: .9375rem; }
-  .form-text { margin-top: var(--space-1); font-size: .8125rem; color: var(--muted); }
+  .form-text { margin: var(--space-1) 0 0; font-size: .8125rem; color: var(--muted); }
   .form-control, .form-select {
     display: block; width: 100%;
     padding: .6rem .85rem;
@@ -248,28 +580,28 @@
   :is(.form-control, .form-select).is-invalid { --state: var(--danger); border-color: var(--state); }
   :is(.form-control, .form-select).is-valid { --state: var(--success); border-color: var(--state); }
   :is(.form-control, .form-select):is(.is-invalid, .is-valid):focus { border-color: var(--state); box-shadow: 0 0 0 .25rem color-mix(in oklab, var(--state) 30%, transparent); }
-  .invalid-feedback, .valid-feedback { display: none; margin-top: var(--space-1); font-size: .8125rem; font-weight: 600; }
+  .invalid-feedback, .valid-feedback { display: none; margin: var(--space-1) 0 0; font-size: .8125rem; font-weight: 600; }
   .invalid-feedback { color: var(--danger-emphasis); }
   .valid-feedback { color: var(--success-emphasis); }
-  .is-invalid ~ .invalid-feedback, .is-valid ~ .valid-feedback { display: block; }
+  .is-invalid ~ :is(.invalid-feedback, .invalid-tooltip), .is-valid ~ :is(.valid-feedback, .valid-tooltip) { display: block; }
+  /* tooltip-style feedback: needs a positioned parent (e.g. .position-relative) */
+  .invalid-tooltip, .valid-tooltip {
+    position: absolute; top: 100%; z-index: 5; display: none; max-width: 100%; margin-top: .25rem; padding: .25rem .6rem;
+    border-radius: var(--radius-sm); font-size: .8125rem; font-weight: 600;
+  }
+  .invalid-tooltip { --tone: var(--danger); background-color: var(--danger); color: var(--danger-ink); }
+  .valid-tooltip { --tone: var(--success); background-color: var(--success); color: var(--success-ink); }
   .form-select {
     padding-right: 2.25rem;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 6 4.5 4.5L12.5 6' fill='none' stroke='%23677084' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-image: var(--select-chevron);
     background-repeat: no-repeat;
     background-position: right .75rem center;
     background-size: 14px;
   }
   .input-group { display: flex; }
-  .input-group > .form-control { border-top-right-radius: 0; border-bottom-right-radius: 0; }
   /* the focus ring goes around the whole group, following its radius */
   .input-group { border-radius: var(--radius); }
   .input-group:focus-within { box-shadow: 0 0 0 .25rem var(--focus); }
-  .input-group > .form-control:focus { box-shadow: none; }
-  .input-group-text {
-    display: flex; align-items: center; padding: 0 .85rem;
-    background: var(--surface-sunk); border: 1px solid var(--border); border-left: 0;
-    border-radius: 0 var(--radius) var(--radius) 0; color: var(--muted); font-weight: 600;
-  }
 
   .form-check { display: flex; align-items: center; gap: .6rem; min-height: 1.75rem; }
   .form-check-input {
@@ -277,12 +609,13 @@
     width: 1.25rem; height: 1.25rem; margin: 0;
     appearance: none;
     background-color: var(--field);
-    border: 1.5px solid color-mix(in oklab, var(--border) 60%, var(--muted));
+    border: 1.5px solid var(--border-strong);
     border-radius: var(--radius-sm);
     background-repeat: no-repeat; background-position: center; background-size: 80%;
     cursor: pointer;
   }
   .form-check-input[type="radio"] { border-radius: 50%; }
+  .form-check-input[type="radio"]:checked { background-image: radial-gradient(circle, #fff 0 28%, transparent 33%); background-size: 100%; }
   .form-check-input:checked {
     background-color: var(--primary);
     border-color: var(--primary);
@@ -290,7 +623,7 @@
   }
 
   .form-switch .form-check-input {
-    --knob: radial-gradient(circle closest-side, #fff 88%, rgb(0 0 0 / .14) 95%, transparent 100%);
+    --knob: radial-gradient(circle closest-side, light-dark(#fff, #9aa2ac) 88%, rgb(0 0 0 / .14) 95%, transparent 100%);
     width: 2.75rem; height: 1.5rem;
     border-radius: var(--radius-pill);
     background-color: var(--surface-sunk);
@@ -302,6 +635,7 @@
   .form-switch .form-check-input:checked {
     background-color: var(--primary);
     border-color: var(--primary);
+    --knob: radial-gradient(circle closest-side, #fff 88%, rgb(0 0 0 / .14) 95%, transparent 100%);
     background-image: var(--knob);
     background-position: calc(100% - 1px) center;
   }
@@ -335,26 +669,927 @@
   .alert-warning { --tone: var(--warning); --tone-emphasis: var(--warning-emphasis); }
   .alert-danger  { --tone: var(--danger);  --tone-emphasis: var(--danger-emphasis); }
   .alert-heading { font-weight: 700; margin-bottom: .15rem; }
+
+  /* buttons: more variants, toggle buttons, groups */
+  .btn-info { --tone: var(--info); color: var(--info-ink); }
+  .btn-dark { --tone: var(--dark); color: var(--dark-ink); border-color: light-dark(transparent, var(--border)); }
+  .btn-outline-info { color: var(--info-text); }
+  .btn-outline-light { color: var(--light-emphasis); }
+  .btn-outline-dark { color: var(--dark-emphasis); }
+  .btn-outline-primary { --fill: var(--primary); --ink: var(--primary-ink); }
+  .btn-outline-secondary { --fill: var(--secondary); --ink: var(--secondary-ink); }
+  .btn-outline-success { --fill: var(--success); --ink: var(--success-ink); }
+  .btn-outline-danger { --fill: var(--danger); --ink: var(--danger-ink); }
+  .btn-outline-warning { --fill: var(--warning); --ink: var(--warning-ink); }
+  .btn-outline-info { --fill: var(--info); --ink: var(--info-ink); }
+  .btn-outline-light { --fill: var(--light-emphasis); --ink: var(--surface); }
+  .btn-outline-dark { --fill: var(--dark-emphasis); --ink: var(--surface); }
+
+  .btn-check { position: absolute; clip: rect(0, 0, 0, 0); pointer-events: none; }
+  .btn-check:focus-visible + .btn { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .btn-check:disabled + .btn, .btn-check[disabled] + .btn { opacity: var(--disabled-opacity); pointer-events: none; }
+  .btn-check:checked + .btn { background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
+  /* neutral buttons are surfaces: pressed or chosen, they take their hover a clear step further the same way */
+  :is(.btn-light, .btn:not([class*="btn-"]), .btn-link):is(:active, .active, .btn-check:checked + *) { box-shadow: inset 0 1px 3px rgb(0 0 0 / .15); }
+  .btn-light:is(:active, .active, .btn-check:checked + *) { background-color: color-mix(in oklab, var(--tone), var(--state-ink) var(--select-mix)); }
+  :is(.btn:not([class*="btn-"]), .btn-link):is(.active, .btn-check:checked + *) { background-color: var(--surface-pressed); }
+  .btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, .show) { background-color: var(--fill); border-color: var(--fill); color: var(--ink); }
+
+  .btn-group, .btn-group-vertical { position: relative; display: inline-flex; vertical-align: middle; }
+  .btn-group > .btn, .btn-group-vertical > .btn { position: relative; flex: 1 1 auto; }
+  .btn-group > .btn:is(:hover, :focus, .active), .btn-group-vertical > .btn:is(:hover, :focus, .active), :is(.btn-group, .btn-group-vertical) > .btn-check:checked + .btn { z-index: 1; }
+  :is(.btn-group, .btn-group-vertical) > .btn-check:focus-visible + .btn { z-index: 2; }
+  .btn-group > :not(.btn-check:first-child) + .btn, .btn-group > .btn-group:not(:first-child) { margin-left: -1px; }
+  .btn-group > .btn:not(:last-child, .dropdown-toggle), .btn-group > .btn.dropdown-toggle-split:first-child, .btn-group > .btn-group:not(:last-child) > .btn { border-start-end-radius: 0; border-end-end-radius: 0; }
+  .btn-group > .btn:nth-child(n+3), .btn-group > :not(.btn-check) + .btn, .btn-group > .btn-group:not(:first-child) > .btn { border-start-start-radius: 0; border-end-start-radius: 0; }
+  .btn-group-sm > .btn { padding: .45rem .9rem; font-size: .875rem; }
+  .btn-group-lg > .btn { padding: .8rem 1.5rem; font-size: 1.125rem; }
+  .btn-group-vertical { flex-direction: column; align-items: flex-start; justify-content: center; }
+  .btn-group-vertical > .btn { width: 100%; }
+  .btn-group-vertical > :not(.btn-check:first-child) + .btn { margin-top: -1px; }
+  .btn-group-vertical > .btn:not(:last-child) { border-end-start-radius: 0; border-end-end-radius: 0; }
+  .btn-group-vertical > .btn:nth-child(n+3), .btn-group-vertical > :not(.btn-check) + .btn { border-start-start-radius: 0; border-start-end-radius: 0; }
+  /* segments of one colour need a seam to stay countable */
+  .btn-group > :is(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark) + :is(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark),
+  .btn-group > .btn-check:checked + .btn + .btn-check:checked + .btn { box-shadow: inset 1px 0 0 rgb(255 255 255 / .28); }
+  .btn-group-vertical > :is(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark) + .btn { box-shadow: inset 0 1px 0 rgb(255 255 255 / .28); }
+  .btn-toolbar { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--space-2); }
+
+  /* close button */
+  .btn-close { position: relative; box-sizing: content-box; width: 1em; height: 1em; padding: .25em; border: 0; border-radius: var(--radius-sm); background: none; color: inherit; opacity: .5; }
+  .btn-close::before { content: ""; position: absolute; inset: .25em; background: currentColor; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 3.5 9 9m0-9-9 9' stroke='%23000' stroke-width='1.8' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / contain no-repeat; }
+  .btn-close:hover { opacity: .75; background: var(--surface-hover); }
+  .btn-close:focus-visible { opacity: 1; }
+  .btn-close:disabled, .btn-close.disabled { opacity: .25; pointer-events: none; }
+  .btn-close-white { color: #fff; }
+
+  /* nav */
+  .nav { display: flex; flex-wrap: wrap; gap: var(--space-1); padding: 0; margin: 0; list-style: none; }
+  button.nav-link { background: none; border: 0; text-align: inherit; }
+  .nav-link.disabled, .nav-link:disabled { color: var(--subtle-text); background: none; pointer-events: none; }
+  .nav-fill > .nav-link, .nav-fill > .nav-item { flex: 1 1 auto; text-align: center; }
+  .nav-justified > .nav-link, .nav-justified > .nav-item { flex: 1 1 0; text-align: center; }
+  .nav-fill > .nav-item > .nav-link, .nav-justified > .nav-item > .nav-link { width: 100%; }
+  .nav-link.flex-column { isolation: isolate; align-items: center; gap: .4rem; padding: .35rem .5rem; border-radius: var(--radius); font-size: .75rem; }
+  .nav-pills .nav-link.flex-column:is(.active, [aria-current="page"]) { background: none; color: var(--primary-text); }
+  .nav-link.flex-column:is(.active, [aria-current="page"]) > :first-child { color: var(--primary-ink); }
+  .nav-link.flex-column:is(.active, [aria-current="page"])::before {
+    content: ""; position: absolute; z-index: -1; top: calc(.35rem - 3px); left: 50%; width: 3.75rem; height: 1.75rem; translate: -50%;
+    border-radius: var(--radius-pill); background: var(--primary);
+  }
+  .nav-tabs { --tab-bg: var(--body-bg); gap: 0; border-bottom: 1px solid var(--border); }
+  .card .nav-tabs { --tab-bg: var(--surface); }
+  .nav-tabs .nav-link { margin-bottom: -1px; padding: .5rem 1rem; border: 1px solid transparent; border-radius: var(--radius) var(--radius) 0 0; background: none; }
+  .nav-tabs .nav-link:hover { background: none; border-color: var(--surface-hover) var(--surface-hover) var(--border); }
+  .nav-tabs .nav-link.active { color: var(--text); background: var(--tab-bg); border-color: var(--border) var(--border) var(--tab-bg); }
+  .nav-tabs .nav-link.disabled { border-color: transparent; }
+  .nav-underline { gap: var(--space-3); }
+  .nav-underline .nav-link { padding: .5rem .25rem; border-bottom: 2px solid transparent; border-radius: 0; background: none; }
+  .nav-underline .nav-link:hover { color: var(--text); background: none; border-bottom-color: var(--border); }
+  .nav-underline .nav-link.active { color: var(--text); background: none; border-bottom-color: var(--primary-text); font-weight: 700; }
+  .tab-content > .tab-pane { display: none; }
+  .tab-content > .active { display: block; }
+
+  /* navbar extensions */
+  .navbar > :is(.container, .container-fluid) { display: flex; flex-wrap: inherit; align-items: inherit; justify-content: inherit; gap: inherit; padding-inline: 0; }
+  .navbar-nav { display: flex; flex-direction: column; gap: var(--space-1); padding: 0; margin: 0; list-style: none; }
+  .navbar-text { padding-block: .5rem; color: var(--muted); }
+  .navbar-toggler { padding: .25rem .5rem; border: 1px solid var(--border); border-radius: var(--radius); background: none; color: var(--muted); line-height: 1; }
+  .navbar-toggler:hover { color: var(--text); }
+  .navbar-toggler:focus-visible { outline: none; box-shadow: 0 0 0 .25rem var(--focus); }
+  .navbar-toggler-icon { display: inline-block; width: 1.5em; height: 1.5em; vertical-align: middle; background: currentColor; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath d='M5 8h20M5 15h20M5 22h20' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% no-repeat; }
+  .navbar-collapse { flex-basis: 100%; flex-grow: 1; align-items: center; gap: var(--space-2) var(--space-3); }
+  .collapsing { height: 0; overflow: hidden; transition: height .3s ease; }
+  .navbar:is(.fixed-top, .fixed-bottom) { border-radius: 0; border-inline-width: 0; }
+  .navbar.fixed-top { border-top-width: 0; }
+  .navbar.fixed-bottom { padding: var(--space-2) var(--space-2) var(--space-1); border-bottom-width: 0; }
+  .navbar-expand { flex-wrap: nowrap; }
+  .navbar-expand .navbar-nav { flex-direction: row; }
+  .navbar-expand .navbar-toggler { display: none; }
+  .navbar-expand .navbar-collapse { display: flex !important; flex-basis: auto; }
+  @media (min-width: 576px) {
+    .navbar-expand-sm { flex-wrap: nowrap; }
+    .navbar-expand-sm .navbar-nav { flex-direction: row; }
+    .navbar-expand-sm .navbar-toggler { display: none; }
+    .navbar-expand-sm .navbar-collapse { display: flex !important; flex-basis: auto; }
+  }
+  @media (min-width: 768px) {
+    .navbar-expand-md { flex-wrap: nowrap; }
+    .navbar-expand-md .navbar-nav { flex-direction: row; }
+    .navbar-expand-md .navbar-toggler { display: none; }
+    .navbar-expand-md .navbar-collapse { display: flex !important; flex-basis: auto; }
+  }
+  @media (min-width: 992px) {
+    .navbar-expand-lg { flex-wrap: nowrap; }
+    .navbar-expand-lg .navbar-nav { flex-direction: row; }
+    .navbar-expand-lg .navbar-toggler { display: none; }
+    .navbar-expand-lg .navbar-collapse { display: flex !important; flex-basis: auto; }
+  }
+
+  /* breadcrumb, pagination */
+  .breadcrumb { display: flex; flex-wrap: wrap; padding: 0; margin: 0 0 var(--space-3); list-style: none; color: var(--muted); font-size: .9375rem; }
+  .breadcrumb-item a { color: var(--link); text-decoration: none; }
+  .breadcrumb-item a:hover { text-decoration: underline; }
+  .breadcrumb-item + .breadcrumb-item { padding-left: .5rem; }
+  .breadcrumb-item + .breadcrumb-item::before { float: left; padding-right: .5rem; color: var(--subtle-text); content: var(--breadcrumb-divider, "/"); }
+  .pagination { --pr: var(--radius); display: flex; padding: 0; margin: 0; list-style: none; }
+  .pagination-sm { --pr: var(--radius-sm); }
+  .page-link { position: relative; display: block; padding: .45rem .85rem; border: 1px solid var(--border); background: var(--surface); color: var(--link); font-weight: 600; line-height: 1.25; text-decoration: none; }
+  .page-item:not(:first-child) .page-link { margin-left: -1px; }
+  .page-item:first-child .page-link { border-start-start-radius: var(--pr); border-end-start-radius: var(--pr); }
+  .page-item:last-child .page-link { border-start-end-radius: var(--pr); border-end-end-radius: var(--pr); }
+  .page-link:hover { z-index: 2; background: var(--surface-hover); }
+  .page-link:active { background: var(--surface-pressed); }
+  .page-link:focus-visible { z-index: 3; }
+  .page-item.active .page-link { z-index: 3; border-color: var(--primary); background: var(--primary); color: var(--primary-ink); }
+  .page-item.disabled .page-link { background: var(--surface); color: var(--subtle-text); pointer-events: none; }
+  .pagination-lg .page-link { padding: .75rem 1.4rem; font-size: 1.125rem; }
+  .pagination-sm .page-link { padding: .3rem .6rem; font-size: .875rem; }
+
+  /* list group */
+  .list-group { display: flex; flex-direction: column; padding: 0; margin: 0; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+  .list-group-item { --li-bg: var(--surface); position: relative; display: block; padding: .65rem 1rem; border: 1px solid var(--border); background-color: var(--li-bg); color: var(--text); text-decoration: none; }
+  .list-group-item + .list-group-item { border-top-width: 0; }
+  .list-group-item:first-child { border-start-start-radius: inherit; border-start-end-radius: inherit; }
+  .list-group-item:last-child { border-end-start-radius: inherit; border-end-end-radius: inherit; }
+  .list-group-item-action { width: 100%; text-align: inherit; }
+  .list-group-item-action:focus-visible { outline-offset: -3px; }
+  .list-group-item-action:is(:hover, :focus-visible) { z-index: 1; background-color: color-mix(in oklab, var(--li-bg), currentColor 6%); }
+  .list-group-item-action:active { background-color: color-mix(in oklab, var(--li-bg), currentColor 12%); }
+  .list-group-item:is(.disabled, :disabled) { --li-bg: var(--surface); color: var(--subtle-text); pointer-events: none; }
+  .list-group-item-primary { --li-bg: var(--primary-subtle); color: var(--primary-emphasis); }
+  .list-group-item-secondary { --li-bg: var(--secondary-subtle); color: var(--secondary-emphasis); }
+  .list-group-item-success { --li-bg: var(--success-subtle); color: var(--success-emphasis); }
+  .list-group-item-danger { --li-bg: var(--danger-subtle); color: var(--danger-emphasis); }
+  .list-group-item-warning { --li-bg: var(--warning-subtle); color: var(--warning-emphasis); }
+  .list-group-item-info { --li-bg: var(--info-subtle); color: var(--info-emphasis); }
+  .list-group-item-light { --li-bg: var(--light-subtle); color: var(--light-emphasis); }
+  .list-group-item-dark { --li-bg: var(--dark-subtle); color: var(--dark-emphasis); }
+  .list-group-item.active { --li-bg: var(--primary); z-index: 2; border-color: var(--primary); color: var(--primary-ink); }
+  .list-group-item + .list-group-item.active { margin-top: -1px; border-top-width: 1px; }
+  .list-group-flush, .card .list-group { border-radius: 0; box-shadow: none; }
+  .list-group-flush > .list-group-item { border-width: 0 0 1px; border-radius: 0; }
+  .list-group-flush > .list-group-item:last-child { border-bottom-width: 0; }
+  .list-group-numbered { counter-reset: lg; }
+  .list-group-numbered > .list-group-item::before { content: counters(lg, ".") ". "; counter-increment: lg; }
+  .list-group-horizontal { flex-direction: row; width: fit-content; max-width: 100%; }
+  .list-group-horizontal > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--radius-lg); border-start-end-radius: 0; }
+  .list-group-horizontal > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--radius-lg); border-end-start-radius: 0; }
+  .list-group-horizontal > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
+  .list-group-horizontal > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
+  @media (min-width: 768px) {
+    .list-group-horizontal-md { flex-direction: row; width: fit-content; max-width: 100%; }
+    .list-group-horizontal-md > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--radius-lg); border-start-end-radius: 0; }
+    .list-group-horizontal-md > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--radius-lg); border-end-start-radius: 0; }
+    .list-group-horizontal-md > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
+    .list-group-horizontal-md > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
+  }
+
+  /* table */
+  .table { --t-bg: transparent; --t-color: var(--text); --t-border: var(--border); width: 100%; margin-bottom: var(--space-3); border-collapse: collapse; vertical-align: top; }
+  :where(.table) :where(thead, tbody, tfoot, tr, td, th) { border: 0 solid var(--t-border); }
+  .table > :not(caption) > * > * { padding: .5rem; border-bottom-width: 1px; background-color: var(--t-bg); color: var(--t-color); box-shadow: inset 0 0 0 9999px var(--a, transparent); }
+  .table th { text-align: inherit; }
+  .table > tbody { vertical-align: inherit; }
+  .table > thead { vertical-align: bottom; }
+  .table > caption { padding-block: .5rem; color: var(--muted); text-align: left; }
+  .caption-top > caption { caption-side: top; }
+  .table-sm > :not(caption) > * > * { padding: .25rem; }
+  .table-bordered > :not(caption) > * { border-width: 1px 0; }
+  .table-bordered > :not(caption) > * > * { border-width: 0 1px; }
+  .table-borderless > :not(caption) > * > * { border-bottom-width: 0; }
+  .table-group-divider { border-top: 2px solid currentColor; }
+  :where(.table-striped > tbody > tr:nth-of-type(odd)) > * { --a: color-mix(in oklab, var(--t-color) 5%, transparent); }
+  :where(.table-hover > tbody > tr:hover) > * { --a: color-mix(in oklab, var(--t-color) 8%, transparent); }
+  .table-active, .table-active > * { --a: color-mix(in oklab, var(--t-color) 11%, transparent); }
+  .table-primary { --t-bg: var(--primary-subtle); --t-color: var(--primary-emphasis); --t-border: var(--primary-border-subtle); }
+  .table-secondary { --t-bg: var(--secondary-subtle); --t-color: var(--secondary-emphasis); --t-border: var(--secondary-border-subtle); }
+  .table-success { --t-bg: var(--success-subtle); --t-color: var(--success-emphasis); --t-border: var(--success-border-subtle); }
+  .table-danger { --t-bg: var(--danger-subtle); --t-color: var(--danger-emphasis); --t-border: var(--danger-border-subtle); }
+  .table-warning { --t-bg: var(--warning-subtle); --t-color: var(--warning-emphasis); --t-border: var(--warning-border-subtle); }
+  .table-info { --t-bg: var(--info-subtle); --t-color: var(--info-emphasis); --t-border: var(--info-border-subtle); }
+  .table-light { --t-bg: var(--surface-raised); --t-color: var(--text); --t-border: var(--border); }
+  .table-dark { --t-bg: var(--dark); --t-color: var(--dark-ink); --t-border: color-mix(in oklab, var(--dark-ink) 20%, var(--dark)); }
+  .table-responsive { overflow-x: auto; }
+  @media (max-width: 767.98px) { .table-responsive-md { overflow-x: auto; } }
+  .align-middle { vertical-align: middle !important; }
+
+  /* progress */
+  .progress, .progress-stacked { display: flex; height: 1rem; overflow: hidden; border-radius: var(--radius-pill); background: var(--track); font-size: .75rem; }
+  .progress-bar { display: flex; flex-direction: column; justify-content: center; overflow: hidden; background-color: var(--primary); color: var(--primary-ink); text-align: center; white-space: nowrap; transition: width .6s ease; }
+  .progress > .progress-bar:only-child { border-radius: inherit; }
+  .progress-bar.bg-warning { color: var(--warning-ink); }
+  .progress-bar.bg-light { color: var(--light-ink); }
+  .progress-stacked > .progress { overflow: visible; border-radius: 0; }
+  .progress-stacked > .progress > .progress-bar { width: 100%; border-radius: 0; }
+  .progress-stacked > .progress + .progress > .progress-bar { box-shadow: inset 1px 0 0 color-mix(in oklab, var(--surface) 70%, transparent); }
+  .progress-bar-striped { background-image: linear-gradient(45deg, rgb(255 255 255 / .15) 25%, transparent 25%, transparent 50%, rgb(255 255 255 / .15) 50%, rgb(255 255 255 / .15) 75%, transparent 75%); background-size: 1rem 1rem; }
+  .progress-bar-animated { animation: progress-stripes 1s linear infinite; }
+  @keyframes progress-stripes { 0% { background-position-x: 1rem; } }
+
+  /* spinner */
+  .spinner-border, .spinner-grow { --spin: .75s; display: inline-block; width: 2rem; height: 2rem; vertical-align: -.125em; border-radius: 50%; }
+  .spinner-border { border: .25em solid currentColor; border-right-color: transparent; animation: spinner-border var(--spin) linear infinite; }
+  .spinner-grow { background-color: currentColor; opacity: 0; animation: spinner-grow var(--spin) linear infinite; }
+  .spinner-border-sm { width: 1rem; height: 1rem; border-width: .2em; }
+  .spinner-grow-sm { width: 1rem; height: 1rem; }
+  @keyframes spinner-border { to { transform: rotate(360deg); } }
+  @keyframes spinner-grow { 0% { transform: scale(0); } 50% { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spinner-border, .spinner-grow { --spin: 1.5s; }
+    .progress-bar, .collapsing, .fade { transition: none; }
+    .progress-bar-animated { animation: none; }
+  }
+
+  /* collapse + fade (shared by accordion, modal, toast) */
+  .collapse:not(.show) { display: none; }
+  .fade { transition: opacity .15s linear; }
+  .fade:not(.show) { opacity: 0; }
+
+  /* accordion */
+  .accordion-item { overflow: hidden; background: var(--surface); border: 1px solid var(--border); }
+  .accordion-item + .accordion-item { border-top: 0; }
+  .accordion-item:first-of-type { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+  .accordion-item:last-of-type { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+  .accordion-item:only-of-type { border-radius: var(--radius-lg); }
+  .accordion-header { margin: 0; font-size: inherit; }
+  .accordion-button {
+    display: flex; align-items: center; gap: var(--space-3); width: 100%;
+    padding: var(--space-3) 1.25rem; border: 0; border-radius: 0;
+    background: none; color: var(--text); font-weight: 600; line-height: 1.4; text-align: left; list-style: none;
+  }
+  .accordion-button::-webkit-details-marker { display: none; }
+  .accordion-button::after {
+    content: ""; flex: none; width: 1.125rem; height: 1.125rem; margin-left: auto;
+    background-color: var(--muted); transition: transform .2s ease;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 6 4.5 4.5L12.5 6' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat;
+  }
+  .accordion-button:hover { background: var(--surface-hover); }
+  .accordion-button:not(.collapsed, summary), details[open] > .accordion-button {
+    background: var(--primary-subtle); color: var(--primary-emphasis); box-shadow: inset 0 -1px 0 var(--border);
+  }
+  .accordion-button:not(.collapsed, summary)::after, details[open] > .accordion-button::after { background-color: currentColor; transform: rotate(180deg); }
+  .accordion-button:focus-visible { outline: 0; box-shadow: inset 0 0 0 .2rem var(--focus); }
+  .accordion-item:first-of-type .accordion-button { border-start-start-radius: calc(var(--radius-lg) - 1px); border-start-end-radius: calc(var(--radius-lg) - 1px); }
+  .accordion-item:last-of-type :is(.accordion-button.collapsed, details:not([open]) > .accordion-button) { border-end-start-radius: calc(var(--radius-lg) - 1px); border-end-end-radius: calc(var(--radius-lg) - 1px); }
+  .accordion-flush .accordion-button { border-radius: 0; }
+  .accordion-body { padding: var(--space-3) 1.25rem; }
+  .accordion-flush > .accordion-item { background: none; border-width: 1px 0; border-radius: 0; }
+  .accordion-flush > .accordion-item:first-of-type { border-top: 0; }
+  .accordion-flush > .accordion-item:last-of-type { border-bottom: 0; }
+
+  /* modal */
+  .modal { position: fixed; inset: 0; z-index: 1055; display: none; overflow: hidden auto; outline: 0; }
+  .modal.show, dialog.modal[open] { display: block; }
+  dialog.modal { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: none; color: inherit; }
+  dialog.modal::backdrop { background: var(--backdrop); }
+  body:has(dialog.modal[open]) { overflow: hidden; }
+  .modal-dialog { --w: 500px; position: relative; width: min(var(--w), 100% - 1rem); margin: 1.75rem auto; pointer-events: none; }
+  .modal-sm { --w: 300px; }
+  .modal-lg { --w: 800px; }
+  .modal-xl { --w: 1140px; }
+  .modal.fade .modal-dialog { transform: translateY(-1.5rem); transition: transform .25s ease-out; }
+  .modal.show .modal-dialog { transform: none; }
+  .modal-dialog-centered { display: flex; align-items: center; min-height: calc(100% - 3.5rem); }
+  .modal-dialog-scrollable { height: calc(100% - 3.5rem); }
+  .modal-dialog-scrollable .modal-content { max-height: 100%; overflow: hidden; }
+  .modal-dialog-scrollable .modal-body { overflow-y: auto; }
+  .modal-fullscreen { width: 100%; max-width: none; height: 100%; margin: 0; }
+  .modal-fullscreen .modal-content { height: 100%; border: 0; border-radius: 0; }
+  @media (max-width: 575.98px) {
+    .modal-fullscreen-sm-down { width: 100%; max-width: none; height: 100%; margin: 0; }
+    .modal-fullscreen-sm-down .modal-content { height: 100%; border: 0; border-radius: 0; }
+  }
+  .modal-content {
+    position: relative; display: flex; flex-direction: column; width: 100%; pointer-events: auto;
+    background: var(--surface-overlay); color: var(--text);
+    border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+  }
+  .modal-header, .modal-footer { display: flex; flex-shrink: 0; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); }
+  .modal-header { border-bottom: 1px solid var(--border); }
+  .modal-header .btn-close { margin-left: auto; }
+  .modal-title { margin: 0; font-size: 1.125rem; font-weight: 700; line-height: 1.4; }
+  .modal-body { position: relative; flex: 1 1 auto; padding: var(--space-4); }
+  .modal-footer { flex-wrap: wrap; justify-content: flex-end; border-top: 1px solid var(--border); }
+  .modal-backdrop { position: fixed; inset: 0; z-index: 1050; background: var(--backdrop); }
+
+  /* toast */
+  .toast-container { position: absolute; z-index: 1090; display: flex; flex-direction: column; gap: var(--space-3); width: max-content; max-width: 100%; pointer-events: none; }
+  .toast {
+    position: relative; width: 350px; max-width: 100%; pointer-events: auto;
+    background: var(--surface); color: var(--text); font-size: .875rem;
+    border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-lg);
+  }
+  .toast:not(.show) { display: none; }
+  .toast.showing { opacity: 0; }
+  .toast-header {
+    display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) .75rem;
+    color: color-mix(in oklab, currentColor 72%, transparent);
+    border-bottom: 1px solid color-mix(in oklab, currentColor 14%, transparent);
+  }
+  .toast-header strong { font-weight: 700; }
+  .toast-header .btn-close { margin: 0 -.375rem 0 .25rem; }
+  .toast-body { padding: .75rem; overflow-wrap: break-word; }
+
+  /* alert extras */
+  .alert-info  { --tone: var(--info);  --tone-emphasis: var(--info-emphasis); }
+  .alert-light { --tone: var(--muted); --tone-emphasis: var(--light-emphasis); background-color: var(--surface-raised); border-color: var(--border); }
+  .alert-dark  { --tone: var(--dark);  --tone-emphasis: var(--dark-emphasis); background-color: light-dark(color-mix(in oklab, var(--dark) 16%, var(--surface)), color-mix(in oklab, var(--dark) 60%, var(--surface))); border-color: light-dark(color-mix(in oklab, var(--dark) 26%, var(--surface)), var(--border)); }
+  .alert-dismissible { padding-right: 3.5rem; }
+  .alert-dismissible .btn-close { position: absolute; top: .75rem; right: .75rem; }
+  .alert-link { font-weight: 700; color: inherit; }
+
+  /* badge extras */
+  .badge.border { background-color: transparent; color: var(--text); }
+  .btn .badge { top: -1px; }
+
+  /* card extras */
+  .card-subtitle { margin: -.25rem 0 var(--space-2); font-size: .9375rem; font-weight: 400; color: var(--muted); }
+  .card-link + .card-link { margin-left: var(--space-3); }
+  .card-img, .card-img-top, .card-img-bottom { width: 100%; }
+  .card-img { border-radius: calc(var(--radius-lg) - 1px); }
+  .card-img-top { border-radius: calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px) 0 0; }
+  .card-img-bottom { border-radius: 0 0 calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px); }
+  .card-img-overlay { position: absolute; inset: 0; padding: var(--space-4); border-radius: calc(var(--radius-lg) - 1px); }
+  /* horizontal card: the row clips its images to the card's corners */
+  .card > .row { overflow: hidden; border-radius: calc(var(--radius-lg) - 1px); }
+  .card-header-tabs, .card-header-pills { margin-inline: calc(-.5 * var(--space-4)); }
+  .card-header-tabs { margin-bottom: calc(-1 * var(--space-3)); border-bottom: 0; }
+  .card > .list-group-flush:first-child { border-radius: calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px) 0 0; }
+  .card > .list-group-flush:last-child { border-radius: 0 0 calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px); }
+  .card > .list-group-flush:only-child { border-radius: calc(var(--radius-lg) - 1px); }
+  .card > .list-group-flush > .list-group-item:first-child { border-top-left-radius: inherit; border-top-right-radius: inherit; }
+  .card > .list-group-flush > .list-group-item:last-child { border-bottom-left-radius: inherit; border-bottom-right-radius: inherit; }
+
+  /* forms: sizes */
+  .form-control-sm, .form-select-sm, .input-group-sm > :is(.form-control, .form-select, .input-group-text, .btn) { font-size: .875rem; }
+  .form-control-sm, .form-select-sm, .input-group-sm > :is(.form-control, .form-select, .btn) { padding-block: .45rem; padding-left: .75rem; }
+  .form-control-sm, .input-group-sm > :is(.form-control, .input-group-text, .btn) { padding-right: .75rem; }
+  .form-control-lg, .form-select-lg, .input-group-lg > :is(.form-control, .form-select, .input-group-text, .btn) { font-size: 1.125rem; }
+  .form-control-lg, .form-select-lg, .input-group-lg > :is(.form-control, .form-select, .btn) { padding-block: .75rem; padding-left: 1rem; }
+  .form-control-lg, .input-group-lg > :is(.form-control, .input-group-text, .btn) { padding-right: 1rem; }
+
+  /* forms: input group (replaces the control-first / addon-last rules) */
+  .input-group { position: relative; flex-wrap: nowrap; align-items: stretch; width: 100%; }
+  .input-group > * { position: relative; }
+  .input-group > .form-control, .input-group > .form-select { flex: 1 1 auto; width: 1%; min-width: 0; }
+  .input-group > :not(:first-child) { margin-left: -1px; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+  .input-group > :not(:last-child) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+  .input-group > :is(:focus, .is-invalid, .is-valid) { z-index: 3; }
+  .input-group > :focus { box-shadow: none; }
+  .input-group-text {
+    display: flex; align-items: center; padding: 0 .85rem; white-space: nowrap;
+    background: var(--field-addon); border: 1px solid var(--border);
+    border-radius: var(--radius); color: var(--muted); font-weight: 600;
+  }
+
+  /* forms: file, colour, plaintext, disabled */
+  .form-control[type="file"] { overflow: hidden; }
+  .form-control::file-selector-button {
+    margin: -.6rem .85rem -.6rem -.85rem; padding: .6rem .85rem;
+    border: 0; border-right: 1px solid var(--border); border-radius: 0;
+    background: var(--field-addon); color: var(--text); font: inherit; font-weight: 600; cursor: pointer;
+  }
+  .form-control:hover:not(:disabled, [readonly])::file-selector-button { background: color-mix(in oklab, var(--text) 7%, var(--field-addon)); }
+  .form-control-color { width: 3rem; height: calc(1.4em + 1.2rem + 2px); padding: .35rem; cursor: pointer; }
+  .form-control-color::-webkit-color-swatch-wrapper { padding: 0; }
+  .form-control-color::-webkit-color-swatch { border: 0; border-radius: var(--radius-sm); }
+  .form-control-color::-moz-color-swatch { border: 0; border-radius: var(--radius-sm); }
+  .form-control-plaintext { display: block; width: 100%; padding: .6rem 0; border: solid transparent; border-width: 1px 0; background: none; line-height: 1.4; }
+  .form-control-plaintext:focus { outline: 0; }
+  .col-form-label { margin: 0; padding-block: calc(.644rem + 1px); font-size: .9375rem; font-weight: 600; line-height: 1.4; }
+  .form-control:disabled, .form-select:disabled { background-color: var(--field-disabled); color: var(--muted); }
+  .form-control[readonly] { background-color: var(--surface-sunk); }
+
+  /* forms: checks */
+  .form-check-inline { display: inline-flex; margin-right: var(--space-3); }
+  .form-check-label { cursor: pointer; }
+  .form-check-input:disabled { opacity: .5; cursor: not-allowed; }
+  .form-check-input:disabled + .form-check-label { opacity: .6; cursor: not-allowed; }
+
+  /* forms: range. The filled part is --fill (default 0%): set it inline or from JS,
+   * e.g. el.style.setProperty("--fill", (el.value - el.min) / (el.max - el.min) * 100 + "%") */
+  .form-range { --fill: 0%; --thumb-shadow: var(--shadow); --range-track: light-dark(color-mix(in oklab, var(--text) 12%, var(--surface-sunk)), color-mix(in oklab, var(--text) 16%, var(--surface))); display: block; width: 100%; height: 1.5rem; padding: 0; background: none; appearance: none; }
+  .form-range:focus-visible { outline: 0; }
+  .form-range::-webkit-slider-runnable-track {
+    height: .5rem; border-radius: var(--radius-pill);
+    background: linear-gradient(to right, var(--primary) var(--fill), var(--range-track) 0);
+    box-shadow: inset 0 1px 2px light-dark(rgb(16 24 40 / .16), rgb(0 0 0 / .5));
+  }
+  .form-range::-moz-range-track {
+    height: .5rem; border-radius: var(--radius-pill);
+    background: linear-gradient(to right, var(--primary) var(--fill), var(--range-track) 0);
+    box-shadow: inset 0 1px 2px light-dark(rgb(16 24 40 / .16), rgb(0 0 0 / .5));
+  }
+  .form-range::-webkit-slider-thumb {
+    width: 1.25rem; height: 1.25rem; margin-top: -.375rem; appearance: none;
+    border: 2px solid var(--surface); border-radius: 50%; background: var(--primary); box-shadow: var(--thumb-shadow);
+  }
+  .form-range::-moz-range-thumb {
+    width: 1.25rem; height: 1.25rem; box-sizing: border-box;
+    border: 2px solid var(--surface); border-radius: 50%; background: var(--primary); box-shadow: var(--thumb-shadow);
+  }
+  .form-range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 .25rem var(--focus), var(--thumb-shadow); }
+  .form-range:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 .25rem var(--focus), var(--thumb-shadow); }
+  .form-range:disabled { opacity: .5; pointer-events: none; }
+
+  /* forms: floating labels. The placeholder must be set (any text); it stays invisible */
+  .form-floating { position: relative; }
+  .form-floating > :is(.form-control, .form-control-plaintext, .form-select) { height: calc(3.5rem + 2px); min-height: calc(3.5rem + 2px); line-height: 1.25; }
+  .form-floating > textarea.form-control { height: auto; min-height: calc(3.5rem + 2px); }
+  .form-floating > label {
+    position: absolute; top: 0; left: 0; z-index: 2; max-width: 100%; height: 100%; padding: 1rem .85rem;
+    overflow: hidden; color: var(--muted); font-weight: 400; text-align: start; text-overflow: ellipsis; white-space: nowrap;
+    pointer-events: none; border: 1px solid transparent; transform-origin: 0 0; transition: opacity .1s ease-in-out, transform .1s ease-in-out;
+  }
+  .form-floating > :is(.form-control, .form-control-plaintext) { padding: 1rem .85rem; }
+  .form-floating > :is(.form-control, .form-control-plaintext)::placeholder { color: transparent; }
+  .form-floating > :is(.form-control, .form-control-plaintext):is(:focus, :not(:placeholder-shown), :-webkit-autofill),
+  .form-floating > .form-select { padding-top: 1.625rem; padding-bottom: .625rem; }
+  .form-floating > :is(.form-control:is(:focus, :not(:placeholder-shown), :-webkit-autofill), .form-control-plaintext, .form-select) ~ label {
+    transform: scale(.85) translateY(-.5rem) translateX(.15rem);
+  }
+  /* a scrolled textarea runs under its floated label: the label gets a strip of the field behind it */
+  .form-floating > textarea:is(:focus, :not(:placeholder-shown)) ~ label::after {
+    content: ""; position: absolute; inset: 1rem .375rem; z-index: -1; height: 1.5em; border-radius: var(--radius-sm); background-color: var(--field);
+  }
+  .form-floating > :disabled ~ label { color: var(--subtle-text); }
+  .input-group > .form-floating { position: relative; flex: 1 1 auto; width: 1%; min-width: 0; }
+  .input-group > .form-floating:not(:first-child) > :is(.form-control, .form-select) { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+  .input-group > .form-floating:not(:last-child) > :is(.form-control, .form-select) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+
+  /* dropdown. Positioned by Bootstrap's JS (Popper); [data-bs-popper] is its static fallback, e.g. in a navbar */
+  :is(.dropdown, .dropup, .dropend, .dropstart, .dropdown-center, .dropup-center) { position: relative; }
+  .dropdown-toggle { white-space: nowrap; }
+  .dropdown-toggle:not(.btn)::after, .btn.dropdown-toggle::before {
+    content: ""; display: inline-block; flex: none; width: .75em; height: .75em; margin-left: .3em; vertical-align: -.05em;
+    background: currentColor; transition: transform .15s ease;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 6 4.5 4.5L12.5 6' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  /* on buttons the caret is ::before moved behind the label, since a felt button's ::after is its seam */
+  .btn.dropdown-toggle::before { order: 1; margin-left: 0; }
+  .dropup :is(.dropdown-toggle:not(.btn)::after, .btn.dropdown-toggle::before) { transform: rotate(180deg); }
+  .dropend :is(.dropdown-toggle:not(.btn)::after, .btn.dropdown-toggle::before) { transform: rotate(-90deg); }
+  .dropstart :is(.dropdown-toggle:not(.btn)::after, .btn.dropdown-toggle::before) { transform: rotate(90deg); }
+  .dropdown-toggle-split { padding-inline: .75rem; }
+  .btn-sm.dropdown-toggle-split, .btn-group-sm > .dropdown-toggle-split { padding-inline: .6rem; }
+  .dropdown-menu {
+    position: absolute; z-index: 1000; display: none; min-width: 11rem; margin: 0; padding: .5rem;
+    color: var(--text); font-size: 1rem; text-align: left; list-style: none;
+    background: var(--surface-overlay); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-lg);
+    contain: layout;   /* stays the containing block of its own decoration, even when shown statically (.position-static) */
+  }
+  .dropdown-menu.show { display: block; }
+  .dropdown-menu[data-bs-popper] { top: 100%; left: 0; margin-top: .25rem; }
+  .dropdown-menu-end[data-bs-popper] { right: 0; left: auto; }
+  .dropup .dropdown-menu[data-bs-popper] { top: auto; bottom: 100%; margin: 0 0 .25rem; }
+  .dropend .dropdown-menu[data-bs-popper] { top: 0; left: 100%; margin: 0 0 0 .25rem; }
+  .dropstart .dropdown-menu[data-bs-popper] { top: 0; right: 100%; left: auto; margin: 0 .25rem 0 0; }
+  .dropdown-item {
+    display: flex; align-items: center; gap: .6rem; width: 100%; padding: .45rem .75rem;
+    border: 0; border-radius: var(--radius-sm); background: none; color: var(--text);
+    font-weight: 500; text-align: inherit; text-decoration: none; white-space: nowrap;
+  }
+  .dropdown-item:is(:hover, :focus-visible) { outline: 0; background-color: var(--surface-hover); }
+  .dropdown-item:is(.active, :active) { background-color: var(--primary); color: var(--primary-ink); }
+  .dropdown-item:is(.disabled, :disabled) { background: none; color: var(--subtle-text); pointer-events: none; }
+  .dropdown-header { display: block; margin: 0; padding: .45rem .75rem .25rem; color: var(--muted); font-size: .8125rem; font-weight: 700; letter-spacing: .02em; white-space: nowrap; }
+  .dropdown-item-text { display: block; padding: .45rem .75rem; color: var(--muted); }
+  .dropdown-divider { height: 0; margin: .375rem .25rem; overflow: hidden; border-top: 1px solid var(--border); opacity: 1; }
+  .navbar-nav .dropdown-menu { position: static; }
+  .navbar-expand .navbar-nav .dropdown-menu { position: absolute; }
+  @media (min-width: 576px) { .navbar-expand-sm .navbar-nav .dropdown-menu { position: absolute; } }
+  @media (min-width: 768px) { .navbar-expand-md .navbar-nav .dropdown-menu { position: absolute; } }
+  @media (min-width: 992px) { .navbar-expand-lg .navbar-nav .dropdown-menu { position: absolute; } }
+
+  /* offcanvas: a sheet sliding in from a screen edge; Bootstrap's JS adds .showing/.show/.hiding */
+  .offcanvas {
+    --w: 400px; --h: 40vh;
+    position: fixed; z-index: 1045; display: flex; flex-direction: column; max-width: 100%;
+    background: var(--surface-overlay); color: var(--text); outline: 0; box-shadow: var(--shadow-lg);
+    visibility: hidden; transition: transform .3s ease-in-out;
+  }
+  .offcanvas-start { top: 0; left: 0; bottom: 0; width: var(--w); border-right: 1px solid var(--border); transform: translateX(-100%); }
+  .offcanvas-end { top: 0; right: 0; bottom: 0; width: var(--w); border-left: 1px solid var(--border); transform: translateX(100%); }
+  .offcanvas-top { top: 0; right: 0; left: 0; height: var(--h); max-height: 100%; border-bottom: 1px solid var(--border); border-radius: 0 0 var(--radius-lg) var(--radius-lg); transform: translateY(-100%); }
+  .offcanvas-bottom { right: 0; bottom: 0; left: 0; height: var(--h); max-height: 100%; border-top: 1px solid var(--border); border-radius: var(--radius-lg) var(--radius-lg) 0 0; transform: translateY(100%); }
+  .offcanvas:is(.showing, .show:not(.hiding)) { transform: none; }
+  .offcanvas:is(.showing, .hiding, .show) { visibility: visible; }
+  .offcanvas-backdrop { position: fixed; inset: 0; z-index: 1040; background: var(--backdrop); }
+  .offcanvas-header { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); }
+  .offcanvas-header .btn-close { margin-left: auto; }
+  .offcanvas-title { margin: 0; font-size: 1.125rem; font-weight: 700; line-height: 1.4; }
+  .offcanvas-body { flex-grow: 1; padding: 0 var(--space-4) var(--space-4); overflow-y: auto; }
+  @media (prefers-reduced-motion: reduce) { .offcanvas { transition: none; } }
+
+  /* placeholders: loading skeletons, sized with .col-* and the text they stand in for */
+  .placeholder { display: inline-block; min-height: 1em; vertical-align: middle; cursor: wait; border-radius: var(--radius-sm); background-color: currentColor; opacity: .25; }
+  .placeholder.btn::before { content: ""; display: inline-block; }
+  .placeholder.btn { background-color: var(--tone); opacity: var(--disabled-opacity); }
+  .placeholder-xs { min-height: .6em; }
+  .placeholder-sm { min-height: .8em; }
+  .placeholder-lg { min-height: 1.2em; }
+  .placeholder-glow .placeholder { animation: placeholder-glow 2s ease-in-out infinite; }
+  @keyframes placeholder-glow { 50% { opacity: .1; } }
+  .placeholder-wave { mask-image: linear-gradient(130deg, #000 55%, rgb(0 0 0 / .8) 75%, #000 95%); mask-size: 200% 100%; animation: placeholder-wave 2s linear infinite; }
+  @keyframes placeholder-wave { 100% { mask-position: -200% 0%; } }
+  @media (prefers-reduced-motion: reduce) { .placeholder-glow .placeholder, .placeholder-wave { animation: none; } }
+
+  /* touch: small controls grow to comfortable targets on coarse pointers (same in both looks) */
+  @media (pointer: coarse) {
+    .page-link { display: flex; align-items: center; justify-content: center; min-width: 2.75rem; min-height: 2.75rem; }
+    .btn-sm, .btn-group-sm > .btn { min-height: 2.75rem; }
+    .btn-close::after { content: ""; position: absolute; inset: -.6rem; }
+    .dropdown-item { min-height: 2.75rem; }
+  }
+
+  /* tooltip and popover: positioned by Bootstrap's JS (Popper), which sets data-popper-placement */
+  .tooltip {
+    --arrow-w: .8rem; --arrow-h: .4rem; --tip-bg: var(--text); --tip-ink: var(--body-bg);
+    position: absolute; z-index: 1080; display: block; margin: 0;
+    font-size: .8125rem; font-weight: 500; line-height: 1.4; overflow-wrap: break-word;
+  }
+  .tooltip-inner { max-width: 220px; padding: .3rem .65rem; border-radius: var(--radius-sm); background: var(--tip-bg); color: var(--tip-ink); text-align: center; }
+  :is(.tooltip-arrow, .popover-arrow) { position: absolute; display: block; width: var(--arrow-w); height: var(--arrow-h); }
+  :is(.tooltip-arrow, .popover-arrow)::before, .popover-arrow::after { content: ""; position: absolute; border: 0 solid transparent; }
+  .popover {
+    --arrow-w: 1rem; --arrow-h: .5rem;
+    position: absolute; top: 0; left: 0; z-index: 1070; display: block; max-width: 280px;
+    font-size: .875rem; overflow-wrap: break-word;
+    background: var(--surface-overlay); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-lg);
+  }
+  .popover-header { margin: 0; padding: .6rem 1rem; border-bottom: 1px solid var(--border); font-size: .9375rem; font-weight: 700; }
+  .popover-header:empty { display: none; }
+  .popover-body { padding: .75rem 1rem; color: var(--text); }
+  /* the arrow: an outline triangle (::before) with a fill triangle (::after) 1px inside it */
+  :is(.bs-tooltip-top, .bs-tooltip-auto[data-popper-placement^="top"]) .tooltip-arrow { bottom: calc(-1 * var(--arrow-h)); }
+  :is(.bs-tooltip-top, .bs-tooltip-auto[data-popper-placement^="top"]) .tooltip-arrow::before { top: -1px; border-width: var(--arrow-h) calc(var(--arrow-w) * .5) 0; border-top-color: var(--tip-bg); }
+  :is(.bs-tooltip-bottom, .bs-tooltip-auto[data-popper-placement^="bottom"]) .tooltip-arrow { top: calc(-1 * var(--arrow-h)); }
+  :is(.bs-tooltip-bottom, .bs-tooltip-auto[data-popper-placement^="bottom"]) .tooltip-arrow::before { bottom: -1px; border-width: 0 calc(var(--arrow-w) * .5) var(--arrow-h); border-bottom-color: var(--tip-bg); }
+  :is(.bs-tooltip-end, .bs-tooltip-auto[data-popper-placement^="right"]) .tooltip-arrow { left: calc(-1 * var(--arrow-h)); width: var(--arrow-h); height: var(--arrow-w); }
+  :is(.bs-tooltip-end, .bs-tooltip-auto[data-popper-placement^="right"]) .tooltip-arrow::before { right: -1px; border-width: calc(var(--arrow-w) * .5) var(--arrow-h) calc(var(--arrow-w) * .5) 0; border-right-color: var(--tip-bg); }
+  :is(.bs-tooltip-start, .bs-tooltip-auto[data-popper-placement^="left"]) .tooltip-arrow { right: calc(-1 * var(--arrow-h)); width: var(--arrow-h); height: var(--arrow-w); }
+  :is(.bs-tooltip-start, .bs-tooltip-auto[data-popper-placement^="left"]) .tooltip-arrow::before { left: -1px; border-width: calc(var(--arrow-w) * .5) 0 calc(var(--arrow-w) * .5) var(--arrow-h); border-left-color: var(--tip-bg); }
+  :is(.bs-popover-top, .bs-popover-auto[data-popper-placement^="top"]) > .popover-arrow { bottom: calc(-1 * var(--arrow-h) - 1px); }
+  :is(.bs-popover-top, .bs-popover-auto[data-popper-placement^="top"]) > .popover-arrow::before { bottom: 0; border-width: var(--arrow-h) calc(var(--arrow-w) * .5) 0; border-top-color: var(--border); }
+  :is(.bs-popover-top, .bs-popover-auto[data-popper-placement^="top"]) > .popover-arrow::after { bottom: 1px; border-width: var(--arrow-h) calc(var(--arrow-w) * .5) 0; border-top-color: var(--surface-overlay); }
+  :is(.bs-popover-bottom, .bs-popover-auto[data-popper-placement^="bottom"]) > .popover-arrow { top: calc(-1 * var(--arrow-h) - 1px); }
+  :is(.bs-popover-bottom, .bs-popover-auto[data-popper-placement^="bottom"]) > .popover-arrow::before { top: 0; border-width: 0 calc(var(--arrow-w) * .5) var(--arrow-h); border-bottom-color: var(--border); }
+  :is(.bs-popover-bottom, .bs-popover-auto[data-popper-placement^="bottom"]) > .popover-arrow::after { top: 1px; border-width: 0 calc(var(--arrow-w) * .5) var(--arrow-h); border-bottom-color: var(--surface-overlay); }
+  :is(.bs-popover-end, .bs-popover-auto[data-popper-placement^="right"]) > .popover-arrow { left: calc(-1 * var(--arrow-h) - 1px); width: var(--arrow-h); height: var(--arrow-w); }
+  :is(.bs-popover-end, .bs-popover-auto[data-popper-placement^="right"]) > .popover-arrow::before { left: 0; border-width: calc(var(--arrow-w) * .5) var(--arrow-h) calc(var(--arrow-w) * .5) 0; border-right-color: var(--border); }
+  :is(.bs-popover-end, .bs-popover-auto[data-popper-placement^="right"]) > .popover-arrow::after { left: 1px; border-width: calc(var(--arrow-w) * .5) var(--arrow-h) calc(var(--arrow-w) * .5) 0; border-right-color: var(--surface-overlay); }
+  :is(.bs-popover-start, .bs-popover-auto[data-popper-placement^="left"]) > .popover-arrow { right: calc(-1 * var(--arrow-h) - 1px); width: var(--arrow-h); height: var(--arrow-w); }
+  :is(.bs-popover-start, .bs-popover-auto[data-popper-placement^="left"]) > .popover-arrow::before { right: 0; border-width: calc(var(--arrow-w) * .5) 0 calc(var(--arrow-w) * .5) var(--arrow-h); border-left-color: var(--border); }
+  :is(.bs-popover-start, .bs-popover-auto[data-popper-placement^="left"]) > .popover-arrow::after { right: 1px; border-width: calc(var(--arrow-w) * .5) 0 calc(var(--arrow-w) * .5) var(--arrow-h); border-left-color: var(--surface-overlay); }
 }
 
 /* ------------------------------------------------------------ utilities */
 @layer utilities {
   /* solid colour helpers for cards, badges, … (Bootstrap's .text-bg-*) */
-  .text-bg-primary   { --tone: var(--primary);   background-color: var(--primary);   color: var(--primary-ink); border-color: transparent; }
+  .text-bg-primary { --tone: var(--primary); background-color: var(--primary); color: var(--primary-ink); border-color: transparent; }
   .text-bg-secondary { --tone: var(--secondary); background-color: var(--secondary); color: var(--secondary-ink); border-color: transparent; }
-  .text-bg-success   { --tone: var(--success);   background-color: var(--success);   color: var(--success-ink); border-color: transparent; }
-  .text-bg-danger    { --tone: var(--danger);    background-color: var(--danger);    color: var(--danger-ink); border-color: transparent; }
-  .text-bg-warning   { --tone: var(--warning);   background-color: var(--warning);   color: var(--warning-ink); border-color: transparent; }
+  .text-bg-success { --tone: var(--success); background-color: var(--success); color: var(--success-ink); border-color: transparent; }
+  .text-bg-danger { --tone: var(--danger); background-color: var(--danger); color: var(--danger-ink); border-color: transparent; }
+  .text-bg-warning { --tone: var(--warning); background-color: var(--warning); color: var(--warning-ink); border-color: transparent; }
+  .text-bg-info { --tone: var(--info); background-color: var(--info); color: var(--info-ink); border-color: transparent; }
+  .text-bg-light { --tone: var(--light); background-color: var(--light); color: var(--light-ink); border-color: transparent; box-shadow: inset 0 0 0 1px var(--border); }
+  .text-bg-dark { --tone: var(--dark); background-color: var(--dark); color: var(--dark-ink); border-color: light-dark(transparent, rgb(255 255 255 / .1)); }
 
-  .text-muted { color: var(--muted); }
-  .text-success { color: var(--success); }
-  .text-danger { color: var(--danger); }
-  .fw-bold { font-weight: 700; }
-  .mt-3 { margin-top: var(--space-3); }
-  .mt-4 { margin-top: var(--space-4); }
-  .mb-3 { margin-bottom: var(--space-3); }
-  .my-5 { margin-block: var(--space-5); }
-  .ms-auto { margin-left: auto; }
+  /* the rest follows Bootstrap and uses !important like it does */
+  .d-none { display: none !important; }
+  .d-block { display: block !important; }
+  .d-inline { display: inline !important; }
+  .d-inline-block { display: inline-block !important; }
+  .d-flex { display: flex !important; }
+  .d-inline-flex { display: inline-flex !important; }
+  .d-grid { display: grid !important; }
+  .flex-row { flex-direction: row !important; }
+  .flex-column { flex-direction: column !important; }
+  .flex-wrap { flex-wrap: wrap !important; }
+  .flex-nowrap { flex-wrap: nowrap !important; }
+  .flex-grow-1 { flex-grow: 1 !important; }
+  .flex-shrink-0 { flex-shrink: 0 !important; }
+  .justify-content-start { justify-content: flex-start !important; }
+  .justify-content-end { justify-content: flex-end !important; }
+  .justify-content-center { justify-content: center !important; }
+  .justify-content-between { justify-content: space-between !important; }
+  .justify-content-around { justify-content: space-around !important; }
+  .justify-content-evenly { justify-content: space-evenly !important; }
+  .align-items-start { align-items: flex-start !important; }
+  .align-items-end { align-items: flex-end !important; }
+  .align-items-center { align-items: center !important; }
+  .align-items-baseline { align-items: baseline !important; }
+  .align-items-stretch { align-items: stretch !important; }
+  .align-self-auto { align-self: auto !important; }
+  .align-self-start { align-self: flex-start !important; }
+  .align-self-end { align-self: flex-end !important; }
+  .align-self-center { align-self: center !important; }
+  .align-self-stretch { align-self: stretch !important; }
+  .order-0 { order: 0 !important; }
+  .order-1 { order: 1 !important; }
+  .order-2 { order: 2 !important; }
+  .order-3 { order: 3 !important; }
+  .order-4 { order: 4 !important; }
+  .order-5 { order: 5 !important; }
+  .order-first { order: -1 !important; }
+  .order-last { order: 6 !important; }
+  .m-0 { margin: 0 !important; }
+  .m-1 { margin: .25rem !important; }
+  .m-2 { margin: .5rem !important; }
+  .m-3 { margin: 1rem !important; }
+  .m-4 { margin: 1.5rem !important; }
+  .m-5 { margin: 3rem !important; }
+  .m-auto { margin: auto !important; }
+  .mt-0 { margin-top: 0 !important; }
+  .mt-1 { margin-top: .25rem !important; }
+  .mt-2 { margin-top: .5rem !important; }
+  .mt-3 { margin-top: 1rem !important; }
+  .mt-4 { margin-top: 1.5rem !important; }
+  .mt-5 { margin-top: 3rem !important; }
+  .mt-auto { margin-top: auto !important; }
+  .mb-0 { margin-bottom: 0 !important; }
+  .mb-1 { margin-bottom: .25rem !important; }
+  .mb-2 { margin-bottom: .5rem !important; }
+  .mb-3 { margin-bottom: 1rem !important; }
+  .mb-4 { margin-bottom: 1.5rem !important; }
+  .mb-5 { margin-bottom: 3rem !important; }
+  .mb-auto { margin-bottom: auto !important; }
+  .ms-0 { margin-inline-start: 0 !important; }
+  .ms-1 { margin-inline-start: .25rem !important; }
+  .ms-2 { margin-inline-start: .5rem !important; }
+  .ms-3 { margin-inline-start: 1rem !important; }
+  .ms-4 { margin-inline-start: 1.5rem !important; }
+  .ms-5 { margin-inline-start: 3rem !important; }
+  .ms-auto { margin-inline-start: auto !important; }
+  .me-0 { margin-inline-end: 0 !important; }
+  .me-1 { margin-inline-end: .25rem !important; }
+  .me-2 { margin-inline-end: .5rem !important; }
+  .me-3 { margin-inline-end: 1rem !important; }
+  .me-4 { margin-inline-end: 1.5rem !important; }
+  .me-5 { margin-inline-end: 3rem !important; }
+  .me-auto { margin-inline-end: auto !important; }
+  .mx-0 { margin-inline: 0 !important; }
+  .mx-1 { margin-inline: .25rem !important; }
+  .mx-2 { margin-inline: .5rem !important; }
+  .mx-3 { margin-inline: 1rem !important; }
+  .mx-4 { margin-inline: 1.5rem !important; }
+  .mx-5 { margin-inline: 3rem !important; }
+  .mx-auto { margin-inline: auto !important; }
+  .my-0 { margin-block: 0 !important; }
+  .my-1 { margin-block: .25rem !important; }
+  .my-2 { margin-block: .5rem !important; }
+  .my-3 { margin-block: 1rem !important; }
+  .my-4 { margin-block: 1.5rem !important; }
+  .my-5 { margin-block: 3rem !important; }
+  .my-auto { margin-block: auto !important; }
+  .p-0 { padding: 0 !important; }
+  .p-1 { padding: .25rem !important; }
+  .p-2 { padding: .5rem !important; }
+  .p-3 { padding: 1rem !important; }
+  .p-4 { padding: 1.5rem !important; }
+  .p-5 { padding: 3rem !important; }
+  .pt-0 { padding-top: 0 !important; }
+  .pt-1 { padding-top: .25rem !important; }
+  .pt-2 { padding-top: .5rem !important; }
+  .pt-3 { padding-top: 1rem !important; }
+  .pt-4 { padding-top: 1.5rem !important; }
+  .pt-5 { padding-top: 3rem !important; }
+  .pb-0 { padding-bottom: 0 !important; }
+  .pb-1 { padding-bottom: .25rem !important; }
+  .pb-2 { padding-bottom: .5rem !important; }
+  .pb-3 { padding-bottom: 1rem !important; }
+  .pb-4 { padding-bottom: 1.5rem !important; }
+  .pb-5 { padding-bottom: 3rem !important; }
+  .ps-0 { padding-inline-start: 0 !important; }
+  .ps-1 { padding-inline-start: .25rem !important; }
+  .ps-2 { padding-inline-start: .5rem !important; }
+  .ps-3 { padding-inline-start: 1rem !important; }
+  .ps-4 { padding-inline-start: 1.5rem !important; }
+  .ps-5 { padding-inline-start: 3rem !important; }
+  .pe-0 { padding-inline-end: 0 !important; }
+  .pe-1 { padding-inline-end: .25rem !important; }
+  .pe-2 { padding-inline-end: .5rem !important; }
+  .pe-3 { padding-inline-end: 1rem !important; }
+  .pe-4 { padding-inline-end: 1.5rem !important; }
+  .pe-5 { padding-inline-end: 3rem !important; }
+  .px-0 { padding-inline: 0 !important; }
+  .px-1 { padding-inline: .25rem !important; }
+  .px-2 { padding-inline: .5rem !important; }
+  .px-3 { padding-inline: 1rem !important; }
+  .px-4 { padding-inline: 1.5rem !important; }
+  .px-5 { padding-inline: 3rem !important; }
+  .py-0 { padding-block: 0 !important; }
+  .py-1 { padding-block: .25rem !important; }
+  .py-2 { padding-block: .5rem !important; }
+  .py-3 { padding-block: 1rem !important; }
+  .py-4 { padding-block: 1.5rem !important; }
+  .py-5 { padding-block: 3rem !important; }
+  .gap-0 { gap: 0 !important; } .row-gap-0 { row-gap: 0 !important; } .column-gap-0 { column-gap: 0 !important; }
+  .gap-1 { gap: .25rem !important; } .row-gap-1 { row-gap: .25rem !important; } .column-gap-1 { column-gap: .25rem !important; }
+  .gap-2 { gap: .5rem !important; } .row-gap-2 { row-gap: .5rem !important; } .column-gap-2 { column-gap: .5rem !important; }
+  .gap-3 { gap: 1rem !important; } .row-gap-3 { row-gap: 1rem !important; } .column-gap-3 { column-gap: 1rem !important; }
+  .gap-4 { gap: 1.5rem !important; } .row-gap-4 { row-gap: 1.5rem !important; } .column-gap-4 { column-gap: 1.5rem !important; }
+  .gap-5 { gap: 3rem !important; } .row-gap-5 { row-gap: 3rem !important; } .column-gap-5 { column-gap: 3rem !important; }
+  .text-start { text-align: start !important; }
+  .text-end { text-align: end !important; }
+  .text-center { text-align: center !important; }
+  .text-nowrap { white-space: nowrap !important; }
+  .text-truncate { overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; }
+  .text-uppercase { text-transform: uppercase !important; }
+  .text-decoration-none { text-decoration: none !important; }
+  .text-decoration-underline { text-decoration: underline !important; }
+  .text-decoration-line-through { text-decoration: line-through !important; }
+  .fw-normal { font-weight: 400 !important; }
+  .fw-semibold { font-weight: 600 !important; }
+  .fw-bold { font-weight: 700 !important; }
+  .fst-italic { font-style: italic !important; }
+  .fst-normal { font-style: normal !important; }
+  .fs-1 { font-size: 2rem !important; }
+  .fs-2 { font-size: 1.375rem !important; }
+  .fs-3 { font-size: 1.125rem !important; }
+  .fs-4 { font-size: 1rem !important; }
+  .fs-5 { font-size: .9375rem !important; }
+  .fs-6 { font-size: .875rem !important; }
+  .font-monospace { font-family: var(--font-mono) !important; }
+  .lh-1 { line-height: 1 !important; }
+  /* extras, not in Bootstrap: */
+  .tabular-nums { font-variant-numeric: tabular-nums !important; }
+  .pb-safe { padding-bottom: max(var(--space-2), env(safe-area-inset-bottom)) !important; }
+  .text-primary { color: var(--primary-text) !important; }
+  .text-secondary { color: var(--secondary-text) !important; }
+  .text-success { color: var(--success-text) !important; }
+  .text-danger { color: var(--danger-text) !important; }
+  .text-warning { color: var(--warning-text) !important; }
+  .text-info { color: var(--info-text) !important; }
+  .text-light { color: var(--light) !important; }
+  .text-dark { color: var(--dark) !important; }
+  .text-body { color: var(--text) !important; }
+  .text-body-secondary, .text-muted { color: var(--muted) !important; }
+  .text-body-tertiary { color: var(--subtle-text) !important; }
+  .text-white { color: #fff !important; }
+  .text-reset { color: inherit !important; }
+  .text-primary-emphasis { color: var(--primary-emphasis) !important; }
+  .text-secondary-emphasis { color: var(--secondary-emphasis) !important; }
+  .text-success-emphasis { color: var(--success-emphasis) !important; }
+  .text-danger-emphasis { color: var(--danger-emphasis) !important; }
+  .text-warning-emphasis { color: var(--warning-emphasis) !important; }
+  .text-info-emphasis { color: var(--info-emphasis) !important; }
+  .text-light-emphasis { color: var(--light-emphasis) !important; }
+  .text-dark-emphasis { color: var(--dark-emphasis) !important; }
+  .bg-primary { background-color: var(--primary) !important; }
+  .bg-secondary { background-color: var(--secondary) !important; }
+  .bg-success { background-color: var(--success) !important; }
+  .bg-danger { background-color: var(--danger) !important; }
+  .bg-warning { background-color: var(--warning) !important; }
+  .bg-info { background-color: var(--info) !important; }
+  .bg-light { background-color: var(--light) !important; }
+  .bg-dark { background-color: var(--dark) !important; }
+  .bg-primary-subtle { background-color: var(--primary-subtle) !important; }
+  .bg-secondary-subtle { background-color: var(--secondary-subtle) !important; }
+  .bg-success-subtle { background-color: var(--success-subtle) !important; }
+  .bg-danger-subtle { background-color: var(--danger-subtle) !important; }
+  .bg-warning-subtle { background-color: var(--warning-subtle) !important; }
+  .bg-info-subtle { background-color: var(--info-subtle) !important; }
+  .bg-light-subtle { background-color: var(--light-subtle) !important; }
+  .bg-dark-subtle { background-color: var(--dark-subtle) !important; }
+  .bg-body { background-color: var(--body-bg) !important; }
+  .bg-body-secondary { background-color: light-dark(var(--surface-sunk), var(--surface-raised)) !important; }
+  .bg-body-tertiary { background-color: var(--surface-raised) !important; }
+  .bg-transparent { background-color: transparent !important; }
+  .border { border: 1px solid var(--border) !important; }
+  .border-top { border-top: 1px solid var(--border) !important; }
+  .border-bottom { border-bottom: 1px solid var(--border) !important; }
+  .border-start { border-inline-start: 1px solid var(--border) !important; }
+  .border-end { border-inline-end: 1px solid var(--border) !important; }
+  .border-0 { border: 0 !important; }
+  .border-top-0 { border-top: 0 !important; }
+  .border-bottom-0 { border-bottom: 0 !important; }
+  .border-start-0 { border-inline-start: 0 !important; }
+  .border-end-0 { border-inline-end: 0 !important; }
+  .border-primary { border-color: var(--primary) !important; }
+  .border-secondary { border-color: var(--secondary) !important; }
+  .border-success { border-color: var(--success) !important; }
+  .border-danger { border-color: var(--danger) !important; }
+  .border-warning { border-color: var(--warning) !important; }
+  .border-info { border-color: var(--info) !important; }
+  .border-light { border-color: var(--light) !important; }
+  .border-dark { border-color: var(--dark) !important; }
+  .border-primary-subtle { border-color: var(--primary-border-subtle) !important; }
+  .border-secondary-subtle { border-color: var(--secondary-border-subtle) !important; }
+  .border-success-subtle { border-color: var(--success-border-subtle) !important; }
+  .border-danger-subtle { border-color: var(--danger-border-subtle) !important; }
+  .border-warning-subtle { border-color: var(--warning-border-subtle) !important; }
+  .border-info-subtle { border-color: var(--info-border-subtle) !important; }
+  .border-light-subtle { border-color: var(--light-border-subtle) !important; }
+  .border-dark-subtle { border-color: var(--dark-border-subtle) !important; }
+  .rounded, .rounded-2 { border-radius: var(--radius) !important; }
+  .rounded-0 { border-radius: 0 !important; }
+  .rounded-1 { border-radius: var(--radius-sm) !important; }
+  .rounded-3 { border-radius: var(--radius-lg) !important; }
+  .rounded-pill { border-radius: var(--radius-pill) !important; }
+  .rounded-circle { border-radius: 50% !important; }
+  .rounded-top { border-top-left-radius: var(--radius) !important; border-top-right-radius: var(--radius) !important; }
+  .rounded-bottom { border-bottom-left-radius: var(--radius) !important; border-bottom-right-radius: var(--radius) !important; }
+  .rounded-start { border-top-left-radius: var(--radius) !important; border-bottom-left-radius: var(--radius) !important; }
+  .rounded-end { border-top-right-radius: var(--radius) !important; border-bottom-right-radius: var(--radius) !important; }
+  .rounded-top-0 { border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; }
+  .rounded-end-0 { border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important; }
+  .rounded-bottom-0 { border-bottom-left-radius: 0 !important; border-bottom-right-radius: 0 !important; }
+  .rounded-start-0 { border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; }
+  .shadow-none { box-shadow: none !important; }
+  .shadow-sm { box-shadow: var(--shadow-sm) !important; }
+  .shadow { box-shadow: var(--shadow) !important; }
+  .shadow-lg { box-shadow: var(--shadow-lg) !important; }
+  .opacity-0 { opacity: 0 !important; }
+  .opacity-25 { opacity: .25 !important; }
+  .opacity-50 { opacity: .5 !important; }
+  .opacity-75 { opacity: .75 !important; }
+  .opacity-100 { opacity: 1 !important; }
+  .position-static { position: static !important; }
+  .position-relative { position: relative !important; }
+  .position-absolute { position: absolute !important; }
+  .position-fixed { position: fixed !important; }
+  .position-sticky { position: sticky !important; }
+  .top-0 { top: 0 !important; }
+  .top-50 { top: 50% !important; }
+  .bottom-0 { bottom: 0 !important; }
+  .start-0 { inset-inline-start: 0 !important; }
+  .start-50 { inset-inline-start: 50% !important; }
+  .end-0 { inset-inline-end: 0 !important; }
+  .translate-middle { transform: translate(-50%, -50%) !important; }
+  .fixed-top, .fixed-bottom { position: fixed !important; right: 0 !important; left: 0 !important; z-index: 1030 !important; }
+  .fixed-top { top: 0 !important; }
+  .fixed-bottom { bottom: 0 !important; }
+  .sticky-top { position: sticky !important; top: 0 !important; z-index: 1020 !important; }
+  .z-0 { z-index: 0 !important; }
+  .z-1 { z-index: 1 !important; }
+  .z-2 { z-index: 2 !important; }
+  .z-3 { z-index: 3 !important; }
+  .w-25 { width: 25% !important; }
+  .w-50 { width: 50% !important; }
+  .w-75 { width: 75% !important; }
+  .w-100 { width: 100% !important; }
+  .w-auto { width: auto !important; }
+  .h-100 { height: 100% !important; }
+  .mw-100 { max-width: 100% !important; }
+  .vh-100 { height: 100vh !important; }
+  .min-vh-100 { min-height: 100vh !important; }
+  .overflow-auto { overflow: auto !important; }
+  .overflow-hidden { overflow: hidden !important; }
+  .object-fit-cover { object-fit: cover !important; }
+  .object-fit-contain { object-fit: contain !important; }
+  .user-select-none { user-select: none !important; }
+  .pe-none { pointer-events: none !important; }
+  .pe-auto { pointer-events: auto !important; }
+  @media (min-width: 576px) {
+    .d-sm-none { display: none !important; }
+    .d-sm-block { display: block !important; }
+    .d-sm-inline { display: inline !important; }
+    .d-sm-inline-block { display: inline-block !important; }
+    .d-sm-flex { display: flex !important; }
+    .d-sm-inline-flex { display: inline-flex !important; }
+    .d-sm-grid { display: grid !important; }
+    .text-sm-start { text-align: start !important; }
+    .text-sm-end { text-align: end !important; }
+    .text-sm-center { text-align: center !important; }
+  }
+  @media (min-width: 768px) {
+    .d-md-none { display: none !important; }
+    .d-md-block { display: block !important; }
+    .d-md-inline { display: inline !important; }
+    .d-md-inline-block { display: inline-block !important; }
+    .d-md-flex { display: flex !important; }
+    .d-md-inline-flex { display: inline-flex !important; }
+    .d-md-grid { display: grid !important; }
+    .text-md-start { text-align: start !important; }
+    .text-md-end { text-align: end !important; }
+    .text-md-center { text-align: center !important; }
+    .flex-md-row { flex-direction: row !important; } .flex-md-column { flex-direction: column !important; }
+    .order-md-0 { order: 0 !important; } .order-md-1 { order: 1 !important; } .order-md-2 { order: 2 !important; } .order-md-3 { order: 3 !important; } .order-md-4 { order: 4 !important; } .order-md-5 { order: 5 !important; } .order-md-first { order: -1 !important; } .order-md-last { order: 6 !important; }
+  }
+  @media (min-width: 992px) {
+    .d-lg-none { display: none !important; }
+    .d-lg-block { display: block !important; }
+    .d-lg-inline { display: inline !important; }
+    .d-lg-inline-block { display: inline-block !important; }
+    .d-lg-flex { display: flex !important; }
+    .d-lg-inline-flex { display: inline-flex !important; }
+    .d-lg-grid { display: grid !important; }
+    .text-lg-start { text-align: start !important; }
+    .text-lg-end { text-align: end !important; }
+    .text-lg-center { text-align: center !important; }
+  }
+
+  /* helpers */
+  .ratio { position: relative; width: 100%; aspect-ratio: var(--ratio); }
+  .ratio > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .ratio-1x1 { --ratio: 1 / 1; } .ratio-4x3 { --ratio: 4 / 3; } .ratio-16x9 { --ratio: 16 / 9; } .ratio-21x9 { --ratio: 21 / 9; }
+  .img-fluid { max-width: 100%; height: auto; }
+  .img-thumbnail { max-width: 100%; height: auto; padding: .25rem; background-color: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+  .visually-hidden, .visually-hidden-focusable:not(:focus, :focus-within) { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
+  .stretched-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
 }
 
 /* ----------------------------------------------------------------- felt
@@ -365,79 +1600,111 @@
   /* Sewn-on pieces are ~2mm thick felt: a darker cut edge below, edges rolling off
    * outside the seam, a soft cast shadow. Declared on the elements (not :root) so that
    * --felt-edge follows each piece's own --tone. */
-  :where([data-look="felt"]) :where(.btn, .badge, .alert, .text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger, .text-bg-warning) {
-    --felt-edge: color-mix(in oklab, var(--tone, #d8ccb6) 70%, #2a1a08 30%);
+  :where([data-look="felt"]) :where(.btn, .btn-group, .btn-group-vertical, .badge, .alert, .toast, .page-link, .progress-bar, [class*="text-bg-"]) {
+    --felt-edge: color-mix(in oklab, var(--tone, light-dark(#d8ccb6, #24211e)) 70%, var(--felt-cut) 30%);
     --shadow-patch:
-      0 0 1px .5px color-mix(in oklab, var(--tone, #f3ecdf) 45%, transparent),
+      0 0 1px .5px color-mix(in oklab, color-mix(in oklab, var(--tone, light-dark(#f3ecdf, #3a3531)) 75%, var(--felt-cut)) 45%, transparent),
       inset 0 0 0 1px rgb(0 0 0 / .06),
-      inset 0 1px 0 rgb(255 255 255 / .22),
+      inset 0 1px 0 var(--patch-gloss, rgb(255 255 255 / .22)),
       inset 0 -3px 4px -1px rgb(0 0 0 / .18),
       inset 0 0 7px rgb(0 0 0 / .10),
       0 var(--felt-edge-y, 1.5px) 1px var(--felt-edge),
-      0 3px 6px -1px rgb(60 40 15 / .18),
-      0 10px 18px -8px rgb(60 40 15 / .28);
+      0 3px 6px -1px var(--felt-shadow-near),
+      0 10px 18px -8px var(--felt-shadow-far);
     --shadow-patch-pressed:
       inset 0 0 0 1px rgb(0 0 0 / .08),
       inset 0 2px 4px rgb(0 0 0 / .22),
       inset 0 0 7px rgb(0 0 0 / .10),
       0 1px 1px var(--felt-edge),
-      0 1px 2px rgb(60 40 15 / .18);
+      0 1px 2px var(--felt-shadow-near);
   }
 
-  /* page: one big piece of light felt */
-  :where([data-look="felt"]) body {
-    background-image: var(--felt-light);
-    background-size: var(--felt-light-size);
-    background-blend-mode: multiply;
+  /* --- recipe 1: light felt (page, cards, navbar, alerts, light buttons, chips, …), cut from --sheet */
+  :where([data-look="felt"]) :where(body, .card, .navbar, .btn, .badge, .alert, .list-group-item, .accordion-item, .modal-content,
+    .toast, .dropdown-menu, .offcanvas, .popover, .nav-tabs .nav-link.active, pre,
+    .bg-body, .bg-body-secondary, .bg-body-tertiary, [class*="bg-"][class*="-subtle"]) {
+    background-image: var(--sheet);
+    background-size: var(--sheet-size);
+    background-blend-mode: var(--sheet-blend);
   }
-
-  /* --- recipe 1: light felt (cards, navbar, alerts, light buttons, chips) */
-  :where([data-look="felt"]) :where(.card, .navbar, .btn, .badge, .alert) {
-    background-image: var(--felt-light);
-    background-size: var(--felt-light-size);
-    background-blend-mode: multiply;
+  :where([data-look="felt"]) :where(.card, .navbar, .btn, .badge, .alert, .list-group-item, .accordion-item, .modal-content, .toast, .page-link,
+    .dropdown-menu, .offcanvas, .popover) {
     border-color: transparent;
   }
-  :where([data-look="felt"]) :where(.card, .navbar) { box-shadow: var(--shadow-felt); }
+  /* the page is the quietest felt of all (a veil over its fibres in dark mode) */
+  :where([data-look="felt"]) body {
+    background-image: linear-gradient(var(--page-veil, transparent) 0 0), var(--sheet);
+    background-size: auto, var(--sheet-size);
+    background-blend-mode: normal, var(--sheet-blend);
+  }
+  :where([data-look="felt"]) :where(.card, .navbar, .list-group, .accordion, .modal-content) { box-shadow: var(--shadow-felt); }
+  :where([data-look="felt"]) :where(.list-group, .accordion) { position: relative; isolation: isolate; border-radius: var(--radius-lg); }
+  :where([data-look="felt"]) .list-group::after { z-index: 1030; }
+  :where([data-look="felt"]) :where(.list-group-flush, .card .list-group, .accordion-flush) { box-shadow: none; }
   /* light pieces that are sewn on as well: same depth as the coloured patches */
-  :where([data-look="felt"]) :where(.btn-light, [class*="btn-outline-"]) {
-    --felt-edge: #cbbca2;
-    background-color: var(--surface-raised);
+  :where([data-look="felt"]) :where(.btn-light, [class*="btn-outline-"], .text-bg-light, .toast) {
+    --felt-edge: var(--felt-edge-light);
+    --patch-gloss: transparent;   /* cream has no sheen: a white top edge would read as a second frame */
     box-shadow: var(--shadow-patch);
+  }
+  :where([data-look="felt"]) :where(.btn-light, [class*="btn-outline-"], .toast) { background-color: var(--surface-raised); }
+  /* cream shades towards the warm cut colour, not grey */
+  :where([data-look="felt"]) :where(.btn-light, [class*="btn-outline-"]) {
+    &:hover { background-color: color-mix(in oklab, var(--surface-raised), light-dark(var(--felt-cut), #fff) var(--hover-mix)); }
+    &:is(:active, .active, .btn-check:checked + *) { background-color: color-mix(in oklab, var(--surface-raised), light-dark(var(--felt-cut), #fff) var(--select-mix)); }
   }
   /* alerts: a large tinted piece, so it lies flatter than the small patches */
   :where([data-look="felt"]) :where(.alert) {
-    --felt-edge: color-mix(in oklab, var(--tone) 35%, #a8987c);
+    --felt-edge: color-mix(in oklab, var(--tone) 35%, light-dark(#a8987c, #15130f));
     --seam-strength: .8;
-    background-color: color-mix(in oklab, var(--tone) 20%, var(--surface));
+    background-color: color-mix(in oklab, var(--tone) var(--alert-mix, 20%), var(--surface));
     box-shadow:
-      0 0 1px .5px color-mix(in oklab, var(--tone) 20%, rgb(236 229 217 / .5)),
-      inset 0 1px 0 rgb(255 255 255 / .3),
+      0 0 1px .5px color-mix(in oklab, var(--tone) 20%, light-dark(transparent, rgb(0 0 0 / .3))),
+      inset 0 1px 0 color-mix(in srgb, var(--felt-highlight) 60%, transparent),
       0 1px 1px var(--felt-edge),
-      0 3px 6px -1px rgb(60 40 15 / .14),
-      0 10px 18px -8px rgb(60 40 15 / .22);
+      0 3px 6px -1px color-mix(in srgb, var(--felt-shadow-near) 80%, transparent),
+      0 10px 18px -8px color-mix(in srgb, var(--felt-shadow-far) 80%, transparent);
   }
 
-  /* --- recipe 2: patch (saturated felt, sewn on) */
-  :where([data-look="felt"]) :where(.text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger, .text-bg-warning,
-    .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning) {
+  :where([data-look="felt"]) .alert-secondary { --alert-mix: 14%; }
+  /* in the dark the light alert is a raised piece and the dark one a deep navy piece, so neither reads as the page */
+  :where([data-look="felt"]) .alert-dark { background-color: light-dark(color-mix(in oklab, var(--tone) 26%, var(--surface)), color-mix(in oklab, var(--tone) 55%, var(--surface))); }
+  :where([data-look="felt"]) .alert-light { background-color: light-dark(color-mix(in oklab, var(--tone) 6%, var(--surface)), color-mix(in oklab, var(--text) 6%, var(--surface-raised))); }
+
+  /* --- recipe 2: patch (saturated felt, sewn on); solid bg-* fills get the same felt */
+  :where([data-look="felt"]) :where(.bg-primary, .bg-secondary, .bg-success, .bg-danger, .bg-warning, .bg-info, .bg-dark) {
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / .08), 0 1px 0 color-mix(in srgb, var(--felt-cut) 40%, transparent);
+    background-image: var(--felt);
+    background-size: var(--felt-size);
+    background-blend-mode: soft-light;
+  }
+  :where([data-look="felt"]) :where(.text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger, .text-bg-warning, .text-bg-info, .text-bg-dark,
+    .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark,
+    .list-group-item.active, .btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, :active)) {
     background-image: var(--felt), var(--patch-dome);
     background-size: var(--felt-size), 100% 100%;
     background-repeat: repeat, no-repeat;
     background-blend-mode: soft-light, normal;
     box-shadow: var(--shadow-patch);
     /* thread: a lighter tone of the patch */
-    --seam-filter: brightness(.9);
-    --seam-strength: .4;
+    --seam-filter: var(--patch-seam-filter);
+    --seam-strength: var(--patch-seam-strength);
   }
+  :where([data-look="felt"]) :is(.btn-dark, .text-bg-dark) { box-shadow: var(--shadow-patch), 0 0 0 1px light-dark(transparent, rgb(255 240 220 / .14)); }
+  /* neighbouring pieces are cut from different parts of the sheet, so their fibres don't repeat */
+  :where([data-look="felt"]) :where(.card, .btn, .badge, .alert, [class*="text-bg-"]):nth-child(2n) { background-position: 97px 41px; }
+  :where([data-look="felt"]) :where(.card, .btn, .badge, .alert, [class*="text-bg-"]):nth-child(3n) { background-position: 173px 118px; }
 
   /* --- seams: a 9-slice image of thread, blended tone-on-tone into the felt.
-   * Sewn: navbar, cards, alerts and all filled/outline buttons; not badges, pills or inputs.
-   * --seam-inset is measured from the outer edge, so the seam radius is radius − inset. */
-  :where([data-look="felt"]) :where(.card, .navbar, .alert,
-    .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-light, [class*="btn-outline-"])::after {
+   * Sewn: navbar, cards, list groups, accordions, modals, toasts, alerts and all filled/outline buttons;
+   * not badges, pills or inputs. --seam-inset is measured from the outer edge, so the seam radius is
+   * radius − inset. */
+  :where([data-look="felt"]) :where(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link,
+    .dropdown-menu, .offcanvas, .popover,
+    .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, [class*="btn-outline-"])::after {
     content: "";
     position: absolute;
+    z-index: 3;
     inset: calc(var(--seam-inset) - var(--seam-margin) - 1px);   /* 1px: the element's own border */
     pointer-events: none;
     border: 0 solid transparent;
@@ -446,19 +1713,46 @@
     filter: var(--seam-filter);
     opacity: var(--seam-strength);
   }
+  :where([data-look="felt"]) :where(.list-group-flush, .card .list-group, .accordion-flush)::after { content: none; }
+  :where([data-look="felt"]) :where(.btn, .page-link)::after { z-index: auto; }
   :where([data-look="felt"]) .card { --felt-edge-y: 1px; }
-  :where([data-look="felt"]) :is(.card, .navbar, .alert) {
+  :where([data-look="felt"]) .btn { --seam-img: url("img/seam-md.webp"); --seam-slice: var(--seam-md-slice); --seam-width: var(--seam-md-width); --seam-inset: 5px; }
+  /* photos lie on top of the felt: the seam runs underneath */
+  :where([data-look="felt"]) :is(.card-img, .card-img-top, .card-img-bottom, .card > .row img) { position: relative; z-index: 4; }
+  :where([data-look="felt"]) .card-img-overlay { z-index: 5; }
+  :where([data-look="felt"]) :is(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .offcanvas) {
     --seam-img: url("img/seam-lg.webp"); --seam-slice: var(--seam-lg-slice); --seam-width: var(--seam-lg-width); --seam-inset: 9px;
   }
-  :where([data-look="felt"]) :is(.btn-pill, .btn-icon) {
+  :where([data-look="felt"]) :is(.btn-pill, .btn-icon, .rounded-pill) {
     --seam-img: url("img/seam-pill.webp"); --seam-slice: var(--seam-pill-slice); --seam-width: var(--seam-pill-width);
   }
-  :where([data-look="felt"]) .btn-sm { --seam-inset: 3.5px; }
+  :where([data-look="felt"]) :is(.btn-sm, .btn-group-sm > .btn) { --seam-inset: 3.5px; --seam-width: calc(var(--seam-md-width) * .7); }
+  :where([data-look="felt"]) :is(.btn-sm, .btn-group-sm > .btn):is(.btn-pill, .btn-icon, .rounded-pill) { --seam-width: calc(var(--seam-pill-width) * .7); }
+  /* a button in an input group is cut off where it meets the field: sewn along its free edges only */
+  :where([data-look="felt"]) .input-group > .btn { overflow: hidden; }
+  :where([data-look="felt"]) .input-group > .btn:not(:first-child)::after { left: -40px; }
+  :where([data-look="felt"]) .input-group > .btn:not(:last-child)::after { right: -40px; }
+  :where([data-look="felt"]) .input-group > .btn { --seam-inset: 5px; --seam-width: calc(var(--seam-md-width) * .6); }
+    /* a bar fixed to the screen edge is sewn along its inner edge only */
+  :where([data-look="felt"]) .navbar:is(.fixed-top, .fixed-bottom)::after {
+    inset: auto 0; height: calc(2 * var(--seam-margin)); border-image: none;
+    background: url("img/seam-row.webp") left center / var(--seam-row-size) round no-repeat;
+  }
+  :where([data-look="felt"]) .navbar.fixed-top::after { bottom: 4px; }
+  :where([data-look="felt"]) .navbar.fixed-bottom::after { top: 4px; }
+  :where([data-look="felt"]) .navbar:is(.fixed-top, .fixed-bottom)::after { z-index: 0; }
+  :where([data-look="felt"]) .navbar .nav-link.flex-column { z-index: 1; }
 
-  /* inside the card, header and footer are separated by a straight row of stitches that
-   * stops at the outer seam; quieter than the outer seam so it reads as a divider */
-  :where([data-look="felt"]) :is(.card-header, .card-footer) { position: relative; border-color: transparent; }
-  :where([data-look="felt"]) :is(.card-header, .card-footer)::after {
+  /* dividers inside a piece: a straight row of stitches that stops at the outer seam; quieter than
+   * the outer seam so it reads as a divider */
+  :where([data-look="felt"]) :where(.card-header, .card-footer, .modal-header, .modal-footer, .toast-header, .popover-header,
+    .list-group-item + .list-group-item, .accordion-item + .accordion-item, .table > :not(caption) > tr > *, hr) {
+    position: relative; border-color: transparent;
+  }
+  :where([data-look="felt"]) hr { overflow: visible; opacity: 1; }
+  :where([data-look="felt"]) :where(.card-header, .card-footer, .modal-header, .modal-footer, .toast-header, .popover-header)::after,
+  :where([data-look="felt"]) :where(.list-group-item + .list-group-item:not(.active))::after,
+  :where([data-look="felt"]) :where(.accordion-item + .accordion-item, .table > tbody > tr + tr > *, .table > thead > tr > *, hr)::before {
     content: "";
     position: absolute;
     left: calc(var(--seam-inset) + 6px); right: calc(var(--seam-inset) + 6px);
@@ -467,23 +1761,50 @@
     background: url("img/seam-row.webp") left center / var(--seam-row-size) round no-repeat;
     mix-blend-mode: hard-light;
     filter: var(--seam-filter);
-    opacity: calc(var(--seam-strength) * .7);
+    opacity: calc(var(--seam-strength) * var(--seam-row-strength));
   }
-  :where([data-look="felt"]) .card-header::after { bottom: calc(-.5px - var(--seam-margin)); }
-  :where([data-look="felt"]) .card-footer::after { top: calc(-.5px - var(--seam-margin)); }
-  :where([data-look="felt"]) :where(.text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger) :is(.card-header, .card-footer) {
+  :where([data-look="felt"]) :where(.card-header, .modal-header, .toast-header, .popover-header)::after { bottom: calc(-.5px - var(--seam-margin)); }
+  :where([data-look="felt"]) :where(.card-footer, .modal-footer)::after { top: calc(-.5px - var(--seam-margin)); }
+  :where([data-look="felt"]) :where(.list-group-item + .list-group-item)::after,
+  :where([data-look="felt"]) :where(.accordion-item + .accordion-item, .table > tbody > tr + tr > *, hr)::before { top: calc(-.5px - var(--seam-margin)); }
+  :where([data-look="felt"]) hr::before { left: 0; right: 0; }
+  :where([data-look="felt"]) .toast { --seam-inset: 5px; }
+  :where([data-look="felt"]) .toast-header::after { left: 11px; right: 11px; }
+  :where([data-look="felt"]) :where(.list-group-flush, .card .list-group) > .list-group-item::after { left: 0; right: 0; }
+  :where([data-look="felt"]) .list-group[class*="horizontal"] > .list-group-item:not(.active)::after { content: none; }
+  :where([data-look="felt"]) .list-group[class*="horizontal"] > .list-group-item + .list-group-item:not(.active) { border-left-color: transparent; box-shadow: var(--felt-fold); }
+  :where([data-look="felt"]) :is(.text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger, .text-bg-info, .text-bg-dark) :is(.card-header, .card-footer) {
     --border: rgb(255 255 255 / .2);
   }
 
   /* --- buttons */
-  :where([data-look="felt"]) .btn:hover { filter: brightness(1.04); }
-  :where([data-look="felt"]) :is(.btn:active, .btn.active) {
-    transform: translateY(1px);
-    filter: brightness(.92);
-    box-shadow: var(--shadow-patch-pressed);
+  :where([data-look="felt"]) :is(.btn:active, .btn.active, .btn-check:checked + .btn) { box-shadow: var(--shadow-patch-pressed); }
+  :where([data-look="felt"]) :is(.btn:active, .btn.active) { transform: translateY(1px); }
+  /* felt is opaque: a disabled piece goes pale and flat instead of see-through */
+  :where([data-look="felt"]) :is(.btn:disabled, .btn.disabled, .btn-check:disabled + .btn) {
+    opacity: 1; filter: saturate(.6); box-shadow: var(--shadow-patch-pressed);
+    background-color: color-mix(in oklab, var(--tone) var(--disabled-tone), var(--body-bg));
+    color: color-mix(in oklab, var(--text) var(--disabled-ink), var(--body-bg));
+    &::after { opacity: calc(var(--seam-strength) * .5); }
   }
-  /* outline: a cream felt patch, sewn on with thread in the button colour */
+  /* buttons without a piece of felt (plain, link) stay flat in every state */
+  :where([data-look="felt"]) :where(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-link, [class*="btn-outline-"]), .btn-link) { background: none; box-shadow: none; }
+  /* the felt layer outranks the components, so the chosen nav item is left out or it would lose its fill */
+  :where([data-look="felt"]) :is(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-link, [class*="btn-outline-"]), .btn-link, .nav-link:not(.active, [aria-current="page"]), .accordion-button) {
+    &:hover { background-color: var(--surface-hover); }
+    &:active { background-color: var(--surface-pressed); }
+  }
+  :where([data-look="felt"]) :is(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-link, [class*="btn-outline-"]), .btn-link) {
+    &:is(:active, .active, .btn-check:checked + *) { background-color: var(--surface-pressed); box-shadow: inset 0 1px 2px var(--felt-inset-field); }
+    &:is(:disabled, .disabled) { filter: none; background: none; box-shadow: none; color: var(--subtle-text); }
+  }
+  /* outline: a cream felt patch, sewn on with thread in the button colour; checked, it becomes a patch */
   :where([data-look="felt"]) [class*="btn-outline-"] { border-color: transparent; }
+  /* inset shading stops at the padding box, so the 1px border of a light piece would stay its brightest
+   * pixel, a light rim. A translucent border carries the shading out to the cut edge. */
+  :where([data-look="felt"]) :is(.btn-light, [class*="btn-outline-"], .text-bg-light, .toast) { border-color: light-dark(rgb(60 40 15 / .12), rgb(0 0 0 / .2)); }
+  :where([data-look="felt"]) :is(.btn-light, [class*="btn-outline-"]):is(:disabled, .disabled) { border-color: light-dark(rgb(60 40 15 / .08), rgb(0 0 0 / .08)); }
+  :where([data-look="felt"]) :is(.btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, :active)) { --tone: var(--fill); background-color: var(--fill); }
   @supports (-webkit-mask-box-image: none) {
     :where([data-look="felt"]) [class*="btn-outline-"]::after {
       border: 0;
@@ -494,64 +1815,270 @@
       filter: none;
       opacity: .75;
     }
+    :where([data-look="felt"]) :is(.btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, :active))::after { opacity: .45; }
   }
-  :where([data-look="felt"]) :where(.btn:not([class*="btn-"]), .btn-link) { background: none; box-shadow: none; }
-  :where([data-look="felt"]) :is(.btn:not([class*="btn-"]), .btn-link):hover { background-color: rgb(90 70 40 / .07); }
+  /* button groups. A group of filled buttons is one piece with one seam around it, carried by the first
+   * button (positioned against the group; no filter/transform, which would make the button the seam's
+   * containing block). A toggle group (checks, outline or light buttons) is a groove pressed into the
+   * felt, with the chosen segment sewn into it as a raised patch; pagination follows the same recipe. */
+  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical) {
+    > .btn { filter: none; transform: none; }
+    /* the piece's shading and seam are drawn once, by the first button, across the whole group */
+    /* the piece's shading and seam are drawn once, by the first button, across the whole group; where two
+     * buttons meet, the piece has a fold */
+    &:has(> .btn ~ .btn):not(:has(> .btn-check, > [class*="btn-outline-"], > .btn-light)) > .btn {
+      --fold: 0 0 transparent;
+      position: static; box-shadow: var(--fold);
+      & + .btn { --fold: var(--felt-fold); }
+      &:first-child { --seam-inset: 5px; }
+      &:first-child::before { content: ""; position: absolute; inset: 0; border-radius: var(--radius); pointer-events: none; box-shadow: var(--shadow-patch); }
+      &:not(:first-child)::after { content: none; }
+      &:hover { box-shadow: var(--fold), inset 0 0 0 99px rgb(255 255 255 / .06); }
+      &:is(:active, .active) { box-shadow: var(--fold), inset 0 2px 4px rgb(0 0 0 / .22); }
+    }
+    &.btn-group-vertical > .btn + .btn { --fold: var(--felt-fold-y); }
+    &.btn-group-sm:has(> .btn ~ .btn):not(:has(> .btn-check, > [class*="btn-outline-"], > .btn-light)) > .btn:first-child { --seam-inset: 4.5px; }
+  }
+  :where([data-look="felt"]) :is(:is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light), .page-link) {
+    background: var(--groove-bg, var(--felt-groove));
+    box-shadow: var(--groove-inset, inset 0 1px 3px var(--felt-inset)), 0 1px 0 var(--felt-highlight);
+  }
+  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) { border-radius: var(--radius); }
+  :where([data-look="felt"]) :is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > .btn {
+    background: none; box-shadow: none; border-color: transparent;
+    &:not(:is(.active, .btn-check:checked + .btn)) {
+      &::after { content: none; }
+      &:hover { background-color: var(--surface-hover); }
+      &:active { background-color: var(--surface-pressed); }
+    }
+    &:is(.active, .btn-check:checked + .btn) { position: relative; isolation: isolate; color: var(--ink, var(--text)); }
+  }
+  :where([data-look="felt"]) .page-item.active .page-link { --tone: var(--primary); isolation: isolate; }
+  :where([data-look="felt"]) :is(:is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > :is(.active, .btn-check:checked + .btn), .page-item.active .page-link) {
+    &::before {
+      content: ""; position: absolute; z-index: -1; inset: var(--patch-inset, 3px) var(--patch-inset-x, var(--patch-inset, 3px)); border-radius: var(--patch-radius, calc(var(--radius) - 3px));
+      background: var(--felt) var(--tone, var(--surface-raised));
+      background-size: var(--felt-size);
+      background-blend-mode: soft-light;
+      box-shadow: var(--shadow-patch);
+    }
+    &::after {
+      inset: calc(var(--seam-inset) + var(--patch-inset, 3px) - var(--seam-margin) - 1px)
+        calc(var(--seam-inset) + var(--patch-inset-x, var(--patch-inset, 3px)) - var(--seam-margin) - 1px);
+    }
+  }
+  /* a horizontal toggle is a capsule: groove and patch share the pill shape and the pill seam */
+  :where([data-look="felt"]) .btn-group:has(> .btn-check, > [class*="btn-outline-"], > .btn-light) {
+    border-radius: var(--radius-pill);
+    > :is(.active, .btn-check:checked + .btn) { --patch-radius: var(--radius-pill); --seam-img: url("img/seam-pill.webp"); --seam-slice: var(--seam-pill-slice); --seam-width: calc(var(--seam-pill-width) * .8); }
+    &.btn-group-sm > :is(.active, .btn-check:checked + .btn) { --seam-width: calc(var(--seam-pill-width) * .6); }
+  }
+  /* pagination: a capsule groove laid on the links themselves, so the list keeps Bootstrap's layout. Each
+   * link shades only its own stretch of the groove: the top everywhere, the sides only at the two ends, and
+   * not the pixel it overlaps its neighbour by. */
+  :where([data-look="felt"]) .pagination { --pr: var(--radius-pill); }
+  :where([data-look="felt"]) .page-item {
+    --groove-inset: inset 0 7px 3px -6px var(--felt-inset);
+    &:first-child { --groove-inset: inset 6px 7px 3px -6px var(--felt-inset); }
+    &:last-child { --groove-inset: inset -6px 7px 3px -6px var(--felt-inset); }
+    &:only-child { --groove-inset: inset 0 1px 3px var(--felt-inset); }
+    &:not(:first-child) { --groove-bg: linear-gradient(to right, transparent 1px, var(--felt-groove) 0) border-box; }
+    &.active .page-link {
+      /* a narrow page number still gets a pill, not a disc: the patch may reach a little past its link */
+      --patch-inset: 4px; --patch-inset-x: min(4px, (100% - 2.5em) / 2); --patch-radius: var(--radius-pill);
+      --seam-img: url("img/seam-pill.webp"); --seam-slice: var(--seam-pill-slice); --seam-width: calc(var(--seam-pill-width) * .6); --seam-inset: 3.5px;
+    }
+  }
 
-  /* --- nav pills: the active one is a small felt chip */
-  :where([data-look="felt"]) .nav-link:hover { background-color: rgb(90 70 40 / .07); }
-  :where([data-look="felt"]) :is(.nav-link.active, .nav-link[aria-current="page"]) {
+  /* --- nav: the active pill is a small felt chip, the active tab a flap of the sheet below */
+  :where([data-look="felt"]) :is(.nav-link.active, .nav-link[aria-current="page"]):not(:is(.nav-tabs, .nav-underline) .nav-link, .flex-column),
+  :where([data-look="felt"]) .nav-link.flex-column:is(.active, [aria-current="page"])::before {
     background-image: var(--felt);
     background-size: var(--felt-size);
     background-blend-mode: soft-light;
-    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .12), 0 1px 2px rgb(70 50 20 / .25);
+    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .12), 0 1px 2px var(--felt-inset);
+  }
+  :where([data-look="felt"]) .nav-tabs { position: relative; border-bottom-color: transparent; }
+  :where([data-look="felt"]) .nav-tabs::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: calc(-.5px - var(--seam-margin)); height: calc(2 * var(--seam-margin));
+    pointer-events: none; background: url("img/seam-row.webp") left center / var(--seam-row-size) round no-repeat;
+    mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: calc(var(--seam-strength) * var(--seam-row-strength));
+  }
+  :where([data-look="felt"]) .card-header .nav-tabs::after { content: none; }
+  :where([data-look="felt"]) .nav-tabs .nav-link.active {
+    z-index: 1; border-color: transparent;
+    box-shadow: 0 -1px 2px color-mix(in srgb, var(--felt-inset) 50%, transparent), inset 1px 1px 0 var(--felt-highlight), inset -1px 0 0 var(--felt-highlight);
+  }
+  /* in a card the tabs sit on a strip pressed into the felt, so the flap of the active one stands out */
+  :where([data-look="felt"]) .card-header:has(> .card-header-tabs) { background-color: var(--felt-groove); }
+  /* below the active tab the stitch row is covered by a strip of the same felt: the flap stays open */
+  :where([data-look="felt"]) .nav-tabs .nav-link.active::before {
+    content: ""; position: absolute; left: 1px; right: 1px; bottom: -5px; height: 6px;
+    background-color: var(--tab-bg); background-image: var(--sheet); background-size: var(--sheet-size); background-blend-mode: var(--sheet-blend);
+  }
+  :where([data-look="felt"]) .nav-tabs .nav-link.active::after {
+    content: ""; position: absolute; inset: 3px 3px -5px; pointer-events: none;
+    border: 0 solid transparent; border-image: url("img/seam-md.webp") var(--seam-md-slice) / calc(var(--seam-md-width) * .8) calc(var(--seam-md-width) * .8) 0 round;
+    mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: var(--seam-strength);
   }
 
-  /* --- badges: small felt chips, quiet texture so small text stays clean */
+  /* --- small pieces: badges */
   :where([data-look="felt"]) .badge {
-    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .14), 0 1px 0 var(--felt-edge), 0 2px 3px rgb(60 40 15 / .2);
+    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .14), 0 1px 0 var(--felt-edge), 0 2px 3px var(--felt-shadow-near);
   }
+  :where([data-look="felt"]) .badge.border { background-color: var(--surface-raised); }
+  :where([data-look="felt"]) .page-link:hover { box-shadow: var(--groove-inset), inset 0 0 0 99px var(--surface-hover); }
+  :where([data-look="felt"]) .page-link:active { box-shadow: var(--groove-inset), inset 0 0 0 99px var(--surface-pressed); }
+
+  /* --- list group and accordion: a sewn sheet; the active entry is a patch on it */
+  :where([data-look="felt"]) .list-group-item.active { box-shadow: inset 0 1px 0 rgb(255 255 255 / .2), inset 0 -1px 2px rgb(0 0 0 / .15), inset 1px 0 0 rgb(255 255 255 / .12), inset -1px 0 0 rgb(0 0 0 / .18), 0 1px 0 color-mix(in srgb, var(--felt-cut) 25%, transparent); }
+  /* the list's seam runs across the active entry; on the patch it is redrawn in the patch's thread, which
+   * stays visible on saturated felt (the stretch outside the entry is clipped away) */
+  :where([data-look="felt"]) .list-group:not(.list-group-flush, .card .list-group) > .list-group-item.active {
+    overflow: hidden;
+    &::after {
+      content: ""; position: absolute; inset: -40px 4px; pointer-events: none;
+      border: 0 solid transparent; border-image: var(--seam-img) var(--seam-slice) / var(--seam-width) round;
+      mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: var(--seam-strength);
+    }
+    &:first-child::after { top: 4px; }
+    &:last-child::after { bottom: 4px; }
+  }
+  :where([data-look="felt"]) .list-group[class*="horizontal"]:not(.list-group-flush) > .list-group-item.active {
+    &::after { inset: 4px -40px; }
+    &:first-child::after { left: 4px; }
+    &:last-child::after { right: 4px; }
+  }
+  :where([data-look="felt"]) .list-group-item.active + .list-group-item::after { opacity: 0; }
+  /* a sticky header (e.g. a month above a list) covers the next entry's stitch row, so it carries the row itself */
+  :where([data-look="felt"]) .list-group-item.sticky-top + .list-group-item::after { content: none; }
+  :where([data-look="felt"]) .list-group-item.sticky-top::after {
+    content: ""; position: absolute; left: calc(var(--seam-inset) + 6px); right: calc(var(--seam-inset) + 6px); bottom: calc(-.5px - var(--seam-margin));
+    height: calc(2 * var(--seam-margin)); pointer-events: none;
+    background: url("img/seam-row.webp") left center / var(--seam-row-size) round no-repeat;
+    mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: calc(var(--seam-strength) * var(--seam-row-strength));
+  }
+  :where([data-look="felt"]) .accordion-item + .accordion-item::before { top: 0; }
+  :where([data-look="felt"]) :is(.accordion-button:not(.collapsed, summary), details[open] > .accordion-button) { background-color: color-mix(in oklab, var(--primary) 6%, var(--surface-hover)); box-shadow: none; }
+
+  /* --- table: nearly clean, a tinted head and quiet rows of stitches between the rows */
+  :where([data-look="felt"]) .table > thead { background-color: var(--surface-hover); }
+  :where([data-look="felt"]) .table > thead.table-light { --t-bg: transparent; }
+  :where([data-look="felt"]) .table > thead > tr > *::before { bottom: calc(-.5px - var(--seam-margin)); }
+  :where([data-look="felt"]) .table > :not(caption) > tr > *::before { left: 0; right: 0; opacity: var(--seam-strength); }
+  /* bordered: the columns are pressed folds, no outer frame; the table lies on its piece */
+  :where([data-look="felt"]) .table-bordered > :not(caption) > * > * { border-color: transparent; }
+  :where([data-look="felt"]) .table-bordered > :not(caption) > * > * + * { box-shadow: var(--felt-fold), inset 0 0 0 9999px var(--a, transparent); }
+  :where([data-look="felt"]) .table-borderless > :not(caption) > * > *::before { content: none; }
+
+  /* --- progress: a groove pressed into the felt, the bar a patch laid in it */
+  :where([data-look="felt"]) :is(.progress, .progress-stacked) {
+    background-color: var(--felt-groove);
+    box-shadow: inset 0 1px 3px color-mix(in srgb, var(--felt-inset) 80%, transparent), inset 0 -1px 0 light-dark(rgb(255 255 255 / .35), rgb(255 240 220 / .08));
+  }
+  :where([data-look="felt"]) .progress-bar {
+    background-image: var(--felt), var(--patch-dome);
+    background-size: var(--felt-size), 100% 100%;
+    background-blend-mode: soft-light, normal;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / .2), inset 0 -1px 2px rgb(0 0 0 / .2), 1px 0 1px rgb(0 0 0 / .15);
+  }
+  /* stacked: pieces laid edge to edge, each with its own cut */
+  :where([data-look="felt"]) .progress-stacked > .progress + .progress > .progress-bar {
+    box-shadow: inset 1px 0 0 rgb(255 255 255 / .18), -1px 0 2px rgb(0 0 0 / .3), inset 0 1px 0 rgb(255 255 255 / .2), inset 0 -1px 2px rgb(0 0 0 / .2);
+  }
+  :where([data-look="felt"]) .progress-bar-striped {
+    background-image: linear-gradient(45deg, rgb(255 255 255 / .15) 25%, transparent 25%, transparent 50%, rgb(255 255 255 / .15) 50%, rgb(255 255 255 / .15) 75%, transparent 75%), var(--felt);
+    background-size: 1rem 1rem, var(--felt-size);
+    background-blend-mode: normal, soft-light;
+  }
+
+  /* --- spinners: a turning ring of felt, a pulsing felt dot */
+  :where([data-look="felt"]) :is(.spinner-border, .spinner-grow) {
+    background: var(--felt) currentColor; background-size: var(--felt-size); background-blend-mode: soft-light;
+  }
+  :where([data-look="felt"]) .spinner-border {
+    border-color: transparent;
+    mask: conic-gradient(#000 0 75%, transparent 0), radial-gradient(farthest-side, transparent calc(100% - .25em), #000 calc(100% - .25em + .5px));
+    mask-composite: intersect;
+  }
+  :where([data-look="felt"]) .spinner-grow { box-shadow: inset 0 1px 0 rgb(255 255 255 / .25), inset 0 -2px 3px rgb(0 0 0 / .2); }
+
+  /* --- dropdown, popover, offcanvas: flat pieces of felt lying above the page, sewn round */
+  :where([data-look="felt"]) :is(.dropdown-menu, .popover, .offcanvas) {
+    box-shadow: var(--shadow-felt), 0 16px 32px -12px var(--felt-shadow-far);
+  }
+  :where([data-look="felt"]) :is(.dropdown-menu, .popover) {
+    --seam-img: url("img/seam-md.webp"); --seam-slice: var(--seam-md-slice); --seam-width: var(--seam-md-width); --seam-inset: 5px;
+  }
+  /* the medium seam is finer than the cards' large one: a little more thread, so it carries the same weight */
+  :where([data-look="felt"]) :is(.dropdown-menu, .popover, .toast)::after { opacity: min(1, calc(var(--seam-strength) * 1.2)); }
+  :where([data-look="felt"]) .popover-arrow::before { border-color: transparent; }
+  :where([data-look="felt"]) .dropdown-item:is(:hover, :focus-visible) { background-color: var(--surface-hover); }
+  :where([data-look="felt"]) .dropdown-item:is(.active, :active) {
+    background-image: var(--felt); background-size: var(--felt-size); background-blend-mode: soft-light;
+    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .12), 0 1px 2px var(--felt-inset);
+  }
+  /* an offcanvas is fixed to a screen edge: its seam runs past that edge, so only the free edges are sewn */
+  :where([data-look="felt"]) .offcanvas { --seam-inset: 9px; --off: -40px; }
+  :where([data-look="felt"]) .offcanvas-start::after { inset: var(--off) 5px var(--off) var(--off); }
+  :where([data-look="felt"]) .offcanvas-end::after { inset: var(--off) var(--off) var(--off) 5px; }
+  :where([data-look="felt"]) .offcanvas-top::after { inset: var(--off) 5px 5px; }
+  :where([data-look="felt"]) .offcanvas-bottom::after { inset: 5px 5px var(--off); }
+  :where([data-look="felt"]) .offcanvas { overflow: hidden; }
+  /* tooltip: a small patch, not sewn (like badges) */
+  :where([data-look="felt"]) .tooltip-inner {
+    background-image: var(--tip-felt); background-size: var(--felt-size); background-blend-mode: var(--tip-blend);
+    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .2), 0 1px 0 color-mix(in oklab, var(--tip-bg) 70%, var(--felt-cut)), 0 3px 6px -1px var(--felt-shadow-near);
+  }
+
+  /* --- placeholders: soft felt pressed into the piece; validation tooltips are small patches */
+  :where([data-look="felt"]) .placeholder { background-image: var(--felt); background-size: var(--felt-size); background-blend-mode: soft-light; box-shadow: inset 0 1px 2px rgb(0 0 0 / .25); }
+  :where([data-look="felt"]) :is(.invalid-tooltip, .valid-tooltip) {
+    background-image: var(--felt); background-size: var(--felt-size); background-blend-mode: soft-light;
+    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .18), 0 1px 0 color-mix(in oklab, var(--tone) 70%, var(--felt-cut)), 0 3px 6px -1px var(--felt-shadow-near);
+  }
+
+  /* --- photos lie on the felt */
+  :where([data-look="felt"]) :where(.figure-img, .img-thumbnail, img.rounded) { box-shadow: 0 0 0 1px rgb(0 0 0 / .06), 0 1px 2px var(--felt-shadow-near); }
+  :where([data-look="felt"]) mark { background-color: light-dark(#f0d8a2, color-mix(in oklab, var(--warning) 35%, var(--surface))); }
+
+  /* --- modal: a flat sheet of felt lying on the dimmed page */
+  :where([data-look="felt"]) .modal-content { box-shadow: var(--shadow-felt), 0 24px 48px -12px var(--felt-shadow-far); }
 
   /* --- form controls: nearly clean, pressed slightly into the felt */
   :where([data-look="felt"]) :is(.form-control, .form-select) {
-    background-color: #fffdf8;
-    box-shadow: inset 0 2px 3px rgb(60 40 20 / .08);
+    background-color: var(--field);
+    box-shadow: inset 0 2px 3px var(--felt-inset-field);
   }
-  :where([data-look="felt"]) .form-control {
-    background-image: var(--felt-light);
-    background-size: var(--felt-light-size);
-    background-blend-mode: multiply;
+  :where([data-look="felt"]) :is(.form-control, .input-group-text),
+  :where([data-look="felt"]) .form-floating > textarea ~ label::after {
+    background-image: var(--sheet);
+    background-size: var(--sheet-size);
+    background-blend-mode: var(--sheet-blend);
   }
   :where([data-look="felt"]) :is(.form-control, .form-select).is-invalid {
     border-color: color-mix(in oklab, var(--danger-emphasis) 80%, transparent);
-    background-color: #fdf3ee;
+    background-color: var(--field-invalid);
   }
-  :where([data-look="felt"]) .input-group > .form-control:focus { box-shadow: inset 0 2px 3px rgb(60 40 20 / .08); }
+  :where([data-look="felt"]) :is(.form-control, .form-select):is(:disabled, [readonly]) { background-color: var(--field-disabled); box-shadow: none; }
+  :where([data-look="felt"]) .input-group > :is(.form-control, .form-select):focus { box-shadow: inset 0 2px 3px var(--felt-inset-field); }
   :where([data-look="felt"]) .form-select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 6 4.5 4.5L12.5 6' fill='none' stroke='%231e2b45' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
-      var(--felt-light);
-    background-size: 14px, var(--felt-light-size);
+    background-image: var(--select-chevron), var(--sheet);
+    background-size: 14px, var(--sheet-size);
     background-position: right .75rem center, 0 0;
     background-repeat: no-repeat, repeat;
-    background-blend-mode: normal, multiply;
+    background-blend-mode: normal, var(--sheet-blend);
   }
   :where([data-look="felt"]) :is(.form-control, .form-select):focus {
-    box-shadow: inset 0 2px 3px rgb(60 40 20 / .08), 0 0 0 .25rem var(--focus);
+    box-shadow: inset 0 2px 3px var(--felt-inset-field), 0 0 0 .25rem var(--focus);
   }
   :where([data-look="felt"]) :is(.form-control, .form-select):is(.is-invalid, .is-valid):focus {
-    box-shadow: inset 0 2px 3px rgb(60 40 20 / .08), 0 0 0 .25rem color-mix(in oklab, var(--state) 30%, transparent);
-  }
-  :where([data-look="felt"]) .input-group-text {
-    background-color: #f3eee4;
-    background-image: var(--felt-light);
-    background-size: var(--felt-light-size);
-    background-blend-mode: multiply;
+    box-shadow: inset 0 2px 3px var(--felt-inset-field), 0 0 0 .25rem color-mix(in oklab, var(--state) 30%, transparent);
   }
 
   /* checkbox: a little felt square */
   :where([data-look="felt"]) .form-check-input {
-    border-color: color-mix(in oklab, var(--border) 50%, var(--muted));
-    box-shadow: inset 0 1px 2px rgb(0 0 0 / .08);
+    box-shadow: inset 0 1px 2px var(--felt-inset-field);
   }
   :where([data-look="felt"]) .form-check-input:checked {
     background-image:
@@ -561,28 +2088,41 @@
     background-repeat: no-repeat, repeat;
     background-blend-mode: normal, soft-light;
     border-color: transparent;
-    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .15), 0 1px 0 color-mix(in oklab, var(--primary) 70%, #2a1a08), 0 2px 3px rgb(60 40 15 / .2);
+    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .15), 0 1px 0 color-mix(in oklab, var(--primary) 70%, var(--felt-cut)), 0 2px 3px var(--felt-shadow-near);
+  }
+  :where([data-look="felt"]) .form-check-input[type="radio"]:checked {
+    background-image: radial-gradient(circle, #fbf6ea 0 28%, transparent 33%), var(--felt);
+    background-size: 100%, var(--felt-size);
   }
 
   /* switch: felt track, matte felt disc as knob */
   :where([data-look="felt"]) .form-switch .form-check-input {
-    --knob: radial-gradient(circle closest-side, #fbf7ee 82%, rgb(70 50 20 / .22) 90%, transparent 100%);
-    background-color: #dcd2be;
-    background-image: var(--knob), var(--felt-light);
-    background-size: 1.25rem 1.25rem, var(--felt-light-size);
-    background-repeat: no-repeat, repeat;
-    background-position: 1px center, 0 0;
-    background-blend-mode: normal, multiply;
-    border-color: transparent;
-    box-shadow: inset 0 1px 3px rgb(70 50 20 / .25);
+    --knob: radial-gradient(circle closest-side, var(--felt-knob) 82%, var(--felt-inset) 90%, transparent 100%);
+    background-color: var(--felt-groove);
+    background-image: var(--knob);
+    background-size: 1.25rem 1.25rem;
+    background-position: 1px center;
+    box-shadow: inset 0 1px 3px var(--felt-inset);   /* keeps the control outline, like the checkboxes */
   }
   :where([data-look="felt"]) .form-switch .form-check-input:checked {
     background-color: var(--primary);
     background-image: var(--knob), var(--felt);
     background-size: 1.25rem 1.25rem, var(--felt-size);
+    background-repeat: no-repeat, repeat;
     background-position: calc(100% - 1px) center, 0 0;
     background-blend-mode: normal, soft-light;
+    border-color: transparent;
   }
+
+  /* range: a felt groove with a patch as knob */
+  :where([data-look="felt"]) .form-range {
+    --range-track: var(--felt-groove);
+    --thumb-shadow: inset 0 1px 0 rgb(255 255 255 / .25), inset 0 -2px 3px rgb(0 0 0 / .2), 0 1px 1px color-mix(in oklab, var(--primary) 70%, #000), 0 3px 5px var(--felt-shadow-far);
+  }
+  :where([data-look="felt"]) .form-range::-webkit-slider-runnable-track { box-shadow: inset 0 1px 3px var(--felt-inset); }
+  :where([data-look="felt"]) .form-range::-moz-range-track { box-shadow: inset 0 1px 3px var(--felt-inset); }
+  :where([data-look="felt"]) .form-range::-webkit-slider-thumb { border-color: transparent; background: var(--felt) var(--primary); background-size: var(--felt-size); background-blend-mode: soft-light; }
+  :where([data-look="felt"]) .form-range::-moz-range-thumb { border-color: transparent; background: var(--felt) var(--primary); background-size: var(--felt-size); background-blend-mode: soft-light; }
 }
 
 @media (prefers-reduced-motion: reduce) {

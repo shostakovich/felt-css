@@ -10,7 +10,11 @@ button is sewn on by hand. One attribute switches between them, and nothing on t
 |---|---|
 | ![Felt look](docs/felt.webp) | ![Clean look](docs/clean.webp) |
 
-![Buttons and alerts in felt](docs/buttons.webp)
+Both looks come in light and dark; dark felt is charcoal.
+
+![Dark mode, felt and clean](docs/dark.webp)
+
+![Colour tiles, buttons and toggle groups in felt](docs/buttons.webp)
 
 ## A word up front
 
@@ -42,25 +46,65 @@ No build step. Copy `felt.css` and the `img/` folder next to it, then:
 </body>
 ```
 
-Open `index.html` for a demo of everything (`?look=clean` or `?look=felt` in the URL picks a look).
+Open `index.html` for a demo of everything (`?look=clean|felt` and `?theme=light|dark` in the URL pick a
+look and a theme).
+
+**Dark mode** works like Bootstrap's: `data-bs-theme="dark"` (or `"light"`) on `<html>` or on any element,
+for a dark navbar on a light page and the like. Without the attribute the system setting decides.
+
+**Behaviour** (opening dropdowns, modals, offcanvas, tooltips, tabs, collapsing, toasts) comes from
+Bootstrap's own JavaScript. felt-css is CSS only and styles the classes Bootstrap's JS sets:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+```
+
+Some things need no JavaScript at all: floating labels, `<details class="accordion-item">` and
+`<dialog class="modal">`.
 
 ## What's in the box
 
 Bootstrap names, Bootstrap behaviour, felt finish:
 
-- **Layout:** `.container`, `.grid` (auto-fit, `--grid-min`), `.stack`, `.row`
-- **Navbar:** `.navbar`, `.navbar-brand`, `.nav-pills` with `.nav-link.active`
-- **Cards:** `.card` with `-header`, `-body`, `-footer`, `-title`, `-text`; `.stat` for KPI tiles
-- **Colour helpers:** `.text-bg-primary|secondary|success|danger|warning`
-- **Buttons:** `.btn-primary|secondary|success|danger|warning|light|link`, `.btn-outline-*`,
-  `.btn-sm|lg|pill|icon`, `.active`, `:disabled`
-- **Forms:** `.form-control`, `.form-select`, `.input-group(-text)`, `.form-check(-input)`, `.form-switch`,
-  `.is-invalid|is-valid` with `.invalid-feedback|valid-feedback`
-- **Badges and alerts:** `.badge.text-bg-*`, `.alert-primary|secondary|success|warning|danger`
+- **Layout:** `.container(-fluid|-sm|-md|-lg)`, Bootstrap's grid (`.row`, `.col-*`, `.row-cols-*`,
+  `.g-*`, `.offset-md-*`), `.hstack`, `.vstack`
+- **Utilities:** spacing, display, flex, text, colour, background, border, rounded, shadow, position,
+  sizing, `z-*`, `.ratio`, `.visually-hidden`, as in Bootstrap 5.3 (and `!important` like there)
+- **Prose:** headings, `.display-*`, `.lead`, lists, `blockquote`, `figure`, `code`/`pre`/`kbd`, `mark`, `hr`
+- **Navbar and nav:** `.navbar` with `.navbar-expand-*`, `.navbar-toggler`, `.navbar-collapse`,
+  `.fixed-top|bottom`; `.nav-pills`, `.nav-tabs`, `.nav-underline`, `.nav-fill|justified`, `.tab-content`
+- **Cards:** header, body, footer, title, subtitle, text, links, images (top, bottom, overlay,
+  horizontal), list groups and tabs in cards; `.stat` for KPI tiles
+- **Buttons:** all colours, `.btn-outline-*`, `.btn-link`, sizes, `.btn-pill`, `.btn-icon`, `.btn-group`
+  (horizontal and vertical, sizes), `.btn-check` toggles, `.btn-toolbar`, `.btn-close`
+- **Forms:** controls, selects, sizes, plaintext, file, colour, range, checks, radios, switches, input
+  groups, floating labels, validation states
+- **Components:** alerts (dismissible), badges, breadcrumb, pagination, list groups (actions, colours,
+  numbered, flush, horizontal), tables (striped, hover, bordered, borderless, small, colours, responsive),
+  progress (stacked, striped, animated), spinners, accordion (also `<details>`), modal (also `<dialog>`),
+  toasts, dropdowns (split, dropup/end/start), offcanvas (all four edges), tooltips, popovers
+- **Colour helpers:** `.text-bg-*`, `.bg-*`, `.bg-*-subtle`, `.text-*`, `.text-*-emphasis`, `.border-*`
 
 Colours follow Bootstrap's meaning: primary is denim blue, secondary taupe, warning mustard, success
-moss, danger tomato. They live in custom properties on `:root`, so overriding `--primary` and friends is
-all it takes to re-dye the whole thing.
+moss, danger tomato, info petrol. They live in custom properties on `:root`, written as
+`light-dark(light, dark)`, so overriding `--primary` and friends is all it takes to re-dye the whole thing.
+
+### Recipe: a mobile tab bar
+
+```html
+<nav class="navbar fixed-bottom pb-safe">
+  <ul class="nav nav-pills nav-fill w-100">
+    <li class="nav-item">
+      <a class="nav-link d-flex flex-column align-items-center active" aria-current="page" href="#"><svg>…</svg><small>Ausgaben</small></a>
+    </li>
+    …
+  </ul>
+</nav>
+```
+
+`.pb-safe` keeps the bar clear of the home indicator; in felt the bar is sewn along its inner edge and the
+active tab gets a felt chip behind its icon.
 
 ## How the felt works
 
@@ -75,7 +119,7 @@ all it takes to re-dye the whole thing.
 - **Opt-out friendly.** All felt rules sit in `@layer felt` behind `:where([data-look="felt"])`, so they
   have zero specificity and your own CSS always wins.
 
-Weight: `felt.css` is about 6 KB gzipped, all images together about 35 KB.
+Weight: `felt.css` is about 25 KB gzipped, all images together about 42 KB.
 
 ## Rebuilding the assets
 
@@ -92,12 +136,18 @@ script and run it again.
 
 ## Browser notes
 
+- Needs `light-dark()` (Chrome 123, Safari 17.5, Firefox 120); also uses `:has()`, CSS nesting and
+  cascade layers, which those versions all have.
 - Built and checked in Chromium.
 - Firefox: outline buttons fall back to tone-on-tone thread instead of thread in the button colour
   (no `-webkit-mask-box-image`).
 - Safari: not tested yet.
 
+## Upgrading from the first version
+
+- `.grid` and `.stack` are gone, and `.row` is now Bootstrap's flex row. Use `.row` with `.row-cols-*` and
+  `.g-*` instead of `.grid`, and `.vstack` with `.gap-*` instead of `.stack`.
+
 ## Status
 
-A proof of concept that grew up a bit. Next on my list: tables, modals, dropdowns, list groups,
-progress bars, and a dark mode in charcoal felt.
+A proof of concept that grew up: most of Bootstrap 5.3's components, light and dark, in both looks.
