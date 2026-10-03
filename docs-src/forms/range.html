@@ -1,0 +1,100 @@
+<!--
+title: Range
+description: Use custom range inputs for consistent cross-browser styling and built-in customization.
+-->
+<h2>Overview</h2>
+<p>Create custom <code>&lt;input type="range"&gt;</code> controls with <code>.form-range</code>. The track (the background) and thumb (the value) are both styled to appear the same across browsers.</p>
+
+<example>
+<label for="range1" class="form-label">Example range</label>
+<input type="range" class="form-range" id="range1">
+</example>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look, the track is a groove pressed into the felt and the thumb is a small primary felt patch with a cast shadow.</p>
+</div>
+
+<h2>Filled track</h2>
+<p>Unlike Bootstrap, felt-css can fill the track from the left up to the thumb. CSS can't read an input's value, so the filled part comes from the <code>--fill</code> custom property (default <code>0%</code>, i.e. no fill). Set it inline for a static value:</p>
+
+<example>
+<label for="rangeFill" class="form-label">Volume</label>
+<input type="range" class="form-range" id="rangeFill" value="70" style="--fill: 70%">
+</example>
+
+<p>To follow the thumb while it's dragged, update <code>--fill</code> from JavaScript. This works for any <code>min</code>, <code>max</code> and <code>step</code>:</p>
+
+<codeblock lang="js">
+for (const range of document.querySelectorAll('.form-range')) {
+  const update = () => {
+    const min = +range.min || 0
+    const max = range.max === '' ? 100 : +range.max
+    range.style.setProperty('--fill', `${(range.value - min) / (max - min) * 100}%`)
+  }
+  range.addEventListener('input', update)
+  update()
+}
+</codeblock>
+
+<p>The ranges below this point on this page use exactly that script.</p>
+
+<h2>Disabled</h2>
+<p>Add the <code>disabled</code> boolean attribute on an input to give it a grayed out appearance, remove pointer events, and prevent focusing.</p>
+
+<example class="bd-example-range">
+<label for="disabledRange" class="form-label">Disabled range</label>
+<input type="range" class="form-range" id="disabledRange" disabled>
+</example>
+
+<h2>Min and max</h2>
+<p>Range inputs have implicit values for <code>min</code> and <code>max</code>—<code>0</code> and <code>100</code>, respectively. You may specify new values for those using the <code>min</code> and <code>max</code> attributes.</p>
+
+<example class="bd-example-range">
+<label for="range2" class="form-label">Example range</label>
+<input type="range" class="form-range" min="0" max="5" id="range2">
+</example>
+
+<h2>Steps</h2>
+<p>By default, range inputs "snap" to integer values. To change this, you can specify a <code>step</code> value. In the example below, we double the number of steps by using <code>step="0.5"</code>.</p>
+
+<example class="bd-example-range">
+<label for="range3" class="form-label">Example range</label>
+<input type="range" class="form-range" min="0" max="5" step="0.5" id="range3">
+</example>
+
+<h2>Output value</h2>
+<p>The value of the range input can be shown using the <code>output</code> element and a bit of JavaScript.</p>
+
+<example class="bd-example-range">
+<label for="range4" class="form-label">Example range</label>
+<input type="range" class="form-range" min="0" max="100" value="50" id="range4">
+<output for="range4" id="rangeValue" aria-hidden="true"></output>
+</example>
+
+<codeblock lang="js">
+const rangeInput = document.getElementById('range4')
+const rangeOutput = document.getElementById('rangeValue')
+
+rangeOutput.textContent = rangeInput.value
+rangeInput.addEventListener('input', () => {
+  rangeOutput.textContent = rangeInput.value
+})
+</codeblock>
+
+<script>
+for (const range of document.querySelectorAll('.bd-example-range .form-range')) {
+  const update = () => {
+    const min = +range.min || 0
+    const max = range.max === '' ? 100 : +range.max
+    range.style.setProperty('--fill', `${(range.value - min) / (max - min) * 100}%`)
+  }
+  range.addEventListener('input', update)
+  update()
+}
+{
+  const rangeInput = document.getElementById('range4')
+  const rangeOutput = document.getElementById('rangeValue')
+  rangeOutput.textContent = rangeInput.value
+  rangeInput.addEventListener('input', () => { rangeOutput.textContent = rangeInput.value })
+}
+</script>

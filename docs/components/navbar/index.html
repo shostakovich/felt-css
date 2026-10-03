@@ -1,0 +1,1231 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Navbar · felt-css</title>
+  <meta name="description" content="Documentation and examples for the powerful, responsive navigation header, the navbar. Includes support for branding, navigation, and more, including support for Bootstrap's collapse plugin.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Components</p>
+        <h1>Navbar</h1>
+        <p class="lead">Documentation and examples for the powerful, responsive navigation header, the navbar. Includes support for branding, navigation, and more, including support for Bootstrap's collapse plugin.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/components/navbar.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#how-it-works">How it works</a></li><li><a href="#supported-content">Supported content</a><ul><li><a href="#brand">Brand</a></li><li><a href="#nav">Nav</a></li><li><a href="#forms">Forms</a></li><li><a href="#text">Text</a></li></ul></li><li><a href="#color-schemes">Color schemes</a></li><li><a href="#containers">Containers</a></li><li><a href="#placement">Placement</a></li><li><a href="#mobile-tab-bar">Mobile tab bar</a></li><li><a href="#scrolling">Scrolling</a></li><li><a href="#responsive-behaviors">Responsive behaviors</a><ul><li><a href="#toggler">Toggler</a></li><li><a href="#external-content">External content</a></li><li><a href="#offcanvas">Offcanvas</a></li></ul></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#how-it-works">How it works</a></li><li><a href="#supported-content">Supported content</a><ul><li><a href="#brand">Brand</a></li><li><a href="#nav">Nav</a></li><li><a href="#forms">Forms</a></li><li><a href="#text">Text</a></li></ul></li><li><a href="#color-schemes">Color schemes</a></li><li><a href="#containers">Containers</a></li><li><a href="#placement">Placement</a></li><li><a href="#mobile-tab-bar">Mobile tab bar</a></li><li><a href="#scrolling">Scrolling</a></li><li><a href="#responsive-behaviors">Responsive behaviors</a><ul><li><a href="#toggler">Toggler</a></li><li><a href="#external-content">External content</a></li><li><a href="#offcanvas">Offcanvas</a></li></ul></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+
+<h2 id="how-it-works">How it works<a class="bd-anchor" href="#how-it-works" aria-label="Link to this section">#</a></h2>
+<p>Here's what you need to know before getting started with the navbar:</p>
+<ul>
+  <li>Navbars require a wrapping <code>.navbar</code> with <code>.navbar-expand{-sm|-md|-lg}</code> for responsive collapsing and <a href="#color-schemes">color scheme</a> classes. felt-css has no <code>-xl</code>/<code>-xxl</code> variants.</li>
+  <li>Navbars and their contents are fluid by default. Change the <a href="#containers">container</a> to limit their horizontal width in different ways.</li>
+  <li>Use <a href="../../utilities/spacing/">spacing</a> and <a href="../../utilities/flex/">flex</a> utility classes for controlling spacing and alignment within navbars.</li>
+  <li>Navbars are responsive by default, but you can easily modify them to change that. Responsive behavior depends on Bootstrap's Collapse JavaScript plugin.</li>
+  <li>Ensure accessibility by using a <code>&lt;nav&gt;</code> element or, if using a more generic element such as a <code>&lt;div&gt;</code>, add a <code>role="navigation"</code> to every navbar to explicitly identify it as a landmark region for users of assistive technologies.</li>
+  <li>Indicate the current item by using <code>aria-current="page"</code> for the current page or <code>aria-current="true"</code> for the current item in a set.</li>
+</ul>
+
+<div class="bd-callout bd-callout-felt">
+  <p>Unlike Bootstrap's flat bar, a felt-css navbar is a piece of its own: rounded, with a border and a soft shadow, and in felt sewn on with a running stitch. Fixed to the top or bottom it loses its outer corners and side borders, and the seam only runs along its inner edge.</p>
+</div>
+
+<h2 id="supported-content">Supported content<a class="bd-anchor" href="#supported-content" aria-label="Link to this section">#</a></h2>
+<p>Navbars come with built-in support for a handful of sub-components. Choose from the following as needed:</p>
+<ul>
+  <li><code>.navbar-brand</code> for your company, product, or project name.</li>
+  <li><code>.navbar-nav</code> for a full-height and lightweight navigation (including support for dropdowns).</li>
+  <li><code>.navbar-toggler</code> for use with the collapse plugin and other <a href="#responsive-behaviors">navigation toggling</a> behaviors.</li>
+  <li>Flex and spacing utilities for any form controls and actions.</li>
+  <li><code>.navbar-text</code> for adding vertically centered strings of text.</li>
+  <li><code>.collapse.navbar-collapse</code> for grouping and hiding navbar contents by a parent breakpoint.</li>
+</ul>
+<p>Here's an example of all the sub-components included in a responsive light-themed navbar that automatically collapses at the <code>lg</code> (large) breakpoint.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar navbar-expand-lg bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#navbarSupportedContent"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"navbarSupportedContent"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toggle navigation"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler-icon"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"collapse navbar-collapse"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"navbarSupportedContent"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-nav me-auto mb-2 mb-lg-0"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item dropdown"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link dropdown-toggle"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"dropdown"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span>
+            Dropdown
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-menu"</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Action<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Another action<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">hr</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-divider"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Something else here<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"search"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control me-2"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"search"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-success"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span><span class="tok-punct">&gt;</span>Search<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>This example uses <a href="../../utilities/background/">background</a> (<code>bg-body-tertiary</code>) and <a href="../../utilities/spacing/">spacing</a> (<code>me-auto</code>, <code>mb-2</code>, <code>mb-lg-0</code>, <code>me-2</code>) utility classes.</p>
+
+<h3 id="brand">Brand<a class="bd-anchor" href="#brand" aria-label="Link to this section">#</a></h3>
+<p>The <code>.navbar-brand</code> can be applied to most elements, but an anchor works best, as some elements might require utility classes or custom styles.</p>
+
+<h4>Text</h4>
+<p>Add your text within an element with the <code>.navbar-brand</code> class.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<!-- As a link -->
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+  </div>
+</nav>
+
+<!-- As a heading -->
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">Navbar</span>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-com">&lt;!-- As a link --&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-com">&lt;!-- As a heading --&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand mb-0 h1"</span><span class="tok-punct">&gt;</span>Navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h4>Image</h4>
+<p>You can replace the text within the <code>.navbar-brand</code> with an <code>&lt;img&gt;</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar bg-body-tertiary">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="../../assets/plush/icon_haus.webp" alt="Home" width="32" height="32">
+    </a>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../assets/plush/icon_haus.webp"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Home"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"32"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"32"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h4>Image and text</h4>
+<p>You can also make use of some additional utilities to add an image and text at the same time. Note the addition of <code>.d-inline-block</code> and <code>.align-text-top</code> on the <code>&lt;img&gt;</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="../../assets/plush/icon_haus.webp" alt="Logo" width="24" height="24" class="d-inline-block align-text-top">
+      Felt house
+    </a>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../assets/plush/icon_haus.webp"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Logo"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"24"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"24"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-inline-block align-text-top"</span><span class="tok-punct">&gt;</span>
+      Felt house
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="nav">Nav<a class="bd-anchor" href="#nav" aria-label="Link to this section">#</a></h3>
+<p>Navbar navigation links build on the <a href="../navs-tabs/"><code>.nav</code> options</a> with their own modifier class and require the use of <a href="#toggler">toggler classes</a> for proper responsive styling. <strong>Navigation in navbars will also grow to occupy as much horizontal space as possible</strong> to keep your navbar contents securely aligned.</p>
+<p>Add the <code>.active</code> class on <code>.nav-link</code> to indicate the current page.</p>
+<p>Please note that you should also add the <code>aria-current</code> attribute on the active <code>.nav-link</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar navbar-expand-lg bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#navbarNav"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"navbarNav"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toggle navigation"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler-icon"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"collapse navbar-collapse"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"navbarNav"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-nav"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Features<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Pricing<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link disabled"</span> <span class="tok-attr">aria-disabled</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>Disabled<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>And because we use classes for our navs, you can avoid the list-based approach entirely if you like.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="#">Pricing</a>
+        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+      </div>
+    </div>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar navbar-expand-lg bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#navbarNavAltMarkup"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"navbarNavAltMarkup"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toggle navigation"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler-icon"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"collapse navbar-collapse"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"navbarNavAltMarkup"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-nav"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Features<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Pricing<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link disabled"</span> <span class="tok-attr">aria-disabled</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>Disabled<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>You can also use dropdowns in your navbar. Dropdown menus require a wrapping element for positioning, so be sure to use separate and nested elements for <code>.nav-item</code> and <code>.nav-link</code> as shown below.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown link
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar navbar-expand-lg bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#navbarNavDropdown"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"navbarNavDropdown"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toggle navigation"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler-icon"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"collapse navbar-collapse"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"navbarNavDropdown"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-nav"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Features<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Pricing<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item dropdown"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link dropdown-toggle"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"dropdown"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span>
+            Dropdown link
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-menu"</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Action<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Another action<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Something else here<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="forms">Forms<a class="bd-anchor" href="#forms" aria-label="Link to this section">#</a></h3>
+<p>Place various form controls and components within a navbar:</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"search"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control me-2"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"search"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-success"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span><span class="tok-punct">&gt;</span>Search<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Immediate child elements of <code>.navbar</code> use flex layout and will default to <code>justify-content: space-between</code>. Use additional <a href="../../utilities/flex/">flex utilities</a> as needed to adjust this behavior.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand">Navbar</a>
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span><span class="tok-punct">&gt;</span>Navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"search"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control me-2"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"search"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-success"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span><span class="tok-punct">&gt;</span>Search<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Input groups work, too. If your navbar is an entire form, or mostly a form, you can use the <code>&lt;form&gt;</code> element as the container and save some HTML.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar bg-body-tertiary">
+  <form class="container-fluid">
+    <div class="input-group">
+      <span class="input-group-text" id="basic-addon1">@</span>
+      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+  </form>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"input-group"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"input-group-text"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"basic-addon1"</span><span class="tok-punct">&gt;</span>@<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Username"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Username"</span> <span class="tok-attr">aria-describedby</span><span class="tok-punct">=</span><span class="tok-val">"basic-addon1"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Various buttons are supported as part of these navbar forms, too. This is also a great reminder that vertical alignment utilities can be used to align different sized elements.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar bg-body-tertiary">
+  <form class="container-fluid justify-content-start">
+    <button class="btn btn-outline-success me-2" type="button">Main button</button>
+    <button class="btn btn-sm btn-outline-secondary" type="button">Smaller button</button>
+  </form>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid justify-content-start"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-success me-2"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span><span class="tok-punct">&gt;</span>Main button<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-sm btn-outline-secondary"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span><span class="tok-punct">&gt;</span>Smaller button<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="text">Text<a class="bd-anchor" href="#text" aria-label="Link to this section">#</a></h3>
+<p>Navbars may contain bits of text with the help of <code>.navbar-text</code>. This class adjusts vertical alignment and horizontal spacing for strings of text.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <span class="navbar-text">
+      Navbar text with an inline element
+    </span>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-text"</span><span class="tok-punct">&gt;</span>
+      Navbar text with an inline element
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Mix and match with other components and utilities as needed.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar w/ text</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        Navbar text with an inline element
+      </span>
+    </div>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar navbar-expand-lg bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Navbar w/ text<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#navbarText"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"navbarText"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toggle navigation"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler-icon"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"collapse navbar-collapse"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"navbarText"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-nav me-auto mb-2 mb-lg-0"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Features<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Pricing<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-text"</span><span class="tok-punct">&gt;</span>
+        Navbar text with an inline element
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="color-schemes">Color schemes<a class="bd-anchor" href="#color-schemes" aria-label="Link to this section">#</a></h2>
+<p>The default navbar uses the page's colors. Apply <code>data-bs-theme="dark"</code> to the <code>.navbar</code> for dark background colors, then customize with <code>.bg-*</code> and additional utilities. felt-css has no <code>.navbar-dark</code> or <code>.navbar-light</code>; the color mode attribute does that job (<a href="../../getting-started/color-modes/">learn more about color modes</a>). Avoid <code>.bg-primary</code> on a navbar with an active <code>.nav-link</code>: the active pill is primary too and would disappear.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg bg-secondary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;" data-bs-theme="light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+</div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-dark"</span> <span class="tok-attr">data-bs-theme</span><span class="tok-punct">=</span><span class="tok-val">"dark"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-com">&lt;!-- Navbar content --&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-secondary"</span> <span class="tok-attr">data-bs-theme</span><span class="tok-punct">=</span><span class="tok-val">"dark"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-com">&lt;!-- Navbar content --&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"background-color: #e3f2fd;"</span> <span class="tok-attr">data-bs-theme</span><span class="tok-punct">=</span><span class="tok-val">"light"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-com">&lt;!-- Navbar content --&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<h2 id="containers">Containers<a class="bd-anchor" href="#containers" aria-label="Link to this section">#</a></h2>
+<p>Although it's not required, you can wrap a navbar in a <code>.container</code> to center it on a page–though note that an inner container is still required. Or you can add a container inside the <code>.navbar</code> to only center the contents of a <a href="#placement">fixed or static top navbar</a>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="container">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+    </div>
+  </nav>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar navbar-expand-lg bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Use any of the responsive containers to change how wide the content in your navbar is presented.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-md">
+    <a class="navbar-brand" href="#">Navbar</a>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar navbar-expand-lg bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-md"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="placement">Placement<a class="bd-anchor" href="#placement" aria-label="Link to this section">#</a></h2>
+<p>Use <a href="../../utilities/position/">position utilities</a> to place navbars in non-static positions. Choose from fixed to the top, fixed to the bottom, stickied to the top (scrolls with the page until it reaches the top, then stays there), or stickied to the bottom (scrolls with the page until it reaches the bottom, then stays there).</p>
+<p>Fixed navbars use <code>position: fixed</code>, meaning they're pulled from the normal flow of the DOM and may require custom CSS (e.g., <code>padding-top</code> on the <code>&lt;body&gt;</code>) to prevent overlap with other elements. In the fixed examples below, the example frame stands in for the viewport.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Default</a>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Default<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-navbar-fixed">
+<nav class="navbar fixed-top bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Fixed top</a>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar fixed-top bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Fixed top<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-navbar-fixed">
+<nav class="navbar fixed-bottom bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Fixed bottom</a>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar fixed-bottom bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Fixed bottom<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar sticky-top bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Sticky top</a>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar sticky-top bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Sticky top<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar sticky-bottom bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Sticky bottom</a>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar sticky-bottom bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Sticky bottom<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="mobile-tab-bar">Mobile tab bar<a class="bd-anchor" href="#mobile-tab-bar" aria-label="Link to this section">#</a></h2>
+<p>A felt-css recipe, not part of Bootstrap: a <code>.navbar.fixed-bottom</code> holding a <code>.nav-pills.nav-fill</code>, with an icon stacked above each label. Give the links <code>.d-flex.flex-column.align-items-center</code>, put the icon first and the label in a <code>&lt;small&gt;</code>. <code>.pb-safe</code> pads the bar by the device's safe area (at least <code>.5rem</code>), so it stays clear of the home indicator on phones without a home button.</p>
+<p>Here the example frame stands in for the viewport. On a real page the bar sits at the bottom of the screen and covers whatever scrolls under it, so leave room for it at the end of your content (for example with <code>.pb-5</code> on <code>&lt;body&gt;</code>).</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-navbar-fixed">
+<nav class="navbar fixed-bottom pb-safe" aria-label="Main navigation">
+  <ul class="nav nav-pills nav-fill w-100">
+    <li class="nav-item">
+      <a class="nav-link d-flex flex-column align-items-center active" aria-current="page" href="#">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+        <small>Home</small>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex flex-column align-items-center" href="#">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+        <small>Expenses</small>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex flex-column align-items-center" href="#">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-8M2 20h20"/></svg>
+        <small>Reports</small>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex flex-column align-items-center" href="#">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+        <small>Profile</small>
+      </a>
+    </li>
+  </ul>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar fixed-bottom pb-safe"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Main navigation"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav nav-pills nav-fill w-100"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link d-flex flex-column align-items-center active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">svg</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"24"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"24"</span> <span class="tok-attr">viewBox</span><span class="tok-punct">=</span><span class="tok-val">"0 0 24 24"</span> <span class="tok-attr">fill</span><span class="tok-punct">=</span><span class="tok-val">"none"</span> <span class="tok-attr">stroke</span><span class="tok-punct">=</span><span class="tok-val">"currentColor"</span> <span class="tok-attr">stroke-width</span><span class="tok-punct">=</span><span class="tok-val">"2"</span> <span class="tok-attr">stroke-linecap</span><span class="tok-punct">=</span><span class="tok-val">"round"</span> <span class="tok-attr">stroke-linejoin</span><span class="tok-punct">=</span><span class="tok-val">"round"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"</span><span class="tok-punct">/&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">svg</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link d-flex flex-column align-items-center"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">svg</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"24"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"24"</span> <span class="tok-attr">viewBox</span><span class="tok-punct">=</span><span class="tok-val">"0 0 24 24"</span> <span class="tok-attr">fill</span><span class="tok-punct">=</span><span class="tok-val">"none"</span> <span class="tok-attr">stroke</span><span class="tok-punct">=</span><span class="tok-val">"currentColor"</span> <span class="tok-attr">stroke-width</span><span class="tok-punct">=</span><span class="tok-val">"2"</span> <span class="tok-attr">stroke-linecap</span><span class="tok-punct">=</span><span class="tok-val">"round"</span> <span class="tok-attr">stroke-linejoin</span><span class="tok-punct">=</span><span class="tok-val">"round"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"</span><span class="tok-punct">/&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">svg</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>Expenses<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link d-flex flex-column align-items-center"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">svg</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"24"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"24"</span> <span class="tok-attr">viewBox</span><span class="tok-punct">=</span><span class="tok-val">"0 0 24 24"</span> <span class="tok-attr">fill</span><span class="tok-punct">=</span><span class="tok-val">"none"</span> <span class="tok-attr">stroke</span><span class="tok-punct">=</span><span class="tok-val">"currentColor"</span> <span class="tok-attr">stroke-width</span><span class="tok-punct">=</span><span class="tok-val">"2"</span> <span class="tok-attr">stroke-linecap</span><span class="tok-punct">=</span><span class="tok-val">"round"</span> <span class="tok-attr">stroke-linejoin</span><span class="tok-punct">=</span><span class="tok-val">"round"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"M4 20V10M10 20V4M16 20v-8M2 20h20"</span><span class="tok-punct">/&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">svg</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>Reports<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link d-flex flex-column align-items-center"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">svg</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"24"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"24"</span> <span class="tok-attr">viewBox</span><span class="tok-punct">=</span><span class="tok-val">"0 0 24 24"</span> <span class="tok-attr">fill</span><span class="tok-punct">=</span><span class="tok-val">"none"</span> <span class="tok-attr">stroke</span><span class="tok-punct">=</span><span class="tok-val">"currentColor"</span> <span class="tok-attr">stroke-width</span><span class="tok-punct">=</span><span class="tok-val">"2"</span> <span class="tok-attr">stroke-linecap</span><span class="tok-punct">=</span><span class="tok-val">"round"</span> <span class="tok-attr">stroke-linejoin</span><span class="tok-punct">=</span><span class="tok-val">"round"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">circle</span> <span class="tok-attr">cx</span><span class="tok-punct">=</span><span class="tok-val">"12"</span> <span class="tok-attr">cy</span><span class="tok-punct">=</span><span class="tok-val">"8"</span> <span class="tok-attr">r</span><span class="tok-punct">=</span><span class="tok-val">"4"</span><span class="tok-punct">/&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"M4 21a8 8 0 0 1 16 0"</span><span class="tok-punct">/&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">svg</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>Profile<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>In felt the bar is sewn along its inner edge only, and the active tab gets a small felt chip behind its icon instead of a full pill. Browsers only report the safe area to pages that opt in with <code>viewport-fit=cover</code>:</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">meta</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"viewport"</span> <span class="tok-attr">content</span><span class="tok-punct">=</span><span class="tok-val">"width=device-width, initial-scale=1, viewport-fit=cover"</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<h2 id="scrolling">Scrolling<a class="bd-anchor" href="#scrolling" aria-label="Link to this section">#</a></h2>
+<p>Bootstrap's <code>.navbar-nav-scroll</code> isn't part of felt-css. To scroll the toggleable contents of a tall collapsed navbar, give the <code>.navbar-nav</code> a <code>max-height</code> and <code>.overflow-y-auto</code> yourself.</p>
+
+<h2 id="responsive-behaviors">Responsive behaviors<a class="bd-anchor" href="#responsive-behaviors" aria-label="Link to this section">#</a></h2>
+<p>Navbars can use <code>.navbar-toggler</code>, <code>.navbar-collapse</code>, and <code>.navbar-expand{-sm|-md|-lg}</code> classes to determine when their content collapses behind a button. In combination with other utilities, you can easily choose when to show or hide particular elements.</p>
+<p>For navbars that never collapse, add the <code>.navbar-expand</code> class on the navbar. For navbars that always collapse, don't add any <code>.navbar-expand</code> class.</p>
+
+<h3 id="toggler">Toggler<a class="bd-anchor" href="#toggler" aria-label="Link to this section">#</a></h3>
+<p>Navbar togglers are left-aligned by default, but should they follow a sibling element like a <code>.navbar-brand</code>, they'll automatically be aligned to the far right. Reversing your markup will reverse the placement of the toggler. Below are examples of different toggle styles.</p>
+<p>With no <code>.navbar-brand</code> shown at the smallest breakpoint:</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a class="navbar-brand" href="#">Hidden brand</a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar navbar-expand-lg bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#navbarTogglerDemo01"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"navbarTogglerDemo01"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toggle navigation"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler-icon"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"collapse navbar-collapse"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"navbarTogglerDemo01"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Hidden brand<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-nav me-auto mb-2 mb-lg-0"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link disabled"</span> <span class="tok-attr">aria-disabled</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>Disabled<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"search"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control me-2"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"search"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-success"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span><span class="tok-punct">&gt;</span>Search<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>With a brand name shown on the left and toggler on the right:</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar navbar-expand-lg bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#navbarTogglerDemo02"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"navbarTogglerDemo02"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toggle navigation"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler-icon"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"collapse navbar-collapse"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"navbarTogglerDemo02"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-nav me-auto mb-2 mb-lg-0"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link disabled"</span> <span class="tok-attr">aria-disabled</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>Disabled<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"search"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control me-2"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"search"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-success"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span><span class="tok-punct">&gt;</span>Search<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>With a toggler on the left and brand name on the right:</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">Navbar</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar navbar-expand-lg bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#navbarTogglerDemo03"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"navbarTogglerDemo03"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toggle navigation"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler-icon"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"collapse navbar-collapse"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"navbarTogglerDemo03"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-nav me-auto mb-2 mb-lg-0"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link disabled"</span> <span class="tok-attr">aria-disabled</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>Disabled<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"search"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control me-2"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"search"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-success"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span><span class="tok-punct">&gt;</span>Search<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="external-content">External content<a class="bd-anchor" href="#external-content" aria-label="Link to this section">#</a></h3>
+<p>Sometimes you want to use the collapse plugin to trigger a container element for content that structurally sits outside of the <code>.navbar</code>. Because the plugin works on the <code>id</code> and <code>data-bs-target</code> matching, that's easily done!</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
+  <div class="bg-dark p-4">
+    <h5 class="text-body-emphasis h4">Collapsed content</h5>
+    <span class="text-body-secondary">Toggleable via the navbar brand.</span>
+  </div>
+</div>
+<nav class="navbar bg-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"navbarToggleExternalContent"</span> <span class="tok-attr">data-bs-theme</span><span class="tok-punct">=</span><span class="tok-val">"dark"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"bg-dark p-4"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"text-body-emphasis h4"</span><span class="tok-punct">&gt;</span>Collapsed content<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"text-body-secondary"</span><span class="tok-punct">&gt;</span>Toggleable via the navbar brand.<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-dark"</span> <span class="tok-attr">data-bs-theme</span><span class="tok-punct">=</span><span class="tok-val">"dark"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#navbarToggleExternalContent"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"navbarToggleExternalContent"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toggle navigation"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler-icon"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>When you do this, we recommend including additional JavaScript to move the focus programmatically to the container when it is opened. Otherwise, keyboard users and users of assistive technologies will likely have a hard time finding the newly revealed content - particularly if the container that was opened comes <em>before</em> the toggler in the document's structure. We also recommend making sure that the toggler has the <code>aria-controls</code> attribute, pointing to the <code>id</code> of the content container.</p>
+
+<h3 id="offcanvas">Offcanvas<a class="bd-anchor" href="#offcanvas" aria-label="Link to this section">#</a></h3>
+<p>Transform your expanding and collapsing navbar into an offcanvas drawer with the <a href="../offcanvas/">offcanvas component</a>. Put the offcanvas inside the navbar and point the toggler at it with <code>data-bs-toggle="offcanvas"</code>.</p>
+<p>The offcanvas navbar is always collapsed: felt-css has no responsive offcanvas, so it doesn't expand into a normal navbar at a breakpoint. Add <code>.fixed-top</code> to the <code>.navbar</code> to pin it to the top of the page as Bootstrap does; it's left out here so the example stays in place.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Offcanvas navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex mt-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Offcanvas navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#offcanvasNavbar"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"offcanvasNavbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toggle navigation"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler-icon"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas offcanvas-end"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"-1"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"offcanvasNavbar"</span> <span class="tok-attr">aria-labelledby</span><span class="tok-punct">=</span><span class="tok-val">"offcanvasNavbarLabel"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas-header"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas-title"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"offcanvasNavbarLabel"</span><span class="tok-punct">&gt;</span>Offcanvas<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas-body"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-nav justify-content-end flex-grow-1 pe-3"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item dropdown"</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link dropdown-toggle"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"dropdown"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span>
+              Dropdown
+            <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-menu"</span><span class="tok-punct">&gt;</span>
+              <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Action<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+              <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Another action<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+              <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+                <span class="tok-punct">&lt;</span><span class="tok-tag">hr</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-divider"</span><span class="tok-punct">&gt;</span>
+              <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+              <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Something else here<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex mt-3"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"search"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control me-2"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"search"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-success"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span><span class="tok-punct">&gt;</span>Search<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>In a dark navbar, <code>data-bs-theme="dark"</code> on the <code>.navbar</code> carries over to the offcanvas inside it and to its dropdowns, so no extra classes are needed.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar bg-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Offcanvas dark navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex mt-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-dark"</span> <span class="tok-attr">data-bs-theme</span><span class="tok-punct">=</span><span class="tok-val">"dark"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Offcanvas dark navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#offcanvasDarkNavbar"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"offcanvasDarkNavbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toggle navigation"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler-icon"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas offcanvas-end"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"-1"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"offcanvasDarkNavbar"</span> <span class="tok-attr">aria-labelledby</span><span class="tok-punct">=</span><span class="tok-val">"offcanvasDarkNavbarLabel"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas-header"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas-title"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"offcanvasDarkNavbarLabel"</span><span class="tok-punct">&gt;</span>Dark offcanvas<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas-body"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-nav justify-content-end flex-grow-1 pe-3"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item dropdown"</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link dropdown-toggle"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"dropdown"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span>
+              Dropdown
+            <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-menu"</span><span class="tok-punct">&gt;</span>
+              <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Action<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+              <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Another action<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+              <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+                <span class="tok-punct">&lt;</span><span class="tok-tag">hr</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-divider"</span><span class="tok-punct">&gt;</span>
+              <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+              <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Something else here<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex mt-3"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"search"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control me-2"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"search"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Search"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-success"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span><span class="tok-punct">&gt;</span>Search<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="javascript-behavior">JavaScript behavior<a class="bd-anchor" href="#javascript-behavior" aria-label="Link to this section">#</a></h2>
+<p>felt-css is CSS only. The toggler opens and closes <code>.navbar-collapse</code> through Bootstrap's <a href="../collapse/">collapse plugin</a>, dropdowns use the <a href="../dropdowns/">dropdown plugin</a> and offcanvas navbars the <a href="../offcanvas/">offcanvas plugin</a>; their options, methods and events are described in <a href="https://getbootstrap.com/docs/5.3/components/navbar/">Bootstrap's navbar documentation</a>.</p>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/modal/"><small>Previous</small>Modal</a><a class="bd-pager-next" href="../../components/navs-tabs/"><small>Next</small>Navs & tabs</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

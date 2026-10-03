@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flex · felt-css</title>
+  <meta name="description" content="Quickly manage the layout, alignment, and sizing of grid columns, navigation, components, and more with a full suite of responsive flexbox utilities. For more complex implementations, custom CSS may be necessary.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Utilities</p>
+        <h1>Flex</h1>
+        <p class="lead">Quickly manage the layout, alignment, and sizing of grid columns, navigation, components, and more with a full suite of responsive flexbox utilities. For more complex implementations, custom CSS may be necessary.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/utilities/flex.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#enable-flex-behaviors">Enable flex behaviors</a></li><li><a href="#direction">Direction</a></li><li><a href="#justify-content">Justify content</a></li><li><a href="#align-items">Align items</a></li><li><a href="#align-self">Align self</a></li><li><a href="#fill">Fill</a></li><li><a href="#grow-and-shrink">Grow and shrink</a></li><li><a href="#auto-margins">Auto margins</a><ul><li><a href="#with-align-items">With align-items</a></li></ul></li><li><a href="#wrap">Wrap</a></li><li><a href="#order">Order</a></li><li><a href="#align-content">Align content</a></li><li><a href="#media-object">Media object</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#enable-flex-behaviors">Enable flex behaviors</a></li><li><a href="#direction">Direction</a></li><li><a href="#justify-content">Justify content</a></li><li><a href="#align-items">Align items</a></li><li><a href="#align-self">Align self</a></li><li><a href="#fill">Fill</a></li><li><a href="#grow-and-shrink">Grow and shrink</a></li><li><a href="#auto-margins">Auto margins</a><ul><li><a href="#with-align-items">With align-items</a></li></ul></li><li><a href="#wrap">Wrap</a></li><li><a href="#order">Order</a></li><li><a href="#align-content">Align content</a></li><li><a href="#media-object">Media object</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="enable-flex-behaviors">Enable flex behaviors<a class="bd-anchor" href="#enable-flex-behaviors" aria-label="Link to this section">#</a></h2>
+<p>Apply <code>display</code> utilities to create a flexbox container and transform <strong>direct children elements</strong> into flex items. Flex containers and items are able to be modified further with additional flex properties.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex p-2">I'm a flexbox container!</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex p-2"</span><span class="tok-punct">&gt;</span>I'm a flexbox container!<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-inline-flex p-2">I'm an inline flexbox container!</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-inline-flex p-2"</span><span class="tok-punct">&gt;</span>I'm an inline flexbox container!<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>Responsive variations also exist for <code>.d-flex</code> and <code>.d-inline-flex</code>. Like all responsive utilities in felt-css, they come for <code>sm</code>, <code>md</code> and <code>lg</code> only.</p>
+<ul>
+  <li><code>.d-flex</code>, <code>.d-inline-flex</code></li>
+  <li><code>.d-sm-flex</code>, <code>.d-sm-inline-flex</code></li>
+  <li><code>.d-md-flex</code>, <code>.d-md-inline-flex</code></li>
+  <li><code>.d-lg-flex</code>, <code>.d-lg-inline-flex</code></li>
+</ul>
+
+<h2 id="direction">Direction<a class="bd-anchor" href="#direction" aria-label="Link to this section">#</a></h2>
+<p>Set the direction of flex items in a flex container with direction utilities. In most cases you can omit the horizontal class here as the browser default is <code>row</code>. However, you may encounter situations where you needed to explicitly set this value (like responsive layouts).</p>
+<p>Use <code>.flex-row</code> to set a horizontal direction (the browser default), or <code>.flex-row-reverse</code> to start the horizontal direction from the opposite side.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex flex-row mb-3">
+  <div class="p-2">Flex item 1</div>
+  <div class="p-2">Flex item 2</div>
+  <div class="p-2">Flex item 3</div>
+</div>
+<div class="d-flex flex-row-reverse">
+  <div class="p-2">Flex item 1</div>
+  <div class="p-2">Flex item 2</div>
+  <div class="p-2">Flex item 3</div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex flex-row mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item 1<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item 2<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item 3<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex flex-row-reverse"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item 1<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item 2<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item 3<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>Use <code>.flex-column</code> to set a vertical direction, or <code>.flex-column-reverse</code> to start the vertical direction from the opposite side.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex flex-column mb-3">
+  <div class="p-2">Flex item 1</div>
+  <div class="p-2">Flex item 2</div>
+  <div class="p-2">Flex item 3</div>
+</div>
+<div class="d-flex flex-column-reverse">
+  <div class="p-2">Flex item 1</div>
+  <div class="p-2">Flex item 2</div>
+  <div class="p-2">Flex item 3</div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex flex-column mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item 1<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item 2<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item 3<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex flex-column-reverse"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item 1<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item 2<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item 3<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>Responsive variations also exist for <code>flex-direction</code>.</p>
+<ul>
+  <li><code>.flex-row</code>, <code>.flex-row-reverse</code>, <code>.flex-column</code>, <code>.flex-column-reverse</code></li>
+  <li><code>.flex-sm-row</code>, <code>.flex-sm-row-reverse</code>, <code>.flex-sm-column</code>, <code>.flex-sm-column-reverse</code></li>
+  <li><code>.flex-md-row</code>, <code>.flex-md-row-reverse</code>, <code>.flex-md-column</code>, <code>.flex-md-column-reverse</code></li>
+  <li><code>.flex-lg-row</code>, <code>.flex-lg-row-reverse</code>, <code>.flex-lg-column</code>, <code>.flex-lg-column-reverse</code></li>
+</ul>
+
+<h2 id="justify-content">Justify content<a class="bd-anchor" href="#justify-content" aria-label="Link to this section">#</a></h2>
+<p>Use <code>justify-content</code> utilities on flexbox containers to change the alignment of flex items on the main axis (the x-axis to start, y-axis if <code>flex-direction: column</code>). Choose from <code>start</code> (browser default), <code>end</code>, <code>center</code>, <code>between</code>, <code>around</code>, or <code>evenly</code>.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex justify-content-start mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex justify-content-end mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex justify-content-center mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex justify-content-between mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex justify-content-around mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex justify-content-evenly">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex justify-content-start"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex justify-content-end"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex justify-content-center"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex justify-content-between"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex justify-content-around"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex justify-content-evenly"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<p>Responsive variations also exist for <code>justify-content</code>.</p>
+<ul>
+  <li><code>.justify-content-start</code>, <code>.justify-content-end</code>, <code>.justify-content-center</code>, <code>.justify-content-between</code>, <code>.justify-content-around</code>, <code>.justify-content-evenly</code></li>
+  <li><code>.justify-content-sm-start</code>, <code>.justify-content-sm-end</code>, <code>.justify-content-sm-center</code>, <code>.justify-content-sm-between</code>, <code>.justify-content-sm-around</code>, <code>.justify-content-sm-evenly</code></li>
+  <li><code>.justify-content-md-start</code>, <code>.justify-content-md-end</code>, <code>.justify-content-md-center</code>, <code>.justify-content-md-between</code>, <code>.justify-content-md-around</code>, <code>.justify-content-md-evenly</code></li>
+  <li><code>.justify-content-lg-start</code>, <code>.justify-content-lg-end</code>, <code>.justify-content-lg-center</code>, <code>.justify-content-lg-between</code>, <code>.justify-content-lg-around</code>, <code>.justify-content-lg-evenly</code></li>
+</ul>
+
+<h2 id="align-items">Align items<a class="bd-anchor" href="#align-items" aria-label="Link to this section">#</a></h2>
+<p>Use <code>align-items</code> utilities on flexbox containers to change the alignment of flex items on the cross axis (the y-axis to start, x-axis if <code>flex-direction: column</code>). Choose from <code>start</code>, <code>end</code>, <code>center</code>, <code>baseline</code>, or <code>stretch</code> (browser default).</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex align-items-start mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex align-items-end mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex align-items-center mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex align-items-baseline mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex align-items-stretch" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-items-start"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-items-end"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-items-center"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-items-baseline"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-items-stretch"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<p>Responsive variations also exist for <code>align-items</code>.</p>
+<ul>
+  <li><code>.align-items-start</code>, <code>.align-items-end</code>, <code>.align-items-center</code>, <code>.align-items-baseline</code>, <code>.align-items-stretch</code></li>
+  <li><code>.align-items-sm-start</code>, <code>.align-items-sm-end</code>, <code>.align-items-sm-center</code>, <code>.align-items-sm-baseline</code>, <code>.align-items-sm-stretch</code></li>
+  <li><code>.align-items-md-start</code>, <code>.align-items-md-end</code>, <code>.align-items-md-center</code>, <code>.align-items-md-baseline</code>, <code>.align-items-md-stretch</code></li>
+  <li><code>.align-items-lg-start</code>, <code>.align-items-lg-end</code>, <code>.align-items-lg-center</code>, <code>.align-items-lg-baseline</code>, <code>.align-items-lg-stretch</code></li>
+</ul>
+
+<h2 id="align-self">Align self<a class="bd-anchor" href="#align-self" aria-label="Link to this section">#</a></h2>
+<p>Use <code>align-self</code> utilities on flexbox items to individually change their alignment on the cross axis (the y-axis to start, x-axis if <code>flex-direction: column</code>). Choose from the same options as <code>align-items</code>: <code>start</code>, <code>end</code>, <code>center</code>, <code>baseline</code>, or <code>stretch</code> (browser default).</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="align-self-start p-2">Aligned flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="align-self-end p-2">Aligned flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="align-self-center p-2">Aligned flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="align-self-baseline p-2">Aligned flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="align-self-stretch p-2">Aligned flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"align-self-start"</span><span class="tok-punct">&gt;</span>Aligned flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"align-self-end"</span><span class="tok-punct">&gt;</span>Aligned flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"align-self-center"</span><span class="tok-punct">&gt;</span>Aligned flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"align-self-baseline"</span><span class="tok-punct">&gt;</span>Aligned flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"align-self-stretch"</span><span class="tok-punct">&gt;</span>Aligned flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<p>Responsive variations also exist for <code>align-self</code>. There is also <code>.align-self-auto</code>, which resets an item to the container's <code>align-items</code>.</p>
+<ul>
+  <li><code>.align-self-auto</code>, <code>.align-self-start</code>, <code>.align-self-end</code>, <code>.align-self-center</code>, <code>.align-self-baseline</code>, <code>.align-self-stretch</code></li>
+  <li><code>.align-self-sm-auto</code>, <code>.align-self-sm-start</code>, <code>.align-self-sm-end</code>, <code>.align-self-sm-center</code>, <code>.align-self-sm-baseline</code>, <code>.align-self-sm-stretch</code></li>
+  <li><code>.align-self-md-auto</code>, <code>.align-self-md-start</code>, <code>.align-self-md-end</code>, <code>.align-self-md-center</code>, <code>.align-self-md-baseline</code>, <code>.align-self-md-stretch</code></li>
+  <li><code>.align-self-lg-auto</code>, <code>.align-self-lg-start</code>, <code>.align-self-lg-end</code>, <code>.align-self-lg-center</code>, <code>.align-self-lg-baseline</code>, <code>.align-self-lg-stretch</code></li>
+</ul>
+
+<h2 id="fill">Fill<a class="bd-anchor" href="#fill" aria-label="Link to this section">#</a></h2>
+<p>Use the <code>.flex-fill</code> class on a series of sibling elements to force them into widths equal to their content (or equal widths if their content does not surpass their border-boxes) while taking up all available horizontal space.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex">
+  <div class="p-2 flex-fill">Flex item with a lot of content</div>
+  <div class="p-2 flex-fill">Flex item</div>
+  <div class="p-2 flex-fill">Flex item</div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2 flex-fill"</span><span class="tok-punct">&gt;</span>Flex item with a lot of content<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2 flex-fill"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2 flex-fill"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>Responsive variations also exist for <code>flex-fill</code>.</p>
+<ul>
+  <li><code>.flex-fill</code></li>
+  <li><code>.flex-sm-fill</code></li>
+  <li><code>.flex-md-fill</code></li>
+  <li><code>.flex-lg-fill</code></li>
+</ul>
+
+<h2 id="grow-and-shrink">Grow and shrink<a class="bd-anchor" href="#grow-and-shrink" aria-label="Link to this section">#</a></h2>
+<p>Use <code>.flex-grow-*</code> utilities to toggle a flex item's ability to grow to fill available space. In the example below, the <code>.flex-grow-1</code> elements uses all available space it can, while allowing the remaining two flex items their necessary space.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex">
+  <div class="p-2 flex-grow-1">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Third flex item</div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2 flex-grow-1"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Third flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>Use <code>.flex-shrink-*</code> utilities to toggle a flex item's ability to shrink if necessary. In the example below, the second flex item with <code>.flex-shrink-1</code> is forced to wrap its contents to a new line, "shrinking" to allow more space for the previous flex item with <code>.w-100</code>.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex">
+  <div class="p-2 w-100">Flex item</div>
+  <div class="p-2 flex-shrink-1">Flex item</div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2 w-100"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2 flex-shrink-1"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>Responsive variations also exist for <code>flex-grow</code> and <code>flex-shrink</code>.</p>
+<ul>
+  <li><code>.flex-grow-0</code>, <code>.flex-grow-1</code>, <code>.flex-shrink-0</code>, <code>.flex-shrink-1</code></li>
+  <li><code>.flex-sm-grow-0</code>, <code>.flex-sm-grow-1</code>, <code>.flex-sm-shrink-0</code>, <code>.flex-sm-shrink-1</code></li>
+  <li><code>.flex-md-grow-0</code>, <code>.flex-md-grow-1</code>, <code>.flex-md-shrink-0</code>, <code>.flex-md-shrink-1</code></li>
+  <li><code>.flex-lg-grow-0</code>, <code>.flex-lg-grow-1</code>, <code>.flex-lg-shrink-0</code>, <code>.flex-lg-shrink-1</code></li>
+</ul>
+
+<h2 id="auto-margins">Auto margins<a class="bd-anchor" href="#auto-margins" aria-label="Link to this section">#</a></h2>
+<p>Flexbox can do some pretty awesome things when you mix flex alignments with auto margins. Shown below are three examples of controlling flex items via auto margins: default (no auto margin), pushing two items to the right (<code>.me-auto</code>), and pushing two items to the left (<code>.ms-auto</code>).</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex mb-3">
+  <div class="me-auto p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="ms-auto p-2">Flex item</div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"me-auto p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ms-auto p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="with-align-items">With align-items<a class="bd-anchor" href="#with-align-items" aria-label="Link to this section">#</a></h3>
+<p>Vertically move one flex item to the top or bottom of a container by mixing <code>align-items</code>, <code>flex-direction: column</code>, and <code>margin-top: auto</code> or <code>margin-bottom: auto</code>.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex align-items-start flex-column mb-3" style="height: 200px;">
+  <div class="mb-auto p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex align-items-end flex-column mb-3" style="height: 200px;">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="mt-auto p-2">Flex item</div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-items-start flex-column mb-3"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"height: 200px;"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-auto p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-items-end flex-column mb-3"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"height: 200px;"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mt-auto p-2"</span><span class="tok-punct">&gt;</span>Flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="wrap">Wrap<a class="bd-anchor" href="#wrap" aria-label="Link to this section">#</a></h2>
+<p>Change how flex items wrap in a flex container. Choose from no wrapping at all (the browser default) with <code>.flex-nowrap</code>, wrapping with <code>.flex-wrap</code>, or reverse wrapping with <code>.flex-wrap-reverse</code>.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex flex-nowrap" style="width: 8rem;">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex flex-nowrap"</span><span class="tok-punct">&gt;</span>
+  ...
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex flex-wrap">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex flex-wrap"</span><span class="tok-punct">&gt;</span>
+  ...
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex flex-wrap-reverse">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex flex-wrap-reverse"</span><span class="tok-punct">&gt;</span>
+  ...
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<p>Responsive variations also exist for <code>flex-wrap</code>.</p>
+<ul>
+  <li><code>.flex-nowrap</code>, <code>.flex-wrap</code>, <code>.flex-wrap-reverse</code></li>
+  <li><code>.flex-sm-nowrap</code>, <code>.flex-sm-wrap</code>, <code>.flex-sm-wrap-reverse</code></li>
+  <li><code>.flex-md-nowrap</code>, <code>.flex-md-wrap</code>, <code>.flex-md-wrap-reverse</code></li>
+  <li><code>.flex-lg-nowrap</code>, <code>.flex-lg-wrap</code>, <code>.flex-lg-wrap-reverse</code></li>
+</ul>
+
+<h2 id="order">Order<a class="bd-anchor" href="#order" aria-label="Link to this section">#</a></h2>
+<p>Change the <em>visual</em> order of specific flex items with a handful of <code>order</code> utilities. We only provide options for making an item first or last, as well as a reset to use the DOM order. As <code>order</code> takes any integer value from 0 to 5, add custom CSS for any additional values needed.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex flex-nowrap">
+  <div class="order-3 p-2">First flex item</div>
+  <div class="order-2 p-2">Second flex item</div>
+  <div class="order-1 p-2">Third flex item</div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex flex-nowrap"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"order-3 p-2"</span><span class="tok-punct">&gt;</span>First flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"order-2 p-2"</span><span class="tok-punct">&gt;</span>Second flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"order-1 p-2"</span><span class="tok-punct">&gt;</span>Third flex item<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>Responsive variations also exist for <code>order</code>.</p>
+<ul>
+  <li><code>.order-0</code>, <code>.order-1</code>, <code>.order-2</code>, <code>.order-3</code>, <code>.order-4</code>, <code>.order-5</code></li>
+  <li><code>.order-sm-0</code>, <code>.order-sm-1</code>, <code>.order-sm-2</code>, <code>.order-sm-3</code>, <code>.order-sm-4</code>, <code>.order-sm-5</code></li>
+  <li><code>.order-md-0</code>, <code>.order-md-1</code>, <code>.order-md-2</code>, <code>.order-md-3</code>, <code>.order-md-4</code>, <code>.order-md-5</code></li>
+  <li><code>.order-lg-0</code>, <code>.order-lg-1</code>, <code>.order-lg-2</code>, <code>.order-lg-3</code>, <code>.order-lg-4</code>, <code>.order-lg-5</code></li>
+</ul>
+<p>Additionally there are also responsive <code>.order-first</code> and <code>.order-last</code> classes that change the <code>order</code> of an element by applying <code>order: -1</code> and <code>order: 6</code>, respectively.</p>
+<ul>
+  <li><code>.order-first</code>, <code>.order-last</code></li>
+  <li><code>.order-sm-first</code>, <code>.order-sm-last</code></li>
+  <li><code>.order-md-first</code>, <code>.order-md-last</code></li>
+  <li><code>.order-lg-first</code>, <code>.order-lg-last</code></li>
+</ul>
+
+<h2 id="align-content">Align content<a class="bd-anchor" href="#align-content" aria-label="Link to this section">#</a></h2>
+<p>Use <code>align-content</code> utilities on flexbox containers to align flex items <em>together</em> on the cross axis. Choose from <code>start</code> (browser default), <code>end</code>, <code>center</code>, <code>between</code>, <code>around</code>, or <code>stretch</code>. To demonstrate these utilities, we've enforced <code>flex-wrap: wrap</code> and increased the number of flex items.</p>
+<p><strong>Heads up!</strong> This property has no effect on single rows of flex items.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex align-content-start flex-wrap" style="height: 200px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-content-start flex-wrap"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex align-content-end flex-wrap" style="height: 200px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-content-end flex-wrap"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex align-content-center flex-wrap" style="height: 200px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-content-center flex-wrap"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex align-content-between flex-wrap" style="height: 200px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-content-between flex-wrap"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex align-content-around flex-wrap" style="height: 200px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-content-around flex-wrap"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<div class="bd-example-snippet"><div class="bd-example bd-example-flex">
+<div class="d-flex align-content-stretch flex-wrap" style="height: 200px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-content-stretch flex-wrap"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<p>Responsive variations also exist for <code>align-content</code>.</p>
+<ul>
+  <li><code>.align-content-start</code>, <code>.align-content-end</code>, <code>.align-content-center</code>, <code>.align-content-between</code>, <code>.align-content-around</code>, <code>.align-content-stretch</code></li>
+  <li><code>.align-content-sm-start</code>, <code>.align-content-sm-end</code>, <code>.align-content-sm-center</code>, <code>.align-content-sm-between</code>, <code>.align-content-sm-around</code>, <code>.align-content-sm-stretch</code></li>
+  <li><code>.align-content-md-start</code>, <code>.align-content-md-end</code>, <code>.align-content-md-center</code>, <code>.align-content-md-between</code>, <code>.align-content-md-around</code>, <code>.align-content-md-stretch</code></li>
+  <li><code>.align-content-lg-start</code>, <code>.align-content-lg-end</code>, <code>.align-content-lg-center</code>, <code>.align-content-lg-between</code>, <code>.align-content-lg-around</code>, <code>.align-content-lg-stretch</code></li>
+</ul>
+
+<h2 id="media-object">Media object<a class="bd-anchor" href="#media-object" aria-label="Link to this section">#</a></h2>
+<p>Looking to replicate the <a href="https://getbootstrap.com/docs/4.6/components/media-object/">media object component</a> from Bootstrap 4? Recreate it in no time with a few flex utilities that allow even more flexibility and customization than before.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="d-flex">
+  <div class="flex-shrink-0">
+    <svg class="bd-placeholder-img" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#e5e5e5"></rect><text x="50%" y="50%" fill="#999" dy=".3em">Image</text></svg>
+  </div>
+  <div class="flex-grow-1 ms-3">
+    This is some content from a media component. You can replace this with any content and adjust it as needed.
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"flex-shrink-0"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">svg</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"bd-placeholder-img"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">xmlns</span><span class="tok-punct">=</span><span class="tok-val">"http://www.w3.org/2000/svg"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"img"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Placeholder: Image"</span> <span class="tok-attr">preserveAspectRatio</span><span class="tok-punct">=</span><span class="tok-val">"xMidYMid slice"</span> <span class="tok-attr">focusable</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">title</span><span class="tok-punct">&gt;</span>Placeholder<span class="tok-punct">&lt;/</span><span class="tok-tag">title</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">rect</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"100%"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"100%"</span> <span class="tok-attr">fill</span><span class="tok-punct">=</span><span class="tok-val">"#e5e5e5"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">rect</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">text</span> <span class="tok-attr">x</span><span class="tok-punct">=</span><span class="tok-val">"50%"</span> <span class="tok-attr">y</span><span class="tok-punct">=</span><span class="tok-val">"50%"</span> <span class="tok-attr">fill</span><span class="tok-punct">=</span><span class="tok-val">"#999"</span> <span class="tok-attr">dy</span><span class="tok-punct">=</span><span class="tok-val">".3em"</span><span class="tok-punct">&gt;</span>Image<span class="tok-punct">&lt;/</span><span class="tok-tag">text</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">svg</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"flex-grow-1 ms-3"</span><span class="tok-punct">&gt;</span>
+    This is some content from a media component. You can replace this with any content and adjust it as needed.
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>And say you want to vertically center the content next to the image:</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="d-flex align-items-center">
+  <div class="flex-shrink-0">
+    <svg class="bd-placeholder-img" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#e5e5e5"></rect><text x="50%" y="50%" fill="#999" dy=".3em">Image</text></svg>
+  </div>
+  <div class="flex-grow-1 ms-3">
+    This is some content from a media component. You can replace this with any content and adjust it as needed.
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex align-items-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"flex-shrink-0"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">svg</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"bd-placeholder-img"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">xmlns</span><span class="tok-punct">=</span><span class="tok-val">"http://www.w3.org/2000/svg"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"img"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Placeholder: Image"</span> <span class="tok-attr">preserveAspectRatio</span><span class="tok-punct">=</span><span class="tok-val">"xMidYMid slice"</span> <span class="tok-attr">focusable</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">title</span><span class="tok-punct">&gt;</span>Placeholder<span class="tok-punct">&lt;/</span><span class="tok-tag">title</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">rect</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"100%"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"100%"</span> <span class="tok-attr">fill</span><span class="tok-punct">=</span><span class="tok-val">"#e5e5e5"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">rect</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">text</span> <span class="tok-attr">x</span><span class="tok-punct">=</span><span class="tok-val">"50%"</span> <span class="tok-attr">y</span><span class="tok-punct">=</span><span class="tok-val">"50%"</span> <span class="tok-attr">fill</span><span class="tok-punct">=</span><span class="tok-val">"#999"</span> <span class="tok-attr">dy</span><span class="tok-punct">=</span><span class="tok-val">".3em"</span><span class="tok-punct">&gt;</span>Image<span class="tok-punct">&lt;/</span><span class="tok-tag">text</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">svg</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"flex-grow-1 ms-3"</span><span class="tok-punct">&gt;</span>
+    This is some content from a media component. You can replace this with any content and adjust it as needed.
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../utilities/display/"><small>Previous</small>Display</a><a class="bd-pager-next" href="../../utilities/float/"><small>Next</small>Float</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

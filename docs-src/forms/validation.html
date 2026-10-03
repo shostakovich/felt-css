@@ -1,0 +1,255 @@
+<!--
+title: Validation
+description: Provide valuable, actionable feedback to your users with valid and invalid states, feedback messages and tooltips.
+-->
+<h2>How it works</h2>
+<p>Here's how form validation works with felt-css:</p>
+<ul>
+  <li>felt-css styles validation <strong>explicitly</strong>: add <code>.is-valid</code> or <code>.is-invalid</code> to a <code>.form-control</code> or <code>.form-select</code>, for example when your server renders the form again after a failed submit. The field gets a green or red border and a matching focus ring.</li>
+  <li>A <code>.valid-feedback</code> / <code>.invalid-feedback</code> (or <code>-tooltip</code>) element that follows the field as a sibling is shown automatically; otherwise it stays hidden.</li>
+  <li>There is no <code>.was-validated</code>: felt-css does not style the <code>:valid</code> and <code>:invalid</code> pseudo-classes, so a required field never shows up as invalid on page load. If you validate in the browser, toggle <code>.is-invalid</code> from JavaScript (see <a href="#client-side-with-javascript">below</a>).</li>
+  <li>Due to constraints in how CSS works, we cannot apply styles to a <code>&lt;label&gt;</code> that comes before a form control in the DOM without the help of custom JavaScript.</li>
+  <li>All modern browsers support the <a href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#the-constraint-validation-api">constraint validation API</a>, a series of JavaScript methods for validating form controls. You may provide custom validity messages with <code>setCustomValidity</code> in JavaScript.</li>
+</ul>
+
+<h2>Browser defaults</h2>
+<p>Not interested in custom validation feedback messages or writing JavaScript to change form behaviors? All good, you can use the browser defaults: mark fields as <code>required</code> (or use <code>type</code>, <code>pattern</code>, <code>min</code>…) and leave out <code>novalidate</code>. Try submitting the form below. Depending on your browser and OS, you'll see a slightly different style of feedback.</p>
+<p>While these feedback styles cannot be styled with CSS, you can still customize the feedback text through JavaScript.</p>
+
+<example>
+<form class="row g-3">
+  <div class="col-md-4">
+    <label for="validationDefault01" class="form-label">First name</label>
+    <input type="text" class="form-control" id="validationDefault01" value="Mark" required>
+  </div>
+  <div class="col-md-4">
+    <label for="validationDefault02" class="form-label">Last name</label>
+    <input type="text" class="form-control" id="validationDefault02" value="Otto" required>
+  </div>
+  <div class="col-md-4">
+    <label for="validationDefaultUsername" class="form-label">Username</label>
+    <div class="input-group">
+      <span class="input-group-text" id="inputGroupPrepend2">@</span>
+      <input type="text" class="form-control" id="validationDefaultUsername" aria-describedby="inputGroupPrepend2" required>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="validationDefault03" class="form-label">City</label>
+    <input type="text" class="form-control" id="validationDefault03" required>
+  </div>
+  <div class="col-md-3">
+    <label for="validationDefault04" class="form-label">State</label>
+    <select class="form-select" id="validationDefault04" required>
+      <option selected disabled value="">Choose...</option>
+      <option>...</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <label for="validationDefault05" class="form-label">Zip</label>
+    <input type="text" class="form-control" id="validationDefault05" required>
+  </div>
+  <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+      <label class="form-check-label" for="invalidCheck2">
+        Agree to terms and conditions
+      </label>
+    </div>
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">Submit form</button>
+  </div>
+</form>
+</example>
+
+<h2>Server side</h2>
+<p>When your server validates the form, indicate invalid and valid form fields with <code>.is-invalid</code> and <code>.is-valid</code>. A following <code>.invalid-feedback</code> or <code>.valid-feedback</code> is shown with them.</p>
+<p>For invalid fields, ensure that the invalid feedback/error message is associated with the relevant form field using <code>aria-describedby</code> (noting that this attribute allows more than one <code>id</code> to be referenced, in case the field already points to additional form text).</p>
+<p>Input groups don't wrap in felt-css, and there is no <code>.has-validation</code>: place the feedback after the <code>.input-group</code> and show it with <code>.d-block</code>. The same goes for checkboxes: put the feedback after the <code>.form-check</code>.</p>
+
+<example>
+<form class="row g-3">
+  <div class="col-md-4">
+    <label for="validationServer01" class="form-label">First name</label>
+    <input type="text" class="form-control is-valid" id="validationServer01" value="Mark" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationServer02" class="form-label">Last name</label>
+    <input type="text" class="form-control is-valid" id="validationServer02" value="Otto" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationServerUsername" class="form-label">Username</label>
+    <div class="input-group">
+      <span class="input-group-text" id="inputGroupPrepend3">@</span>
+      <input type="text" class="form-control is-invalid" id="validationServerUsername" aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback" required>
+    </div>
+    <div id="validationServerUsernameFeedback" class="invalid-feedback d-block">
+      Please choose a username.
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="validationServer03" class="form-label">City</label>
+    <input type="text" class="form-control is-invalid" id="validationServer03" aria-describedby="validationServer03Feedback" required>
+    <div id="validationServer03Feedback" class="invalid-feedback">
+      Please provide a valid city.
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label for="validationServer04" class="form-label">State</label>
+    <select class="form-select is-invalid" id="validationServer04" aria-describedby="validationServer04Feedback" required>
+      <option selected disabled value="">Choose...</option>
+      <option>...</option>
+    </select>
+    <div id="validationServer04Feedback" class="invalid-feedback">
+      Please select a valid state.
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label for="validationServer05" class="form-label">Zip</label>
+    <input type="text" class="form-control is-invalid" id="validationServer05" aria-describedby="validationServer05Feedback" required>
+    <div id="validationServer05Feedback" class="invalid-feedback">
+      Please provide a valid zip.
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="invalidCheck3" aria-describedby="invalidCheck3Feedback" required>
+      <label class="form-check-label" for="invalidCheck3">
+        Agree to terms and conditions
+      </label>
+    </div>
+    <div id="invalidCheck3Feedback" class="invalid-feedback d-block">
+      You must agree before submitting.
+    </div>
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">Submit form</button>
+  </div>
+</form>
+</example>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look, an invalid field is more than a red border: it also takes a faint tomato tint (<code>--field-invalid</code>), so the error still reads where the thin border gets lost in the felt texture.</p>
+</div>
+
+<h2>Supported elements</h2>
+<p>Validation styles are available for the following form controls and components:</p>
+<ul>
+  <li><code>&lt;input&gt;</code>s and <code>&lt;textarea&gt;</code>s with <code>.form-control</code> (including file inputs, and up to one <code>.form-control</code> in input groups)</li>
+  <li><code>&lt;select&gt;</code>s with <code>.form-select</code></li>
+  <li><a href="../floating-labels/">Floating labels</a></li>
+</ul>
+<p><code>.form-check-input</code> has no valid or invalid style; give checkboxes and radios a feedback message instead.</p>
+
+<example>
+<form>
+  <div class="mb-3">
+    <label for="validationTextarea" class="form-label">Textarea</label>
+    <textarea class="form-control is-invalid" id="validationTextarea" placeholder="Required example textarea" required></textarea>
+    <div class="invalid-feedback">
+      Please enter a message in the textarea.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <select class="form-select is-invalid" required aria-label="select example">
+      <option value="">Open this select menu</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+    <div class="invalid-feedback">Example invalid select feedback</div>
+  </div>
+
+  <div class="mb-3">
+    <input type="file" class="form-control is-invalid" aria-label="file example" required>
+    <div class="invalid-feedback">Example invalid form file feedback</div>
+  </div>
+
+  <div class="mb-3">
+    <button class="btn btn-primary" type="submit" disabled>Submit form</button>
+  </div>
+</form>
+</example>
+
+<h2>Tooltips</h2>
+<p>If your form layout allows it, you can swap the <code>.{valid|invalid}-feedback</code> classes for <code>.{valid|invalid}-tooltip</code> classes to display validation feedback in a styled tooltip. Be sure to have a parent with <code>position: relative</code> on it for tooltip positioning; in the example below, <code>.position-relative</code> on the columns does that. Tooltips lie over what follows, so leave room for them (here with <code>.gy-5</code>).</p>
+
+<example>
+<form class="row gx-3 gy-5">
+  <div class="col-md-4 position-relative">
+    <label for="validationTooltip01" class="form-label">First name</label>
+    <input type="text" class="form-control is-valid" id="validationTooltip01" value="Mark" required>
+    <div class="valid-tooltip">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-4 position-relative">
+    <label for="validationTooltip02" class="form-label">Last name</label>
+    <input type="text" class="form-control is-valid" id="validationTooltip02" value="Otto" required>
+    <div class="valid-tooltip">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-4 position-relative">
+    <label for="validationTooltipUsername" class="form-label">Username</label>
+    <div class="input-group">
+      <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+      <input type="text" class="form-control is-invalid" id="validationTooltipUsername" aria-describedby="validationTooltipUsernamePrepend" required>
+    </div>
+    <div class="invalid-tooltip d-block">
+      Username is taken.
+    </div>
+  </div>
+  <div class="col-md-6 position-relative">
+    <label for="validationTooltip03" class="form-label">City</label>
+    <input type="text" class="form-control is-invalid" id="validationTooltip03" required>
+    <div class="invalid-tooltip">
+      Please provide a valid city.
+    </div>
+  </div>
+  <div class="col-md-3 position-relative">
+    <label for="validationTooltip04" class="form-label">State</label>
+    <select class="form-select is-invalid" id="validationTooltip04" required>
+      <option selected disabled value="">Choose...</option>
+      <option>...</option>
+    </select>
+    <div class="invalid-tooltip">
+      Please select a valid state.
+    </div>
+  </div>
+  <div class="col-md-3 position-relative">
+    <label for="validationTooltip05" class="form-label">Zip</label>
+    <input type="text" class="form-control is-valid" id="validationTooltip05" value="10115" required>
+    <div class="valid-tooltip">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">Submit form</button>
+  </div>
+</form>
+</example>
+
+<h2>Client side with JavaScript</h2>
+<p>To validate in the browser with your own messages, add <code>novalidate</code> to the <code>&lt;form&gt;</code> (this switches off the browser's feedback bubbles but keeps the validation API) and mirror each field's validity into <code>.is-invalid</code> when the form is submitted:</p>
+
+<codeblock lang="js">
+for (const form of document.querySelectorAll('.needs-validation')) {
+  form.addEventListener('submit', event => {
+    if (!form.checkValidity()) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+    for (const field of form.querySelectorAll('.form-control, .form-select')) {
+      field.classList.toggle('is-invalid', !field.checkValidity())
+    }
+  })
+}
+</codeblock>

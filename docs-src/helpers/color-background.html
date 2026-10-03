@@ -1,0 +1,47 @@
+<!--
+title: Color and background
+description: Set a background color with contrasting foreground color.
+-->
+<h2>Overview</h2>
+<p>Color and background helpers combine the power of the <a href="../../utilities/colors/"><code>.text-*</code> utilities</a> and <a href="../../utilities/background/"><code>.bg-*</code> utilities</a> in one class. Each theme color comes with a matching ink color (<code>--primary-ink</code>, <code>--warning-ink</code>, …) that is used as the <code>color</code> on top of its <code>background-color</code>.</p>
+<div class="bd-callout bd-callout-warning">
+  <p><strong>Heads up!</strong> CSS has no native <code>color-contrast()</code> function yet, so the ink colors are set by hand. When you re-dye a theme color such as <code>--primary</code>, check that its <code>--primary-ink</code> still has enough contrast, and change it too if needed.</p>
+</div>
+<example>
+<div class="text-bg-primary p-3">Primary with contrasting color</div>
+<div class="text-bg-secondary p-3">Secondary with contrasting color</div>
+<div class="text-bg-success p-3">Success with contrasting color</div>
+<div class="text-bg-danger p-3">Danger with contrasting color</div>
+<div class="text-bg-warning p-3">Warning with contrasting color</div>
+<div class="text-bg-info p-3">Info with contrasting color</div>
+<div class="text-bg-light p-3">Light with contrasting color</div>
+<div class="text-bg-dark p-3">Dark with contrasting color</div>
+</example>
+<div class="bd-callout bd-callout-warning">
+  <p><strong>Accessibility tip:</strong> Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies like screen readers. Please ensure the meaning is obvious from the content itself (e.g., the visible text with a sufficient color contrast) or is included through alternative means, such as additional text hidden with the <code>.visually-hidden</code> class.</p>
+</div>
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look a <code>.text-bg-*</code> element becomes a patch: saturated felt with a soft dome of light, a darker cut edge and a cast shadow, like a felt button.</p>
+</div>
+
+<h2>With components</h2>
+<p>Use them in place of combined <code>.text-*</code> and <code>.bg-*</code> classes, like on <a href="../../components/badge/#background-colors">badges</a>:</p>
+<example>
+<span class="badge text-bg-primary">Primary</span>
+<span class="badge text-bg-info">Info</span>
+</example>
+<p>Or on <a href="../../components/card/#background-and-color">cards</a>:</p>
+<example>
+<div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+  <div class="card-header">Header</div>
+  <div class="card-body">
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+<div class="card text-bg-info mb-3" style="max-width: 18rem;">
+  <div class="card-header">Header</div>
+  <div class="card-body">
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+</example>

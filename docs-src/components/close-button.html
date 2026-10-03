@@ -1,0 +1,26 @@
+<!--
+title: Close button
+description: A generic close button for dismissing content like modals and alerts.
+-->
+<h2>Example</h2>
+<p>Provide an option to dismiss or close a component with <code>.btn-close</code>. The icon is drawn in <code>currentColor</code>, so it follows the text color of its parent. <strong>Be sure to include text for screen readers</strong>, as we’ve done with <code>aria-label</code>.</p>
+<example>
+<button type="button" class="btn-close" aria-label="Close"></button>
+</example>
+
+<h2>Disabled state</h2>
+<p>Disabled close buttons change their <code>opacity</code>. We’ve also applied <code>pointer-events: none</code> to prevent hover and active states from triggering.</p>
+<example>
+<button type="button" class="btn-close" disabled aria-label="Close"></button>
+</example>
+
+<h2>Dark variant</h2>
+<p>Add <code>data-bs-theme="dark"</code> to the <code>.btn-close</code>, or to its parent element, to get a close button for dark surfaces.</p>
+<example class="bg-dark">
+<div data-bs-theme="dark">
+  <button type="button" class="btn-close" aria-label="Close"></button>
+  <button type="button" class="btn-close" disabled aria-label="Close"></button>
+</div>
+</example>
+
+<p>Bootstrap's deprecated <code>.btn-close-white</code> still works as well; it simply sets the color to white.</p>

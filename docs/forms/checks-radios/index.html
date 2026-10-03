@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checks and radios · felt-css</title>
+  <meta name="description" content="Create consistent cross-browser and cross-device checkboxes and radios with the checks component.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Forms</p>
+        <h1>Checks and radios</h1>
+        <p class="lead">Create consistent cross-browser and cross-device checkboxes and radios with the checks component.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/forms/checks-radios.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#approach">Approach</a></li><li><a href="#checks">Checks</a><ul><li><a href="#disabled">Disabled</a></li></ul></li><li><a href="#radios">Radios</a><ul><li><a href="#disabled-2">Disabled</a></li></ul></li><li><a href="#switches">Switches</a><ul><li><a href="#native-switches">Native switches</a></li></ul></li><li><a href="#default-stacked">Default (stacked)</a></li><li><a href="#inline">Inline</a></li><li><a href="#reverse">Reverse</a></li><li><a href="#without-labels">Without labels</a></li><li><a href="#toggle-buttons">Toggle buttons</a><ul><li><a href="#checkbox-toggle-buttons">Checkbox toggle buttons</a></li><li><a href="#radio-toggle-buttons">Radio toggle buttons</a></li><li><a href="#outlined-styles">Outlined styles</a></li></ul></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#approach">Approach</a></li><li><a href="#checks">Checks</a><ul><li><a href="#disabled">Disabled</a></li></ul></li><li><a href="#radios">Radios</a><ul><li><a href="#disabled-2">Disabled</a></li></ul></li><li><a href="#switches">Switches</a><ul><li><a href="#native-switches">Native switches</a></li></ul></li><li><a href="#default-stacked">Default (stacked)</a></li><li><a href="#inline">Inline</a></li><li><a href="#reverse">Reverse</a></li><li><a href="#without-labels">Without labels</a></li><li><a href="#toggle-buttons">Toggle buttons</a><ul><li><a href="#checkbox-toggle-buttons">Checkbox toggle buttons</a></li><li><a href="#radio-toggle-buttons">Radio toggle buttons</a></li><li><a href="#outlined-styles">Outlined styles</a></li></ul></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="approach">Approach<a class="bd-anchor" href="#approach" aria-label="Link to this section">#</a></h2>
+<p>Browser default checkboxes and radios are replaced with the help of <code>.form-check</code>, a series of classes for both input types that improves the layout and behavior of their HTML elements, that provide greater customization and cross browser consistency. Checkboxes are for selecting one or several options in a list, while radios are for selecting one option from many.</p>
+<p>Structurally, the <code>&lt;input&gt;</code>s and <code>&lt;label&gt;</code>s are sibling elements as opposed to an <code>&lt;input&gt;</code> within a <code>&lt;label&gt;</code>. This is slightly more verbose as you must specify <code>id</code> and <code>for</code> attributes to relate the <code>&lt;input&gt;</code> and <code>&lt;label&gt;</code>. The sibling selector (<code>+</code>) is used for the <code>&lt;input&gt;</code> states, like <code>:disabled</code>, so the <code>.form-check-label</code> can follow the state of its input. In felt-css, <code>.form-check</code> is a small flex row: the input and the label sit side by side, centred vertically.</p>
+
+<h2 id="checks">Checks<a class="bd-anchor" href="#checks" aria-label="Link to this section">#</a></h2>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="checkDefault">
+  <label class="form-check-label" for="checkDefault">
+    Default checkbox
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="checkChecked" checked>
+  <label class="form-check-label" for="checkChecked">
+    Checked checkbox
+  </label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"checkDefault"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"checkDefault"</span><span class="tok-punct">&gt;</span>
+    Default checkbox
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"checkChecked"</span> <span class="tok-attr">checked</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"checkChecked"</span><span class="tok-punct">&gt;</span>
+    Checked checkbox
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look, an empty checkbox is a little square pressed into the felt; checked, it becomes a primary felt patch with a cream tick that casts a small shadow. Radios and switches follow the same recipe.</p>
+</div>
+
+<p>felt-css has no separate style for the <code>:indeterminate</code> state; an indeterminate checkbox looks unchecked.</p>
+
+<h3 id="disabled">Disabled<a class="bd-anchor" href="#disabled" aria-label="Link to this section">#</a></h3>
+<p>Add the <code>disabled</code> attribute and the associated <code>&lt;label&gt;</code>s are automatically styled to match with a lighter color to help indicate the input's state.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="checkDisabled" disabled>
+  <label class="form-check-label" for="checkDisabled">
+    Disabled checkbox
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="checkCheckedDisabled" checked disabled>
+  <label class="form-check-label" for="checkCheckedDisabled">
+    Disabled checked checkbox
+  </label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"checkDisabled"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"checkDisabled"</span><span class="tok-punct">&gt;</span>
+    Disabled checkbox
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"checkCheckedDisabled"</span> <span class="tok-attr">checked</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"checkCheckedDisabled"</span><span class="tok-punct">&gt;</span>
+    Disabled checked checkbox
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="radios">Radios<a class="bd-anchor" href="#radios" aria-label="Link to this section">#</a></h2>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault1">
+  <label class="form-check-label" for="radioDefault1">
+    Default radio
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked>
+  <label class="form-check-label" for="radioDefault2">
+    Default checked radio
+  </label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"radioDefault"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"radioDefault1"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"radioDefault1"</span><span class="tok-punct">&gt;</span>
+    Default radio
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"radioDefault"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"radioDefault2"</span> <span class="tok-attr">checked</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"radioDefault2"</span><span class="tok-punct">&gt;</span>
+    Default checked radio
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="disabled-2">Disabled<a class="bd-anchor" href="#disabled-2" aria-label="Link to this section">#</a></h3>
+<p>Add the <code>disabled</code> attribute and the associated <code>&lt;label&gt;</code>s are automatically styled to match with a lighter color to help indicate the input's state.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="radioDisabled" id="radioDisabled" disabled>
+  <label class="form-check-label" for="radioDisabled">
+    Disabled radio
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="radioDisabled" id="radioCheckedDisabled" checked disabled>
+  <label class="form-check-label" for="radioCheckedDisabled">
+    Disabled checked radio
+  </label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"radioDisabled"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"radioDisabled"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"radioDisabled"</span><span class="tok-punct">&gt;</span>
+    Disabled radio
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"radioDisabled"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"radioCheckedDisabled"</span> <span class="tok-attr">checked</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"radioCheckedDisabled"</span><span class="tok-punct">&gt;</span>
+    Disabled checked radio
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="switches">Switches<a class="bd-anchor" href="#switches" aria-label="Link to this section">#</a></h2>
+<p>A switch has the markup of a custom checkbox but uses the <code>.form-switch</code> class to render a toggle switch. Consider using <code>role="switch"</code> to more accurately convey the nature of the control to assistive technologies that support this role. In older assistive technologies, it will simply be announced as a regular checkbox as a fallback. Switches also support the <code>disabled</code> attribute.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+  <label class="form-check-label" for="switchCheckDefault">Default switch checkbox input</label>
+</div>
+<div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" checked>
+  <label class="form-check-label" for="switchCheckChecked">Checked switch checkbox input</label>
+</div>
+<div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDisabled" disabled>
+  <label class="form-check-label" for="switchCheckDisabled">Disabled switch checkbox input</label>
+</div>
+<div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" role="switch" id="switchCheckCheckedDisabled" checked disabled>
+  <label class="form-check-label" for="switchCheckCheckedDisabled">Disabled checked switch checkbox input</label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-switch"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"switch"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"switchCheckDefault"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"switchCheckDefault"</span><span class="tok-punct">&gt;</span>Default switch checkbox input<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-switch"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"switch"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"switchCheckChecked"</span> <span class="tok-attr">checked</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"switchCheckChecked"</span><span class="tok-punct">&gt;</span>Checked switch checkbox input<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-switch"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"switch"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"switchCheckDisabled"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"switchCheckDisabled"</span><span class="tok-punct">&gt;</span>Disabled switch checkbox input<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-switch"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"switch"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"switchCheckCheckedDisabled"</span> <span class="tok-attr">checked</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"switchCheckCheckedDisabled"</span><span class="tok-punct">&gt;</span>Disabled checked switch checkbox input<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="native-switches">Native switches<a class="bd-anchor" href="#native-switches" aria-label="Link to this section">#</a></h3>
+<p>Progressively enhance your switches for mobile Safari (iOS 17.4+) by adding a <code>switch</code> attribute to your input to enable haptic feedback when toggling switches, just like native iOS switches. There are no style changes attached to using this attribute, as all switches use custom styles.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" value="" id="checkNativeSwitch" switch>
+  <label class="form-check-label" for="checkNativeSwitch">
+    Native switch haptics
+  </label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-switch"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"checkNativeSwitch"</span> <span class="tok-attr">switch</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"checkNativeSwitch"</span><span class="tok-punct">&gt;</span>
+    Native switch haptics
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Be sure to read more about <a href="https://webkit.org/blog/15054/an-html-switch-control/">the switch attribute on the WebKit blog</a>.</p>
+
+<h2 id="default-stacked">Default (stacked)<a class="bd-anchor" href="#default-stacked" aria-label="Link to this section">#</a></h2>
+<p>By default, any number of checkboxes and radios that are immediate siblings will be vertically stacked and appropriately spaced with <code>.form-check</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+  <label class="form-check-label" for="defaultCheck1">
+    Default checkbox
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" disabled>
+  <label class="form-check-label" for="defaultCheck2">
+    Disabled checkbox
+  </label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"defaultCheck1"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"defaultCheck1"</span><span class="tok-punct">&gt;</span>
+    Default checkbox
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"defaultCheck2"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"defaultCheck2"</span><span class="tok-punct">&gt;</span>
+    Disabled checkbox
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+  <label class="form-check-label" for="exampleRadios1">
+    Default radio
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+  <label class="form-check-label" for="exampleRadios2">
+    Second default radio
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+  <label class="form-check-label" for="exampleRadios3">
+    Disabled radio
+  </label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"exampleRadios"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleRadios1"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option1"</span> <span class="tok-attr">checked</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"exampleRadios1"</span><span class="tok-punct">&gt;</span>
+    Default radio
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"exampleRadios"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleRadios2"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option2"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"exampleRadios2"</span><span class="tok-punct">&gt;</span>
+    Second default radio
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"exampleRadios"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleRadios3"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option3"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"exampleRadios3"</span><span class="tok-punct">&gt;</span>
+    Disabled radio
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="inline">Inline<a class="bd-anchor" href="#inline" aria-label="Link to this section">#</a></h2>
+<p>Group checkboxes or radios on the same horizontal row by adding <code>.form-check-inline</code> to any <code>.form-check</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+  <label class="form-check-label" for="inlineCheckbox1">1</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+  <label class="form-check-label" for="inlineCheckbox2">2</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
+  <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-check-inline"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inlineCheckbox1"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option1"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inlineCheckbox1"</span><span class="tok-punct">&gt;</span>1<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-check-inline"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inlineCheckbox2"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option2"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inlineCheckbox2"</span><span class="tok-punct">&gt;</span>2<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-check-inline"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inlineCheckbox3"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option3"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inlineCheckbox3"</span><span class="tok-punct">&gt;</span>3 (disabled)<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+  <label class="form-check-label" for="inlineRadio1">1</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <label class="form-check-label" for="inlineRadio2">2</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
+  <label class="form-check-label" for="inlineRadio3">3 (disabled)</label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-check-inline"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"inlineRadioOptions"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inlineRadio1"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option1"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inlineRadio1"</span><span class="tok-punct">&gt;</span>1<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-check-inline"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"inlineRadioOptions"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inlineRadio2"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option2"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inlineRadio2"</span><span class="tok-punct">&gt;</span>2<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-check-inline"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"inlineRadioOptions"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inlineRadio3"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option3"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inlineRadio3"</span><span class="tok-punct">&gt;</span>3 (disabled)<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="reverse">Reverse<a class="bd-anchor" href="#reverse" aria-label="Link to this section">#</a></h2>
+<p>felt-css has no <code>.form-check-reverse</code>. Because <code>.form-check</code> is a flex row, putting the label before the input and adding <a href="../../utilities/flex/#justify-content"><code>.justify-content-end</code></a> gives the same result for checkboxes, radios, and switches. The label's disabled style then needs your own CSS, as it relies on the label following the input.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="form-check form-switch justify-content-end">
+  <label class="form-check-label" for="switchCheckReverse">Reverse switch checkbox input</label>
+  <input class="form-check-input" type="checkbox" role="switch" id="switchCheckReverse">
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check form-switch justify-content-end"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"switchCheckReverse"</span><span class="tok-punct">&gt;</span>Reverse switch checkbox input<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"switch"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"switchCheckReverse"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="without-labels">Without labels<a class="bd-anchor" href="#without-labels" aria-label="Link to this section">#</a></h2>
+<p>Omit the wrapping <code>.form-check</code> for checkboxes and radios that have no label text. Remember to still provide some form of accessible name for assistive technologies (for instance, using <code>aria-label</code>). See the <a href="../overview/#accessibility">forms overview accessibility</a> section for details.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div>
+  <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+</div>
+
+<div>
+  <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1" value="" aria-label="...">
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"checkboxNoLabel"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"..."</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"radioNoLabel"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"radioNoLabel1"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"..."</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="toggle-buttons">Toggle buttons<a class="bd-anchor" href="#toggle-buttons" aria-label="Link to this section">#</a></h2>
+<p>Create button-like checkboxes and radio buttons by using <code>.btn</code> styles rather than <code>.form-check-label</code> on the <code>&lt;label&gt;</code> elements. These toggle buttons can further be grouped in a <a href="../../components/button-group/">button group</a> if needed.</p>
+
+<h3 id="checkbox-toggle-buttons">Checkbox toggle buttons<a class="bd-anchor" href="#checkbox-toggle-buttons" aria-label="Link to this section">#</a></h3>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
+<label class="btn btn-primary" for="btn-check">Single toggle</label>
+
+<input type="checkbox" class="btn-check" id="btn-check-2" checked autocomplete="off">
+<label class="btn btn-primary" for="btn-check-2">Checked</label>
+
+<input type="checkbox" class="btn-check" id="btn-check-3" autocomplete="off" disabled>
+<label class="btn btn-primary" for="btn-check-3">Disabled</label>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span><span class="tok-punct">&gt;</span>Single toggle<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-2"</span> <span class="tok-attr">checked</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-2"</span><span class="tok-punct">&gt;</span>Checked<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-3"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-3"</span><span class="tok-punct">&gt;</span>Disabled<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<input type="checkbox" class="btn-check" id="btn-check-4" autocomplete="off">
+<label class="btn" for="btn-check-4">Single toggle</label>
+
+<input type="checkbox" class="btn-check" id="btn-check-5" checked autocomplete="off">
+<label class="btn" for="btn-check-5">Checked</label>
+
+<input type="checkbox" class="btn-check" id="btn-check-6" autocomplete="off" disabled>
+<label class="btn" for="btn-check-6">Disabled</label>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-4"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-4"</span><span class="tok-punct">&gt;</span>Single toggle<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-5"</span> <span class="tok-attr">checked</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-5"</span><span class="tok-punct">&gt;</span>Checked<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-6"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-6"</span><span class="tok-punct">&gt;</span>Disabled<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Visually, these checkbox toggle buttons are identical to the <a href="../../components/buttons/">button plugin toggle buttons</a>. However, they are conveyed differently by assistive technologies: the checkbox toggles will be announced by screen readers as "checked"/"not checked" (since, despite their appearance, they are fundamentally still checkboxes), whereas the button plugin toggle buttons will be announced as "button"/"button pressed". The choice between these two approaches will depend on the type of toggle you are creating, and whether or not the toggle will make sense to users when announced as a checkbox or as an actual button.</p>
+
+<h3 id="radio-toggle-buttons">Radio toggle buttons<a class="bd-anchor" href="#radio-toggle-buttons" aria-label="Link to this section">#</a></h3>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked>
+<label class="btn btn-secondary" for="option1">Checked</label>
+
+<input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
+<label class="btn btn-secondary" for="option2">Radio</label>
+
+<input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" disabled>
+<label class="btn btn-secondary" for="option3">Disabled</label>
+
+<input type="radio" class="btn-check" name="options" id="option4" autocomplete="off">
+<label class="btn btn-secondary" for="option4">Radio</label>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"options"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"option1"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span> <span class="tok-attr">checked</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"option1"</span><span class="tok-punct">&gt;</span>Checked<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"options"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"option2"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"option2"</span><span class="tok-punct">&gt;</span>Radio<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"options"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"option3"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"option3"</span><span class="tok-punct">&gt;</span>Disabled<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"options"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"option4"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"option4"</span><span class="tok-punct">&gt;</span>Radio<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<input type="radio" class="btn-check" name="options-base" id="option5" autocomplete="off" checked>
+<label class="btn" for="option5">Checked</label>
+
+<input type="radio" class="btn-check" name="options-base" id="option6" autocomplete="off">
+<label class="btn" for="option6">Radio</label>
+
+<input type="radio" class="btn-check" name="options-base" id="option7" autocomplete="off" disabled>
+<label class="btn" for="option7">Disabled</label>
+
+<input type="radio" class="btn-check" name="options-base" id="option8" autocomplete="off">
+<label class="btn" for="option8">Radio</label>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"options-base"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"option5"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span> <span class="tok-attr">checked</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"option5"</span><span class="tok-punct">&gt;</span>Checked<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"options-base"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"option6"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"option6"</span><span class="tok-punct">&gt;</span>Radio<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"options-base"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"option7"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"option7"</span><span class="tok-punct">&gt;</span>Disabled<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"options-base"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"option8"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"option8"</span><span class="tok-punct">&gt;</span>Radio<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="outlined-styles">Outlined styles<a class="bd-anchor" href="#outlined-styles" aria-label="Link to this section">#</a></h3>
+<p>Different variants of <code>.btn</code>, such as the various outlined styles, are supported.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+<label class="btn btn-outline-primary" for="btn-check-outlined">Single toggle</label><br>
+
+<input type="checkbox" class="btn-check" id="btn-check-2-outlined" checked autocomplete="off">
+<label class="btn btn-outline-secondary" for="btn-check-2-outlined">Checked</label><br>
+
+<input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off" checked>
+<label class="btn btn-outline-success" for="success-outlined">Checked success radio</label>
+
+<input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
+<label class="btn btn-outline-danger" for="danger-outlined">Danger radio</label>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-outlined"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-outlined"</span><span class="tok-punct">&gt;</span>Single toggle<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-2-outlined"</span> <span class="tok-attr">checked</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-secondary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btn-check-2-outlined"</span><span class="tok-punct">&gt;</span>Checked<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"options-outlined"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"success-outlined"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span> <span class="tok-attr">checked</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-success"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"success-outlined"</span><span class="tok-punct">&gt;</span>Checked success radio<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"options-outlined"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"danger-outlined"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-danger"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"danger-outlined"</span><span class="tok-punct">&gt;</span>Danger radio<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../forms/select/"><small>Previous</small>Select</a><a class="bd-pager-next" href="../../forms/range/"><small>Next</small>Range</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

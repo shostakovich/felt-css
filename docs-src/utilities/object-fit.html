@@ -1,0 +1,42 @@
+<!--
+title: Object fit
+description: Use the object fit utilities to modify how the content of a replaced element, such as an &lt;img&gt; or &lt;video&gt;, should be resized to fit its container.
+-->
+<h2>How it works</h2>
+<p>Change the value of the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit"><code>object-fit</code> property</a> with the responsive <code>object-fit</code> utility classes. This property tells the content to fill the parent container in a variety of ways, such as preserving the aspect ratio or stretching to take up as much space as possible.</p>
+<p>Classes for the value of <code>object-fit</code> are named using the format <code>.object-fit-{value}</code>. Choose from the following values:</p>
+<ul>
+  <li><code>contain</code></li>
+  <li><code>cover</code></li>
+  <li><code>fill</code></li>
+  <li><code>scale</code> (for scale-down)</li>
+  <li><code>none</code></li>
+</ul>
+
+<h2>Examples</h2>
+<p>Add the <code>object-fit-{value}</code> class to the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element">replaced element</a>:</p>
+<example class="d-flex gap-2 overflow-auto">
+<img src="../../../docs/sample-photo.webp" width="140" height="120" class="object-fit-contain border rounded" alt="Object fit contain">
+<img src="../../../docs/sample-photo.webp" width="140" height="120" class="object-fit-cover border rounded" alt="Object fit cover">
+<img src="../../../docs/sample-photo.webp" width="140" height="120" class="object-fit-fill border rounded" alt="Object fit fill">
+<img src="../../../docs/sample-photo.webp" width="140" height="120" class="object-fit-scale border rounded" alt="Object fit scale down">
+<img src="../../../docs/sample-photo.webp" width="140" height="120" class="object-fit-none border rounded" alt="Object fit none">
+</example>
+
+<h2>Responsive</h2>
+<p>Responsive variations also exist for each <code>object-fit</code> value using the format <code>.object-fit-{breakpoint}-{value}</code>, for the following breakpoint abbreviations: <code>sm</code>, <code>md</code> and <code>lg</code>. Classes can be combined for various effects as you need.</p>
+<example class="d-flex gap-2 overflow-auto">
+<img src="../../../docs/sample-photo.webp" width="140" height="80" class="object-fit-sm-contain border rounded" alt="Contain on sm">
+<img src="../../../docs/sample-photo.webp" width="140" height="80" class="object-fit-md-contain border rounded" alt="Contain on md">
+<img src="../../../docs/sample-photo.webp" width="140" height="80" class="object-fit-lg-contain border rounded" alt="Contain on lg">
+</example>
+
+<h2>Video</h2>
+<p>The <code>.object-fit-{value}</code> and responsive <code>.object-fit-{breakpoint}-{value}</code> utilities also work on <code>&lt;video&gt;</code> elements.</p>
+<codeblock lang="html">
+<video src="..." class="object-fit-contain" autoplay></video>
+<video src="..." class="object-fit-cover" autoplay></video>
+<video src="..." class="object-fit-fill" autoplay></video>
+<video src="..." class="object-fit-scale" autoplay></video>
+<video src="..." class="object-fit-none" autoplay></video>
+</codeblock>

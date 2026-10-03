@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reboot · felt-css</title>
+  <meta name="description" content="Reboot, a small set of element-specific CSS changes at the top of felt.css, provides a simple, consistent baseline to build upon.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Content</p>
+        <h1>Reboot</h1>
+        <p class="lead">Reboot, a small set of element-specific CSS changes at the top of felt.css, provides a simple, consistent baseline to build upon.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/content/reboot.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#approach">Approach</a></li><li><a href="#page-defaults">Page defaults</a></li><li><a href="#native-font-stack">Native font stack</a></li><li><a href="#headings">Headings</a></li><li><a href="#paragraphs">Paragraphs</a></li><li><a href="#links">Links</a></li><li><a href="#horizontal-rules">Horizontal rules</a></li><li><a href="#lists">Lists</a></li><li><a href="#inline-code">Inline code</a></li><li><a href="#code-blocks">Code blocks</a></li><li><a href="#variables">Variables</a></li><li><a href="#user-input">User input</a></li><li><a href="#sample-output">Sample output</a></li><li><a href="#tables">Tables</a></li><li><a href="#forms">Forms</a></li><li><a href="#address">Address</a></li><li><a href="#blockquote">Blockquote</a></li><li><a href="#inline-elements">Inline elements</a></li><li><a href="#summary">Summary</a></li><li><a href="#html5-hidden-attribute">HTML5 [hidden] attribute</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#approach">Approach</a></li><li><a href="#page-defaults">Page defaults</a></li><li><a href="#native-font-stack">Native font stack</a></li><li><a href="#headings">Headings</a></li><li><a href="#paragraphs">Paragraphs</a></li><li><a href="#links">Links</a></li><li><a href="#horizontal-rules">Horizontal rules</a></li><li><a href="#lists">Lists</a></li><li><a href="#inline-code">Inline code</a></li><li><a href="#code-blocks">Code blocks</a></li><li><a href="#variables">Variables</a></li><li><a href="#user-input">User input</a></li><li><a href="#sample-output">Sample output</a></li><li><a href="#tables">Tables</a></li><li><a href="#forms">Forms</a></li><li><a href="#address">Address</a></li><li><a href="#blockquote">Blockquote</a></li><li><a href="#inline-elements">Inline elements</a></li><li><a href="#summary">Summary</a></li><li><a href="#html5-hidden-attribute">HTML5 [hidden] attribute</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="approach">Approach<a class="bd-anchor" href="#approach" aria-label="Link to this section">#</a></h2>
+<p>Like Bootstrap's Reboot, felt-css gives many HTML elements somewhat opinionated styles using only element selectors. Additional styling is done only with classes. For example, <code>&lt;table&gt;</code>s get a simpler baseline, and <code>.table</code>, <code>.table-bordered</code>, and more come on top.</p>
+<p>felt-css's Reboot is smaller than Bootstrap's and doesn't build on Normalize. It lives in two <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@layer">cascade layers</a> at the top of <code>felt.css</code>: <code>reset</code> (a handful of resets) and <code>base</code> (page defaults and prose). Because every later layer and all un-layered CSS win over them, your own styles override Reboot without any specificity fights.</p>
+<p>Guidelines it follows:</p>
+<ul>
+  <li>Avoid <code>margin-top</code>. Vertical margins can collapse, yielding unexpected results.</li>
+  <li>Block elements use <code>rem</code>s for their <code>margin</code>s, for easier scaling.</li>
+  <li>Keep declarations of <code>font</code>-related properties to a minimum, using <code>inherit</code> whenever possible.</li>
+  <li>Colours come from custom properties on <code>:root</code> (<code>--text</code>, <code>--body-bg</code>, <code>--link</code>…), so everything follows the look and the color mode.</li>
+</ul>
+
+<h2 id="page-defaults">Page defaults<a class="bd-anchor" href="#page-defaults" aria-label="Link to this section">#</a></h2>
+<p>The <code>&lt;html&gt;</code> and <code>&lt;body&gt;</code> elements are updated to provide better page-wide defaults. More specifically:</p>
+<ul>
+  <li>The <code>box-sizing</code> is globally set on every element—including <code>*::before</code> and <code>*::after</code>, to <code>border-box</code>.</li>
+  <li>The <code>&lt;body&gt;</code> loses its default margin.</li>
+  <li>No base <code>font-size</code> is declared on the <code>&lt;html&gt;</code> or the <code>&lt;body&gt;</code>; the browser's default (typically <code>16px</code>) applies, so visitors can change it.</li>
+  <li>The <code>&lt;body&gt;</code> sets a global <code>font-family</code> (<code>--font</code>), <code>line-height: 1.5</code>, <code>color</code> (<code>--text</code>) and font smoothing.</li>
+  <li>The <code>&lt;body&gt;</code> also has a declared <code>background</code>: <code>--body-bg</code>, a very light grey in the clean look and cream felt in the felt look (charcoal in dark mode). Cards and other surfaces sit on it in <code>--surface</code>.</li>
+  <li><code>&lt;img&gt;</code> and <code>&lt;svg&gt;</code> get <code>max-width: 100%</code> and <code>vertical-align: middle</code>, so images never overflow their container, even without <a href="../images/"><code>.img-fluid</code></a>.</li>
+  <li>Every focusable element gets a visible focus ring on <code>:focus-visible</code>: a 3px outline in <code>--focus</code> (a translucent primary), 2px away from the element.</li>
+</ul>
+
+<h2 id="native-font-stack">Native font stack<a class="bd-anchor" href="#native-font-stack" aria-label="Link to this section">#</a></h2>
+<p>felt-css uses a "native font stack" or "system font stack" for optimum text rendering on every device and OS:</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-css"><span class="tok-attr">--font</span>: system-ui, -apple-system, <span class="tok-val">"Segoe UI"</span>, Roboto, sans-serif;
+<span class="tok-attr">--font-heading</span>: var(<span class="tok-attr">--font</span>);
+<span class="tok-attr">--font-mono</span>: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;</code></pre></div>
+
+<p>Override these custom properties on <code>:root</code> to change the typeface of the body, the headings or the code, everywhere at once.</p>
+
+<h2 id="headings">Headings<a class="bd-anchor" href="#headings" aria-label="Link to this section">#</a></h2>
+<p>All heading elements—<code>&lt;h1&gt;</code>—<code>&lt;h6&gt;</code> have their <code>margin-top</code> removed, <code>margin-bottom: .5rem</code> set, <code>line-height</code> tightened to <code>1.2</code> and a bold weight. They use <code>--font-heading</code> and inherit their <code>color</code>. See <a href="../typography/#headings">Typography</a> for the sizes.</p>
+
+<h2 id="paragraphs">Paragraphs<a class="bd-anchor" href="#paragraphs" aria-label="Link to this section">#</a></h2>
+<p>All <code>&lt;p&gt;</code> elements have their <code>margin-top</code> removed and <code>margin-bottom: 1rem</code> set for easy spacing.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<p>This is an example paragraph.</p>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is an example paragraph.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="links">Links<a class="bd-anchor" href="#links" aria-label="Link to this section">#</a></h2>
+<p>Links have a default <code>color</code> (<code>--link</code>) and the browser's underline. They don't change based on whether someone <code>:visited</code> the link. On keyboard focus they show the global focus ring.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<a href="#">This is an example link</a>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>This is an example link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Link <code>color</code> is mixed with transparency through the <code>--link-opacity</code> custom property (Bootstrap's <code>--bs-link-opacity</code>), so you can change the opacity of a link's colour:</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<a href="#" style="--link-opacity: .5">This is an example link</a>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--link-opacity: .5"</span><span class="tok-punct">&gt;</span>This is an example link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Placeholder links—those without an <code>href</code>—keep the link colour but, as in every browser, lose the underline and the pointer cursor. felt-css doesn't reset their colour.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<a>This is a placeholder link</a>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>This is a placeholder link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="horizontal-rules">Horizontal rules<a class="bd-anchor" href="#horizontal-rules" aria-label="Link to this section">#</a></h2>
+<p>The <code>&lt;hr&gt;</code> element has been simplified. Similar to browser defaults, <code>&lt;hr&gt;</code>s are styled via <code>border-top</code>, have a default <code>opacity: .25</code>, and automatically inherit their <code>border-color</code> via <code>color</code>, including when <code>color</code> is set via the parent.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<hr>
+
+<div class="text-success">
+  <hr>
+</div>
+
+<hr class="border border-danger border-2 opacity-50">
+<hr class="border border-primary border-3 opacity-75">
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">hr</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"text-success"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">hr</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">hr</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"border border-danger border-2 opacity-50"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">hr</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"border border-primary border-3 opacity-75"</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look, an <code>&lt;hr&gt;</code> is a row of running stitches instead of a line, in a darker tone of the felt underneath, so a <code>color</code> set on it or its parent doesn't tint it. With border utilities you get a plain coloured line, as in the clean look.</p>
+</div>
+
+<h2 id="lists">Lists<a class="bd-anchor" href="#lists" aria-label="Link to this section">#</a></h2>
+<p>All lists—<code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, and <code>&lt;dl&gt;</code>—have their <code>margin-top</code> removed and a <code>margin-bottom: 1rem</code>. Nested lists have no <code>margin-bottom</code>. The <code>padding-left</code> on <code>&lt;ul&gt;</code> and <code>&lt;ol&gt;</code> is set to <code>2rem</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<ul>
+  <li>All lists have their top margin removed</li>
+  <li>And their bottom margin normalized</li>
+  <li>Nested lists have no bottom margin
+    <ul>
+      <li>This way they have a more even appearance</li>
+      <li>Particularly when followed by more list items</li>
+    </ul>
+  </li>
+  <li>The left padding has also been reset</li>
+</ul>
+
+<ol>
+  <li>Here's an ordered list</li>
+  <li>With a few list items</li>
+  <li>It has the same overall look</li>
+  <li>As the previous unordered list</li>
+</ol>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>All lists have their top margin removed<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>And their bottom margin normalized<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>Nested lists have no bottom margin
+    <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>This way they have a more even appearance<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>Particularly when followed by more list items<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>The left padding has also been reset<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">ol</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>Here's an ordered list<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>With a few list items<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>It has the same overall look<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>As the previous unordered list<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ol</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>For simpler styling, clear hierarchy, and better spacing, description lists have updated <code>margin</code>s. <code>&lt;dd&gt;</code>s reset <code>margin-left</code> to <code>0</code> and add <code>margin-bottom: .5rem</code>. <code>&lt;dt&gt;</code>s are <strong>bolded</strong>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<dl>
+  <dt>Description lists</dt>
+  <dd>A description list is perfect for defining terms.</dd>
+  <dt>Term</dt>
+  <dd>Definition for the term.</dd>
+  <dd>A second definition for the same term.</dd>
+  <dt>Another term</dt>
+  <dd>Definition for this other term.</dd>
+</dl>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">dl</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">dt</span><span class="tok-punct">&gt;</span>Description lists<span class="tok-punct">&lt;/</span><span class="tok-tag">dt</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">dd</span><span class="tok-punct">&gt;</span>A description list is perfect for defining terms.<span class="tok-punct">&lt;/</span><span class="tok-tag">dd</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">dt</span><span class="tok-punct">&gt;</span>Term<span class="tok-punct">&lt;/</span><span class="tok-tag">dt</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">dd</span><span class="tok-punct">&gt;</span>Definition for the term.<span class="tok-punct">&lt;/</span><span class="tok-tag">dd</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">dd</span><span class="tok-punct">&gt;</span>A second definition for the same term.<span class="tok-punct">&lt;/</span><span class="tok-tag">dd</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">dt</span><span class="tok-punct">&gt;</span>Another term<span class="tok-punct">&lt;/</span><span class="tok-tag">dt</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">dd</span><span class="tok-punct">&gt;</span>Definition for this other term.<span class="tok-punct">&lt;/</span><span class="tok-tag">dd</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">dl</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="inline-code">Inline code<a class="bd-anchor" href="#inline-code" aria-label="Link to this section">#</a></h2>
+<p>Wrap inline snippets of code with <code>&lt;code&gt;</code>. Be sure to escape HTML angle brackets. Inline code is set in <code>--font-mono</code> at <code>.875em</code> and coloured with <code>--danger-emphasis</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+For example, <code>&lt;section&gt;</code> should be wrapped as inline.
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html">For example, <span class="tok-punct">&lt;</span><span class="tok-tag">code</span><span class="tok-punct">&gt;</span>&amp;lt;section&amp;gt;<span class="tok-punct">&lt;/</span><span class="tok-tag">code</span><span class="tok-punct">&gt;</span> should be wrapped as inline.</code></pre></div></div>
+
+<h2 id="code-blocks">Code blocks<a class="bd-anchor" href="#code-blocks" aria-label="Link to this section">#</a></h2>
+<p>Use <code>&lt;pre&gt;</code>s for multiple lines of code. Once again, be sure to escape any angle brackets in the code for proper rendering. The <code>&lt;pre&gt;</code> element is reset to remove its <code>margin-top</code> and use <code>rem</code> units for its <code>margin-bottom</code>. Unlike Bootstrap's, it is a padded, scrollable box with a sunken background, a border and rounded corners.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;
+&lt;p&gt;And another line of sample text here...&lt;/p&gt;
+</code></pre>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">pre</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">code</span><span class="tok-punct">&gt;</span>&amp;lt;p&amp;gt;Sample text here...&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;And another line of sample text here...&amp;lt;/p&amp;gt;
+<span class="tok-punct">&lt;/</span><span class="tok-tag">code</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">pre</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="variables">Variables<a class="bd-anchor" href="#variables" aria-label="Link to this section">#</a></h2>
+<p>For indicating variables use the <code>&lt;var&gt;</code> tag.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<var>y</var> = <var>m</var><var>x</var> + <var>b</var>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">var</span><span class="tok-punct">&gt;</span>y<span class="tok-punct">&lt;/</span><span class="tok-tag">var</span><span class="tok-punct">&gt;</span> = <span class="tok-punct">&lt;</span><span class="tok-tag">var</span><span class="tok-punct">&gt;</span>m<span class="tok-punct">&lt;/</span><span class="tok-tag">var</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">var</span><span class="tok-punct">&gt;</span>x<span class="tok-punct">&lt;/</span><span class="tok-tag">var</span><span class="tok-punct">&gt;</span> + <span class="tok-punct">&lt;</span><span class="tok-tag">var</span><span class="tok-punct">&gt;</span>b<span class="tok-punct">&lt;/</span><span class="tok-tag">var</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="user-input">User input<a class="bd-anchor" href="#user-input" aria-label="Link to this section">#</a></h2>
+<p>Use the <code>&lt;kbd&gt;</code> to indicate input that is typically entered via keyboard. It's a small dark key cap; nested <code>&lt;kbd&gt;</code>s are bold.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+To switch directories, type <kbd>cd</kbd> followed by the name of the directory.<br>
+To edit settings, press <kbd><kbd>Ctrl</kbd> + <kbd>,</kbd></kbd>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html">To switch directories, type <span class="tok-punct">&lt;</span><span class="tok-tag">kbd</span><span class="tok-punct">&gt;</span>cd<span class="tok-punct">&lt;/</span><span class="tok-tag">kbd</span><span class="tok-punct">&gt;</span> followed by the name of the directory.<span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+To edit settings, press <span class="tok-punct">&lt;</span><span class="tok-tag">kbd</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">kbd</span><span class="tok-punct">&gt;</span>Ctrl<span class="tok-punct">&lt;/</span><span class="tok-tag">kbd</span><span class="tok-punct">&gt;</span> + <span class="tok-punct">&lt;</span><span class="tok-tag">kbd</span><span class="tok-punct">&gt;</span>,<span class="tok-punct">&lt;/</span><span class="tok-tag">kbd</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">kbd</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="sample-output">Sample output<a class="bd-anchor" href="#sample-output" aria-label="Link to this section">#</a></h2>
+<p>For indicating sample output from a program use the <code>&lt;samp&gt;</code> tag.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<samp>This text is meant to be treated as sample output from a computer program.</samp>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">samp</span><span class="tok-punct">&gt;</span>This text is meant to be treated as sample output from a computer program.<span class="tok-punct">&lt;/</span><span class="tok-tag">samp</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="tables">Tables<a class="bd-anchor" href="#tables" aria-label="Link to this section">#</a></h2>
+<p>Tables are slightly adjusted to style <code>&lt;caption&gt;</code>s (below the table, muted, left-aligned), collapse borders, and ensure consistent <code>text-align</code> throughout. Additional changes for borders, padding, and more come with <a href="../tables/">the <code>.table</code> class</a>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<table>
+  <caption>
+    This is an example table, and this is its caption to describe the contents.
+  </caption>
+  <thead>
+    <tr>
+      <th>Table heading</th>
+      <th>Table heading</th>
+      <th>Table heading</th>
+      <th>Table heading</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Table cell</td>
+      <td>Table cell</td>
+      <td>Table cell</td>
+      <td>Table cell</td>
+    </tr>
+    <tr>
+      <td>Table cell</td>
+      <td>Table cell</td>
+      <td>Table cell</td>
+      <td>Table cell</td>
+    </tr>
+    <tr>
+      <td>Table cell</td>
+      <td>Table cell</td>
+      <td>Table cell</td>
+      <td>Table cell</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">table</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">caption</span><span class="tok-punct">&gt;</span>
+    This is an example table, and this is its caption to describe the contents.
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">caption</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">thead</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">th</span><span class="tok-punct">&gt;</span>Table heading<span class="tok-punct">&lt;/</span><span class="tok-tag">th</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">th</span><span class="tok-punct">&gt;</span>Table heading<span class="tok-punct">&lt;/</span><span class="tok-tag">th</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">th</span><span class="tok-punct">&gt;</span>Table heading<span class="tok-punct">&lt;/</span><span class="tok-tag">th</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">th</span><span class="tok-punct">&gt;</span>Table heading<span class="tok-punct">&lt;/</span><span class="tok-tag">th</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">thead</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">tbody</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Table cell<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Table cell<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Table cell<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Table cell<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Table cell<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Table cell<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Table cell<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Table cell<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Table cell<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Table cell<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Table cell<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Table cell<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">tbody</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">table</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="forms">Forms<a class="bd-anchor" href="#forms" aria-label="Link to this section">#</a></h2>
+<p>Various form elements have been rebooted for simpler base styles. Here are some of the most notable changes:</p>
+<ul>
+  <li><code>&lt;fieldset&gt;</code>s have no borders, padding, or margin so they can be easily used as wrappers for individual inputs or groups of inputs.</li>
+  <li><code>&lt;legend&gt;</code>s, like fieldsets, have also been restyled to be displayed as a heading of sorts.</li>
+  <li><code>&lt;label&gt;</code>s are set to <code>display: inline-block</code> to allow <code>margin</code> to be applied.</li>
+  <li><code>&lt;input&gt;</code>s, <code>&lt;select&gt;</code>s, <code>&lt;textarea&gt;</code>s, and <code>&lt;button&gt;</code>s have their <code>margin</code> removed and inherit <code>font</code> and <code>color</code>.</li>
+  <li><code>&lt;textarea&gt;</code>s are modified to only be resizable vertically as horizontal resizing often "breaks" page layout.</li>
+  <li><code>&lt;button&gt;</code>s have <code>cursor: pointer</code>.</li>
+</ul>
+<p>These changes, and more, are demonstrated below.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<form>
+  <fieldset>
+    <legend>Example legend</legend>
+    <p>
+      <label for="rebootInput">Example input</label>
+      <input type="text" id="rebootInput" placeholder="Example input">
+    </p>
+    <p>
+      <label for="rebootEmail">Example email</label>
+      <input type="email" id="rebootEmail" placeholder="test@example.com">
+    </p>
+    <p>
+      <label for="rebootSelect">Example select</label>
+      <select id="rebootSelect">
+        <option value="">Choose...</option>
+        <optgroup label="Option group 1">
+          <option value="">Option 1</option>
+          <option value="">Option 2</option>
+          <option value="">Option 3</option>
+        </optgroup>
+        <optgroup label="Option group 2">
+          <option value="">Option 4</option>
+          <option value="">Option 5</option>
+          <option value="">Option 6</option>
+        </optgroup>
+      </select>
+    </p>
+    <p>
+      <label>
+        <input type="checkbox" value="">
+        Check this checkbox
+      </label>
+    </p>
+    <p>
+      <label>
+        <input type="radio" name="rebootRadios" value="option1" checked>
+        Option one is this and that
+      </label>
+      <br>
+      <label>
+        <input type="radio" name="rebootRadios" value="option2">
+        Option two is something else that's also super long to demonstrate the wrapping of these fancy form controls.
+      </label>
+    </p>
+    <p>
+      <label for="rebootTextarea">Example textarea</label>
+      <textarea id="rebootTextarea" rows="3"></textarea>
+    </p>
+    <p>
+      <label for="rebootDate">Example date</label>
+      <input type="date" id="rebootDate">
+    </p>
+    <p>
+      <label for="rebootRange">Example range</label>
+      <input type="range" id="rebootRange" min="0" max="10">
+    </p>
+    <p>
+      <button type="submit">Button submit</button>
+      <input type="submit" value="Input submit button">
+      <input type="button" value="Input button">
+    </p>
+  </fieldset>
+</form>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">fieldset</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">legend</span><span class="tok-punct">&gt;</span>Example legend<span class="tok-punct">&lt;/</span><span class="tok-tag">legend</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"rebootInput"</span><span class="tok-punct">&gt;</span>Example input<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rebootInput"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Example input"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"rebootEmail"</span><span class="tok-punct">&gt;</span>Example email<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"email"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rebootEmail"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"test@example.com"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"rebootSelect"</span><span class="tok-punct">&gt;</span>Example select<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">select</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rebootSelect"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>Choose...<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">optgroup</span> <span class="tok-attr">label</span><span class="tok-punct">=</span><span class="tok-val">"Option group 1"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>Option 1<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>Option 2<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>Option 3<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">optgroup</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">optgroup</span> <span class="tok-attr">label</span><span class="tok-punct">=</span><span class="tok-val">"Option group 2"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>Option 4<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>Option 5<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>Option 6<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">optgroup</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">select</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>
+        Check this checkbox
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"rebootRadios"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option1"</span> <span class="tok-attr">checked</span><span class="tok-punct">&gt;</span>
+        Option one is this and that
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"rebootRadios"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option2"</span><span class="tok-punct">&gt;</span>
+        Option two is something else that's also super long to demonstrate the wrapping of these fancy form controls.
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"rebootTextarea"</span><span class="tok-punct">&gt;</span>Example textarea<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">textarea</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rebootTextarea"</span> <span class="tok-attr">rows</span><span class="tok-punct">=</span><span class="tok-val">"3"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">textarea</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"rebootDate"</span><span class="tok-punct">&gt;</span>Example date<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"date"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rebootDate"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"rebootRange"</span><span class="tok-punct">&gt;</span>Example range<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"range"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rebootRange"</span> <span class="tok-attr">min</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">max</span><span class="tok-punct">=</span><span class="tok-val">"10"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span><span class="tok-punct">&gt;</span>Button submit<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"Input submit button"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"Input button"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">fieldset</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="address">Address<a class="bd-anchor" href="#address" aria-label="Link to this section">#</a></h2>
+<p>The <code>&lt;address&gt;</code> element is updated to reset the browser default <code>font-style</code> from <code>italic</code> to <code>normal</code>, and <code>margin-bottom: 1rem</code> has been added. <code>&lt;address&gt;</code>s are for presenting contact information.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<address>
+  <strong>ACME Corporation</strong><br>
+  1123 Fictional St,<br>
+  San Francisco, CA 94103<br>
+  <abbr title="Phone">P:</abbr> (123) 456-7890
+</address>
+
+<address class="mb-0">
+  <strong>Full Name</strong><br>
+  <a href="mailto:first.last@example.com">first.last@example.com</a>
+</address>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">address</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">strong</span><span class="tok-punct">&gt;</span>ACME Corporation<span class="tok-punct">&lt;/</span><span class="tok-tag">strong</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+  1123 Fictional St,<span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+  San Francisco, CA 94103<span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">abbr</span> <span class="tok-attr">title</span><span class="tok-punct">=</span><span class="tok-val">"Phone"</span><span class="tok-punct">&gt;</span>P:<span class="tok-punct">&lt;/</span><span class="tok-tag">abbr</span><span class="tok-punct">&gt;</span> (123) 456-7890
+<span class="tok-punct">&lt;/</span><span class="tok-tag">address</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">address</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-0"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">strong</span><span class="tok-punct">&gt;</span>Full Name<span class="tok-punct">&lt;/</span><span class="tok-tag">strong</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"mailto:first.last@example.com"</span><span class="tok-punct">&gt;</span>first.last@example.com<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">address</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="blockquote">Blockquote<a class="bd-anchor" href="#blockquote" aria-label="Link to this section">#</a></h2>
+<p>The default <code>margin</code> on blockquotes is <code>1em 40px</code>, so we reset that to <code>0 0 1rem</code> for something more consistent with other elements.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<blockquote>A well-known quote, contained in a blockquote element.</blockquote>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">blockquote</span><span class="tok-punct">&gt;</span>A well-known quote, contained in a blockquote element.<span class="tok-punct">&lt;/</span><span class="tok-tag">blockquote</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="inline-elements">Inline elements<a class="bd-anchor" href="#inline-elements" aria-label="Link to this section">#</a></h2>
+<p>The <code>&lt;abbr&gt;</code> element receives basic styling to make it stand out amongst paragraph text: a dotted underline and a help cursor. <code>&lt;mark&gt;</code> gets a soft mustard highlight, <code>&lt;small&gt;</code> is <code>.875em</code>, and <code>&lt;sub&gt;</code>/<code>&lt;sup&gt;</code> no longer change the line height.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+The <abbr title="HyperText Markup Language">HTML</abbr> abbreviation element, some <mark>marked text</mark>, H<sub>2</sub>O and E = mc<sup>2</sup>.
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html">The <span class="tok-punct">&lt;</span><span class="tok-tag">abbr</span> <span class="tok-attr">title</span><span class="tok-punct">=</span><span class="tok-val">"HyperText Markup Language"</span><span class="tok-punct">&gt;</span>HTML<span class="tok-punct">&lt;/</span><span class="tok-tag">abbr</span><span class="tok-punct">&gt;</span> abbreviation element, some <span class="tok-punct">&lt;</span><span class="tok-tag">mark</span><span class="tok-punct">&gt;</span>marked text<span class="tok-punct">&lt;/</span><span class="tok-tag">mark</span><span class="tok-punct">&gt;</span>, H<span class="tok-punct">&lt;</span><span class="tok-tag">sub</span><span class="tok-punct">&gt;</span>2<span class="tok-punct">&lt;/</span><span class="tok-tag">sub</span><span class="tok-punct">&gt;</span>O and E = mc<span class="tok-punct">&lt;</span><span class="tok-tag">sup</span><span class="tok-punct">&gt;</span>2<span class="tok-punct">&lt;/</span><span class="tok-tag">sup</span><span class="tok-punct">&gt;</span>.</code></pre></div></div>
+
+<h2 id="summary">Summary<a class="bd-anchor" href="#summary" aria-label="Link to this section">#</a></h2>
+<p>felt-css doesn't restyle a bare <code>&lt;summary&gt;</code>; it keeps the browser's default cursor and marker. For a styled disclosure, use <code>&lt;details class="accordion-item"&gt;</code> (see the <a href="../../components/accordion/">accordion</a>).</p>
+
+<h2 id="html5-hidden-attribute">HTML5 <code>[hidden]</code> attribute<a class="bd-anchor" href="#html5-hidden-attribute" aria-label="Link to this section">#</a></h2>
+<p>HTML5 adds a new global attribute named <code>[hidden]</code>, which is styled as <code>display: none</code> by default. felt-css improves upon this default by making <code>[hidden] { display: none !important; }</code> to help prevent its <code>display</code> from getting accidentally overridden.</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">hidden</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<p>To merely toggle the visibility of an element, meaning its <code>display</code> is not modified and the element can still affect the flow of the document, use <a href="../../utilities/visibility/">the <code>.invisible</code> class</a> instead.</p>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../layout/gutters/"><small>Previous</small>Gutters</a><a class="bd-pager-next" href="../../content/typography/"><small>Next</small>Typography</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

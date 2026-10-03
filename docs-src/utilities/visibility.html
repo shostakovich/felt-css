@@ -1,0 +1,22 @@
+<!--
+title: Visibility
+description: Control the visibility of elements, without modifying their display, with visibility utilities.
+-->
+<p>Set the <code>visibility</code> of elements with the visibility utilities. These utility classes do not modify the <code>display</code> value at all and do not affect layout – <code>.invisible</code> elements still take up space in the page.</p>
+<div class="bd-callout bd-callout-warning">
+  <p>Elements with the <code>.invisible</code> class will be hidden <em>both</em> visually and for assistive technology/screen reader users.</p>
+</div>
+<p>Apply <code>.visible</code> or <code>.invisible</code> as needed.</p>
+<codeblock lang="html">
+<div class="visible">...</div>
+<div class="invisible">...</div>
+</codeblock>
+<codeblock lang="css">
+.visible {
+  visibility: visible !important;
+}
+.invisible {
+  visibility: hidden !important;
+}
+</codeblock>
+<p>To hide an element visually but keep it available to screen readers, use <a href="../../helpers/visually-hidden/"><code>.visually-hidden</code></a> instead.</p>

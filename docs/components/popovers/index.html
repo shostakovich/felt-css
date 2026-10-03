@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Popovers · felt-css</title>
+  <meta name="description" content="Documentation and examples for adding popovers, like those found in iOS, to any element on your site.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Components</p>
+        <h1>Popovers</h1>
+        <p class="lead">Documentation and examples for adding popovers, like those found in iOS, to any element on your site.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/components/popovers.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#overview">Overview</a></li><li><a href="#examples">Examples</a><ul><li><a href="#enable-popovers">Enable popovers</a></li><li><a href="#live-demo">Live demo</a></li><li><a href="#four-directions">Four directions</a></li><li><a href="#custom-container">Custom container</a></li><li><a href="#custom-popovers">Custom popovers</a></li><li><a href="#dismiss-on-next-click">Dismiss on next click</a></li><li><a href="#disabled-elements">Disabled elements</a></li></ul></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#overview">Overview</a></li><li><a href="#examples">Examples</a><ul><li><a href="#enable-popovers">Enable popovers</a></li><li><a href="#live-demo">Live demo</a></li><li><a href="#four-directions">Four directions</a></li><li><a href="#custom-container">Custom container</a></li><li><a href="#custom-popovers">Custom popovers</a></li><li><a href="#dismiss-on-next-click">Dismiss on next click</a></li><li><a href="#disabled-elements">Disabled elements</a></li></ul></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="overview">Overview<a class="bd-anchor" href="#overview" aria-label="Link to this section">#</a></h2>
+<p>Things to know when using the popover plugin:</p>
+<ul>
+  <li>Popovers rely on the third party library <a href="https://popper.js.org/docs/v2/">Popper</a> for positioning. Use <code>bootstrap.bundle.min.js</code>, which contains Popper (see <a href="../../getting-started/javascript/">JavaScript</a>).</li>
+  <li>Popovers are opt-in for performance reasons, so <strong>you must initialize them yourself</strong>.</li>
+  <li>Zero-length <code>title</code> and <code>content</code> values will never show a popover.</li>
+  <li>Specify <code>container: 'body'</code> to avoid rendering problems in more complex components (like input groups, button groups, etc).</li>
+  <li>Triggering popovers on hidden elements will not work.</li>
+  <li>Popovers for <code>.disabled</code> or <code>disabled</code> elements must be triggered on a wrapper element.</li>
+  <li>When triggered from anchors that wrap across multiple lines, popovers will be centered between the anchors' overall width. Use <code>.text-nowrap</code> on your <code>&lt;a&gt;</code>s to avoid this behavior.</li>
+  <li>Popovers must be hidden before their corresponding elements have been removed from the DOM.</li>
+  <li>Popovers can be triggered thanks to an element inside a shadow DOM.</li>
+</ul>
+<p>Keep reading to see how popovers work with some examples.</p>
+
+<h2 id="examples">Examples<a class="bd-anchor" href="#examples" aria-label="Link to this section">#</a></h2>
+<h3 id="enable-popovers">Enable popovers<a class="bd-anchor" href="#enable-popovers" aria-label="Link to this section">#</a></h3>
+<p>As mentioned above, you must initialize popovers before they can be used. One way to initialize all popovers on a page would be to select them by their <code>data-bs-toggle</code> attribute, like so:</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> popoverTriggerList = <span class="tok-tag">document</span>.querySelectorAll(<span class="tok-val">'[data-bs-toggle="popover"]'</span>)
+<span class="tok-tag">const</span> popoverList = [...popoverTriggerList].map(popoverTriggerEl =&gt; <span class="tok-tag">new</span> bootstrap.Popover(popoverTriggerEl))</code></pre></div>
+
+<h3 id="live-demo">Live demo<a class="bd-anchor" href="#live-demo" aria-label="Link to this section">#</a></h3>
+<p>We use JavaScript similar to the snippet above to render the following live popover. Titles are set via <code>data-bs-title</code> and body content is set via <code>data-bs-content</code>.</p>
+
+<div class="bd-callout bd-callout-warning">
+  <p>Feel free to use either <code>title</code> or <code>data-bs-title</code> in your HTML. When <code>title</code> is used, Popper will replace it automatically with <code>data-bs-title</code> when the element is rendered.</p>
+</div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-lg btn-danger"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-title</span><span class="tok-punct">=</span><span class="tok-val">"Popover title"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"And here's some amazing content. It's very engaging. Right?"</span><span class="tok-punct">&gt;</span>Click to toggle popover<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>This is the markup the plugin generates, drawn in place for each of the four placements:</p>
+
+<div class="bd-example-snippet"><div class="bd-example d-flex flex-wrap align-items-start gap-5">
+<div class="popover bs-popover-top position-relative" role="tooltip">
+  <div class="popover-arrow" style="left: calc(50% - .5rem)"></div>
+  <h3 class="popover-header">Popover top</h3>
+  <div class="popover-body">And here's some amazing content. It's very engaging.</div>
+</div>
+<div class="popover bs-popover-end position-relative" role="tooltip">
+  <div class="popover-arrow" style="top: calc(50% - .5rem)"></div>
+  <h3 class="popover-header">Popover end</h3>
+  <div class="popover-body">And here's some amazing content. It's very engaging.</div>
+</div>
+<div class="popover bs-popover-bottom position-relative" role="tooltip">
+  <div class="popover-arrow" style="left: calc(50% - .5rem)"></div>
+  <h3 class="popover-header">Popover bottom</h3>
+  <div class="popover-body">And here's some amazing content. It's very engaging.</div>
+</div>
+<div class="popover bs-popover-start position-relative" role="tooltip">
+  <div class="popover-arrow" style="top: calc(50% - .5rem)"></div>
+  <h3 class="popover-header">Popover start</h3>
+  <div class="popover-body">And here's some amazing content. It's very engaging.</div>
+</div>
+</div></div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In felt, a popover is a flat piece of felt lying above the page, sewn round with a fine running stitch like a dropdown menu. Its arrow is cut from the same felt, without an outline.</p>
+</div>
+
+<h3 id="four-directions">Four directions<a class="bd-anchor" href="#four-directions" aria-label="Link to this section">#</a></h3>
+<p>Four options are available: top, right, bottom, and left. Set <code>data-bs-placement</code> to change the direction.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+  Popover on top
+</button>
+<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover">
+  Popover on right
+</button>
+<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
+  Popover on bottom
+</button>
+<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left popover">
+  Popover on left
+</button>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">data-bs-container</span><span class="tok-punct">=</span><span class="tok-val">"body"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-placement</span><span class="tok-punct">=</span><span class="tok-val">"top"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"Top popover"</span><span class="tok-punct">&gt;</span>
+  Popover on top
+<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">data-bs-container</span><span class="tok-punct">=</span><span class="tok-val">"body"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-placement</span><span class="tok-punct">=</span><span class="tok-val">"right"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"Right popover"</span><span class="tok-punct">&gt;</span>
+  Popover on right
+<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">data-bs-container</span><span class="tok-punct">=</span><span class="tok-val">"body"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-placement</span><span class="tok-punct">=</span><span class="tok-val">"bottom"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"Bottom popover"</span><span class="tok-punct">&gt;</span>
+  Popover on bottom
+<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">data-bs-container</span><span class="tok-punct">=</span><span class="tok-val">"body"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-placement</span><span class="tok-punct">=</span><span class="tok-val">"left"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"Left popover"</span><span class="tok-punct">&gt;</span>
+  Popover on left
+<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="custom-container">Custom <code>container</code><a class="bd-anchor" href="#custom-container" aria-label="Link to this section">#</a></h3>
+<p>When you have some styles on a parent element that interfere with a popover, you'll want to specify a custom <code>container</code> so that the popover's HTML appears within that element instead. This is common in responsive tables, input groups, and the like.</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> popover = <span class="tok-tag">new</span> bootstrap.Popover(<span class="tok-val">'.example-popover'</span>, {
+  container: <span class="tok-val">'body'</span>
+})</code></pre></div>
+
+<p>Another situation where you'll want to set an explicit custom <code>container</code> are popovers inside a <a href="../modal/">modal dialog</a>, to make sure that the popover itself is appended to the modal. This is particularly important for popovers that contain interactive elements – modal dialogs will trap focus, so unless the popover is a child element of the modal, users won't be able to focus or activate these interactive elements.</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> popover = <span class="tok-tag">new</span> bootstrap.Popover(<span class="tok-val">'.example-popover'</span>, {
+  container: <span class="tok-val">'.modal-body'</span>
+})</code></pre></div>
+
+<h3 id="custom-popovers">Custom popovers<a class="bd-anchor" href="#custom-popovers" aria-label="Link to this section">#</a></h3>
+<p>felt-css has no <code>--bs-popover-*</code> variables. To restyle single popovers, add a class with <code>data-bs-custom-class="custom-popover"</code> and target <code>.custom-popover</code>, <code>.popover-header</code> and <code>.popover-body</code> in your own CSS.</p>
+
+<h3 id="dismiss-on-next-click">Dismiss on next click<a class="bd-anchor" href="#dismiss-on-next-click" aria-label="Link to this section">#</a></h3>
+<p>Use the <code>focus</code> trigger to dismiss popovers on the user's next click of an element other than the toggle element.</p>
+
+<div class="bd-callout bd-callout-danger">
+  <p><strong>Dismissing on next click requires specific HTML for proper cross-browser and cross-platform behavior.</strong> You can only use <code>&lt;a&gt;</code> elements, not <code>&lt;button&gt;</code>s, and you must include a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex"><code>tabindex</code></a>.</p>
+</div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<a tabindex="0" class="btn btn-lg btn-danger" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Dismissible popover" data-bs-content="And here's some amazing content. It's very engaging. Right?">Dismissible popover</a>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-lg btn-danger"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-trigger</span><span class="tok-punct">=</span><span class="tok-val">"focus"</span> <span class="tok-attr">data-bs-title</span><span class="tok-punct">=</span><span class="tok-val">"Dismissible popover"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"And here's some amazing content. It's very engaging. Right?"</span><span class="tok-punct">&gt;</span>Dismissible popover<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> popover = <span class="tok-tag">new</span> bootstrap.Popover(<span class="tok-val">'.popover-dismiss'</span>, {
+  trigger: <span class="tok-val">'focus'</span>
+})</code></pre></div>
+
+<h3 id="disabled-elements">Disabled elements<a class="bd-anchor" href="#disabled-elements" aria-label="Link to this section">#</a></h3>
+<p>Elements with the <code>disabled</code> attribute aren't interactive, meaning users cannot hover or click them to trigger a popover (or tooltip). As a workaround, you'll want to trigger the popover from a wrapper <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code>, ideally made keyboard-focusable using <code>tabindex="0"</code>.</p>
+<p>For disabled popover triggers, you may also prefer <code>data-bs-trigger="hover focus"</code> so that the popover appears as immediate visual feedback to your users as they may not expect to <em>click</em> on a disabled element.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
+  <button class="btn btn-primary" type="button" disabled>Disabled button</button>
+</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-inline-block"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-trigger</span><span class="tok-punct">=</span><span class="tok-val">"hover focus"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"Disabled popover"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>Disabled button<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="javascript-behavior">JavaScript behavior<a class="bd-anchor" href="#javascript-behavior" aria-label="Link to this section">#</a></h2>
+<p>felt-css is CSS only; positioning, showing and hiding come from Bootstrap's popover plugin, which builds the <code>.popover</code> markup shown above and sets its placement class. Enable popovers via JavaScript:</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> exampleEl = <span class="tok-tag">document</span>.getElementById(<span class="tok-val">'example'</span>)
+<span class="tok-tag">const</span> popover = <span class="tok-tag">new</span> bootstrap.Popover(exampleEl, options)</code></pre></div>
+
+<div class="bd-callout bd-callout-warning">
+  <p><strong>Keep popovers accessible to keyboard and assistive technology users</strong> by only adding them to HTML elements that are traditionally keyboard-focusable and interactive (such as links or form controls). Do not rely solely on <code>hover</code> as the trigger for your popovers as this will make them impossible to trigger for keyboard users. Popovers do not manage keyboard focus order, so be careful when adding interactive elements to them; consider using a modal dialog instead.</p>
+</div>
+
+<p>Options (<code>placement</code>, <code>trigger</code>, <code>container</code>, <code>html</code>, <code>offset</code>, <code>customClass</code>, …), methods (<code>show</code>, <code>hide</code>, <code>toggle</code>, <code>enable</code>, <code>disable</code>, <code>setContent</code>, <code>update</code>, <code>dispose</code>) and events (<code>show.bs.popover</code>, <code>shown.bs.popover</code>, <code>hide.bs.popover</code>, <code>hidden.bs.popover</code>, <code>inserted.bs.popover</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/popovers/#usage">Bootstrap's popover documentation</a>.</p>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/placeholders/"><small>Previous</small>Placeholders</a><a class="bd-pager-next" href="../../components/progress/"><small>Next</small>Progress</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

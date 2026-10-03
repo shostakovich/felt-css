@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard example · felt-css</title>
+  <meta name="description" content="A smart-home dashboard built with felt-css: KPI tiles, switches, a weather card and an energy table.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+  <style>
+    img[src*="plush/"] { object-fit: contain; }
+    .dash { max-width: 1320px; }
+    .dash-nav-icon { width: 28px; height: 28px; object-fit: contain; }
+    .dash-tile-icon { width: 56px; height: 56px; flex-shrink: 0; object-fit: contain; }
+    .dash-art { width: 64px; height: 64px; flex-shrink: 0; }
+    .dash-list-icon { width: 36px; height: 36px; flex-shrink: 0; object-fit: contain; }
+    .dash-dot { width: .75rem; height: .75rem; padding: 0; }
+    @media (max-width: 575.98px) { .dash .stat-value { font-size: 1.375rem; } }
+    .dash-temp { font-size: 2.75rem; font-weight: 800; line-height: 1; }
+  </style>
+</head>
+<body>
+  <div class="container-fluid dash pt-3 pb-5">
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+      <a href="../" class="small link-secondary">← Examples</a>
+      <div class="d-flex flex-wrap align-items-center gap-2">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+          <input type="radio" class="btn-check" name="look" id="look-felt" value="felt" autocomplete="off">
+          <label class="btn btn-outline-primary" for="look-felt">Felt</label>
+          <input type="radio" class="btn-check" name="look" id="look-clean" value="clean" autocomplete="off">
+          <label class="btn btn-outline-primary" for="look-clean">Clean</label>
+        </div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+          <input type="radio" class="btn-check" name="theme" id="theme-light" value="light" autocomplete="off">
+          <label class="btn btn-outline-primary" for="theme-light">Light</label>
+          <input type="radio" class="btn-check" name="theme" id="theme-dark" value="dark" autocomplete="off">
+          <label class="btn btn-outline-primary" for="theme-dark">Dark</label>
+          <input type="radio" class="btn-check" name="theme" id="theme-auto" value="auto" autocomplete="off">
+          <label class="btn btn-outline-primary" for="theme-auto">Auto</label>
+        </div>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg mb-4" aria-label="Main navigation">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#"><img src="../../assets/plush/nav_dashboard.webp" class="dash-nav-icon" alt=""> Burrow</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dashNav" aria-controls="dashNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="dashNav">
+        <ul class="navbar-nav nav-pills me-auto">
+          <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#"><img src="../../assets/plush/nav_dashboard.webp" class="dash-nav-icon" alt=""> Overview</a></li>
+          <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2" href="#"><img src="../../assets/plush/nav_switches.webp" class="dash-nav-icon" alt=""> Switches</a></li>
+          <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2" href="#"><img src="../../assets/plush/nav_sensors.webp" class="dash-nav-icon" alt=""> Sensors</a></li>
+          <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2" href="#"><img src="../../assets/plush/nav_weather.webp" class="dash-nav-icon" alt=""> Weather</a></li>
+          <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2" href="#"><img src="../../assets/plush/nav_reports.webp" class="dash-nav-icon" alt=""> Reports</a></li>
+        </ul>
+        <div class="d-flex align-items-center">
+          <a class="btn btn-icon btn-sm" href="#" data-bs-toggle="tooltip" data-bs-title="Settings" aria-label="Settings"><img src="../../assets/plush/settings.webp" width="24" height="24" alt=""></a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4">
+        <div>
+          <h1 class="mb-1">Good afternoon, Robert</h1>
+          <p class="text-body-secondary mb-0">Saturday, 3 October · The sun is doing most of the work today.</p>
+        </div>
+        <div class="btn-group" role="group" aria-label="Period">
+          <input type="radio" class="btn-check" name="period" id="period-day" autocomplete="off" checked>
+          <label class="btn btn-outline-secondary" for="period-day">Today</label>
+          <input type="radio" class="btn-check" name="period" id="period-week" autocomplete="off">
+          <label class="btn btn-outline-secondary" for="period-week">Week</label>
+          <input type="radio" class="btn-check" name="period" id="period-month" autocomplete="off">
+          <label class="btn btn-outline-secondary" for="period-month">Month</label>
+        </div>
+      </div>
+
+      <div class="alert alert-success alert-dismissible mb-4 d-flex align-items-center gap-3" role="alert">
+        <img src="../../assets/plush/co2_good.webp" width="40" height="40" alt="">
+        <div><strong>Fresh air in the living room.</strong> CO₂ is at 540 ppm, no need to open a window.</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
+      <div class="row row-cols-2 row-cols-lg-4 g-3 mb-4">
+        <div class="col">
+          <div class="card text-bg-warning h-100">
+            <div class="card-body d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 gap-sm-3">
+              <img src="../../assets/plush/icon_sonne.webp" class="dash-tile-icon" alt="">
+              <div class="stat"><span class="stat-label">Solar</span><span class="stat-value">1,240 W</span><span class="small">18.4 kWh today</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card text-bg-info h-100">
+            <div class="card-body d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 gap-sm-3">
+              <img src="../../assets/plush/icon_netz.webp" class="dash-tile-icon" alt="">
+              <div class="stat"><span class="stat-label">Grid</span><span class="stat-value">−860 W</span><span class="small">Feeding in</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card text-bg-success h-100">
+            <div class="card-body d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 gap-sm-3">
+              <img src="../../assets/plush/icon_batterie.webp" class="dash-tile-icon" alt="">
+              <div class="stat"><span class="stat-label">Battery</span><span class="stat-value">82 %</span><span class="small">Charging, +640 W</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card text-bg-primary h-100">
+            <div class="card-body d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 gap-sm-3">
+              <img src="../../assets/plush/icon_haus.webp" class="dash-tile-icon" alt="">
+              <div class="stat"><span class="stat-label">House</span><span class="stat-value">380 W</span><span class="small">Below the usual 450 W</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-lg-8">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center justify-content-between">
+              <span>Energy today</span>
+              <span class="badge text-bg-success">92 % self-sufficient</span>
+            </div>
+            <div class="card-body">
+              <p class="small text-body-secondary mb-2">Where the solar power went</p>
+              <div class="progress-stacked mb-2">
+                <div class="progress" role="progressbar" aria-label="Used in the house" aria-valuenow="52" aria-valuemin="0" aria-valuemax="100" style="width: 52%"><div class="progress-bar bg-primary"></div></div>
+                <div class="progress" role="progressbar" aria-label="Into the battery" aria-valuenow="17" aria-valuemin="0" aria-valuemax="100" style="width: 17%"><div class="progress-bar bg-success"></div></div>
+                <div class="progress" role="progressbar" aria-label="Fed into the grid" aria-valuenow="31" aria-valuemin="0" aria-valuemax="100" style="width: 31%"><div class="progress-bar bg-info"></div></div>
+              </div>
+              <div class="d-flex flex-wrap gap-3 small mb-4">
+                <span class="d-flex align-items-center gap-1"><span class="badge rounded-pill dash-dot text-bg-primary"></span> House 52 %</span>
+                <span class="d-flex align-items-center gap-1"><span class="badge rounded-pill dash-dot text-bg-success"></span> Battery 17 %</span>
+                <span class="d-flex align-items-center gap-1"><span class="badge rounded-pill dash-dot text-bg-info"></span> Grid 31 %</span>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover align-middle text-nowrap mb-0">
+                  <thead>
+                    <tr><th scope="col">Flow</th><th scope="col" class="text-end">Energy</th><th scope="col" class="text-end d-none d-md-table-cell">Yesterday</th><th scope="col" class="text-end d-none d-sm-table-cell">Change</th></tr>
+                  </thead>
+                  <tbody class="tabular-nums">
+                    <tr><td><img src="../../assets/plush/icon_sonne.webp" width="28" height="28" alt="" class="me-2">Solar produced</td><td class="text-end fw-semibold">18.4 kWh</td><td class="text-end text-body-secondary d-none d-md-table-cell">15.9 kWh</td><td class="text-end d-none d-sm-table-cell"><span class="text-success-emphasis">+16 %</span></td></tr>
+                    <tr><td><img src="../../assets/plush/icon_haus.webp" width="28" height="28" alt="" class="me-2">Used in the house</td><td class="text-end fw-semibold">10.3 kWh</td><td class="text-end text-body-secondary d-none d-md-table-cell">11.2 kWh</td><td class="text-end d-none d-sm-table-cell"><span class="text-success-emphasis">−8 %</span></td></tr>
+                    <tr><td><img src="../../assets/plush/icon_batterie.webp" width="28" height="28" alt="" class="me-2">Into the battery</td><td class="text-end fw-semibold">3.1 kWh</td><td class="text-end text-body-secondary d-none d-md-table-cell">2.8 kWh</td><td class="text-end d-none d-sm-table-cell"><span class="text-success-emphasis">+11 %</span></td></tr>
+                    <tr><td><img src="../../assets/plush/icon_netz.webp" width="28" height="28" alt="" class="me-2">Fed into the grid</td><td class="text-end fw-semibold">5.7 kWh</td><td class="text-end text-body-secondary d-none d-md-table-cell">3.4 kWh</td><td class="text-end d-none d-sm-table-cell"><span class="text-success-emphasis">+68 %</span></td></tr>
+                    <tr><td><img src="../../assets/plush/icon_netz.webp" width="28" height="28" alt="" class="me-2">Bought from the grid</td><td class="text-end fw-semibold">0.8 kWh</td><td class="text-end text-body-secondary d-none d-md-table-cell">1.9 kWh</td><td class="text-end d-none d-sm-table-cell"><span class="text-success-emphasis">−58 %</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-header">Weather</div>
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <img src="../../assets/plush/weather_partly_cloudy_day.webp" width="96" height="96" alt="">
+                <div>
+                  <div class="dash-temp tabular-nums">17 °C</div>
+                  <div class="text-body-secondary">Partly cloudy · feels like 15 °C</div>
+                </div>
+              </div>
+              <p class="small mb-3">Clouds clear up after four. Good drying weather for the laundry on the balcony.</p>
+              <ul class="list-group">
+                <li class="list-group-item d-flex align-items-center gap-3"><img src="../../assets/plush/weather_clear_day.webp" class="dash-list-icon" alt=""><span class="me-auto">Sunday</span><span class="tabular-nums">19° <span class="text-body-secondary">/ 8°</span></span></li>
+                <li class="list-group-item d-flex align-items-center gap-3"><img src="../../assets/plush/weather_partly_cloudy_day.webp" class="dash-list-icon" alt=""><span class="me-auto">Monday</span><span class="tabular-nums">16° <span class="text-body-secondary">/ 9°</span></span></li>
+                <li class="list-group-item d-flex align-items-center gap-3"><img src="../../assets/plush/weather_rain_day.webp" class="dash-list-icon" alt=""><span class="me-auto">Tuesday</span><span class="tabular-nums">12° <span class="text-body-secondary">/ 7°</span></span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center justify-content-between">
+              <span>Lights</span>
+              <span class="badge text-bg-warning">3 on</span>
+            </div>
+            <div class="card-body vstack gap-3">
+              <div class="d-flex align-items-center gap-3">
+                <img src="../../assets/plush/lamp_ceiling_on.webp" class="dash-list-icon" alt="">
+                <div class="form-check form-switch me-auto mb-0"><input class="form-check-input" type="checkbox" role="switch" id="light-living" checked><label class="form-check-label" for="light-living">Living room</label></div>
+                <span class="small text-body-secondary tabular-nums">70 %</span>
+              </div>
+              <div class="d-flex align-items-center gap-3">
+                <img src="../../assets/plush/lamp_generic_on.webp" class="dash-list-icon" alt="">
+                <div class="form-check form-switch me-auto mb-0"><input class="form-check-input" type="checkbox" role="switch" id="light-reading" checked><label class="form-check-label" for="light-reading">Reading lamp</label></div>
+                <span class="small text-body-secondary tabular-nums">40 %</span>
+              </div>
+              <div class="d-flex align-items-center gap-3">
+                <img src="../../assets/plush/lamp_ceiling_on.webp" class="dash-list-icon" alt="">
+                <div class="form-check form-switch me-auto mb-0"><input class="form-check-input" type="checkbox" role="switch" id="light-kitchen"><label class="form-check-label" for="light-kitchen">Kitchen</label></div>
+                <span class="small text-body-secondary">off</span>
+              </div>
+              <div class="d-flex align-items-center gap-3">
+                <img src="../../assets/plush/lamp_generic_on.webp" class="dash-list-icon" alt="">
+                <div class="form-check form-switch me-auto mb-0"><input class="form-check-input" type="checkbox" role="switch" id="light-hall" checked><label class="form-check-label" for="light-hall">Hallway</label></div>
+                <span class="small text-body-secondary tabular-nums">100 %</span>
+              </div>
+              <div>
+                <div class="d-flex justify-content-between"><label class="form-label mb-1" for="light-dim">Living room brightness</label><span class="small tabular-nums">70 %</span></div>
+                <input type="range" class="form-range" id="light-dim" min="0" max="100" value="70">
+              </div>
+            </div>
+            <div class="card-footer d-flex gap-2">
+              <button type="button" class="btn btn-sm btn-outline-secondary">All off</button>
+              <button type="button" class="btn btn-sm btn-light">Evening scene</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100">
+            <div class="card-header">Battery</div>
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <img src="../../assets/plush/solakon_battery_charging.webp" width="80" height="80" alt="">
+                <div class="stat">
+                  <span class="stat-label">State of charge</span>
+                  <span class="stat-value">82 %</span>
+                  <span class="small text-body-secondary">4.1 of 5.0 kWh · full around 15:40</span>
+                </div>
+              </div>
+              <div class="progress mb-3" role="progressbar" aria-label="Battery charge" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100" style="height: 1.25rem">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 82%">82 %</div>
+              </div>
+              <dl class="row small mb-0">
+                <dt class="col-7 fw-normal text-body-secondary">Charging power</dt><dd class="col-5 text-end tabular-nums">640 W</dd>
+                <dt class="col-7 fw-normal text-body-secondary">Cycles this year</dt><dd class="col-5 text-end tabular-nums">214</dd>
+                <dt class="col-7 fw-normal text-body-secondary">Health</dt><dd class="col-5 text-end">97 %</dd>
+              </dl>
+              <hr>
+              <p class="small text-body-secondary mb-1">Reserve for the night</p>
+              <div class="progress" role="progressbar" aria-label="Night reserve" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar bg-secondary" style="width: 30%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center justify-content-between">
+              <span>Devices</span>
+              <a href="#" class="small fw-normal">Manage</a>
+            </div>
+            <div class="list-group list-group-flush">
+              <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3">
+                <img src="../../assets/plush/nav_switches.webp" class="dash-list-icon" alt="">
+                <div class="me-auto"><div class="fw-semibold">Coffee machine</div><div class="small text-body-secondary">Kitchen plug · 2 W</div></div>
+                <span class="badge text-bg-success">on</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3">
+                <img src="../../assets/plush/nav_switches.webp" class="dash-list-icon" alt="">
+                <div class="me-auto"><div class="fw-semibold">Washing machine</div><div class="small text-body-secondary">Bathroom plug · finished 14:12</div></div>
+                <span class="badge text-bg-secondary">idle</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3">
+                <img src="../../assets/plush/co2_good.webp" class="dash-list-icon" alt="">
+                <div class="me-auto"><div class="fw-semibold">Air quality</div><div class="small text-body-secondary">Living room · 540 ppm</div></div>
+                <span class="badge text-bg-success">good</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3">
+                <img src="../../assets/plush/nav_sensors.webp" class="dash-list-icon" alt="">
+                <div class="me-auto"><div class="fw-semibold">Bedroom sensor</div><div class="small text-body-secondary">Last seen 3 hours ago</div></div>
+                <span class="badge text-bg-warning">battery low</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-3">
+                <img src="../../assets/plush/solakon_battery_charging.webp" class="dash-list-icon" alt="">
+                <div class="me-auto"><div class="fw-semibold">Balcony battery</div><div class="small text-body-secondary">Firmware 2.4.1</div></div>
+                <span class="badge text-bg-success">on</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-warning d-flex align-items-center gap-3 mt-4 mb-0" role="alert">
+        <img src="../../assets/plush/nav_sensors.webp" width="40" height="40" alt="">
+        <div><strong>The bedroom sensor is running low.</strong> It needs a fresh CR2032 within the next week. <a href="#" class="alert-link">Remind me tomorrow</a></div>
+      </div>
+    </main>
+
+    <footer class="d-flex flex-wrap justify-content-between gap-2 small text-body-secondary mt-5">
+      <a href="../" class="link-secondary">← All examples</a>
+      <span>All numbers are made up. Plush icons from <a href="https://github.com/shostakovich/ziwoas" class="link-secondary">ZiWoAS</a>.</span>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

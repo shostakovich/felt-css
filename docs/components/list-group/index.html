@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>List group · felt-css</title>
+  <meta name="description" content="List groups are a flexible and powerful component for displaying a series of content. Modify and extend them to support just about any content within.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Components</p>
+        <h1>List group</h1>
+        <p class="lead">List groups are a flexible and powerful component for displaying a series of content. Modify and extend them to support just about any content within.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/components/list-group.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#basic-example">Basic example</a></li><li><a href="#active-items">Active items</a></li><li><a href="#links-and-buttons">Links and buttons</a></li><li><a href="#flush">Flush</a></li><li><a href="#numbered">Numbered</a></li><li><a href="#horizontal">Horizontal</a></li><li><a href="#variants">Variants</a><ul><li><a href="#for-links-and-buttons">For links and buttons</a></li></ul></li><li><a href="#with-badges">With badges</a></li><li><a href="#custom-content">Custom content</a></li><li><a href="#checkboxes-and-radios">Checkboxes and radios</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#basic-example">Basic example</a></li><li><a href="#active-items">Active items</a></li><li><a href="#links-and-buttons">Links and buttons</a></li><li><a href="#flush">Flush</a></li><li><a href="#numbered">Numbered</a></li><li><a href="#horizontal">Horizontal</a></li><li><a href="#variants">Variants</a><ul><li><a href="#for-links-and-buttons">For links and buttons</a></li></ul></li><li><a href="#with-badges">With badges</a></li><li><a href="#custom-content">Custom content</a></li><li><a href="#checkboxes-and-radios">Checkboxes and radios</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="basic-example">Basic example<a class="bd-anchor" href="#basic-example" aria-label="Link to this section">#</a></h2>
+<p>The most basic list group is an unordered list with list items and the proper classes. Build upon it with the options that follow, or with your own CSS as needed.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<ul class="list-group">
+  <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+  <li class="list-group-item">A fourth item</li>
+  <li class="list-group-item">And a fifth one</li>
+</ul>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>An item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A second item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A third item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A fourth item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>And a fifth one<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In felt, a list group is one sewn sheet: a seam runs around it and a row of stitches between the items. The active item is a raised patch laid on the sheet, with the seam redrawn across it in the patch's own thread.</p>
+</div>
+
+<h2 id="active-items">Active items<a class="bd-anchor" href="#active-items" aria-label="Link to this section">#</a></h2>
+<p>Add <code>.active</code> to a <code>.list-group-item</code> to indicate the current active selection.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<ul class="list-group">
+  <li class="list-group-item active" aria-current="true">An active item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+  <li class="list-group-item">A fourth item</li>
+  <li class="list-group-item">And a fifth one</li>
+</ul>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>An active item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A second item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A third item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A fourth item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>And a fifth one<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="links-and-buttons">Links and buttons<a class="bd-anchor" href="#links-and-buttons" aria-label="Link to this section">#</a></h2>
+<p>Use <code>&lt;a&gt;</code>s or <code>&lt;button&gt;</code>s to create <em>actionable</em> list group items with hover, disabled, and active states by adding <code>.list-group-item-action</code>. We separate these pseudo-classes to ensure list groups made of non-interactive elements (like <code>&lt;li&gt;</code>s or <code>&lt;div&gt;</code>s) don't provide a click or tap affordance.</p>
+<p>Make <code>.list-group-item-action</code> instances <em>appear</em> disabled by adding <code>.disabled</code>, and <code>aria-disabled="true"</code> to inform assistive technologies that the element is disabled. You may require additional JavaScript to fully disable links and buttons.</p>
+<p>Be sure to <strong>not use the standard <code>.btn</code> classes here</strong>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+    The current link item
+  </a>
+  <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+  <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+  <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+  <a href="#" class="list-group-item list-group-item-action disabled" aria-disabled="true">A disabled link item</a>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+    The current link item
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span><span class="tok-punct">&gt;</span>A second link item<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span><span class="tok-punct">&gt;</span>A third link item<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span><span class="tok-punct">&gt;</span>A fourth link item<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action disabled"</span> <span class="tok-attr">aria-disabled</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>A disabled link item<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>With <code>&lt;button&gt;</code>s, you can also make use of the <code>disabled</code> attribute instead of the <code>.disabled</code> class. Sadly, <code>&lt;a&gt;</code>s don't support the disabled attribute.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="list-group">
+  <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+    The current button
+  </button>
+  <button type="button" class="list-group-item list-group-item-action">A second button item</button>
+  <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+  <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+  <button type="button" class="list-group-item list-group-item-action" disabled>A disabled button item</button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+    The current button
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span><span class="tok-punct">&gt;</span>A second button item<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span><span class="tok-punct">&gt;</span>A third button item<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span><span class="tok-punct">&gt;</span>A fourth button item<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>A disabled button item<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="flush">Flush<a class="bd-anchor" href="#flush" aria-label="Link to this section">#</a></h2>
+<p>Add <code>.list-group-flush</code> to remove some borders and rounded corners to render list group items edge-to-edge in a parent container (e.g., cards).</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<ul class="list-group list-group-flush">
+  <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+  <li class="list-group-item">A fourth item</li>
+  <li class="list-group-item">And a fifth one</li>
+</ul>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group list-group-flush"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>An item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A second item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A third item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A fourth item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>And a fifth one<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="numbered">Numbered<a class="bd-anchor" href="#numbered" aria-label="Link to this section">#</a></h2>
+<p>Add the <code>.list-group-numbered</code> modifier class (and optionally use an <code>&lt;ol&gt;</code> element) to opt into numbered list group items. Numbers are generated via CSS (as opposed to a <code>&lt;ol&gt;</code>'s default browser styling) for better placement inside list group items and to allow for better customization.</p>
+<p>Numbers are generated by <code>counter-reset</code> on the <code>&lt;ol&gt;</code>, and then styled and placed with a <code>::before</code> pseudo-element on the <code>&lt;li&gt;</code> with <code>counter-increment</code> and <code>content</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<ol class="list-group list-group-numbered">
+  <li class="list-group-item">A list item</li>
+  <li class="list-group-item">A list item</li>
+  <li class="list-group-item">A list item</li>
+</ol>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">ol</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group list-group-numbered"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A list item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A list item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A list item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ol</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>These work great with custom content as well.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<ol class="list-group list-group-numbered">
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Subheading</div>
+      Content for list item
+    </div>
+    <span class="badge text-bg-primary rounded-pill">14</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Subheading</div>
+      Content for list item
+    </div>
+    <span class="badge text-bg-primary rounded-pill">14</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Subheading</div>
+      Content for list item
+    </div>
+    <span class="badge text-bg-primary rounded-pill">14</span>
+  </li>
+</ol>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">ol</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group list-group-numbered"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item d-flex justify-content-between align-items-start"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ms-2 me-auto"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"fw-bold"</span><span class="tok-punct">&gt;</span>Subheading<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      Content for list item
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"badge text-bg-primary rounded-pill"</span><span class="tok-punct">&gt;</span>14<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item d-flex justify-content-between align-items-start"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ms-2 me-auto"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"fw-bold"</span><span class="tok-punct">&gt;</span>Subheading<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      Content for list item
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"badge text-bg-primary rounded-pill"</span><span class="tok-punct">&gt;</span>14<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item d-flex justify-content-between align-items-start"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ms-2 me-auto"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"fw-bold"</span><span class="tok-punct">&gt;</span>Subheading<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      Content for list item
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"badge text-bg-primary rounded-pill"</span><span class="tok-punct">&gt;</span>14<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ol</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="horizontal">Horizontal<a class="bd-anchor" href="#horizontal" aria-label="Link to this section">#</a></h2>
+<p>Add <code>.list-group-horizontal</code> to change the layout of list group items from vertical to horizontal across all breakpoints. Alternatively, use the responsive variant <code>.list-group-horizontal-md</code> to make a list group horizontal starting at the <code>md</code> breakpoint's <code>min-width</code> (768px). felt-css has no <code>-sm</code>, <code>-lg</code>, <code>-xl</code> or <code>-xxl</code> variants here. Currently <strong>horizontal list groups cannot be combined with flush list groups.</strong></p>
+<p><strong>ProTip:</strong> Want equal-width list group items when horizontal? Add <code>.flex-fill</code> to each list group item.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<ul class="list-group list-group-horizontal">
+  <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+</ul>
+<ul class="list-group list-group-horizontal-md">
+  <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+</ul>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group list-group-horizontal"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>An item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A second item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A third item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group list-group-horizontal-md"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>An item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A second item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A third item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="variants">Variants<a class="bd-anchor" href="#variants" aria-label="Link to this section">#</a></h2>
+<p>Use contextual classes to style list items with a stateful background and color.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<ul class="list-group">
+  <li class="list-group-item">A simple default list group item</li>
+  <li class="list-group-item list-group-item-primary">A simple primary list group item</li>
+  <li class="list-group-item list-group-item-secondary">A simple secondary list group item</li>
+  <li class="list-group-item list-group-item-success">A simple success list group item</li>
+  <li class="list-group-item list-group-item-danger">A simple danger list group item</li>
+  <li class="list-group-item list-group-item-warning">A simple warning list group item</li>
+  <li class="list-group-item list-group-item-info">A simple info list group item</li>
+  <li class="list-group-item list-group-item-light">A simple light list group item</li>
+  <li class="list-group-item list-group-item-dark">A simple dark list group item</li>
+</ul>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A simple default list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-primary"</span><span class="tok-punct">&gt;</span>A simple primary list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-secondary"</span><span class="tok-punct">&gt;</span>A simple secondary list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-success"</span><span class="tok-punct">&gt;</span>A simple success list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-danger"</span><span class="tok-punct">&gt;</span>A simple danger list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-warning"</span><span class="tok-punct">&gt;</span>A simple warning list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-info"</span><span class="tok-punct">&gt;</span>A simple info list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-light"</span><span class="tok-punct">&gt;</span>A simple light list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-dark"</span><span class="tok-punct">&gt;</span>A simple dark list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="for-links-and-buttons">For links and buttons<a class="bd-anchor" href="#for-links-and-buttons" aria-label="Link to this section">#</a></h3>
+<p>Contextual classes also work with <code>.list-group-item-action</code> for <code>&lt;a&gt;</code> and <code>&lt;button&gt;</code> elements. Note the addition of the hover styles here not present in the previous example. Also supported is the <code>.active</code> state; apply it to indicate an active selection on a contextual list group item.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action">A simple default list group item</a>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">A simple primary list group item</a>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">A simple secondary list group item</a>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-success">A simple success list group item</a>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-danger">A simple danger list group item</a>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-warning">A simple warning list group item</a>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-info">A simple info list group item</a>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-light">A simple light list group item</a>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-dark">A simple dark list group item</a>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span><span class="tok-punct">&gt;</span>A simple default list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action list-group-item-primary"</span><span class="tok-punct">&gt;</span>A simple primary list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action list-group-item-secondary"</span><span class="tok-punct">&gt;</span>A simple secondary list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action list-group-item-success"</span><span class="tok-punct">&gt;</span>A simple success list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action list-group-item-danger"</span><span class="tok-punct">&gt;</span>A simple danger list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action list-group-item-warning"</span><span class="tok-punct">&gt;</span>A simple warning list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action list-group-item-info"</span><span class="tok-punct">&gt;</span>A simple info list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action list-group-item-light"</span><span class="tok-punct">&gt;</span>A simple light list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action list-group-item-dark"</span><span class="tok-punct">&gt;</span>A simple dark list group item<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-warning">
+  <p><strong>Accessibility tip:</strong> Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies like screen readers. Please ensure the meaning is obvious from the content itself (e.g., the visible text) or is included through alternative means, such as additional text hidden with the <code>.visually-hidden</code> class.</p>
+</div>
+
+<h2 id="with-badges">With badges<a class="bd-anchor" href="#with-badges" aria-label="Link to this section">#</a></h2>
+<p>Add badges to any list group item to show unread counts, activity, and more with the help of some <a href="../../utilities/flex/">utilities</a>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A list item
+    <span class="badge text-bg-primary rounded-pill">14</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A second list item
+    <span class="badge text-bg-primary rounded-pill">2</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A third list item
+    <span class="badge text-bg-primary rounded-pill">1</span>
+  </li>
+</ul>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item d-flex justify-content-between align-items-center"</span><span class="tok-punct">&gt;</span>
+    A list item
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"badge text-bg-primary rounded-pill"</span><span class="tok-punct">&gt;</span>14<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item d-flex justify-content-between align-items-center"</span><span class="tok-punct">&gt;</span>
+    A second list item
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"badge text-bg-primary rounded-pill"</span><span class="tok-punct">&gt;</span>2<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item d-flex justify-content-between align-items-center"</span><span class="tok-punct">&gt;</span>
+    A third list item
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"badge text-bg-primary rounded-pill"</span><span class="tok-punct">&gt;</span>1<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="custom-content">Custom content<a class="bd-anchor" href="#custom-content" aria-label="Link to this section">#</a></h2>
+<p>Add nearly any HTML within, even for linked list groups like the one below, with the help of <a href="../../utilities/flex/">flexbox utilities</a>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">List group item heading</h5>
+      <small>3 days ago</small>
+    </div>
+    <p class="mb-1">Some placeholder content in a paragraph.</p>
+    <small>And some small print.</small>
+  </a>
+  <a href="#" class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">List group item heading</h5>
+      <small class="text-body-secondary">3 days ago</small>
+    </div>
+    <p class="mb-1">Some placeholder content in a paragraph.</p>
+    <small class="text-body-secondary">And some muted small print.</small>
+  </a>
+  <a href="#" class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">List group item heading</h5>
+      <small class="text-body-secondary">3 days ago</small>
+    </div>
+    <p class="mb-1">Some placeholder content in a paragraph.</p>
+    <small class="text-body-secondary">And some muted small print.</small>
+  </a>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex w-100 justify-content-between"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-1"</span><span class="tok-punct">&gt;</span>List group item heading<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>3 days ago<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-1"</span><span class="tok-punct">&gt;</span>Some placeholder content in a paragraph.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>And some small print.<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex w-100 justify-content-between"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-1"</span><span class="tok-punct">&gt;</span>List group item heading<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">small</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"text-body-secondary"</span><span class="tok-punct">&gt;</span>3 days ago<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-1"</span><span class="tok-punct">&gt;</span>Some placeholder content in a paragraph.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">small</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"text-body-secondary"</span><span class="tok-punct">&gt;</span>And some muted small print.<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex w-100 justify-content-between"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-1"</span><span class="tok-punct">&gt;</span>List group item heading<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">small</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"text-body-secondary"</span><span class="tok-punct">&gt;</span>3 days ago<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-1"</span><span class="tok-punct">&gt;</span>Some placeholder content in a paragraph.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">small</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"text-body-secondary"</span><span class="tok-punct">&gt;</span>And some muted small print.<span class="tok-punct">&lt;/</span><span class="tok-tag">small</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="checkboxes-and-radios">Checkboxes and radios<a class="bd-anchor" href="#checkboxes-and-radios" aria-label="Link to this section">#</a></h2>
+<p>Place checkboxes and radios within list group items and customize as needed. You can use them without <code>&lt;label&gt;</code>s, but please remember to include an <code>aria-label</code> attribute and value for accessibility.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<ul class="list-group">
+  <li class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+    <label class="form-check-label" for="firstCheckbox">First checkbox</label>
+  </li>
+  <li class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+    <label class="form-check-label" for="secondCheckbox">Second checkbox</label>
+  </li>
+  <li class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+    <label class="form-check-label" for="thirdCheckbox">Third checkbox</label>
+  </li>
+</ul>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input me-1"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"firstCheckbox"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"firstCheckbox"</span><span class="tok-punct">&gt;</span>First checkbox<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input me-1"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"secondCheckbox"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"secondCheckbox"</span><span class="tok-punct">&gt;</span>Second checkbox<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input me-1"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"thirdCheckbox"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"thirdCheckbox"</span><span class="tok-punct">&gt;</span>Third checkbox<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<ul class="list-group">
+  <li class="list-group-item">
+    <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
+    <label class="form-check-label" for="firstRadio">First radio</label>
+  </li>
+  <li class="list-group-item">
+    <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio">
+    <label class="form-check-label" for="secondRadio">Second radio</label>
+  </li>
+  <li class="list-group-item">
+    <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="thirdRadio">
+    <label class="form-check-label" for="thirdRadio">Third radio</label>
+  </li>
+</ul>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input me-1"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"listGroupRadio"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"firstRadio"</span> <span class="tok-attr">checked</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"firstRadio"</span><span class="tok-punct">&gt;</span>First radio<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input me-1"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"listGroupRadio"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"secondRadio"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"secondRadio"</span><span class="tok-punct">&gt;</span>Second radio<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input me-1"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"listGroupRadio"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"thirdRadio"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"thirdRadio"</span><span class="tok-punct">&gt;</span>Third radio<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>You can use <code>.stretched-link</code> on <code>&lt;label&gt;</code>s to make the whole list group item clickable.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<ul class="list-group">
+  <li class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckboxStretched">
+    <label class="form-check-label stretched-link" for="firstCheckboxStretched">First checkbox</label>
+  </li>
+  <li class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckboxStretched">
+    <label class="form-check-label stretched-link" for="secondCheckboxStretched">Second checkbox</label>
+  </li>
+  <li class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckboxStretched">
+    <label class="form-check-label stretched-link" for="thirdCheckboxStretched">Third checkbox</label>
+  </li>
+</ul>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input me-1"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"firstCheckboxStretched"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label stretched-link"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"firstCheckboxStretched"</span><span class="tok-punct">&gt;</span>First checkbox<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input me-1"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"secondCheckboxStretched"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label stretched-link"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"secondCheckboxStretched"</span><span class="tok-punct">&gt;</span>Second checkbox<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input me-1"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">""</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"thirdCheckboxStretched"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label stretched-link"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"thirdCheckboxStretched"</span><span class="tok-punct">&gt;</span>Third checkbox<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="javascript-behavior">JavaScript behavior<a class="bd-anchor" href="#javascript-behavior" aria-label="Link to this section">#</a></h2>
+<p>Use Bootstrap's tab JavaScript plugin to extend the list group into tabbable panes of local content. Add <code>data-bs-toggle="list"</code> to each <code>.list-group-item</code> and point its <code>href</code> at a <code>.tab-pane</code>; add <code>.fade</code> to the panes (and <code>.show</code> to the first) to make them fade in.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="row">
+  <div class="col-4">
+    <div class="list-group" id="list-tab" role="tablist">
+      <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Home</a>
+      <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Profile</a>
+      <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Messages</a>
+      <a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Settings</a>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">Some placeholder content in a paragraph relating to "Home". And some more content, used here just to pad out and fill this tab panel.</div>
+      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">Some placeholder content in a paragraph relating to "Profile". And some more content, used here just to pad out and fill this tab panel.</div>
+      <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">Some placeholder content in a paragraph relating to "Messages". And some more content, used here just to pad out and fill this tab panel.</div>
+      <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">Some placeholder content in a paragraph relating to "Settings". And some more content, used here just to pad out and fill this tab panel.</div>
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-tab"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"tablist"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action active"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-home-list"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"list"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#list-home"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"tab"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"list-home"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-profile-list"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"list"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#list-profile"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"tab"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"list-profile"</span><span class="tok-punct">&gt;</span>Profile<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-messages-list"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"list"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#list-messages"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"tab"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"list-messages"</span><span class="tok-punct">&gt;</span>Messages<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-settings-list"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"list"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#list-settings"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"tab"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"list-settings"</span><span class="tok-punct">&gt;</span>Settings<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-8"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"tab-content"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"nav-tabContent"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"tab-pane fade show active"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-home"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"tabpanel"</span> <span class="tok-attr">aria-labelledby</span><span class="tok-punct">=</span><span class="tok-val">"list-home-list"</span><span class="tok-punct">&gt;</span>Some placeholder content in a paragraph relating to "Home". And some more content, used here just to pad out and fill this tab panel.<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"tab-pane fade"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-profile"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"tabpanel"</span> <span class="tok-attr">aria-labelledby</span><span class="tok-punct">=</span><span class="tok-val">"list-profile-list"</span><span class="tok-punct">&gt;</span>Some placeholder content in a paragraph relating to "Profile". And some more content, used here just to pad out and fill this tab panel.<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"tab-pane fade"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-messages"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"tabpanel"</span> <span class="tok-attr">aria-labelledby</span><span class="tok-punct">=</span><span class="tok-val">"list-messages-list"</span><span class="tok-punct">&gt;</span>Some placeholder content in a paragraph relating to "Messages". And some more content, used here just to pad out and fill this tab panel.<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"tab-pane fade"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-settings"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"tabpanel"</span> <span class="tok-attr">aria-labelledby</span><span class="tok-punct">=</span><span class="tok-val">"list-settings-list"</span><span class="tok-punct">&gt;</span>Some placeholder content in a paragraph relating to "Settings". And some more content, used here just to pad out and fill this tab panel.<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Methods (<code>show</code>, <code>dispose</code>, <code>getInstance</code>, <code>getOrCreateInstance</code>) and events (<code>show.bs.tab</code>, <code>shown.bs.tab</code>, <code>hide.bs.tab</code>, <code>hidden.bs.tab</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/list-group/#javascript-behavior">Bootstrap's list group documentation</a>.</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> triggerEl = <span class="tok-tag">document</span>.querySelector(<span class="tok-val">'#list-tab a[href="#list-profile"]'</span>)
+bootstrap.Tab.getOrCreateInstance(triggerEl).show()</code></pre></div>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/dropdowns/"><small>Previous</small>Dropdowns</a><a class="bd-pager-next" href="../../components/modal/"><small>Next</small>Modal</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

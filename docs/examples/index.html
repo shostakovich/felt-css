@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Examples · felt-css</title>
+  <meta name="description" content="Three small apps built from nothing but felt-css and Bootstrap's JavaScript. View the source, copy what you like.">
+  <link rel="icon" href="../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../felt.css">
+  <link rel="stylesheet" href="../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-home-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../"><img src="../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="bd-home" id="content">
+<section class="bd-hero pb-4">
+  <img class="bd-plush mb-3" src="../assets/plush/nav_dashboard.webp" width="72" height="72" alt="">
+  <h1 class="display-4 mb-3">Examples</h1>
+  <p class="lead mb-0">Three small apps built from nothing but felt-css and Bootstrap's JavaScript, modelled on the projects felt-css was made for. Switch look and color mode on each page; view the source and copy what you like.</p>
+</section>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  <div class="col">
+    <div class="card h-100">
+      <img class="card-img-top bd-gallery-shot" src="dashboard/screenshot.webp" width="960" height="600" alt="Smart-home dashboard example">
+      <div class="card-body">
+        <h2 class="card-title h4" id="dashboard"><a class="stretched-link text-decoration-none" href="dashboard/">Dashboard</a><a class="bd-anchor" href="#dashboard" aria-label="Link to this section">#</a></h2>
+        <p class="card-text">A smart-home dashboard: stat tiles for solar and battery, switches for lamps, weather, a device list and today's energy table. With plush icons.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card h-100">
+      <img class="card-img-top bd-gallery-shot" src="expenses/screenshot.webp" width="960" height="600" alt="Shared expenses app example">
+      <div class="card-body">
+        <h2 class="card-title h4" id="shared-expenses"><a class="stretched-link text-decoration-none" href="expenses/">Shared expenses</a><a class="bd-anchor" href="#shared-expenses" aria-label="Link to this section">#</a></h2>
+        <p class="card-text">A mobile-first app for splitting costs: balances, an expense list, a sewn-on tab bar and an "add expense" form with input groups and checks.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card h-100">
+      <img class="card-img-top bd-gallery-shot" src="blog/screenshot.webp" width="960" height="600" alt="Blog example">
+      <div class="card-body">
+        <h2 class="card-title h4" id="blog"><a class="stretched-link text-decoration-none" href="blog/">Blog</a><a class="bd-anchor" href="#blog" aria-label="Link to this section">#</a></h2>
+        <p class="card-text">A personal blog: featured post, article prose with figures, quotes and code, an archive sidebar and pagination.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../assets/docs.js"></script>
+</body>
+</html>

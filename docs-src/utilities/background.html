@@ -1,0 +1,83 @@
+<!--
+title: Background
+description: Convey meaning through background-color and add decoration with gradients.
+-->
+<div class="bd-callout bd-callout-warning">
+  <p><strong>Accessibility tip:</strong> Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies like screen readers. Please ensure the meaning is obvious from the content itself (e.g., the visible text with a sufficient color contrast) or is included through alternative means, such as additional text hidden with the <code>.visually-hidden</code> class.</p>
+</div>
+
+<h2>Background color</h2>
+<p>Similar to the contextual text color classes, set the background of an element to any contextual class. Background utilities <strong>do not set <code>color</code></strong>, so in some cases you'll want to use <code>.text-*</code> <a href="../colors/">color utilities</a>, or the <a href="../../helpers/color-background/"><code>.text-bg-*</code> helpers</a> that set both.</p>
+<div class="bd-callout bd-callout-info">
+  <p>Unlike in Bootstrap, every <code>.bg-*</code> utility responds to color modes, not just the <code>.bg-*-subtle</code> ones: all theme colors are <code>light-dark()</code> pairs. That includes <code>.bg-light</code> and <code>.bg-dark</code>, so pair <code>.bg-light</code> with <code>.text-body</code> rather than <code>.text-dark</code>.</p>
+</div>
+<example>
+<div class="p-3 mb-2 bg-primary text-white">.bg-primary</div>
+<div class="p-3 mb-2 bg-primary-subtle text-primary-emphasis">.bg-primary-subtle</div>
+<div class="p-3 mb-2 bg-secondary text-white">.bg-secondary</div>
+<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis">.bg-secondary-subtle</div>
+<div class="p-3 mb-2 bg-success text-white">.bg-success</div>
+<div class="p-3 mb-2 bg-success-subtle text-success-emphasis">.bg-success-subtle</div>
+<div class="p-3 mb-2 bg-danger text-white">.bg-danger</div>
+<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis">.bg-danger-subtle</div>
+<div class="p-3 mb-2 bg-warning text-dark">.bg-warning</div>
+<div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis">.bg-warning-subtle</div>
+<div class="p-3 mb-2 bg-info text-white">.bg-info</div>
+<div class="p-3 mb-2 bg-info-subtle text-info-emphasis">.bg-info-subtle</div>
+<div class="p-3 mb-2 bg-light text-body">.bg-light</div>
+<div class="p-3 mb-2 bg-light-subtle text-light-emphasis">.bg-light-subtle</div>
+<div class="p-3 mb-2 bg-dark text-white">.bg-dark</div>
+<div class="p-3 mb-2 bg-dark-subtle text-dark-emphasis">.bg-dark-subtle</div>
+<div class="p-3 mb-2 bg-body-secondary">.bg-body-secondary</div>
+<div class="p-3 mb-2 bg-body-tertiary">.bg-body-tertiary</div>
+<div class="p-3 mb-2 bg-body text-body">.bg-body</div>
+<div class="p-3 mb-2 bg-black text-white">.bg-black</div>
+<div class="p-3 mb-2 bg-white text-dark">.bg-white</div>
+<div class="p-3 mb-2 bg-transparent text-body">.bg-transparent</div>
+</example>
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look the solid theme fills are cut from saturated felt, and <code>.bg-body*</code> and <code>.bg-*-subtle</code> from the same cream (or charcoal) felt as the page. A fill made see-through with <code>.bg-opacity-*</code> is a tint instead: the felt underneath shows through it.</p>
+</div>
+
+<h2>Background gradient</h2>
+<p>By adding a <code>.bg-gradient</code> class, a linear gradient is added as background image to the backgrounds. This gradient starts with a semi-transparent white which fades out to the bottom. In the felt look it keeps the felt texture and swells like a patch instead.</p>
+<p>Do you need a gradient in your custom CSS? Just add <code>background-image: var(--gradient);</code>.</p>
+<example code="false">
+<div class="p-3 mb-2 bg-primary bg-gradient text-white">.bg-primary.bg-gradient</div>
+<div class="p-3 mb-2 bg-secondary bg-gradient text-white">.bg-secondary.bg-gradient</div>
+<div class="p-3 mb-2 bg-success bg-gradient text-white">.bg-success.bg-gradient</div>
+<div class="p-3 mb-2 bg-danger bg-gradient text-white">.bg-danger.bg-gradient</div>
+<div class="p-3 mb-2 bg-warning bg-gradient text-dark">.bg-warning.bg-gradient</div>
+<div class="p-3 mb-2 bg-info bg-gradient text-white">.bg-info.bg-gradient</div>
+<div class="p-3 mb-2 bg-light bg-gradient text-body">.bg-light.bg-gradient</div>
+<div class="p-3 mb-2 bg-dark bg-gradient text-white">.bg-dark.bg-gradient</div>
+<div class="p-3 mb-2 bg-black bg-gradient text-white">.bg-black.bg-gradient</div>
+</example>
+
+<h2>Opacity</h2>
+<p><code>background-color</code> utilities use CSS variables. This allows for real-time color changes and dynamic alpha transparency changes.</p>
+
+<h3>How it works</h3>
+<p>Consider the default <code>.bg-success</code> utility.</p>
+<codeblock lang="css">
+.bg-success {
+  --bg-opacity: 1;
+  background-color: color-mix(in srgb, var(--success) calc(var(--bg-opacity) * 100%), transparent) !important;
+}
+</codeblock>
+<p>The theme colors are <code>light-dark()</code> values rather than RGB triplets, so instead of Bootstrap's <code>rgba()</code> the utility fades the color with <code>color-mix()</code>, using a second CSS variable, <code>--bg-opacity</code>, for the alpha transparency (with a default value <code>1</code> thanks to a local CSS variable). The local CSS variable inside each <code>.bg-*</code> class avoids inheritance issues so nested instances of the utilities don't automatically have a modified alpha transparency.</p>
+
+<h3>Example</h3>
+<p>To change that opacity, override <code>--bg-opacity</code> via custom styles or inline styles.</p>
+<example>
+<div class="bg-success p-2 text-white">This is default success background</div>
+<div class="bg-success p-2" style="--bg-opacity: .5;">This is 50% opacity success background</div>
+</example>
+<p>Or, choose from any of the <code>.bg-opacity</code> utilities (<code>10</code>, <code>25</code>, <code>50</code>, <code>75</code>, <code>100</code>):</p>
+<example>
+<div class="bg-success p-2 text-white">This is default success background</div>
+<div class="bg-success p-2 text-white bg-opacity-75">This is 75% opacity success background</div>
+<div class="bg-success p-2 text-body bg-opacity-50">This is 50% opacity success background</div>
+<div class="bg-success p-2 text-body bg-opacity-25">This is 25% opacity success background</div>
+<div class="bg-success p-2 text-body bg-opacity-10">This is 10% opacity success background</div>
+</example>

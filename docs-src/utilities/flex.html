@@ -1,0 +1,532 @@
+<!--
+title: Flex
+description: Quickly manage the layout, alignment, and sizing of grid columns, navigation, components, and more with a full suite of responsive flexbox utilities. For more complex implementations, custom CSS may be necessary.
+-->
+<h2>Enable flex behaviors</h2>
+<p>Apply <code>display</code> utilities to create a flexbox container and transform <strong>direct children elements</strong> into flex items. Flex containers and items are able to be modified further with additional flex properties.</p>
+<example class="bd-example-flex">
+<div class="d-flex p-2">I'm a flexbox container!</div>
+</example>
+<example class="bd-example-flex">
+<div class="d-inline-flex p-2">I'm an inline flexbox container!</div>
+</example>
+<p>Responsive variations also exist for <code>.d-flex</code> and <code>.d-inline-flex</code>. Like all responsive utilities in felt-css, they come for <code>sm</code>, <code>md</code> and <code>lg</code> only.</p>
+<ul>
+  <li><code>.d-flex</code>, <code>.d-inline-flex</code></li>
+  <li><code>.d-sm-flex</code>, <code>.d-sm-inline-flex</code></li>
+  <li><code>.d-md-flex</code>, <code>.d-md-inline-flex</code></li>
+  <li><code>.d-lg-flex</code>, <code>.d-lg-inline-flex</code></li>
+</ul>
+
+<h2>Direction</h2>
+<p>Set the direction of flex items in a flex container with direction utilities. In most cases you can omit the horizontal class here as the browser default is <code>row</code>. However, you may encounter situations where you needed to explicitly set this value (like responsive layouts).</p>
+<p>Use <code>.flex-row</code> to set a horizontal direction (the browser default), or <code>.flex-row-reverse</code> to start the horizontal direction from the opposite side.</p>
+<example class="bd-example-flex">
+<div class="d-flex flex-row mb-3">
+  <div class="p-2">Flex item 1</div>
+  <div class="p-2">Flex item 2</div>
+  <div class="p-2">Flex item 3</div>
+</div>
+<div class="d-flex flex-row-reverse">
+  <div class="p-2">Flex item 1</div>
+  <div class="p-2">Flex item 2</div>
+  <div class="p-2">Flex item 3</div>
+</div>
+</example>
+<p>Use <code>.flex-column</code> to set a vertical direction, or <code>.flex-column-reverse</code> to start the vertical direction from the opposite side.</p>
+<example class="bd-example-flex">
+<div class="d-flex flex-column mb-3">
+  <div class="p-2">Flex item 1</div>
+  <div class="p-2">Flex item 2</div>
+  <div class="p-2">Flex item 3</div>
+</div>
+<div class="d-flex flex-column-reverse">
+  <div class="p-2">Flex item 1</div>
+  <div class="p-2">Flex item 2</div>
+  <div class="p-2">Flex item 3</div>
+</div>
+</example>
+<p>Responsive variations also exist for <code>flex-direction</code>.</p>
+<ul>
+  <li><code>.flex-row</code>, <code>.flex-row-reverse</code>, <code>.flex-column</code>, <code>.flex-column-reverse</code></li>
+  <li><code>.flex-sm-row</code>, <code>.flex-sm-row-reverse</code>, <code>.flex-sm-column</code>, <code>.flex-sm-column-reverse</code></li>
+  <li><code>.flex-md-row</code>, <code>.flex-md-row-reverse</code>, <code>.flex-md-column</code>, <code>.flex-md-column-reverse</code></li>
+  <li><code>.flex-lg-row</code>, <code>.flex-lg-row-reverse</code>, <code>.flex-lg-column</code>, <code>.flex-lg-column-reverse</code></li>
+</ul>
+
+<h2>Justify content</h2>
+<p>Use <code>justify-content</code> utilities on flexbox containers to change the alignment of flex items on the main axis (the x-axis to start, y-axis if <code>flex-direction: column</code>). Choose from <code>start</code> (browser default), <code>end</code>, <code>center</code>, <code>between</code>, <code>around</code>, or <code>evenly</code>.</p>
+<example class="bd-example-flex" code="false">
+<div class="d-flex justify-content-start mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex justify-content-end mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex justify-content-center mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex justify-content-between mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex justify-content-around mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex justify-content-evenly">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</example>
+<codeblock lang="html">
+<div class="d-flex justify-content-start">...</div>
+<div class="d-flex justify-content-end">...</div>
+<div class="d-flex justify-content-center">...</div>
+<div class="d-flex justify-content-between">...</div>
+<div class="d-flex justify-content-around">...</div>
+<div class="d-flex justify-content-evenly">...</div>
+</codeblock>
+<p>Responsive variations also exist for <code>justify-content</code>.</p>
+<ul>
+  <li><code>.justify-content-start</code>, <code>.justify-content-end</code>, <code>.justify-content-center</code>, <code>.justify-content-between</code>, <code>.justify-content-around</code>, <code>.justify-content-evenly</code></li>
+  <li><code>.justify-content-sm-start</code>, <code>.justify-content-sm-end</code>, <code>.justify-content-sm-center</code>, <code>.justify-content-sm-between</code>, <code>.justify-content-sm-around</code>, <code>.justify-content-sm-evenly</code></li>
+  <li><code>.justify-content-md-start</code>, <code>.justify-content-md-end</code>, <code>.justify-content-md-center</code>, <code>.justify-content-md-between</code>, <code>.justify-content-md-around</code>, <code>.justify-content-md-evenly</code></li>
+  <li><code>.justify-content-lg-start</code>, <code>.justify-content-lg-end</code>, <code>.justify-content-lg-center</code>, <code>.justify-content-lg-between</code>, <code>.justify-content-lg-around</code>, <code>.justify-content-lg-evenly</code></li>
+</ul>
+
+<h2>Align items</h2>
+<p>Use <code>align-items</code> utilities on flexbox containers to change the alignment of flex items on the cross axis (the y-axis to start, x-axis if <code>flex-direction: column</code>). Choose from <code>start</code>, <code>end</code>, <code>center</code>, <code>baseline</code>, or <code>stretch</code> (browser default).</p>
+<example class="bd-example-flex" code="false">
+<div class="d-flex align-items-start mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex align-items-end mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex align-items-center mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex align-items-baseline mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex align-items-stretch" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</example>
+<codeblock lang="html">
+<div class="d-flex align-items-start">...</div>
+<div class="d-flex align-items-end">...</div>
+<div class="d-flex align-items-center">...</div>
+<div class="d-flex align-items-baseline">...</div>
+<div class="d-flex align-items-stretch">...</div>
+</codeblock>
+<p>Responsive variations also exist for <code>align-items</code>.</p>
+<ul>
+  <li><code>.align-items-start</code>, <code>.align-items-end</code>, <code>.align-items-center</code>, <code>.align-items-baseline</code>, <code>.align-items-stretch</code></li>
+  <li><code>.align-items-sm-start</code>, <code>.align-items-sm-end</code>, <code>.align-items-sm-center</code>, <code>.align-items-sm-baseline</code>, <code>.align-items-sm-stretch</code></li>
+  <li><code>.align-items-md-start</code>, <code>.align-items-md-end</code>, <code>.align-items-md-center</code>, <code>.align-items-md-baseline</code>, <code>.align-items-md-stretch</code></li>
+  <li><code>.align-items-lg-start</code>, <code>.align-items-lg-end</code>, <code>.align-items-lg-center</code>, <code>.align-items-lg-baseline</code>, <code>.align-items-lg-stretch</code></li>
+</ul>
+
+<h2>Align self</h2>
+<p>Use <code>align-self</code> utilities on flexbox items to individually change their alignment on the cross axis (the y-axis to start, x-axis if <code>flex-direction: column</code>). Choose from the same options as <code>align-items</code>: <code>start</code>, <code>end</code>, <code>center</code>, <code>baseline</code>, or <code>stretch</code> (browser default).</p>
+<example class="bd-example-flex" code="false">
+<div class="d-flex mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="align-self-start p-2">Aligned flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="align-self-end p-2">Aligned flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="align-self-center p-2">Aligned flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex mb-3" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="align-self-baseline p-2">Aligned flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex" style="height: 100px">
+  <div class="p-2">Flex item</div>
+  <div class="align-self-stretch p-2">Aligned flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</example>
+<codeblock lang="html">
+<div class="align-self-start">Aligned flex item</div>
+<div class="align-self-end">Aligned flex item</div>
+<div class="align-self-center">Aligned flex item</div>
+<div class="align-self-baseline">Aligned flex item</div>
+<div class="align-self-stretch">Aligned flex item</div>
+</codeblock>
+<p>Responsive variations also exist for <code>align-self</code>. There is also <code>.align-self-auto</code>, which resets an item to the container's <code>align-items</code>.</p>
+<ul>
+  <li><code>.align-self-auto</code>, <code>.align-self-start</code>, <code>.align-self-end</code>, <code>.align-self-center</code>, <code>.align-self-baseline</code>, <code>.align-self-stretch</code></li>
+  <li><code>.align-self-sm-auto</code>, <code>.align-self-sm-start</code>, <code>.align-self-sm-end</code>, <code>.align-self-sm-center</code>, <code>.align-self-sm-baseline</code>, <code>.align-self-sm-stretch</code></li>
+  <li><code>.align-self-md-auto</code>, <code>.align-self-md-start</code>, <code>.align-self-md-end</code>, <code>.align-self-md-center</code>, <code>.align-self-md-baseline</code>, <code>.align-self-md-stretch</code></li>
+  <li><code>.align-self-lg-auto</code>, <code>.align-self-lg-start</code>, <code>.align-self-lg-end</code>, <code>.align-self-lg-center</code>, <code>.align-self-lg-baseline</code>, <code>.align-self-lg-stretch</code></li>
+</ul>
+
+<h2>Fill</h2>
+<p>Use the <code>.flex-fill</code> class on a series of sibling elements to force them into widths equal to their content (or equal widths if their content does not surpass their border-boxes) while taking up all available horizontal space.</p>
+<example class="bd-example-flex">
+<div class="d-flex">
+  <div class="p-2 flex-fill">Flex item with a lot of content</div>
+  <div class="p-2 flex-fill">Flex item</div>
+  <div class="p-2 flex-fill">Flex item</div>
+</div>
+</example>
+<p>Responsive variations also exist for <code>flex-fill</code>.</p>
+<ul>
+  <li><code>.flex-fill</code></li>
+  <li><code>.flex-sm-fill</code></li>
+  <li><code>.flex-md-fill</code></li>
+  <li><code>.flex-lg-fill</code></li>
+</ul>
+
+<h2>Grow and shrink</h2>
+<p>Use <code>.flex-grow-*</code> utilities to toggle a flex item's ability to grow to fill available space. In the example below, the <code>.flex-grow-1</code> elements uses all available space it can, while allowing the remaining two flex items their necessary space.</p>
+<example class="bd-example-flex">
+<div class="d-flex">
+  <div class="p-2 flex-grow-1">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Third flex item</div>
+</div>
+</example>
+<p>Use <code>.flex-shrink-*</code> utilities to toggle a flex item's ability to shrink if necessary. In the example below, the second flex item with <code>.flex-shrink-1</code> is forced to wrap its contents to a new line, "shrinking" to allow more space for the previous flex item with <code>.w-100</code>.</p>
+<example class="bd-example-flex">
+<div class="d-flex">
+  <div class="p-2 w-100">Flex item</div>
+  <div class="p-2 flex-shrink-1">Flex item</div>
+</div>
+</example>
+<p>Responsive variations also exist for <code>flex-grow</code> and <code>flex-shrink</code>.</p>
+<ul>
+  <li><code>.flex-grow-0</code>, <code>.flex-grow-1</code>, <code>.flex-shrink-0</code>, <code>.flex-shrink-1</code></li>
+  <li><code>.flex-sm-grow-0</code>, <code>.flex-sm-grow-1</code>, <code>.flex-sm-shrink-0</code>, <code>.flex-sm-shrink-1</code></li>
+  <li><code>.flex-md-grow-0</code>, <code>.flex-md-grow-1</code>, <code>.flex-md-shrink-0</code>, <code>.flex-md-shrink-1</code></li>
+  <li><code>.flex-lg-grow-0</code>, <code>.flex-lg-grow-1</code>, <code>.flex-lg-shrink-0</code>, <code>.flex-lg-shrink-1</code></li>
+</ul>
+
+<h2>Auto margins</h2>
+<p>Flexbox can do some pretty awesome things when you mix flex alignments with auto margins. Shown below are three examples of controlling flex items via auto margins: default (no auto margin), pushing two items to the right (<code>.me-auto</code>), and pushing two items to the left (<code>.ms-auto</code>).</p>
+<example class="bd-example-flex">
+<div class="d-flex mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex mb-3">
+  <div class="me-auto p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex mb-3">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="ms-auto p-2">Flex item</div>
+</div>
+</example>
+
+<h3>With align-items</h3>
+<p>Vertically move one flex item to the top or bottom of a container by mixing <code>align-items</code>, <code>flex-direction: column</code>, and <code>margin-top: auto</code> or <code>margin-bottom: auto</code>.</p>
+<example class="bd-example-flex">
+<div class="d-flex align-items-start flex-column mb-3" style="height: 200px;">
+  <div class="mb-auto p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+<div class="d-flex align-items-end flex-column mb-3" style="height: 200px;">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="mt-auto p-2">Flex item</div>
+</div>
+</example>
+
+<h2>Wrap</h2>
+<p>Change how flex items wrap in a flex container. Choose from no wrapping at all (the browser default) with <code>.flex-nowrap</code>, wrapping with <code>.flex-wrap</code>, or reverse wrapping with <code>.flex-wrap-reverse</code>.</p>
+<example class="bd-example-flex" code="false">
+<div class="d-flex flex-nowrap" style="width: 8rem;">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</example>
+<codeblock lang="html">
+<div class="d-flex flex-nowrap">
+  ...
+</div>
+</codeblock>
+<example class="bd-example-flex" code="false">
+<div class="d-flex flex-wrap">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</example>
+<codeblock lang="html">
+<div class="d-flex flex-wrap">
+  ...
+</div>
+</codeblock>
+<example class="bd-example-flex" code="false">
+<div class="d-flex flex-wrap-reverse">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</example>
+<codeblock lang="html">
+<div class="d-flex flex-wrap-reverse">
+  ...
+</div>
+</codeblock>
+<p>Responsive variations also exist for <code>flex-wrap</code>.</p>
+<ul>
+  <li><code>.flex-nowrap</code>, <code>.flex-wrap</code>, <code>.flex-wrap-reverse</code></li>
+  <li><code>.flex-sm-nowrap</code>, <code>.flex-sm-wrap</code>, <code>.flex-sm-wrap-reverse</code></li>
+  <li><code>.flex-md-nowrap</code>, <code>.flex-md-wrap</code>, <code>.flex-md-wrap-reverse</code></li>
+  <li><code>.flex-lg-nowrap</code>, <code>.flex-lg-wrap</code>, <code>.flex-lg-wrap-reverse</code></li>
+</ul>
+
+<h2>Order</h2>
+<p>Change the <em>visual</em> order of specific flex items with a handful of <code>order</code> utilities. We only provide options for making an item first or last, as well as a reset to use the DOM order. As <code>order</code> takes any integer value from 0 to 5, add custom CSS for any additional values needed.</p>
+<example class="bd-example-flex">
+<div class="d-flex flex-nowrap">
+  <div class="order-3 p-2">First flex item</div>
+  <div class="order-2 p-2">Second flex item</div>
+  <div class="order-1 p-2">Third flex item</div>
+</div>
+</example>
+<p>Responsive variations also exist for <code>order</code>.</p>
+<ul>
+  <li><code>.order-0</code>, <code>.order-1</code>, <code>.order-2</code>, <code>.order-3</code>, <code>.order-4</code>, <code>.order-5</code></li>
+  <li><code>.order-sm-0</code>, <code>.order-sm-1</code>, <code>.order-sm-2</code>, <code>.order-sm-3</code>, <code>.order-sm-4</code>, <code>.order-sm-5</code></li>
+  <li><code>.order-md-0</code>, <code>.order-md-1</code>, <code>.order-md-2</code>, <code>.order-md-3</code>, <code>.order-md-4</code>, <code>.order-md-5</code></li>
+  <li><code>.order-lg-0</code>, <code>.order-lg-1</code>, <code>.order-lg-2</code>, <code>.order-lg-3</code>, <code>.order-lg-4</code>, <code>.order-lg-5</code></li>
+</ul>
+<p>Additionally there are also responsive <code>.order-first</code> and <code>.order-last</code> classes that change the <code>order</code> of an element by applying <code>order: -1</code> and <code>order: 6</code>, respectively.</p>
+<ul>
+  <li><code>.order-first</code>, <code>.order-last</code></li>
+  <li><code>.order-sm-first</code>, <code>.order-sm-last</code></li>
+  <li><code>.order-md-first</code>, <code>.order-md-last</code></li>
+  <li><code>.order-lg-first</code>, <code>.order-lg-last</code></li>
+</ul>
+
+<h2>Align content</h2>
+<p>Use <code>align-content</code> utilities on flexbox containers to align flex items <em>together</em> on the cross axis. Choose from <code>start</code> (browser default), <code>end</code>, <code>center</code>, <code>between</code>, <code>around</code>, or <code>stretch</code>. To demonstrate these utilities, we've enforced <code>flex-wrap: wrap</code> and increased the number of flex items.</p>
+<p><strong>Heads up!</strong> This property has no effect on single rows of flex items.</p>
+<example class="bd-example-flex" code="false">
+<div class="d-flex align-content-start flex-wrap" style="height: 200px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</example>
+<codeblock lang="html">
+<div class="d-flex align-content-start flex-wrap">...</div>
+</codeblock>
+<example class="bd-example-flex" code="false">
+<div class="d-flex align-content-end flex-wrap" style="height: 200px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</example>
+<codeblock lang="html">
+<div class="d-flex align-content-end flex-wrap">...</div>
+</codeblock>
+<example class="bd-example-flex" code="false">
+<div class="d-flex align-content-center flex-wrap" style="height: 200px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</example>
+<codeblock lang="html">
+<div class="d-flex align-content-center flex-wrap">...</div>
+</codeblock>
+<example class="bd-example-flex" code="false">
+<div class="d-flex align-content-between flex-wrap" style="height: 200px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</example>
+<codeblock lang="html">
+<div class="d-flex align-content-between flex-wrap">...</div>
+</codeblock>
+<example class="bd-example-flex" code="false">
+<div class="d-flex align-content-around flex-wrap" style="height: 200px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</example>
+<codeblock lang="html">
+<div class="d-flex align-content-around flex-wrap">...</div>
+</codeblock>
+<example class="bd-example-flex" code="false">
+<div class="d-flex align-content-stretch flex-wrap" style="height: 200px">
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+  <div class="p-2">Flex item</div>
+</div>
+</example>
+<codeblock lang="html">
+<div class="d-flex align-content-stretch flex-wrap">...</div>
+</codeblock>
+<p>Responsive variations also exist for <code>align-content</code>.</p>
+<ul>
+  <li><code>.align-content-start</code>, <code>.align-content-end</code>, <code>.align-content-center</code>, <code>.align-content-between</code>, <code>.align-content-around</code>, <code>.align-content-stretch</code></li>
+  <li><code>.align-content-sm-start</code>, <code>.align-content-sm-end</code>, <code>.align-content-sm-center</code>, <code>.align-content-sm-between</code>, <code>.align-content-sm-around</code>, <code>.align-content-sm-stretch</code></li>
+  <li><code>.align-content-md-start</code>, <code>.align-content-md-end</code>, <code>.align-content-md-center</code>, <code>.align-content-md-between</code>, <code>.align-content-md-around</code>, <code>.align-content-md-stretch</code></li>
+  <li><code>.align-content-lg-start</code>, <code>.align-content-lg-end</code>, <code>.align-content-lg-center</code>, <code>.align-content-lg-between</code>, <code>.align-content-lg-around</code>, <code>.align-content-lg-stretch</code></li>
+</ul>
+
+<h2>Media object</h2>
+<p>Looking to replicate the <a href="https://getbootstrap.com/docs/4.6/components/media-object/">media object component</a> from Bootstrap 4? Recreate it in no time with a few flex utilities that allow even more flexibility and customization than before.</p>
+<example>
+<div class="d-flex">
+  <div class="flex-shrink-0">
+    <svg class="bd-placeholder-img" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#e5e5e5"></rect><text x="50%" y="50%" fill="#999" dy=".3em">Image</text></svg>
+  </div>
+  <div class="flex-grow-1 ms-3">
+    This is some content from a media component. You can replace this with any content and adjust it as needed.
+  </div>
+</div>
+</example>
+<p>And say you want to vertically center the content next to the image:</p>
+<example>
+<div class="d-flex align-items-center">
+  <div class="flex-shrink-0">
+    <svg class="bd-placeholder-img" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#e5e5e5"></rect><text x="50%" y="50%" fill="#999" dy=".3em">Image</text></svg>
+  </div>
+  <div class="flex-grow-1 ms-3">
+    This is some content from a media component. You can replace this with any content and adjust it as needed.
+  </div>
+</div>
+</example>

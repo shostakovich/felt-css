@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Progress · felt-css</title>
+  <meta name="description" content="Documentation and examples for using custom progress bars featuring support for stacked bars, animated backgrounds, and text labels.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Components</p>
+        <h1>Progress</h1>
+        <p class="lead">Documentation and examples for using custom progress bars featuring support for stacked bars, animated backgrounds, and text labels.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/components/progress.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#how-it-works">How it works</a></li><li><a href="#bar-sizing">Bar sizing</a><ul><li><a href="#width">Width</a></li><li><a href="#height">Height</a></li></ul></li><li><a href="#labels">Labels</a><ul><li><a href="#long-labels">Long labels</a></li></ul></li><li><a href="#backgrounds">Backgrounds</a></li><li><a href="#multiple-bars">Multiple bars</a></li><li><a href="#striped">Striped</a></li><li><a href="#animated-stripes">Animated stripes</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#how-it-works">How it works</a></li><li><a href="#bar-sizing">Bar sizing</a><ul><li><a href="#width">Width</a></li><li><a href="#height">Height</a></li></ul></li><li><a href="#labels">Labels</a><ul><li><a href="#long-labels">Long labels</a></li></ul></li><li><a href="#backgrounds">Backgrounds</a></li><li><a href="#multiple-bars">Multiple bars</a></li><li><a href="#striped">Striped</a></li><li><a href="#animated-stripes">Animated stripes</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="how-it-works">How it works<a class="bd-anchor" href="#how-it-works" aria-label="Link to this section">#</a></h2>
+<p>Progress components are built with two HTML elements, some CSS to set the width, and a few attributes. We don't use <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress">the HTML5 <code>&lt;progress&gt;</code> element</a>, ensuring you can stack progress bars, animate them, and place text labels over them.</p>
+<ul>
+  <li>We use the <code>.progress</code> as a wrapper to indicate the max value of the progress bar.</li>
+  <li>The <code>.progress</code> wrapper also requires a <code>role="progressbar"</code> and <code>aria</code> attributes to make it accessible, including an accessible name (using <code>aria-label</code>, <code>aria-labelledby</code>, or similar).</li>
+  <li>We use the inner <code>.progress-bar</code> purely for the visual bar and label.</li>
+  <li>The <code>.progress-bar</code> requires an inline style, utility class, or custom CSS to set its width.</li>
+  <li>We provide a special <code>.progress-stacked</code> class to create multiple/stacked progress bars.</li>
+</ul>
+<p>Put that all together, and you have the following examples.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar" style="width: 0%"></div>
+</div>
+<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar" style="width: 25%"></div>
+</div>
+<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar" style="width: 50%"></div>
+</div>
+<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar" style="width: 75%"></div>
+</div>
+<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar" style="width: 100%"></div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Basic example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 0%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Basic example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"25"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 25%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Basic example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"50"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 50%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Basic example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"75"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 75%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Basic example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 100%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In felt, the track is a groove pressed into the felt and the bar a patch of coloured felt laid into it. In a stacked bar every segment is its own piece, with its own cut edge.</p>
+</div>
+
+<h2 id="bar-sizing">Bar sizing<a class="bd-anchor" href="#bar-sizing" aria-label="Link to this section">#</a></h2>
+<h3 id="width">Width<a class="bd-anchor" href="#width" aria-label="Link to this section">#</a></h3>
+<p>felt-css provides a handful of <a href="../../utilities/sizing/">utilities for setting width</a>. Depending on your needs, these may help with quickly configuring the width of the <code>.progress-bar</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar w-75"></div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Basic example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"75"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar w-75"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="height">Height<a class="bd-anchor" href="#height" aria-label="Link to this section">#</a></h3>
+<p>You only set a <code>height</code> value on the <code>.progress</code> container, so if you change that value, the inner <code>.progress-bar</code> will automatically resize accordingly.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="progress" role="progressbar" aria-label="Example 1px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 1px">
+  <div class="progress-bar" style="width: 25%"></div>
+</div>
+<div class="progress" role="progressbar" aria-label="Example 20px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 20px">
+  <div class="progress-bar" style="width: 25%"></div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Example 1px high"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"25"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"height: 1px"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 25%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Example 20px high"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"25"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"height: 20px"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 25%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="labels">Labels<a class="bd-anchor" href="#labels" aria-label="Link to this section">#</a></h2>
+<p>Add labels to your progress bars by placing text within the <code>.progress-bar</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar" style="width: 25%">25%</div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Example with label"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"25"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 25%"</span><span class="tok-punct">&gt;</span>25%<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="long-labels">Long labels<a class="bd-anchor" href="#long-labels" aria-label="Link to this section">#</a></h3>
+<p>Note that by default, the content inside the <code>.progress-bar</code> is controlled with <code>overflow: hidden</code>, so it doesn't bleed out of the bar. If your progress bar is shorter than its label, the content will be capped and may become unreadable. To change this behavior, you can use <code>.overflow-visible</code> from the <a href="../../utilities/overflow/">overflow utilities</a>.</p>
+
+<div class="bd-callout bd-callout-warning">
+  <p>Labels longer than the progress bar within may not be fully accessible using this method because it relies on the text color having the correct contrast ratio with both the <code>.progress</code> and <code>.progress-bar</code> background colors. Use caution when implementing this example.</p>
+  <p>If the text can overlap the progress bar, we often recommend displaying the label outside of the progress bar for better accessibility.</p>
+</div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar overflow-visible text-body" style="width: 10%">Long label text for the progress bar, set to the body color</div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Example with label"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"10"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar overflow-visible text-body"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 10%"</span><span class="tok-punct">&gt;</span>Long label text for the progress bar, set to the body color<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="backgrounds">Backgrounds<a class="bd-anchor" href="#backgrounds" aria-label="Link to this section">#</a></h2>
+<p>Use background utility classes to change the appearance of individual progress bars.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar bg-success" style="width: 25%"></div>
+</div>
+<div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar bg-info" style="width: 50%"></div>
+</div>
+<div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar bg-warning" style="width: 75%"></div>
+</div>
+<div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar bg-danger" style="width: 100%"></div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Success example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"25"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar bg-success"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 25%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Info example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"50"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar bg-info"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 50%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Warning example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"75"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar bg-warning"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 75%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Danger example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar bg-danger"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 100%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-warning">
+  <p><strong>Accessibility tip:</strong> Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies like screen readers. Please ensure the meaning is obvious from the content itself (e.g., the visible text) or is included through alternative means, such as additional text hidden with the <code>.visually-hidden</code> class.</p>
+</div>
+
+<p>If you're adding labels to progress bars with a custom background color, make sure to also set an appropriate <a href="../../utilities/colors/">text color</a>, so the labels remain readable and have sufficient contrast. We recommend using the <a href="../../helpers/color-background/">color and background</a> helper classes.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar text-bg-success" style="width: 25%">25%</div>
+</div>
+<div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar text-bg-info" style="width: 50%">50%</div>
+</div>
+<div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar text-bg-warning" style="width: 75%">75%</div>
+</div>
+<div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar text-bg-danger" style="width: 100%">100%</div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Success example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"25"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar text-bg-success"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 25%"</span><span class="tok-punct">&gt;</span>25%<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Info example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"50"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar text-bg-info"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 50%"</span><span class="tok-punct">&gt;</span>50%<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Warning example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"75"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar text-bg-warning"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 75%"</span><span class="tok-punct">&gt;</span>75%<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Danger example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar text-bg-danger"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 100%"</span><span class="tok-punct">&gt;</span>100%<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="multiple-bars">Multiple bars<a class="bd-anchor" href="#multiple-bars" aria-label="Link to this section">#</a></h2>
+<p>You can include multiple progress components inside a container with <code>.progress-stacked</code> to create a single stacked progress bar. Note that in this case, the styling to set the visual width of the progress bar <em>must</em> be applied to the <code>.progress</code> elements, rather than the <code>.progress-bar</code>s.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="progress-stacked">
+  <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+    <div class="progress-bar"></div>
+  </div>
+  <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+    <div class="progress-bar bg-success"></div>
+  </div>
+  <div class="progress" role="progressbar" aria-label="Segment three" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+    <div class="progress-bar bg-info"></div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-stacked"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Segment one"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"15"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 15%"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Segment two"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"30"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 30%"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar bg-success"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Segment three"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 20%"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar bg-info"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="striped">Striped<a class="bd-anchor" href="#striped" aria-label="Link to this section">#</a></h2>
+<p>Add <code>.progress-bar-striped</code> to any <code>.progress-bar</code> to apply a stripe via CSS gradient over the progress bar's background color.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="progress" role="progressbar" aria-label="Default striped example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar progress-bar-striped" style="width: 10%"></div>
+</div>
+<div class="progress" role="progressbar" aria-label="Success striped example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar progress-bar-striped bg-success" style="width: 25%"></div>
+</div>
+<div class="progress" role="progressbar" aria-label="Info striped example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar progress-bar-striped bg-info" style="width: 50%"></div>
+</div>
+<div class="progress" role="progressbar" aria-label="Warning striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar progress-bar-striped bg-warning" style="width: 75%"></div>
+</div>
+<div class="progress" role="progressbar" aria-label="Danger striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar progress-bar-striped bg-danger" style="width: 100%"></div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Default striped example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"10"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar progress-bar-striped"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 10%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Success striped example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"25"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar progress-bar-striped bg-success"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 25%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Info striped example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"50"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar progress-bar-striped bg-info"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 50%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Warning striped example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"75"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar progress-bar-striped bg-warning"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 75%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Danger striped example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar progress-bar-striped bg-danger"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 100%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="animated-stripes">Animated stripes<a class="bd-anchor" href="#animated-stripes" aria-label="Link to this section">#</a></h2>
+<p>The striped gradient can also be animated. Add <code>.progress-bar-animated</code> to <code>.progress-bar</code> to animate the stripes right to left via CSS3 animations. The animation stops for visitors who prefer reduced motion.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 75%"></div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Animated striped example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"75"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar progress-bar-striped progress-bar-animated"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 75%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/popovers/"><small>Previous</small>Popovers</a><a class="bd-pager-next" href="../../components/spinners/"><small>Next</small>Spinners</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

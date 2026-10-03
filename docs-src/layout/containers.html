@@ -1,0 +1,67 @@
+<!--
+title: Containers
+description: Containers are a fundamental building block of felt-css that contain, pad, and align your content within a given device or viewport.
+-->
+<h2>How they work</h2>
+<p>Containers are the most basic layout element and are <strong>required when using the grid</strong>. Containers are used to contain, pad, and (sometimes) center the content within them. While containers <em>can</em> be nested, most layouts do not require a nested container.</p>
+<p>felt-css comes with three different containers:</p>
+<ul>
+  <li><code>.container</code>, which is <code>width: 100%</code> up to a maximum width of <code>--container-max</code> (1080px)</li>
+  <li><code>.container-{breakpoint}</code>, which is <code>width: 100%</code> until the specified breakpoint</li>
+  <li><code>.container-fluid</code>, which is <code>width: 100%</code> at all breakpoints</li>
+</ul>
+<p>Unlike Bootstrap, whose <code>.container</code> steps through a fixed width per breakpoint, felt-css has a single maximum width: a container is fluid until it reaches 1080px, then it stays centered. All containers have <code>1rem</code> of horizontal padding. The table below shows how each container's <code>max-width</code> compares across the breakpoints.</p>
+
+<div class="table-responsive">
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Extra small<div class="fw-normal">&lt;576px</div></th>
+      <th>Small<div class="fw-normal">&ge;576px</div></th>
+      <th>Medium<div class="fw-normal">&ge;768px</div></th>
+      <th>Large<div class="fw-normal">&ge;992px</div></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="text-nowrap"><code>.container</code></td><td>1080px</td><td>1080px</td><td>1080px</td><td>1080px</td></tr>
+    <tr><td class="text-nowrap"><code>.container-sm</code></td><td class="text-body-secondary">100%</td><td>1080px</td><td>1080px</td><td>1080px</td></tr>
+    <tr><td class="text-nowrap"><code>.container-md</code></td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td>1080px</td><td>1080px</td></tr>
+    <tr><td class="text-nowrap"><code>.container-lg</code></td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td>1080px</td></tr>
+    <tr><td class="text-nowrap"><code>.container-fluid</code></td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Since every viewport below 1080px is narrower than the maximum, <code>.container-sm</code>, <code>-md</code> and <code>-lg</code> only differ from <code>.container</code> on screens wider than 1080px. There is no <code>.container-xl</code> or <code>.container-xxl</code>.</p>
+
+<h2>Default container</h2>
+<p>The default <code>.container</code> class is a responsive container: full width on small screens, centered with a <code>max-width</code> of 1080px on larger ones.</p>
+<codeblock lang="html">
+<div class="container">
+  <!-- Content here -->
+</div>
+</codeblock>
+
+<h2>Responsive containers</h2>
+<p>Responsive containers allow you to specify a class that is 100% wide until the specified breakpoint is reached, after which the maximum width applies. For example, <code>.container-sm</code> is 100% wide to start until the <code>sm</code> breakpoint is reached.</p>
+<codeblock lang="html">
+<div class="container-sm">100% wide until small breakpoint</div>
+<div class="container-md">100% wide until medium breakpoint</div>
+<div class="container-lg">100% wide until large breakpoint</div>
+</codeblock>
+
+<h2>Fluid containers</h2>
+<p>Use <code>.container-fluid</code> for a full width container, spanning the entire width of the viewport.</p>
+<codeblock lang="html">
+<div class="container-fluid">
+  ...
+</div>
+</codeblock>
+
+<h2>Custom width</h2>
+<p>The maximum width is a custom property on <code>:root</code>. Override it to make every container wider or narrower:</p>
+<codeblock lang="css">
+:root {
+  --container-max: 1280px;
+}
+</codeblock>

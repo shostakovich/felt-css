@@ -1,0 +1,51 @@
+<!--
+title: Images
+description: Documentation and examples for opting images into responsive behavior (so they never become wider than their parent) and add lightweight styles to them—all via classes.
+-->
+<h2>Responsive images</h2>
+<p>Images in felt-css are made responsive with <code>.img-fluid</code>. This applies <code>max-width: 100%;</code> and <code>height: auto;</code> to the image so that it scales with the parent width.</p>
+
+<example>
+<img src="../../../docs/sample-photo.webp" class="img-fluid" alt="Sample photo" width="600" height="400">
+</example>
+
+<p>felt-css's <a href="../reboot/#page-defaults">Reboot</a> already gives every <code>&lt;img&gt;</code> and <code>&lt;svg&gt;</code> <code>max-width: 100%</code>, so images never overflow their parent. <code>.img-fluid</code> adds <code>height: auto</code>, which keeps the aspect ratio when the image has <code>width</code> and <code>height</code> attributes.</p>
+
+<h2>Image thumbnails</h2>
+<p>In addition to the <a href="../../utilities/borders/">border-radius utilities</a>, you can use <code>.img-thumbnail</code> to give an image a rounded 1px border appearance.</p>
+
+<example>
+<img src="../../../docs/sample-photo.webp" class="img-thumbnail" alt="Sample photo" width="300" height="200">
+</example>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look, thumbnails, figure images and <code>img.rounded</code> lie on the felt like photos on a pin board: a hairline edge and a small shadow underneath.</p>
+</div>
+
+<h2>Aligning images</h2>
+<p>Align images with the <a href="../../utilities/float/">helper float classes</a> or <a href="../../utilities/text/#text-alignment">text alignment classes</a>. <code>block</code>-level images can be centered using <a href="../../utilities/spacing/#horizontal-centering">the <code>.mx-auto</code> margin utility class</a>.</p>
+
+<example class="clearfix">
+<img src="../../../docs/sample-photo.webp" class="rounded float-start" alt="Sample photo" width="200" height="133">
+<img src="../../../docs/sample-photo.webp" class="rounded float-end" alt="Sample photo" width="200" height="133">
+</example>
+
+<example>
+<img src="../../../docs/sample-photo.webp" class="rounded mx-auto d-block" alt="Sample photo" width="200" height="133">
+</example>
+
+<example>
+<div class="text-center">
+  <img src="../../../docs/sample-photo.webp" class="rounded" alt="Sample photo" width="200" height="133">
+</div>
+</example>
+
+<h2>Picture</h2>
+<p>If you are using the <code>&lt;picture&gt;</code> element to specify multiple <code>&lt;source&gt;</code> elements for a specific <code>&lt;img&gt;</code>, make sure to add the <code>.img-*</code> classes to the <code>&lt;img&gt;</code> and not to the <code>&lt;picture&gt;</code> tag.</p>
+
+<codeblock lang="html">
+<picture>
+  <source srcset="..." type="image/svg+xml">
+  <img src="..." class="img-fluid img-thumbnail" alt="...">
+</picture>
+</codeblock>

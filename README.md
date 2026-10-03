@@ -2,6 +2,8 @@
 
 # felt-css
 
+**[Documentation](https://felt-css.rocu.de/)** · [Examples](https://felt-css.rocu.de/docs/examples/)
+
 **Bootstrap, but made of wool felt.** A small, dependency-free CSS toolkit with Bootstrap 5 class names
 and two looks: a clean one for everyday work, and a cosy one where every card is cut from felt and every
 button is sewn on by hand. One attribute switches between them, and nothing on the page moves when you do.
@@ -46,7 +48,8 @@ No build step. Copy `felt.css` and the `img/` folder next to it, then:
 </body>
 ```
 
-Open `index.html` for a demo of everything (`?look=clean|felt` and `?theme=light|dark` in the URL pick a
+The [documentation](https://felt-css.rocu.de/) walks through every component Bootstrap-style, with
+live examples and copyable snippets. Open `index.html` for a demo of everything (`?look=clean|felt` and `?theme=light|dark` in the URL pick a
 look and a theme).
 
 **Dark mode** works like Bootstrap's: `data-bs-theme="dark"` (or `"light"`) on `<html>` or on any element,
@@ -146,6 +149,20 @@ not the generated lines:
 ```sh
 python3 tools/build_utilities.py   # plain python3, no packages
 ```
+
+## Rebuilding the docs
+
+The documentation in `docs/` is generated from the page fragments in `docs-src/` (one per page, with
+`<example>` blocks that render the markup and show its source). The examples in `docs/examples/*/` are
+written by hand.
+
+```sh
+python3 tools/build_docs.py            # plain python3, no packages
+python3 tools/build_docs.py --strict   # also fails on classes felt.css doesn't define
+```
+
+Pushing to `main` publishes the site with GitHub Pages (`.github/workflows/pages.yml`): the docs home at
+the root, the docs under `docs/`.
 
 ## Browser notes
 

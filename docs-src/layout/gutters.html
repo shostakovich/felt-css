@@ -1,0 +1,139 @@
+<!--
+title: Gutters
+description: Gutters are the padding between your columns, used to responsively space and align content in the grid system.
+-->
+<h2>How they work</h2>
+<ul>
+  <li><strong>Gutters are the gaps between column content, created by horizontal <code>padding</code>.</strong> We set <code>padding-right</code> and <code>padding-left</code> on each column, and use negative <code>margin</code> to offset that at the start and end of each row to align content.</li>
+  <li><strong>Gutters start at <code>1.5rem</code> (<code>24px</code>) wide.</strong> This allows us to match the grid to the <a href="../../utilities/spacing/">padding and margin spacers</a> scale.</li>
+  <li><strong>Gutters can be responsively adjusted.</strong> Use breakpoint-specific gutter classes to modify horizontal gutters, vertical gutters, and all gutters.</li>
+</ul>
+
+<h2>Horizontal gutters</h2>
+<p><code>.gx-*</code> classes can be used to control the horizontal gutter widths. The <code>.container</code> or <code>.container-fluid</code> parent may need to be adjusted if larger gutters are used too to avoid unwanted overflow, using a matching padding utility. For example, in the following example we've increased the padding with <code>.px-4</code>:</p>
+<example class="bd-example-cols">
+<div class="container px-4 text-center">
+  <div class="row gx-5">
+    <div class="col">
+      <div class="p-3">Custom column padding</div>
+    </div>
+    <div class="col">
+      <div class="p-3">Custom column padding</div>
+    </div>
+  </div>
+</div>
+</example>
+<p>An alternative solution is to add a wrapper around the <code>.row</code> with the <code>.overflow-hidden</code> class:</p>
+<example class="bd-example-cols">
+<div class="container overflow-hidden text-center">
+  <div class="row gx-5">
+    <div class="col">
+      <div class="p-3">Custom column padding</div>
+    </div>
+    <div class="col">
+      <div class="p-3">Custom column padding</div>
+    </div>
+  </div>
+</div>
+</example>
+
+<h2>Vertical gutters</h2>
+<p><code>.gy-*</code> classes can be used to control the vertical gutter widths within a row when columns wrap to new lines. Like the horizontal gutters, the vertical gutters can cause some overflow below the <code>.row</code> at the end of a page. If this occurs, you add a wrapper around <code>.row</code> with the <code>.overflow-hidden</code> class:</p>
+<example class="bd-example-cols">
+<div class="container overflow-hidden text-center">
+  <div class="row gy-5">
+    <div class="col-6">
+      <div class="p-3">Custom column padding</div>
+    </div>
+    <div class="col-6">
+      <div class="p-3">Custom column padding</div>
+    </div>
+    <div class="col-6">
+      <div class="p-3">Custom column padding</div>
+    </div>
+    <div class="col-6">
+      <div class="p-3">Custom column padding</div>
+    </div>
+  </div>
+</div>
+</example>
+
+<h2>Horizontal &amp; vertical gutters</h2>
+<p>Use <code>.g-*</code> classes to control the horizontal and vertical grid gutters. In the example below, we use a smaller gutter width, so there isn't a need for the <code>.overflow-hidden</code> wrapper class.</p>
+<example class="bd-example-cols">
+<div class="container text-center">
+  <div class="row g-2">
+    <div class="col-6">
+      <div class="p-3">Custom column padding</div>
+    </div>
+    <div class="col-6">
+      <div class="p-3">Custom column padding</div>
+    </div>
+    <div class="col-6">
+      <div class="p-3">Custom column padding</div>
+    </div>
+    <div class="col-6">
+      <div class="p-3">Custom column padding</div>
+    </div>
+  </div>
+</div>
+</example>
+
+<h2>Row columns gutters</h2>
+<p>Gutter classes can also be added to <a href="../grid/#row-columns">row columns</a>. In the following example, we use responsive row columns and responsive gutter classes.</p>
+<example class="bd-example-cols">
+<div class="container text-center">
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <div class="col">
+      <div class="p-3">Row column</div>
+    </div>
+    <div class="col">
+      <div class="p-3">Row column</div>
+    </div>
+    <div class="col">
+      <div class="p-3">Row column</div>
+    </div>
+    <div class="col">
+      <div class="p-3">Row column</div>
+    </div>
+    <div class="col">
+      <div class="p-3">Row column</div>
+    </div>
+    <div class="col">
+      <div class="p-3">Row column</div>
+    </div>
+    <div class="col">
+      <div class="p-3">Row column</div>
+    </div>
+    <div class="col">
+      <div class="p-3">Row column</div>
+    </div>
+    <div class="col">
+      <div class="p-3">Row column</div>
+    </div>
+    <div class="col">
+      <div class="p-3">Row column</div>
+    </div>
+  </div>
+</div>
+</example>
+
+<h2>No gutters</h2>
+<p>The gutters between columns in the predefined grid classes can be removed with <code>.g-0</code>. This removes the negative <code>margin</code>s from <code>.row</code> and the horizontal <code>padding</code> from all immediate children columns.</p>
+<p><strong>Need an edge-to-edge design?</strong> Drop the parent <code>.container</code> or <code>.container-fluid</code> and add <code>.mx-0</code> to the <code>.row</code> to prevent overflow.</p>
+<p>In practice, here's how it looks. Note that you can continue to use this with all other predefined grid classes (including column widths, responsive tiers, reorders, and more).</p>
+<example class="bd-example-row">
+<div class="row g-0 text-center">
+  <div class="col-sm-6 col-md-8">.col-sm-6 .col-md-8</div>
+  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+</div>
+</example>
+
+<h2>Change the gutters</h2>
+<p>The gutter classes use the same scale as the <a href="../../utilities/spacing/">spacing utilities</a>: <code>0</code>, <code>.25rem</code>, <code>.5rem</code>, <code>1rem</code>, <code>1.5rem</code> and <code>3rem</code>. They set two custom properties on the row, <code>--gutter-x</code> and <code>--gutter-y</code>, which you can also set yourself for any other width:</p>
+<codeblock lang="css">
+.row-roomy {
+  --gutter-x: 2rem;
+  --gutter-y: 2rem;
+}
+</codeblock>

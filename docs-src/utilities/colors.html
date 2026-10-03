@@ -1,0 +1,75 @@
+<!--
+title: Colors
+description: Convey meaning through color with a handful of color utility classes. Includes support for styling links with hover states, too.
+-->
+<div class="bd-callout bd-callout-warning">
+  <p><strong>Accessibility tip:</strong> Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies like screen readers. Please ensure the meaning is obvious from the content itself (e.g., the visible text with a sufficient color contrast) or is included through alternative means, such as additional text hidden with the <code>.visually-hidden</code> class.</p>
+</div>
+
+<h2>Colors</h2>
+<p>Colorize text with color utilities. If you want to colorize links, you can use the <a href="../../helpers/colored-links/"><code>.link-*</code> helper classes</a> which have <code>:hover</code> and <code>:focus</code> states.</p>
+<div class="bd-callout bd-callout-info">
+  <p>All color utilities respond to color modes. The six tinted <code>.text-*</code> colors use a darker tone of their theme color (<code>--primary-text</code> and friends) that reads as text on the page, so <code>.text-warning</code> and <code>.text-info</code> need no dark background. <code>.text-light</code> and <code>.text-dark</code> use the <code>--light</code> and <code>--dark</code> fills and are meant for text on a contrasting background; both are dark in dark mode.</p>
+</div>
+<example>
+<p class="text-primary">.text-primary</p>
+<p class="text-primary-emphasis">.text-primary-emphasis</p>
+<p class="text-secondary">.text-secondary</p>
+<p class="text-secondary-emphasis">.text-secondary-emphasis</p>
+<p class="text-success">.text-success</p>
+<p class="text-success-emphasis">.text-success-emphasis</p>
+<p class="text-danger">.text-danger</p>
+<p class="text-danger-emphasis">.text-danger-emphasis</p>
+<p class="text-warning">.text-warning</p>
+<p class="text-warning-emphasis">.text-warning-emphasis</p>
+<p class="text-info">.text-info</p>
+<p class="text-info-emphasis">.text-info-emphasis</p>
+<p class="text-light bg-dark">.text-light</p>
+<p class="text-light-emphasis">.text-light-emphasis</p>
+<p class="text-dark bg-white">.text-dark</p>
+<p class="text-dark-emphasis">.text-dark-emphasis</p>
+
+<p class="text-body">.text-body</p>
+<p class="text-body-emphasis">.text-body-emphasis</p>
+<p class="text-body-secondary">.text-body-secondary</p>
+<p class="text-body-tertiary">.text-body-tertiary</p>
+
+<p class="text-black bg-white">.text-black</p>
+<p class="text-white bg-dark">.text-white</p>
+<p class="text-black-50 bg-white">.text-black-50</p>
+<p class="text-white-50 bg-dark">.text-white-50</p>
+</example>
+<div class="bd-callout bd-callout-warning">
+  <p><strong>Deprecated in Bootstrap:</strong> <code>.text-black-50</code> and <code>.text-white-50</code> are superseded by the <code>.text-opacity-*</code> utilities, and <code>.text-muted</code> by <code>.text-body-secondary</code>. felt-css keeps them for compatibility; <code>.text-muted</code> is the same color as <code>.text-body-secondary</code>.</p>
+</div>
+<p>Two more helpers: <code>.text-reset</code> makes an element inherit the color of its parent, and <code>.text-white</code> and <code>.text-black</code> set a fixed color in both color modes.</p>
+
+<h2>Opacity</h2>
+<p>Text color utilities use CSS variables. This allows for real-time color changes and dynamic alpha transparency changes.</p>
+
+<h3>How it works</h3>
+<p>Consider the default <code>.text-primary</code> utility.</p>
+<codeblock lang="css">
+.text-primary {
+  --text-opacity: 1;
+  color: color-mix(in srgb, var(--primary-text) calc(var(--text-opacity) * 100%), transparent) !important;
+}
+</codeblock>
+<p>The color is faded with <code>color-mix()</code> by a second CSS variable, <code>--text-opacity</code>, for the alpha transparency (with a default value <code>1</code> thanks to a local CSS variable). The local CSS variable inside each <code>.text-*</code> class avoids inheritance issues so nested instances of the utilities don't automatically have a modified alpha transparency.</p>
+
+<h3>Example</h3>
+<p>To change that opacity, override <code>--text-opacity</code> via custom styles or inline styles.</p>
+<example>
+<div class="text-primary">This is default primary text</div>
+<div class="text-primary" style="--text-opacity: .5;">This is 50% opacity primary text</div>
+</example>
+<p>Or, choose from any of the <code>.text-opacity</code> utilities:</p>
+<example>
+<div class="text-primary">This is default primary text</div>
+<div class="text-primary text-opacity-75">This is 75% opacity primary text</div>
+<div class="text-primary text-opacity-50">This is 50% opacity primary text</div>
+<div class="text-primary text-opacity-25">This is 25% opacity primary text</div>
+</example>
+
+<h2>Specificity</h2>
+<p>Sometimes contextual classes cannot be applied due to the specificity of another selector. In some cases, a sufficient workaround is to wrap your element's content in a <code>&lt;div&gt;</code> or more semantic element with the desired class.</p>

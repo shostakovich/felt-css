@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog example · felt-css</title>
+  <meta name="description" content="A personal blog built with felt-css: featured posts, an article with prose, a sidebar and pagination.">
+  <link rel="icon" href="../../assets/plush/icon_sonne.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+  <style>
+    img[src*="plush/"] { object-fit: contain; }
+    .blog-title { font-size: clamp(2rem, 6vw, 3rem); font-weight: 800; letter-spacing: -.02em; }
+    .blog-post { font-size: 1.0625rem; line-height: 1.7; }
+    .blog-post h2 { margin-top: var(--space-5); }
+    .blog-post h3 { margin-top: var(--space-4); }
+    .blog-meta { color: var(--muted); font-size: .9375rem; }
+    .blog-thumb { width: 6rem; height: 6rem; flex-shrink: 0; }
+    .blog-avatar { width: 4rem; height: 4rem; }
+    .blog-hero-img { min-height: 16rem; }
+    @media (min-width: 992px) { .blog-sidebar { top: var(--space-3); } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 pt-3 small">
+      <a href="../" class="link-secondary">← Examples</a>
+      <div class="d-flex flex-wrap gap-2">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+          <input type="radio" class="btn-check" name="look" id="look-felt" value="felt" autocomplete="off">
+          <label class="btn btn-outline-primary" for="look-felt">Felt</label>
+          <input type="radio" class="btn-check" name="look" id="look-clean" value="clean" autocomplete="off">
+          <label class="btn btn-outline-primary" for="look-clean">Clean</label>
+        </div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+          <input type="radio" class="btn-check" name="theme" id="theme-light" value="light" autocomplete="off">
+          <label class="btn btn-outline-primary" for="theme-light">Light</label>
+          <input type="radio" class="btn-check" name="theme" id="theme-dark" value="dark" autocomplete="off">
+          <label class="btn btn-outline-primary" for="theme-dark">Dark</label>
+          <input type="radio" class="btn-check" name="theme" id="theme-auto" value="auto" autocomplete="off">
+          <label class="btn btn-outline-primary" for="theme-auto">Auto</label>
+        </div>
+      </div>
+    </div>
+
+    <header class="text-center py-4 py-md-5">
+      <a href="#" class="text-reset text-decoration-none"><span class="blog-title d-inline-flex align-items-center gap-2"><img src="../../assets/plush/icon_sonne.webp" width="56" height="56" alt=""> Loose Threads</span></a>
+      <p class="text-body-secondary mb-4">Notes on code, small apps and things made by hand.</p>
+      <nav aria-label="Blog sections">
+        <ul class="nav nav-underline justify-content-center">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Writing</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Reading</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+        </ul>
+      </nav>
+    </header>
+  </div>
+
+  <main class="container pb-5">
+    <article class="card overflow-hidden mb-4">
+      <div class="row g-0">
+        <div class="col-md-7">
+          <img src="../../sample-photo.webp" class="w-100 h-100 object-fit-cover blog-hero-img" alt="A felt sun with a smiling face on a sunny windowsill next to a cup of tea">
+        </div>
+        <div class="col-md-5 d-flex">
+          <div class="card-body d-flex flex-column justify-content-center p-4 p-lg-5">
+            <span class="badge text-bg-warning align-self-start mb-3">Featured</span>
+            <h2 class="display-4 mb-3">A felt sun for grey mornings</h2>
+            <p class="lead text-body-secondary">How a plush sun on the windowsill became the icon set for my smart-home dashboard, and why soft things make better buttons.</p>
+            <a href="#" class="icon-link fw-semibold">Continue reading <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <div class="row g-4 mb-5">
+      <div class="col-md-6">
+        <article class="card h-100">
+          <div class="card-body d-flex gap-3">
+            <div class="flex-grow-1">
+              <p class="small fw-semibold text-success-emphasis mb-2">Reading</p>
+              <h3 class="h2 mb-1"><a href="#" class="stretched-link link-body-emphasis text-decoration-none">Reading slowly, on purpose</a></h3>
+              <p class="small text-body-secondary mb-2">12 September 2026</p>
+              <p class="card-text">A short book about doing one thing at a time, read one chapter per evening.</p>
+            </div>
+            <img src="../../sample-cover.webp" width="96" height="144" class="rounded object-fit-cover d-none d-sm-block" alt="Book cover: a moon and stars cut from felt">
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6">
+        <article class="card h-100">
+          <div class="card-body d-flex gap-3">
+            <div class="flex-grow-1">
+              <p class="small fw-semibold text-primary-emphasis mb-2">Projects</p>
+              <h3 class="h2 mb-1"><a href="#" class="stretched-link link-body-emphasis text-decoration-none">Splitting the grocery bill without a spreadsheet</a></h3>
+              <p class="small text-body-secondary mb-2">28 August 2026</p>
+              <p class="card-text">Our flat's tiny shared-expenses app: three people, one list, zero arguments.</p>
+            </div>
+            <img src="../../assets/plush/nav_reports.webp" width="96" height="96" class="d-none d-sm-block" alt="">
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="row g-4 g-lg-5">
+      <div class="col-lg-8">
+        <article class="blog-post">
+          <p class="small fw-semibold text-uppercase text-body-secondary mb-2">From the workbench</p>
+          <h2 class="display-4 mt-0 mb-2">Sewing a stylesheet from felt</h2>
+          <p class="blog-meta mb-4">3 October 2026 · Robert · 6 min read</p>
+
+          <p class="lead">For years every little app I built looked like every other little app. This summer I tried something different: what if the buttons looked like they were cut from wool and sewn on by hand?</p>
+          <p>It started as a joke on a rainy Sunday. I had photographed a scrap of grey felt for a birthday card, and on a whim I dropped it into a stylesheet as a background on a primary button. It looked <em>ridiculous</em>. It also looked warm, and I couldn't stop smiling at it.</p>
+
+          <h2>Two kinds of felt</h2>
+          <p>The trick that made it work was to stop treating every surface the same way. Real felt comes in two moods, and so does the stylesheet:</p>
+          <ul>
+            <li><strong>Patches</strong> are the saturated pieces: buttons, badges and the coloured tiles on my dashboard. They get a soft cut edge and a little shadow.</li>
+            <li><strong>Sheets</strong> are the quiet, cream-coloured surfaces: the page, cards and alerts. Flat, calm, and easy to read on.</li>
+          </ul>
+          <p>Keeping those apart is what stops the whole thing from turning into a craft-fair explosion.</p>
+
+          <figure class="figure my-3">
+            <img src="../../felt.webp" class="figure-img img-fluid rounded" width="1200" height="927" alt="Buttons, cards and form controls in the felt look">
+            <figcaption class="figure-caption">The first page that looked right: buttons, cards and form fields, all cut from the same sheet.</figcaption>
+          </figure>
+
+          <h2>The seams are real thread</h2>
+          <p>The stitches around each card come from a single photo of a running stitch, cut into a nine-slice frame. A blend mode tints the thread to match whatever it is sewn onto, so it is always a shade lighter on colour and a shade darker on cream.</p>
+          <figure class="my-4 border-start border-4 border-warning ps-3">
+            <blockquote class="blockquote">
+              <p>Make it soft enough that people want to touch it, and plain enough that they still know where to click.</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">A note to myself, taped above the desk</figcaption>
+          </figure>
+
+          <h3>Nothing moves</h3>
+          <p>My one hard rule: switching between the felt look and the clean look must not move a single pixel. Felt only changes colours, textures, shadows and seams, never padding or fonts. In practice that means every felt rule lives in its own cascade layer:</p>
+          <pre><code>@layer felt {
+  :where([data-look="felt"]) .btn-primary {
+    background-image: var(--felt);
+    background-blend-mode: soft-light;
+  }
+}</code></pre>
+          <p>Because the selector is wrapped in <code>:where()</code>, it has no specificity at all, and anything you write yourself wins. Press <kbd>Ctrl</kbd> + <kbd>R</kbd> with <code>?look=clean</code> in the address bar and the same page comes back in plain cotton.</p>
+
+          <h3>What I'd do again</h3>
+          <ol>
+            <li>Start with one component and live with it for a week.</li>
+            <li>Photograph real materials instead of drawing textures.</li>
+            <li>Check contrast in dark mode <mark>before</mark> falling in love with a colour.</li>
+          </ol>
+          <hr class="my-5">
+          <div class="d-flex flex-wrap gap-2">
+            <a href="#" class="badge text-bg-light text-decoration-none">css</a>
+            <a href="#" class="badge text-bg-light text-decoration-none">design</a>
+            <a href="#" class="badge text-bg-light text-decoration-none">felt</a>
+            <a href="#" class="badge text-bg-light text-decoration-none">side projects</a>
+          </div>
+        </article>
+
+        <h2 class="h3 mt-5 mb-3">Earlier posts</h2>
+        <div class="list-group mb-4">
+          <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3">
+            <img src="../../assets/plush/solakon_battery_charging.webp" class="blog-thumb object-fit-contain rounded bg-body-tertiary" alt="">
+            <div>
+              <h3 class="h4 mb-1">A balcony battery, one year later</h3>
+              <p class="small text-body-secondary mb-1">19 August 2026</p>
+              <p class="mb-0">214 cycles, two firmware updates and one very confused cat.</p>
+            </div>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3">
+            <img src="../../assets/plush/weather_rain_day.webp" class="blog-thumb object-fit-contain rounded bg-body-tertiary" alt="">
+            <div>
+              <h3 class="h4 mb-1">Teaching the dashboard to read the weather</h3>
+              <p class="small text-body-secondary mb-1">2 August 2026</p>
+              <p class="mb-0">When rain is coming, the laundry reminder politely stays quiet.</p>
+            </div>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3">
+            <img src="../../assets/plush/lamp_generic_on.webp" class="blog-thumb object-fit-contain rounded bg-body-tertiary" alt="">
+            <div>
+              <h3 class="h4 mb-1">Lamps that know when it's bedtime</h3>
+              <p class="small text-body-secondary mb-1">14 July 2026</p>
+              <p class="mb-0">A gentle evening scene in eleven lines of Ruby.</p>
+            </div>
+          </a>
+        </div>
+
+        <nav aria-label="Older and newer posts">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled"><span class="page-link">Newer</span></li>
+            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Older</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="col-lg-4">
+        <aside class="blog-sidebar sticky-lg-top vstack gap-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <img src="../../sample-photo.webp" class="blog-avatar rounded-circle object-fit-cover" alt="">
+                <div>
+                  <h2 class="h3 mb-0">Hi, I'm Robert</h2>
+                  <span class="small text-body-secondary">Developer, tinkerer, tea drinker</span>
+                </div>
+              </div>
+              <p class="card-text">I build small apps for my own home: a dashboard for the solar panels, a kitty for the flat, and this blog. Sometimes they end up made of felt.</p>
+              <a href="#" class="btn btn-sm btn-outline-primary">More about me</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Archive</div>
+            <div class="list-group list-group-flush">
+              <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">October 2026 <span class="badge rounded-pill text-bg-primary">1</span></a>
+              <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">September 2026 <span class="badge rounded-pill text-bg-light">4</span></a>
+              <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">August 2026 <span class="badge rounded-pill text-bg-light">3</span></a>
+              <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">July 2026 <span class="badge rounded-pill text-bg-light">2</span></a>
+              <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">June 2026 <span class="badge rounded-pill text-bg-light">5</span></a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h2 class="h3">New posts by email</h2>
+              <p class="card-text small">About once a month. No tracking, unsubscribe any time.</p>
+              <form class="input-group" onsubmit="event.preventDefault()">
+                <input type="email" class="form-control" placeholder="you@example.com" aria-label="Email address">
+                <button class="btn btn-primary" type="submit">Subscribe</button>
+              </form>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-top py-4">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3 small text-body-secondary">
+      <span>© 2026 Loose Threads · Made with felt-css</span>
+      <ul class="nav">
+        <li class="nav-item"><a class="nav-link px-2" href="#">RSS</a></li>
+        <li class="nav-item"><a class="nav-link px-2" href="#">Imprint</a></li>
+        <li class="nav-item"><a class="nav-link px-2" href="#">Back to top</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

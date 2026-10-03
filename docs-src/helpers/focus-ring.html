@@ -1,0 +1,49 @@
+<!--
+title: Focus ring
+description: Utility classes that allows you to add and modify custom focus ring styles to elements and components.
+-->
+<p>The <code>.focus-ring</code> helper removes the default <code>outline</code> on <code>:focus</code>, replacing it with a <code>box-shadow</code> that can be more broadly customized. The new shadow is made up of a series of CSS variables that can be modified for any element or component.</p>
+
+<h2>Example</h2>
+<p>Click directly on the link below to see the focus ring in action, or into the example below and then press <kbd>Tab</kbd>.</p>
+<example>
+<a href="#" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
+  Custom focus ring
+</a>
+</example>
+
+<h2>Customize</h2>
+<p>Modify the styling of a focus ring with CSS variables, utilities, or custom styles.</p>
+
+<h3>CSS variables</h3>
+<p>Modify the <code>--focus-ring-*</code> CSS variables as needed to change the default appearance.</p>
+<example>
+<a href="#" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2" style="--focus-ring-color: color-mix(in srgb, var(--success) 25%, transparent)">
+  Green focus ring
+</a>
+</example>
+<p><code>.focus-ring</code> reads these variables, which can be set on the element or on any parent element:</p>
+<ul>
+  <li><code>--focus-ring-color</code>, defaults to <code>var(--focus)</code>, the half-transparent primary used by all focus states</li>
+  <li><code>--focus-ring-width</code>, defaults to <code>.25rem</code></li>
+  <li><code>--focus-ring-x</code>, <code>--focus-ring-y</code> and <code>--focus-ring-blur</code>, all defaulting to <code>0</code></li>
+</ul>
+<p>Modify the offset and blur to change the default appearance.</p>
+<example>
+<a href="#" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2" style="--focus-ring-x: 10px; --focus-ring-y: 10px; --focus-ring-blur: 4px">
+  Blurry offset focus ring
+</a>
+</example>
+
+<h3>Utilities</h3>
+<p>In addition to <code>.focus-ring</code>, there are several <code>.focus-ring-*</code> utilities to modify the helper class defaults. Modify the color with any of the theme colors. Note that the light and dark variants may not be visible on all background colors given current color mode support.</p>
+<example>
+<p><a href="#" class="d-inline-flex focus-ring focus-ring-primary py-1 px-2 text-decoration-none border rounded-2">Primary focus</a></p>
+<p><a href="#" class="d-inline-flex focus-ring focus-ring-secondary py-1 px-2 text-decoration-none border rounded-2">Secondary focus</a></p>
+<p><a href="#" class="d-inline-flex focus-ring focus-ring-success py-1 px-2 text-decoration-none border rounded-2">Success focus</a></p>
+<p><a href="#" class="d-inline-flex focus-ring focus-ring-danger py-1 px-2 text-decoration-none border rounded-2">Danger focus</a></p>
+<p><a href="#" class="d-inline-flex focus-ring focus-ring-warning py-1 px-2 text-decoration-none border rounded-2">Warning focus</a></p>
+<p><a href="#" class="d-inline-flex focus-ring focus-ring-info py-1 px-2 text-decoration-none border rounded-2">Info focus</a></p>
+<p><a href="#" class="d-inline-flex focus-ring focus-ring-light py-1 px-2 text-decoration-none border rounded-2">Light focus</a></p>
+<p><a href="#" class="d-inline-flex focus-ring focus-ring-dark py-1 px-2 text-decoration-none border rounded-2">Dark focus</a></p>
+</example>

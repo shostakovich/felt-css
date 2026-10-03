@@ -1,0 +1,320 @@
+<!--
+title: Reboot
+description: Reboot, a small set of element-specific CSS changes at the top of felt.css, provides a simple, consistent baseline to build upon.
+-->
+<h2>Approach</h2>
+<p>Like Bootstrap's Reboot, felt-css gives many HTML elements somewhat opinionated styles using only element selectors. Additional styling is done only with classes. For example, <code>&lt;table&gt;</code>s get a simpler baseline, and <code>.table</code>, <code>.table-bordered</code>, and more come on top.</p>
+<p>felt-css's Reboot is smaller than Bootstrap's and doesn't build on Normalize. It lives in two <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@layer">cascade layers</a> at the top of <code>felt.css</code>: <code>reset</code> (a handful of resets) and <code>base</code> (page defaults and prose). Because every later layer and all un-layered CSS win over them, your own styles override Reboot without any specificity fights.</p>
+<p>Guidelines it follows:</p>
+<ul>
+  <li>Avoid <code>margin-top</code>. Vertical margins can collapse, yielding unexpected results.</li>
+  <li>Block elements use <code>rem</code>s for their <code>margin</code>s, for easier scaling.</li>
+  <li>Keep declarations of <code>font</code>-related properties to a minimum, using <code>inherit</code> whenever possible.</li>
+  <li>Colours come from custom properties on <code>:root</code> (<code>--text</code>, <code>--body-bg</code>, <code>--link</code>…), so everything follows the look and the color mode.</li>
+</ul>
+
+<h2>Page defaults</h2>
+<p>The <code>&lt;html&gt;</code> and <code>&lt;body&gt;</code> elements are updated to provide better page-wide defaults. More specifically:</p>
+<ul>
+  <li>The <code>box-sizing</code> is globally set on every element—including <code>*::before</code> and <code>*::after</code>, to <code>border-box</code>.</li>
+  <li>The <code>&lt;body&gt;</code> loses its default margin.</li>
+  <li>No base <code>font-size</code> is declared on the <code>&lt;html&gt;</code> or the <code>&lt;body&gt;</code>; the browser's default (typically <code>16px</code>) applies, so visitors can change it.</li>
+  <li>The <code>&lt;body&gt;</code> sets a global <code>font-family</code> (<code>--font</code>), <code>line-height: 1.5</code>, <code>color</code> (<code>--text</code>) and font smoothing.</li>
+  <li>The <code>&lt;body&gt;</code> also has a declared <code>background</code>: <code>--body-bg</code>, a very light grey in the clean look and cream felt in the felt look (charcoal in dark mode). Cards and other surfaces sit on it in <code>--surface</code>.</li>
+  <li><code>&lt;img&gt;</code> and <code>&lt;svg&gt;</code> get <code>max-width: 100%</code> and <code>vertical-align: middle</code>, so images never overflow their container, even without <a href="../images/"><code>.img-fluid</code></a>.</li>
+  <li>Every focusable element gets a visible focus ring on <code>:focus-visible</code>: a 3px outline in <code>--focus</code> (a translucent primary), 2px away from the element.</li>
+</ul>
+
+<h2>Native font stack</h2>
+<p>felt-css uses a "native font stack" or "system font stack" for optimum text rendering on every device and OS:</p>
+
+<codeblock lang="css">
+--font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+--font-heading: var(--font);
+--font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+</codeblock>
+
+<p>Override these custom properties on <code>:root</code> to change the typeface of the body, the headings or the code, everywhere at once.</p>
+
+<h2>Headings</h2>
+<p>All heading elements—<code>&lt;h1&gt;</code>—<code>&lt;h6&gt;</code> have their <code>margin-top</code> removed, <code>margin-bottom: .5rem</code> set, <code>line-height</code> tightened to <code>1.2</code> and a bold weight. They use <code>--font-heading</code> and inherit their <code>color</code>. See <a href="../typography/#headings">Typography</a> for the sizes.</p>
+
+<h2>Paragraphs</h2>
+<p>All <code>&lt;p&gt;</code> elements have their <code>margin-top</code> removed and <code>margin-bottom: 1rem</code> set for easy spacing.</p>
+
+<example>
+<p>This is an example paragraph.</p>
+</example>
+
+<h2>Links</h2>
+<p>Links have a default <code>color</code> (<code>--link</code>) and the browser's underline. They don't change based on whether someone <code>:visited</code> the link. On keyboard focus they show the global focus ring.</p>
+
+<example>
+<a href="#">This is an example link</a>
+</example>
+
+<p>Link <code>color</code> is mixed with transparency through the <code>--link-opacity</code> custom property (Bootstrap's <code>--bs-link-opacity</code>), so you can change the opacity of a link's colour:</p>
+
+<example>
+<a href="#" style="--link-opacity: .5">This is an example link</a>
+</example>
+
+<p>Placeholder links—those without an <code>href</code>—keep the link colour but, as in every browser, lose the underline and the pointer cursor. felt-css doesn't reset their colour.</p>
+
+<example>
+<a>This is a placeholder link</a>
+</example>
+
+<h2>Horizontal rules</h2>
+<p>The <code>&lt;hr&gt;</code> element has been simplified. Similar to browser defaults, <code>&lt;hr&gt;</code>s are styled via <code>border-top</code>, have a default <code>opacity: .25</code>, and automatically inherit their <code>border-color</code> via <code>color</code>, including when <code>color</code> is set via the parent.</p>
+
+<example>
+<hr>
+
+<div class="text-success">
+  <hr>
+</div>
+
+<hr class="border border-danger border-2 opacity-50">
+<hr class="border border-primary border-3 opacity-75">
+</example>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look, an <code>&lt;hr&gt;</code> is a row of running stitches instead of a line, in a darker tone of the felt underneath, so a <code>color</code> set on it or its parent doesn't tint it. With border utilities you get a plain coloured line, as in the clean look.</p>
+</div>
+
+<h2>Lists</h2>
+<p>All lists—<code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, and <code>&lt;dl&gt;</code>—have their <code>margin-top</code> removed and a <code>margin-bottom: 1rem</code>. Nested lists have no <code>margin-bottom</code>. The <code>padding-left</code> on <code>&lt;ul&gt;</code> and <code>&lt;ol&gt;</code> is set to <code>2rem</code>.</p>
+
+<example>
+<ul>
+  <li>All lists have their top margin removed</li>
+  <li>And their bottom margin normalized</li>
+  <li>Nested lists have no bottom margin
+    <ul>
+      <li>This way they have a more even appearance</li>
+      <li>Particularly when followed by more list items</li>
+    </ul>
+  </li>
+  <li>The left padding has also been reset</li>
+</ul>
+
+<ol>
+  <li>Here's an ordered list</li>
+  <li>With a few list items</li>
+  <li>It has the same overall look</li>
+  <li>As the previous unordered list</li>
+</ol>
+</example>
+
+<p>For simpler styling, clear hierarchy, and better spacing, description lists have updated <code>margin</code>s. <code>&lt;dd&gt;</code>s reset <code>margin-left</code> to <code>0</code> and add <code>margin-bottom: .5rem</code>. <code>&lt;dt&gt;</code>s are <strong>bolded</strong>.</p>
+
+<example>
+<dl>
+  <dt>Description lists</dt>
+  <dd>A description list is perfect for defining terms.</dd>
+  <dt>Term</dt>
+  <dd>Definition for the term.</dd>
+  <dd>A second definition for the same term.</dd>
+  <dt>Another term</dt>
+  <dd>Definition for this other term.</dd>
+</dl>
+</example>
+
+<h2>Inline code</h2>
+<p>Wrap inline snippets of code with <code>&lt;code&gt;</code>. Be sure to escape HTML angle brackets. Inline code is set in <code>--font-mono</code> at <code>.875em</code> and coloured with <code>--danger-emphasis</code>.</p>
+
+<example>
+For example, <code>&lt;section&gt;</code> should be wrapped as inline.
+</example>
+
+<h2>Code blocks</h2>
+<p>Use <code>&lt;pre&gt;</code>s for multiple lines of code. Once again, be sure to escape any angle brackets in the code for proper rendering. The <code>&lt;pre&gt;</code> element is reset to remove its <code>margin-top</code> and use <code>rem</code> units for its <code>margin-bottom</code>. Unlike Bootstrap's, it is a padded, scrollable box with a sunken background, a border and rounded corners.</p>
+
+<example>
+<pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;
+&lt;p&gt;And another line of sample text here...&lt;/p&gt;
+</code></pre>
+</example>
+
+<h2>Variables</h2>
+<p>For indicating variables use the <code>&lt;var&gt;</code> tag.</p>
+
+<example>
+<var>y</var> = <var>m</var><var>x</var> + <var>b</var>
+</example>
+
+<h2>User input</h2>
+<p>Use the <code>&lt;kbd&gt;</code> to indicate input that is typically entered via keyboard. It's a small dark key cap; nested <code>&lt;kbd&gt;</code>s are bold.</p>
+
+<example>
+To switch directories, type <kbd>cd</kbd> followed by the name of the directory.<br>
+To edit settings, press <kbd><kbd>Ctrl</kbd> + <kbd>,</kbd></kbd>
+</example>
+
+<h2>Sample output</h2>
+<p>For indicating sample output from a program use the <code>&lt;samp&gt;</code> tag.</p>
+
+<example>
+<samp>This text is meant to be treated as sample output from a computer program.</samp>
+</example>
+
+<h2>Tables</h2>
+<p>Tables are slightly adjusted to style <code>&lt;caption&gt;</code>s (below the table, muted, left-aligned), collapse borders, and ensure consistent <code>text-align</code> throughout. Additional changes for borders, padding, and more come with <a href="../tables/">the <code>.table</code> class</a>.</p>
+
+<example>
+<table>
+  <caption>
+    This is an example table, and this is its caption to describe the contents.
+  </caption>
+  <thead>
+    <tr>
+      <th>Table heading</th>
+      <th>Table heading</th>
+      <th>Table heading</th>
+      <th>Table heading</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Table cell</td>
+      <td>Table cell</td>
+      <td>Table cell</td>
+      <td>Table cell</td>
+    </tr>
+    <tr>
+      <td>Table cell</td>
+      <td>Table cell</td>
+      <td>Table cell</td>
+      <td>Table cell</td>
+    </tr>
+    <tr>
+      <td>Table cell</td>
+      <td>Table cell</td>
+      <td>Table cell</td>
+      <td>Table cell</td>
+    </tr>
+  </tbody>
+</table>
+</example>
+
+<h2>Forms</h2>
+<p>Various form elements have been rebooted for simpler base styles. Here are some of the most notable changes:</p>
+<ul>
+  <li><code>&lt;fieldset&gt;</code>s have no borders, padding, or margin so they can be easily used as wrappers for individual inputs or groups of inputs.</li>
+  <li><code>&lt;legend&gt;</code>s, like fieldsets, have also been restyled to be displayed as a heading of sorts.</li>
+  <li><code>&lt;label&gt;</code>s are set to <code>display: inline-block</code> to allow <code>margin</code> to be applied.</li>
+  <li><code>&lt;input&gt;</code>s, <code>&lt;select&gt;</code>s, <code>&lt;textarea&gt;</code>s, and <code>&lt;button&gt;</code>s have their <code>margin</code> removed and inherit <code>font</code> and <code>color</code>.</li>
+  <li><code>&lt;textarea&gt;</code>s are modified to only be resizable vertically as horizontal resizing often "breaks" page layout.</li>
+  <li><code>&lt;button&gt;</code>s have <code>cursor: pointer</code>.</li>
+</ul>
+<p>These changes, and more, are demonstrated below.</p>
+
+<example>
+<form>
+  <fieldset>
+    <legend>Example legend</legend>
+    <p>
+      <label for="rebootInput">Example input</label>
+      <input type="text" id="rebootInput" placeholder="Example input">
+    </p>
+    <p>
+      <label for="rebootEmail">Example email</label>
+      <input type="email" id="rebootEmail" placeholder="test@example.com">
+    </p>
+    <p>
+      <label for="rebootSelect">Example select</label>
+      <select id="rebootSelect">
+        <option value="">Choose...</option>
+        <optgroup label="Option group 1">
+          <option value="">Option 1</option>
+          <option value="">Option 2</option>
+          <option value="">Option 3</option>
+        </optgroup>
+        <optgroup label="Option group 2">
+          <option value="">Option 4</option>
+          <option value="">Option 5</option>
+          <option value="">Option 6</option>
+        </optgroup>
+      </select>
+    </p>
+    <p>
+      <label>
+        <input type="checkbox" value="">
+        Check this checkbox
+      </label>
+    </p>
+    <p>
+      <label>
+        <input type="radio" name="rebootRadios" value="option1" checked>
+        Option one is this and that
+      </label>
+      <br>
+      <label>
+        <input type="radio" name="rebootRadios" value="option2">
+        Option two is something else that's also super long to demonstrate the wrapping of these fancy form controls.
+      </label>
+    </p>
+    <p>
+      <label for="rebootTextarea">Example textarea</label>
+      <textarea id="rebootTextarea" rows="3"></textarea>
+    </p>
+    <p>
+      <label for="rebootDate">Example date</label>
+      <input type="date" id="rebootDate">
+    </p>
+    <p>
+      <label for="rebootRange">Example range</label>
+      <input type="range" id="rebootRange" min="0" max="10">
+    </p>
+    <p>
+      <button type="submit">Button submit</button>
+      <input type="submit" value="Input submit button">
+      <input type="button" value="Input button">
+    </p>
+  </fieldset>
+</form>
+</example>
+
+<h2>Address</h2>
+<p>The <code>&lt;address&gt;</code> element is updated to reset the browser default <code>font-style</code> from <code>italic</code> to <code>normal</code>, and <code>margin-bottom: 1rem</code> has been added. <code>&lt;address&gt;</code>s are for presenting contact information.</p>
+
+<example>
+<address>
+  <strong>ACME Corporation</strong><br>
+  1123 Fictional St,<br>
+  San Francisco, CA 94103<br>
+  <abbr title="Phone">P:</abbr> (123) 456-7890
+</address>
+
+<address class="mb-0">
+  <strong>Full Name</strong><br>
+  <a href="mailto:first.last@example.com">first.last@example.com</a>
+</address>
+</example>
+
+<h2>Blockquote</h2>
+<p>The default <code>margin</code> on blockquotes is <code>1em 40px</code>, so we reset that to <code>0 0 1rem</code> for something more consistent with other elements.</p>
+
+<example>
+<blockquote>A well-known quote, contained in a blockquote element.</blockquote>
+</example>
+
+<h2>Inline elements</h2>
+<p>The <code>&lt;abbr&gt;</code> element receives basic styling to make it stand out amongst paragraph text: a dotted underline and a help cursor. <code>&lt;mark&gt;</code> gets a soft mustard highlight, <code>&lt;small&gt;</code> is <code>.875em</code>, and <code>&lt;sub&gt;</code>/<code>&lt;sup&gt;</code> no longer change the line height.</p>
+
+<example>
+The <abbr title="HyperText Markup Language">HTML</abbr> abbreviation element, some <mark>marked text</mark>, H<sub>2</sub>O and E = mc<sup>2</sup>.
+</example>
+
+<h2>Summary</h2>
+<p>felt-css doesn't restyle a bare <code>&lt;summary&gt;</code>; it keeps the browser's default cursor and marker. For a styled disclosure, use <code>&lt;details class="accordion-item"&gt;</code> (see the <a href="../../components/accordion/">accordion</a>).</p>
+
+<h2>HTML5 <code>[hidden]</code> attribute</h2>
+<p>HTML5 adds a new global attribute named <code>[hidden]</code>, which is styled as <code>display: none</code> by default. felt-css improves upon this default by making <code>[hidden] { display: none !important; }</code> to help prevent its <code>display</code> from getting accidentally overridden.</p>
+
+<codeblock lang="html">
+<input type="text" hidden>
+</codeblock>
+
+<p>To merely toggle the visibility of an element, meaning its <code>display</code> is not modified and the element can still affect the flow of the document, use <a href="../../utilities/visibility/">the <code>.invisible</code> class</a> instead.</p>

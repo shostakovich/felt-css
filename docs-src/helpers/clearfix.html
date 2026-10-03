@@ -1,0 +1,23 @@
+<!--
+title: Clearfix
+description: Quickly and easily clear floated content within a container by adding a clearfix utility.
+-->
+<p>Easily clear <code>float</code>s by adding <code>.clearfix</code> <strong>to the parent element</strong>.</p>
+<codeblock lang="html">
+<div class="clearfix">...</div>
+</codeblock>
+<p>It adds an empty block after the content that clears both sides:</p>
+<codeblock lang="css">
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+</codeblock>
+<p>The following example shows how the clearfix can be used. Without the clearfix the wrapping div would not span around the buttons which would cause a broken layout.</p>
+<example>
+<div class="bg-info clearfix">
+  <button type="button" class="btn btn-secondary float-start">Example Button floated left</button>
+  <button type="button" class="btn btn-secondary float-end">Example Button floated right</button>
+</div>
+</example>
