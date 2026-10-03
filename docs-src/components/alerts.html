@@ -1,0 +1,104 @@
+<!--
+title: Alerts
+description: Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.
+-->
+<h2>Examples</h2>
+<p>Alerts are available for any length of text, as well as an optional close button. For proper styling, use one of the eight <strong>required</strong> contextual classes (e.g., <code>.alert-success</code>). For inline dismissal, use Bootstrap's alerts JavaScript plugin.</p>
+
+<example>
+<div class="alert alert-primary" role="alert">
+  A simple primary alert—check it out!
+</div>
+<div class="alert alert-secondary" role="alert">
+  A simple secondary alert—check it out!
+</div>
+<div class="alert alert-success" role="alert">
+  A simple success alert—check it out!
+</div>
+<div class="alert alert-danger" role="alert">
+  A simple danger alert—check it out!
+</div>
+<div class="alert alert-warning" role="alert">
+  A simple warning alert—check it out!
+</div>
+<div class="alert alert-info" role="alert">
+  A simple info alert—check it out!
+</div>
+<div class="alert alert-light" role="alert">
+  A simple light alert—check it out!
+</div>
+<div class="alert alert-dark" role="alert">
+  A simple dark alert—check it out!
+</div>
+</example>
+
+<div class="bd-callout bd-callout-felt">
+  <p>Alerts are pieces of light felt, tinted with their colour and sewn onto the page with a running stitch. Like in Bootstrap, alerts stay subtle; for a solid fill use <a href="../../helpers/color-background/"><code>.text-bg-*</code></a>.</p>
+</div>
+
+<h3>Link color</h3>
+<p>Use the <code>.alert-link</code> utility class to quickly provide matching colored links within any alert.</p>
+
+<example>
+<div class="alert alert-primary" role="alert">
+  A simple primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+</div>
+<div class="alert alert-success" role="alert">
+  A simple success alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+</div>
+<div class="alert alert-danger" role="alert">
+  A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+</div>
+</example>
+
+<h3>Additional content</h3>
+<p>Alerts can also contain additional HTML elements like headings, paragraphs and dividers.</p>
+
+<example>
+<div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">Well done!</h4>
+  <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+  <hr>
+  <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+</div>
+</example>
+
+<h3>Icons</h3>
+<p>Similarly, you can use <a href="../../utilities/flex/">flexbox utilities</a> and any inline SVG icon to create alerts with icons.</p>
+
+<example>
+<div class="alert alert-warning d-flex align-items-center" role="alert">
+  <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 me-2" width="20" height="20" viewBox="0 0 16 16" fill="currentColor" role="img" aria-label="Warning:">
+    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+  </svg>
+  <div>
+    An example alert with an icon
+  </div>
+</div>
+</example>
+
+<h3>Dismissing</h3>
+<p>Using Bootstrap's alert JavaScript plugin, it's possible to dismiss any alert inline. Here's how:</p>
+<ul>
+  <li>Be sure you've loaded <a href="../../getting-started/javascript/">Bootstrap's JavaScript</a>.</li>
+  <li>Add a <a href="../close-button/">close button</a> and the <code>.alert-dismissible</code> class, which adds extra padding to the right of the alert and positions the close button.</li>
+  <li>On the close button, add the <code>data-bs-dismiss="alert"</code> attribute, which triggers the JavaScript functionality.</li>
+  <li>To animate alerts when dismissing them, be sure to add the <code>.fade</code> and <code>.show</code> classes.</li>
+</ul>
+
+<example>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+</example>
+
+<p>When an alert is dismissed, the element is completely removed from the page structure. If a keyboard user dismisses the alert using the close button, their focus will suddenly be lost. Listen for the <code>closed.bs.alert</code> event and move focus somewhere sensible.</p>
+
+<h2>JavaScript behavior</h2>
+<p>felt-css is CSS only; dismissing comes from Bootstrap's alert plugin. Methods (<code>close</code>, <code>dispose</code>, <code>getOrCreateInstance</code>) and events (<code>close.bs.alert</code>, <code>closed.bs.alert</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/alerts/#javascript-behavior">Bootstrap's alert documentation</a>.</p>
+
+<codeblock lang="js">
+const alert = bootstrap.Alert.getOrCreateInstance('#myAlert')
+alert.close()
+</codeblock>

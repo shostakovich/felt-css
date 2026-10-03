@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Felt and clean · felt-css</title>
+  <meta name="description" content="felt-css comes in two looks. One attribute on the html element switches between them, and nothing on the page moves when you do.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="../../../index.html">Kitchen sink</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Getting started</p>
+        <h1>Felt and clean</h1>
+        <p class="lead">felt-css comes in two looks. One attribute on the html element switches between them, and nothing on the page moves when you do.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/getting-started/looks.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#switching-looks">Switching looks</a><ul><li><a href="#remembering-the-choice">Remembering the choice</a></li></ul></li><li><a href="#how-the-felt-works">How the felt works</a><ul><li><a href="#two-felt-recipes">Two felt recipes</a></li><li><a href="#real-thread">Real thread</a></li><li><a href="#never-moves">Never moves</a></li><li><a href="#opt-out-friendly">Opt-out friendly</a></li></ul></li><li><a href="#weight">Weight</a></li><li><a href="#rebuilding-the-assets">Rebuilding the assets</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#switching-looks">Switching looks</a><ul><li><a href="#remembering-the-choice">Remembering the choice</a></li></ul></li><li><a href="#how-the-felt-works">How the felt works</a><ul><li><a href="#two-felt-recipes">Two felt recipes</a></li><li><a href="#real-thread">Real thread</a></li><li><a href="#never-moves">Never moves</a></li><li><a href="#opt-out-friendly">Opt-out friendly</a></li></ul></li><li><a href="#weight">Weight</a></li><li><a href="#rebuilding-the-assets">Rebuilding the assets</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="switching-looks">Switching looks<a class="bd-anchor" href="#switching-looks" aria-label="Link to this section">#</a></h2>
+<p>Without any attribute you get the <strong>clean</strong> look: flat surfaces, hairline borders, Bootstrap-like. Add <code>data-look="felt"</code> to the <code>&lt;html&gt;</code> element and the same page is cut from wool felt and sewn together.</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">html</span> <span class="tok-attr">lang</span><span class="tok-punct">=</span><span class="tok-val">"en"</span> <span class="tok-attr">data-look</span><span class="tok-punct">=</span><span class="tok-val">"felt"</span><span class="tok-punct">&gt;</span></code></pre></div>
+<p>Try it with the <strong>Felt / Clean</strong> switch at the top of this page: every example in these docs follows it.</p>
+
+<div class="row g-3 my-4">
+  <figure class="figure col-md-6 mb-0">
+    <img src="../../felt.webp" class="figure-img img-fluid rounded" width="1200" height="927" alt="A page in the felt look">
+    <figcaption class="figure-caption">Felt</figcaption>
+  </figure>
+  <figure class="figure col-md-6 mb-0">
+    <img src="../../clean.webp" class="figure-img img-fluid rounded" width="1200" height="927" alt="The same page in the clean look">
+    <figcaption class="figure-caption">Clean</figcaption>
+  </figure>
+</div>
+
+<div class="bd-callout bd-callout-warning">
+  <p>The look is a page-wide setting: the felt tokens hang off <code>:root[data-look="felt"]</code>, so put the attribute on <code>&lt;html&gt;</code>, not on a single section.</p>
+</div>
+
+<h3 id="remembering-the-choice">Remembering the choice<a class="bd-anchor" href="#remembering-the-choice" aria-label="Link to this section">#</a></h3>
+<p>felt-css doesn't store anything itself. If you offer a switch, set the attribute before the first paint so the page doesn't flash, for example with a tiny inline script in the <code>&lt;head&gt;</code> — this is what these docs do:</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">script</span><span class="tok-punct">&gt;</span>
+  (() =&gt; {
+    let look = null
+    try { look = localStorage.getItem('look') } catch {}
+    document.documentElement.dataset.look = look === 'clean' ? 'clean' : 'felt'
+  })()
+<span class="tok-punct">&lt;/</span><span class="tok-tag">script</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<h2 id="how-the-felt-works">How the felt works<a class="bd-anchor" href="#how-the-felt-works" aria-label="Link to this section">#</a></h2>
+<h3 id="two-felt-recipes">Two felt recipes<a class="bd-anchor" href="#two-felt-recipes" aria-label="Link to this section">#</a></h3>
+<p>Saturated pieces (buttons, stat tiles, badges, the active pagination item) are <em>patches</em>: a photo of grey felt blended <code>soft-light</code> onto the colour, a soft cut edge and a cast shadow. Light surfaces (page, cards, alerts, list groups) are quiet felt: a photo of cream felt blended <code>multiply</code>, flat, at the same fibre scale. In dark mode the sheet is charcoal felt.</p>
+<h3 id="real-thread">Real thread<a class="bd-anchor" href="#real-thread" aria-label="Link to this section">#</a></h3>
+<p>Seams are 9-slice images built from one photographed stitch and laid on with <code>border-image</code>. They're tinted with <code>mix-blend-mode: hard-light</code>, so the thread is always a tone of the felt underneath: lighter on colour, a shade darker on cream. Dividers inside a piece (card headers, table rows, <a href="../../helpers/vertical-rule/"><code>.vr</code></a>, <code>&lt;hr&gt;</code>) are single rows of stitches.</p>
+<h3 id="never-moves">Never moves<a class="bd-anchor" href="#never-moves" aria-label="Link to this section">#</a></h3>
+<p>The felt layer only changes colours, textures, shadows and seams — never padding, borders or fonts. Toggling the look doesn't shift a single pixel, so you can design in clean and switch to felt at the end, or let your users choose.</p>
+<h3 id="opt-out-friendly">Opt-out friendly<a class="bd-anchor" href="#opt-out-friendly" aria-label="Link to this section">#</a></h3>
+<p>All felt rules sit in <code>@layer felt</code> behind <code>:where([data-look="felt"])</code>, so they have zero specificity and your own CSS always wins. To keep one element flat, just style it.</p>
+
+<h2 id="weight">Weight<a class="bd-anchor" href="#weight" aria-label="Link to this section">#</a></h2>
+<p><code>felt.css</code> is about 33 KB gzipped. The felt photos and seam images in <code>img/</code> add about 42 KB and are only downloaded when the felt look is on.</p>
+
+<h2 id="rebuilding-the-assets">Rebuilding the assets<a class="bd-anchor" href="#rebuilding-the-assets" aria-label="Link to this section">#</a></h2>
+<p>The photos in <code>raw/</code> were drawn by an image model: grey felt, cream felt and a single running stitch. <code>tools/build_assets.py</code> turns them into the textures and seam frames in <code>img/</code> and writes the matching sizes into <code>felt.css</code>. Want chunkier stitches or rounder corners? Change <code>STITCH_CSS</code>, <code>GAP_CSS</code> or <code>SHAPES</code> at the top of the script and run it again.</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-sh">python3 tools/build_assets.py   <span class="tok-com"># needs numpy and ImageMagick</span></code></pre></div>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../getting-started/introduction/"><small>Previous</small>Introduction</a><a class="bd-pager-next" href="../../getting-started/color-modes/"><small>Next</small>Color modes</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

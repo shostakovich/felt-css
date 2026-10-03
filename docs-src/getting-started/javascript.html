@@ -1,0 +1,50 @@
+<!--
+title: JavaScript
+description: felt-css is CSS only. Interactive components get their behaviour from Bootstrap's own JavaScript, and a few work with no JavaScript at all.
+-->
+<h2>Bootstrap's bundle</h2>
+<p>felt-css styles the same classes and states Bootstrap's JavaScript sets (<code>.show</code>, <code>.collapsing</code>, <code>.active</code>, <code>.fade</code>…), so dropdowns, modals, offcanvas, tooltips, popovers, tabs, collapse and toasts work by including Bootstrap's bundle before <code>&lt;/body&gt;</code>. The bundle includes Popper for positioning dropdowns, tooltips and popovers.</p>
+<codeblock lang="html">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</codeblock>
+<p>Everything else — data attributes, options, methods, events — is Bootstrap's and documented in <a href="https://getbootstrap.com/docs/5.3/getting-started/javascript/">Bootstrap's JavaScript guide</a>. The component pages here link to the matching section.</p>
+
+<h3>Data attributes</h3>
+<p>Nearly all components can be driven from markup with <code>data-bs-*</code> attributes, without writing any JavaScript:</p>
+<example>
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJsExample" aria-expanded="false" aria-controls="collapseJsExample">
+  Toggle a collapse
+</button>
+<div class="collapse" id="collapseJsExample">
+  <div class="card card-body mt-3">
+    Opened by Bootstrap's collapse plugin, styled by felt-css.
+  </div>
+</div>
+</example>
+
+<h3>Opt-in components</h3>
+<p>As in Bootstrap, tooltips and popovers are opt-in for performance reasons, and toasts are shown from code. Initialise them yourself:</p>
+<codeblock lang="js">
+document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el))
+document.querySelectorAll('[data-bs-toggle="popover"]').forEach(el => new bootstrap.Popover(el))
+bootstrap.Toast.getOrCreateInstance(document.querySelector('#myToast')).show()
+</codeblock>
+
+<h2>No JavaScript needed</h2>
+<p>Some components have a native HTML variant in felt-css that works without any script:</p>
+<ul>
+  <li><strong>Accordion</strong> on <code>&lt;details class="accordion-item"&gt;</code> — see <a href="../../components/accordion/">Accordion</a>.</li>
+  <li><strong>Modal</strong> on <code>&lt;dialog class="modal"&gt;</code>, opened with <code>showModal()</code> — see <a href="../../components/modal/">Modal</a>.</li>
+  <li><strong>Floating labels</strong>, <strong>switches</strong>, <strong><code>.btn-check</code> toggles</strong> and <strong>validation states</strong> are pure CSS anyway.</li>
+</ul>
+<example>
+<div class="accordion">
+  <details class="accordion-item">
+    <summary class="accordion-button">What holds the felt together?</summary>
+    <div class="accordion-body">Thread, mostly. And a native <code>&lt;details&gt;</code> element — no script involved.</div>
+  </details>
+</div>
+</example>
+
+<h2>Reduced motion</h2>
+<p>felt-css turns its transitions off for visitors who ask for reduced motion (<code>prefers-reduced-motion: reduce</code>), like Bootstrap does.</p>

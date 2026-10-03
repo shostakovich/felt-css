@@ -1,0 +1,89 @@
+<!--
+title: Color
+description: felt-css keeps Bootstrap's colour meanings and dyes them like wool: denim, taupe, moss, tomato, mustard and petrol. Every colour is a custom property you can re-dye.
+-->
+<h2>Theme colors</h2>
+<p>Like Bootstrap, felt-css has eight theme colours with the usual meanings. Their tones are chosen to look good as felt and work flat too.</p>
+<example>
+<div class="row row-cols-2 row-cols-md-4 g-3">
+  <div class="col"><div class="p-3 rounded text-bg-primary">Primary · denim</div></div>
+  <div class="col"><div class="p-3 rounded text-bg-secondary">Secondary · taupe</div></div>
+  <div class="col"><div class="p-3 rounded text-bg-success">Success · moss</div></div>
+  <div class="col"><div class="p-3 rounded text-bg-danger">Danger · tomato</div></div>
+  <div class="col"><div class="p-3 rounded text-bg-warning">Warning · mustard</div></div>
+  <div class="col"><div class="p-3 rounded text-bg-info">Info · petrol</div></div>
+  <div class="col"><div class="p-3 rounded text-bg-light">Light</div></div>
+  <div class="col"><div class="p-3 rounded text-bg-dark">Dark</div></div>
+</div>
+</example>
+
+<p>Each colour comes as a small family of tokens, Bootstrap's <code>*-bg-subtle</code>, <code>*-border-subtle</code> and <code>*-text-emphasis</code> included:</p>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr><th>Token</th><th>Use</th><th>Classes that use it</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--primary</code></td><td>The fill: buttons, badges, progress bars, active items</td><td><code>.btn-primary</code>, <code>.bg-primary</code>, <code>.text-bg-primary</code></td></tr>
+      <tr><td><code>--primary-ink</code></td><td>Text on the fill, at least 4.5:1</td><td><code>.text-bg-primary</code>, <code>.btn-primary</code></td></tr>
+      <tr><td><code>--primary-subtle</code></td><td>A tint of the fill on the current surface</td><td><code>.bg-primary-subtle</code>, <code>.alert-primary</code></td></tr>
+      <tr><td><code>--primary-border-subtle</code></td><td>A border on that tint</td><td><code>.border-primary-subtle</code></td></tr>
+      <tr><td><code>--primary-emphasis</code></td><td>Text on the tint, at least 4.5:1</td><td><code>.text-primary-emphasis</code>, <code>.alert-primary</code></td></tr>
+      <tr><td><code>--primary-text</code></td><td>Coloured text directly on the page</td><td><code>.text-primary</code>, <code>.link-primary</code></td></tr>
+    </tbody>
+  </table>
+</div>
+<p>The same tokens exist for <code>secondary</code>, <code>success</code>, <code>danger</code>, <code>warning</code>, <code>info</code>, <code>light</code> and <code>dark</code> (light and dark have no <code>-text</code>).</p>
+
+<h2>Palette</h2>
+<p>The theme colours point at a small palette of wool dyes:</p>
+<example>
+<div class="row row-cols-2 row-cols-md-4 g-3 small">
+  <div class="col"><div class="p-3 rounded text-white" style="background: var(--denim)">--denim</div></div>
+  <div class="col"><div class="p-3 rounded text-white" style="background: var(--taupe)">--taupe</div></div>
+  <div class="col"><div class="p-3 rounded text-white" style="background: var(--moss)">--moss</div></div>
+  <div class="col"><div class="p-3 rounded text-white" style="background: var(--tomato)">--tomato</div></div>
+  <div class="col"><div class="p-3 rounded" style="background: var(--mustard); color: #3a2a06">--mustard</div></div>
+  <div class="col"><div class="p-3 rounded text-white" style="background: var(--petrol)">--petrol</div></div>
+  <div class="col"><div class="p-3 rounded text-white" style="background: var(--navy)">--navy</div></div>
+</div>
+</example>
+
+<h2>Light and dark</h2>
+<p>Theme tokens are written as <code>light-dark(light, dark)</code>. Dark mode mutes the fills a little, so they glare less and white ink stays readable:</p>
+<codeblock lang="css">
+:root {
+  --primary: light-dark(var(--denim), #385c93);
+  --primary-ink: #fff;
+  --primary-emphasis: light-dark(#26406a, #a9c4ee);
+}
+</codeblock>
+<p>Tints (<code>*-subtle</code>, <code>*-border-subtle</code>) are mixed from the fill and the current surface with <code>color-mix()</code>, so they follow the theme without a second value.</p>
+
+<h2>Re-dyeing</h2>
+<p>To change a colour, override its tokens in your own stylesheet. There's no build step: the whole sheet — buttons, alerts, focus rings, the felt patches — takes the new dye.</p>
+<codeblock lang="css">
+:root {
+  --primary: light-dark(#7a3d8f, #6c3780);       /* heather instead of denim */
+  --primary-ink: #fff;
+  --primary-emphasis: light-dark(#4d2259, #dcb5e8);
+  --primary-text: light-dark(#7a3d8f, #cfa2df);
+  --link: light-dark(var(--primary), #cfa2df);
+}
+</codeblock>
+<div class="bd-callout bd-callout-warning">
+  <p>Keep <code>*-ink</code> and <code>*-emphasis</code> readable when you change a fill: felt-css aims for at least 4.5:1 contrast for text on fills and on tints, in both modes.</p>
+</div>
+
+<h2>Surfaces and text</h2>
+<p>Neutral colours are tokens too. See <a href="../css-variables/">CSS variables</a> for the full list.</p>
+<example>
+<div class="row row-cols-1 row-cols-md-3 g-3 small">
+  <div class="col"><div class="p-3 rounded border" style="background: var(--body-bg)"><code>--body-bg</code> page</div></div>
+  <div class="col"><div class="p-3 rounded border" style="background: var(--surface)"><code>--surface</code> cards, fields</div></div>
+  <div class="col"><div class="p-3 rounded border" style="background: var(--surface-sunk)"><code>--surface-sunk</code> wells, code</div></div>
+  <div class="col"><div class="p-3 rounded border" style="background: var(--surface-raised)"><code>--surface-raised</code> raised</div></div>
+  <div class="col"><div class="p-3 rounded border" style="background: var(--surface-overlay)"><code>--surface-overlay</code> menus, modals</div></div>
+  <div class="col"><div class="p-3 rounded border" style="background: var(--field)"><code>--field</code> inputs</div></div>
+</div>
+</example>

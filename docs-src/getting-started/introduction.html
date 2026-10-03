@@ -1,0 +1,103 @@
+<!--
+title: Get started with felt-css
+description: felt-css is Bootstrap 5.3's class names and markup with a switchable wool-felt look. Link one stylesheet, add one attribute, and every card is cut from felt.
+-->
+<h2>Quick start</h2>
+<p>Get started by including felt.css in a plain HTML page. There is no build step and nothing to install.</p>
+<ol>
+  <li>
+    <p><strong>Copy the files.</strong> Put <code>felt.css</code> and the <code>img/</code> folder next to each other in your project. The stylesheet loads its felt photos and stitch images from <code>img/</code> relative to itself.</p>
+  </li>
+  <li>
+    <p><strong>Create a new <code>index.html</code></strong> with the HTML5 doctype and the responsive viewport meta tag.</p>
+<codeblock lang="html">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>felt-css demo</title>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+  </body>
+</html>
+</codeblock>
+  </li>
+  <li>
+    <p><strong>Link the stylesheet and pick a look.</strong> Add <code>data-look="felt"</code> to <code>&lt;html&gt;</code> for felt; leave it out for the clean look. Include Bootstrap's JavaScript bundle before <code>&lt;/body&gt;</code> if you use interactive components.</p>
+<codeblock lang="html">
+<!doctype html>
+<html lang="en" data-look="felt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>felt-css demo</title>
+    <link rel="stylesheet" href="felt.css">
+  </head>
+  <body>
+    <div class="container py-4">
+      <h1>Hello, world!</h1>
+      <button type="button" class="btn btn-primary">Sewn on by hand</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>
+</codeblock>
+  </li>
+  <li>
+    <p><strong>Hello, world!</strong> Open the page in your browser. From here on, use <a href="../../layout/grid/">Bootstrap's grid</a>, <a href="../../components/buttons/">components</a> and <a href="../../utilities/spacing/">utilities</a> exactly as you know them.</p>
+  </li>
+</ol>
+
+<h2>Straight from GitHub</h2>
+<p>If you don't want to copy files, jsDelivr serves the repository as is, images included. Pin a commit hash instead of <code>main</code> so the felt doesn't change under your feet.</p>
+<codeblock lang="html">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/shostakovich/felt-css@main/felt.css">
+</codeblock>
+
+<h2>What's in the box</h2>
+<p>felt-css covers most of Bootstrap 5.3, with Bootstrap's names and behaviour:</p>
+<ul>
+  <li><strong>Layout:</strong> <a href="../../layout/containers/">containers</a>, the <a href="../../layout/grid/">grid</a> (<code>.row</code>, <code>.col-*</code>, <code>.row-cols-*</code>, <code>.g-*</code>, <code>.offset-*</code>) and <a href="../../helpers/stacks/">stacks</a>.</li>
+  <li><strong>Content:</strong> <a href="../../content/reboot/">Reboot</a>-style base styles, <a href="../../content/typography/">typography</a>, <a href="../../content/tables/">tables</a>, <a href="../../content/images/">images</a> and <a href="../../content/figures/">figures</a>.</li>
+  <li><strong>Forms:</strong> <a href="../../forms/form-control/">controls</a>, <a href="../../forms/select/">selects</a>, <a href="../../forms/checks-radios/">checks, radios and switches</a>, <a href="../../forms/range/">range</a>, <a href="../../forms/input-group/">input groups</a>, <a href="../../forms/floating-labels/">floating labels</a> and <a href="../../forms/validation/">validation states</a>.</li>
+  <li><strong>Components:</strong> everything in the sidebar, from <a href="../../components/accordion/">accordion</a> to <a href="../../components/tooltips/">tooltips</a>, plus a felt-css extra, <a href="../../components/stat/">stat tiles</a>.</li>
+  <li><strong>Helpers and utilities:</strong> all of Bootstrap 5.3's, <code>!important</code> like there.</li>
+</ul>
+
+<div class="bd-callout bd-callout-info">
+  <p><strong>Not included:</strong> the <code>xl</code> and <code>xxl</code> breakpoints (felt-css stops at <code>lg</code>), carousel, card groups, scrollspy styling, <code>.was-validated</code> and the responsive offcanvas variants. There is no Sass: everything is plain CSS with custom properties.</p>
+</div>
+
+<h2>Important globals</h2>
+<p>Like Bootstrap, felt-css relies on a handful of global styles and settings.</p>
+<h3>HTML5 doctype</h3>
+<p>felt-css requires the HTML5 doctype. Without it, you'll see some funky and incomplete styling.</p>
+<h3>Viewport meta</h3>
+<p>felt-css is developed mobile first. Add the responsive viewport meta tag to your <code>&lt;head&gt;</code> so the breakpoints work on phones.</p>
+<codeblock lang="html">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</codeblock>
+<h3>Box-sizing</h3>
+<p>Every element uses <code>box-sizing: border-box</code>, so padding never changes an element's final width.</p>
+<h3>Reboot</h3>
+<p>felt-css ships a small reset and Reboot-like base layer for headings, prose, tables and forms. See <a href="../../content/reboot/">Reboot</a>.</p>
+<h3>Cascade layers</h3>
+<p>All of felt-css lives in cascade layers (<code>reset, tokens, base, components, utilities, felt</code>). Unlayered CSS always beats layered CSS, so your own stylesheet wins without any specificity fights.</p>
+
+<h2>Browser support</h2>
+<ul>
+  <li>felt-css needs <code>light-dark()</code>: Chrome 123, Safari 17.5 and Firefox 120 or newer. It also uses <code>:has()</code>, CSS nesting and cascade layers, which those versions all have.</li>
+  <li>It is built and checked in Chromium.</li>
+  <li>In Firefox, outline buttons fall back to tone-on-tone thread instead of thread in the button colour (no <code>-webkit-mask-box-image</code>).</li>
+  <li>Safari has not been tested yet.</li>
+</ul>
+
+<h2>Next steps</h2>
+<ul>
+  <li>Learn what the <a href="../looks/">felt look</a> does and how to switch it.</li>
+  <li>Turn on <a href="../color-modes/">dark mode</a>.</li>
+  <li>Wire up <a href="../javascript/">Bootstrap's JavaScript</a> for the interactive components.</li>
+  <li>Browse the <a href="../../examples/">examples</a> or the <a href="{{repo}}{{kitchen}}">kitchen sink</a> with every element on one page.</li>
+</ul>

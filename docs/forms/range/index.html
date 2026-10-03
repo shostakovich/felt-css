@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Range · felt-css</title>
+  <meta name="description" content="Use custom range inputs for consistent cross-browser styling and built-in customization.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="../../../index.html">Kitchen sink</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Forms</p>
+        <h1>Range</h1>
+        <p class="lead">Use custom range inputs for consistent cross-browser styling and built-in customization.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/forms/range.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#overview">Overview</a></li><li><a href="#filled-track">Filled track</a></li><li><a href="#disabled">Disabled</a></li><li><a href="#min-and-max">Min and max</a></li><li><a href="#steps">Steps</a></li><li><a href="#output-value">Output value</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#overview">Overview</a></li><li><a href="#filled-track">Filled track</a></li><li><a href="#disabled">Disabled</a></li><li><a href="#min-and-max">Min and max</a></li><li><a href="#steps">Steps</a></li><li><a href="#output-value">Output value</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="overview">Overview<a class="bd-anchor" href="#overview" aria-label="Link to this section">#</a></h2>
+<p>Create custom <code>&lt;input type="range"&gt;</code> controls with <code>.form-range</code>. The track (the background) and thumb (the value) are both styled to appear the same across browsers.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<label for="range1" class="form-label">Example range</label>
+<input type="range" class="form-range" id="range1">
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"range1"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Example range<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"range"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-range"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"range1"</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look, the track is a groove pressed into the felt and the thumb is a small primary felt patch with a cast shadow.</p>
+</div>
+
+<h2 id="filled-track">Filled track<a class="bd-anchor" href="#filled-track" aria-label="Link to this section">#</a></h2>
+<p>Unlike Bootstrap, felt-css can fill the track from the left up to the thumb. CSS can't read an input's value, so the filled part comes from the <code>--fill</code> custom property (default <code>0%</code>, i.e. no fill). Set it inline for a static value:</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<label for="rangeFill" class="form-label">Volume</label>
+<input type="range" class="form-range" id="rangeFill" value="70" style="--fill: 70%">
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"rangeFill"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Volume<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"range"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-range"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rangeFill"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"70"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--fill: 70%"</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>To follow the thumb while it's dragged, update <code>--fill</code> from JavaScript. This works for any <code>min</code>, <code>max</code> and <code>step</code>:</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">for</span> (<span class="tok-tag">const</span> range <span class="tok-tag">of</span> <span class="tok-tag">document</span>.querySelectorAll(<span class="tok-val">'.form-range'</span>)) {
+  <span class="tok-tag">const</span> update = () =&gt; {
+    <span class="tok-tag">const</span> min = +range.min || 0
+    <span class="tok-tag">const</span> max = range.max === <span class="tok-val">''</span> ? 100 : +range.max
+    range.style.setProperty(<span class="tok-val">'--fill'</span>, <span class="tok-val">`${(range.value - min) / (max - min) * 100}%`</span>)
+  }
+  range.addEventListener(<span class="tok-val">'input'</span>, update)
+  update()
+}</code></pre></div>
+
+<p>The ranges below this point on this page use exactly that script.</p>
+
+<h2 id="disabled">Disabled<a class="bd-anchor" href="#disabled" aria-label="Link to this section">#</a></h2>
+<p>Add the <code>disabled</code> boolean attribute on an input to give it a grayed out appearance, remove pointer events, and prevent focusing.</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-range">
+<label for="disabledRange" class="form-label">Disabled range</label>
+<input type="range" class="form-range" id="disabledRange" disabled>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"disabledRange"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Disabled range<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"range"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-range"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"disabledRange"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="min-and-max">Min and max<a class="bd-anchor" href="#min-and-max" aria-label="Link to this section">#</a></h2>
+<p>Range inputs have implicit values for <code>min</code> and <code>max</code>—<code>0</code> and <code>100</code>, respectively. You may specify new values for those using the <code>min</code> and <code>max</code> attributes.</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-range">
+<label for="range2" class="form-label">Example range</label>
+<input type="range" class="form-range" min="0" max="5" id="range2">
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"range2"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Example range<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"range"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-range"</span> <span class="tok-attr">min</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">max</span><span class="tok-punct">=</span><span class="tok-val">"5"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"range2"</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="steps">Steps<a class="bd-anchor" href="#steps" aria-label="Link to this section">#</a></h2>
+<p>By default, range inputs "snap" to integer values. To change this, you can specify a <code>step</code> value. In the example below, we double the number of steps by using <code>step="0.5"</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-range">
+<label for="range3" class="form-label">Example range</label>
+<input type="range" class="form-range" min="0" max="5" step="0.5" id="range3">
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"range3"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Example range<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"range"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-range"</span> <span class="tok-attr">min</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">max</span><span class="tok-punct">=</span><span class="tok-val">"5"</span> <span class="tok-attr">step</span><span class="tok-punct">=</span><span class="tok-val">"0.5"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"range3"</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="output-value">Output value<a class="bd-anchor" href="#output-value" aria-label="Link to this section">#</a></h2>
+<p>The value of the range input can be shown using the <code>output</code> element and a bit of JavaScript.</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-range">
+<label for="range4" class="form-label">Example range</label>
+<input type="range" class="form-range" min="0" max="100" value="50" id="range4">
+<output for="range4" id="rangeValue" aria-hidden="true"></output>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"range4"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Example range<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"range"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-range"</span> <span class="tok-attr">min</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">max</span><span class="tok-punct">=</span><span class="tok-val">"100"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"50"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"range4"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">output</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"range4"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rangeValue"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">output</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> rangeInput = <span class="tok-tag">document</span>.getElementById(<span class="tok-val">'range4'</span>)
+<span class="tok-tag">const</span> rangeOutput = <span class="tok-tag">document</span>.getElementById(<span class="tok-val">'rangeValue'</span>)
+
+rangeOutput.textContent = rangeInput.value
+rangeInput.addEventListener(<span class="tok-val">'input'</span>, () =&gt; {
+  rangeOutput.textContent = rangeInput.value
+})</code></pre></div>
+
+<script>
+for (const range of document.querySelectorAll('.bd-example-range .form-range')) {
+  const update = () => {
+    const min = +range.min || 0
+    const max = range.max === '' ? 100 : +range.max
+    range.style.setProperty('--fill', `${(range.value - min) / (max - min) * 100}%`)
+  }
+  range.addEventListener('input', update)
+  update()
+}
+{
+  const rangeInput = document.getElementById('range4')
+  const rangeOutput = document.getElementById('rangeValue')
+  rangeOutput.textContent = rangeInput.value
+  rangeInput.addEventListener('input', () => { rangeOutput.textContent = rangeInput.value })
+}
+</script>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../forms/checks-radios/"><small>Previous</small>Checks & radios</a><a class="bd-pager-next" href="../../forms/input-group/"><small>Next</small>Input group</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

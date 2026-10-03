@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Columns · felt-css</title>
+  <meta name="description" content="Learn how to modify columns with a handful of options for alignment, ordering, and offsetting thanks to the flexbox grid system. Plus, see how to use column classes to manage widths of non-grid elements.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="../../../index.html">Kitchen sink</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Layout</p>
+        <h1>Columns</h1>
+        <p class="lead">Learn how to modify columns with a handful of options for alignment, ordering, and offsetting thanks to the flexbox grid system. Plus, see how to use column classes to manage widths of non-grid elements.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/layout/columns.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#how-they-work">How they work</a></li><li><a href="#alignment">Alignment</a><ul><li><a href="#vertical-alignment">Vertical alignment</a></li><li><a href="#horizontal-alignment">Horizontal alignment</a></li><li><a href="#column-wrapping">Column wrapping</a></li><li><a href="#column-breaks">Column breaks</a></li></ul></li><li><a href="#reordering">Reordering</a><ul><li><a href="#order-classes">Order classes</a></li><li><a href="#offsetting-columns">Offsetting columns</a></li></ul></li><li><a href="#standalone-column-classes">Standalone column classes</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#how-they-work">How they work</a></li><li><a href="#alignment">Alignment</a><ul><li><a href="#vertical-alignment">Vertical alignment</a></li><li><a href="#horizontal-alignment">Horizontal alignment</a></li><li><a href="#column-wrapping">Column wrapping</a></li><li><a href="#column-breaks">Column breaks</a></li></ul></li><li><a href="#reordering">Reordering</a><ul><li><a href="#order-classes">Order classes</a></li><li><a href="#offsetting-columns">Offsetting columns</a></li></ul></li><li><a href="#standalone-column-classes">Standalone column classes</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<style>
+  .bd-example-row-flex-cols .row { min-height: 10rem; background-color: color-mix(in oklab, var(--primary) 6%, transparent); }
+</style>
+<div class="bd-callout bd-callout-info">
+  <p><strong>Heads up!</strong> Be sure to <a href="../grid/">read the Grid page</a> first before diving into how to modify and customize your grid columns.</p>
+</div>
+
+<h2 id="how-they-work">How they work<a class="bd-anchor" href="#how-they-work" aria-label="Link to this section">#</a></h2>
+<ul>
+  <li><strong>Columns build on the grid's flexbox architecture.</strong> Flexbox means we have options for changing individual columns and <a href="../grid/#row-columns">modifying groups of columns at the row level</a>. You choose how columns grow, shrink, or otherwise change.</li>
+  <li><strong>When building grid layouts, all content goes in columns.</strong> The hierarchy of the grid goes from <a href="../containers/">container</a> to row to column to your content. On rare occasions, you may combine content and column, but be aware there can be unintended consequences.</li>
+  <li><strong>felt-css includes predefined classes for creating fast, responsive layouts.</strong> With <a href="../breakpoints/">four breakpoints</a> and a dozen columns at each grid tier, there are dozens of classes already built for you to create your desired layouts.</li>
+</ul>
+
+<h2 id="alignment">Alignment<a class="bd-anchor" href="#alignment" aria-label="Link to this section">#</a></h2>
+<p>Use flexbox alignment utilities to vertically and horizontally align columns.</p>
+
+<h3 id="vertical-alignment">Vertical alignment<a class="bd-anchor" href="#vertical-alignment" aria-label="Link to this section">#</a></h3>
+<p>Change the vertical alignment with any of the responsive <code>align-items-*</code> classes.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row bd-example-row-flex-cols">
+<div class="container text-center">
+  <div class="row align-items-start">
+    <div class="col">
+      One of three columns
+    </div>
+    <div class="col">
+      One of three columns
+    </div>
+    <div class="col">
+      One of three columns
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container text-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row align-items-start"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+      One of three columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+      One of three columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+      One of three columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row bd-example-row-flex-cols">
+<div class="container text-center">
+  <div class="row align-items-center">
+    <div class="col">
+      One of three columns
+    </div>
+    <div class="col">
+      One of three columns
+    </div>
+    <div class="col">
+      One of three columns
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container text-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row align-items-center"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+      One of three columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+      One of three columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+      One of three columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row bd-example-row-flex-cols">
+<div class="container text-center">
+  <div class="row align-items-end">
+    <div class="col">
+      One of three columns
+    </div>
+    <div class="col">
+      One of three columns
+    </div>
+    <div class="col">
+      One of three columns
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container text-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row align-items-end"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+      One of three columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+      One of three columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+      One of three columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>Or, change the alignment of each column individually with any of the responsive <code>.align-self-*</code> classes.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row bd-example-row-flex-cols">
+<div class="container text-center">
+  <div class="row">
+    <div class="col align-self-start">
+      One of three columns
+    </div>
+    <div class="col align-self-center">
+      One of three columns
+    </div>
+    <div class="col align-self-end">
+      One of three columns
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container text-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col align-self-start"</span><span class="tok-punct">&gt;</span>
+      One of three columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col align-self-center"</span><span class="tok-punct">&gt;</span>
+      One of three columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col align-self-end"</span><span class="tok-punct">&gt;</span>
+      One of three columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="horizontal-alignment">Horizontal alignment<a class="bd-anchor" href="#horizontal-alignment" aria-label="Link to this section">#</a></h3>
+<p>Change the horizontal alignment with any of the responsive <code>justify-content-*</code> classes.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row">
+<div class="container text-center">
+  <div class="row justify-content-start">
+    <div class="col-4">
+      One of two columns
+    </div>
+    <div class="col-4">
+      One of two columns
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-4">
+      One of two columns
+    </div>
+    <div class="col-4">
+      One of two columns
+    </div>
+  </div>
+  <div class="row justify-content-end">
+    <div class="col-4">
+      One of two columns
+    </div>
+    <div class="col-4">
+      One of two columns
+    </div>
+  </div>
+  <div class="row justify-content-around">
+    <div class="col-4">
+      One of two columns
+    </div>
+    <div class="col-4">
+      One of two columns
+    </div>
+  </div>
+  <div class="row justify-content-between">
+    <div class="col-4">
+      One of two columns
+    </div>
+    <div class="col-4">
+      One of two columns
+    </div>
+  </div>
+  <div class="row justify-content-evenly">
+    <div class="col-4">
+      One of two columns
+    </div>
+    <div class="col-4">
+      One of two columns
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container text-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row justify-content-start"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+      One of two columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+      One of two columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row justify-content-center"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+      One of two columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+      One of two columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row justify-content-end"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+      One of two columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+      One of two columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row justify-content-around"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+      One of two columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+      One of two columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row justify-content-between"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+      One of two columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+      One of two columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row justify-content-evenly"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+      One of two columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+      One of two columns
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="column-wrapping">Column wrapping<a class="bd-anchor" href="#column-wrapping" aria-label="Link to this section">#</a></h3>
+<p>If more than 12 columns are placed within a single row, each group of extra columns will, as one unit, wrap onto a new line.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row">
+<div class="container">
+  <div class="row">
+    <div class="col-9">.col-9</div>
+    <div class="col-4">.col-4<br>Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.</div>
+    <div class="col-6">.col-6<br>Subsequent columns continue along the new line.</div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-9"</span><span class="tok-punct">&gt;</span>.col-9<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>.col-4<span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>Since 9 + 4 = 13 &amp;gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-6"</span><span class="tok-punct">&gt;</span>.col-6<span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>Subsequent columns continue along the new line.<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="column-breaks">Column breaks<a class="bd-anchor" href="#column-breaks" aria-label="Link to this section">#</a></h3>
+<p>Breaking columns to a new line in flexbox requires a small hack: add an element with <code>width: 100%</code> wherever you want to wrap your columns to a new line. Normally this is accomplished with multiple <code>.row</code>s, but not every implementation method can account for this.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row">
+<div class="container text-center">
+  <div class="row">
+    <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+    <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+
+    <!-- Force next columns to break to new line -->
+    <div class="w-100"></div>
+
+    <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+    <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container text-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-6 col-sm-3"</span><span class="tok-punct">&gt;</span>.col-6 .col-sm-3<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-6 col-sm-3"</span><span class="tok-punct">&gt;</span>.col-6 .col-sm-3<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+    <span class="tok-com">&lt;!-- Force next columns to break to new line --&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"w-100"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-6 col-sm-3"</span><span class="tok-punct">&gt;</span>.col-6 .col-sm-3<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-6 col-sm-3"</span><span class="tok-punct">&gt;</span>.col-6 .col-sm-3<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>You may also apply this break at specific breakpoints with the <a href="../../utilities/display/">responsive display utilities</a>.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row">
+<div class="container text-center">
+  <div class="row">
+    <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+    <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+
+    <!-- Force next columns to break to new line at md breakpoint and up -->
+    <div class="w-100 d-none d-md-block"></div>
+
+    <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+    <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container text-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-6 col-sm-4"</span><span class="tok-punct">&gt;</span>.col-6 .col-sm-4<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-6 col-sm-4"</span><span class="tok-punct">&gt;</span>.col-6 .col-sm-4<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+    <span class="tok-com">&lt;!-- Force next columns to break to new line at md breakpoint and up --&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"w-100 d-none d-md-block"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-6 col-sm-4"</span><span class="tok-punct">&gt;</span>.col-6 .col-sm-4<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-6 col-sm-4"</span><span class="tok-punct">&gt;</span>.col-6 .col-sm-4<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="reordering">Reordering<a class="bd-anchor" href="#reordering" aria-label="Link to this section">#</a></h2>
+
+<h3 id="order-classes">Order classes<a class="bd-anchor" href="#order-classes" aria-label="Link to this section">#</a></h3>
+<p>Use <code>.order-</code> classes for controlling the <strong>visual order</strong> of your content. These classes are responsive, so you can set the <code>order</code> by breakpoint (e.g., <code>.order-1.order-md-2</code>). Includes support for <code>0</code> through <code>5</code> across all four grid tiers.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row">
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+      First in DOM, no order applied
+    </div>
+    <div class="col order-5">
+      Second in DOM, with a larger order
+    </div>
+    <div class="col order-1">
+      Third in DOM, with an order of 1
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container text-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+      First in DOM, no order applied
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col order-5"</span><span class="tok-punct">&gt;</span>
+      Second in DOM, with a larger order
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col order-1"</span><span class="tok-punct">&gt;</span>
+      Third in DOM, with an order of 1
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>There are also responsive <code>.order-first</code> and <code>.order-last</code> classes that change the <code>order</code> of an element by applying <code>order: -1</code> and <code>order: 6</code>, respectively. These classes can also be intermixed with the numbered <code>.order-*</code> classes as needed.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row">
+<div class="container text-center">
+  <div class="row">
+    <div class="col order-last">
+      First in DOM, ordered last
+    </div>
+    <div class="col">
+      Second in DOM, unordered
+    </div>
+    <div class="col order-first">
+      Third in DOM, ordered first
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container text-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col order-last"</span><span class="tok-punct">&gt;</span>
+      First in DOM, ordered last
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+      Second in DOM, unordered
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col order-first"</span><span class="tok-punct">&gt;</span>
+      Third in DOM, ordered first
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="offsetting-columns">Offsetting columns<a class="bd-anchor" href="#offsetting-columns" aria-label="Link to this section">#</a></h3>
+<p>You can offset grid columns in two ways: the responsive <code>.offset-</code> grid classes and the <a href="../../utilities/spacing/">margin utilities</a>. Grid classes are sized to match columns while margins are more useful for quick layouts where the width of the offset is variable.</p>
+
+<h4>Offset classes</h4>
+<p>Move columns to the right using <code>.offset-md-*</code> classes. These classes increase the left margin of a column by <code>*</code> columns. For example, <code>.offset-md-4</code> moves <code>.col-md-4</code> over four columns.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row">
+<div class="container text-center">
+  <div class="row">
+    <div class="col-md-4">.col-md-4</div>
+    <div class="col-md-4 offset-md-4">.col-md-4 .offset-md-4</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3</div>
+    <div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3</div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">.col-md-6 .offset-md-3</div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container text-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-4"</span><span class="tok-punct">&gt;</span>.col-md-4<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-4 offset-md-4"</span><span class="tok-punct">&gt;</span>.col-md-4 .offset-md-4<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-3 offset-md-3"</span><span class="tok-punct">&gt;</span>.col-md-3 .offset-md-3<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-3 offset-md-3"</span><span class="tok-punct">&gt;</span>.col-md-3 .offset-md-3<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-6 offset-md-3"</span><span class="tok-punct">&gt;</span>.col-md-6 .offset-md-3<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>In addition to column clearing at responsive breakpoints, you may need to reset offsets.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row">
+<div class="container text-center">
+  <div class="row">
+    <div class="col-sm-5 col-md-6">.col-sm-5 .col-md-6</div>
+    <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">.col-sm-5 .offset-sm-2 .col-md-6 .offset-md-0</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-5 col-lg-6">.col-sm-6 .col-md-5 .col-lg-6</div>
+    <div class="col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0">.col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0</div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container text-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-5 col-md-6"</span><span class="tok-punct">&gt;</span>.col-sm-5 .col-md-6<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-5 offset-sm-2 col-md-6 offset-md-0"</span><span class="tok-punct">&gt;</span>.col-sm-5 .offset-sm-2 .col-md-6 .offset-md-0<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-6 col-md-5 col-lg-6"</span><span class="tok-punct">&gt;</span>.col-sm-6 .col-md-5 .col-lg-6<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0"</span><span class="tok-punct">&gt;</span>.col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h4>Margin utilities</h4>
+<p>Since the grid is built on flexbox, you can use margin utilities like <code>.me-auto</code> to force sibling columns away from one another.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row">
+<div class="container text-center">
+  <div class="row">
+    <div class="col-md-4">.col-md-4</div>
+    <div class="col-md-4 ms-auto">.col-md-4 .ms-auto</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 ms-md-auto">.col-md-3 .ms-md-auto</div>
+    <div class="col-md-3 ms-md-auto">.col-md-3 .ms-md-auto</div>
+  </div>
+  <div class="row">
+    <div class="col-auto me-auto">.col-auto .me-auto</div>
+    <div class="col-auto">.col-auto</div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container text-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-4"</span><span class="tok-punct">&gt;</span>.col-md-4<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-4 ms-auto"</span><span class="tok-punct">&gt;</span>.col-md-4 .ms-auto<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-3 ms-md-auto"</span><span class="tok-punct">&gt;</span>.col-md-3 .ms-md-auto<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-3 ms-md-auto"</span><span class="tok-punct">&gt;</span>.col-md-3 .ms-md-auto<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto me-auto"</span><span class="tok-punct">&gt;</span>.col-auto .me-auto<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>.col-auto<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="standalone-column-classes">Standalone column classes<a class="bd-anchor" href="#standalone-column-classes" aria-label="Link to this section">#</a></h2>
+<p>The <code>.col-*</code> classes can also be used outside a <code>.row</code> to give an element a specific width. Whenever column classes are used as non-direct children of a row, the paddings are omitted.</p>
+<div class="bd-example-snippet"><div class="bd-example bd-example-row">
+<div class="col-3 p-3 mb-2">
+  .col-3: width of 25%
+</div>
+
+<div class="col-sm-9 p-3">
+  .col-sm-9: width of 75% above sm breakpoint
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-3 p-3 mb-2"</span><span class="tok-punct">&gt;</span>
+  .col-3: width of 25%
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-9 p-3"</span><span class="tok-punct">&gt;</span>
+  .col-sm-9: width of 75% above sm breakpoint
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>The classes can be used together with utilities to create responsive floated images. Make sure to wrap the content in a <a href="../../helpers/clearfix/"><code>.clearfix</code></a> wrapper to clear the float if the text is shorter.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="clearfix">
+  <svg class="bd-placeholder-img col-md-6 float-md-end mb-3 ms-md-3" width="100%" height="210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive floated image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive floated image</text></svg>
+
+  <p>
+    A paragraph of placeholder text. We're using it here to show the use of the clearfix class. We're adding quite a few meaningless phrases here to demonstrate how the columns interact here with the floated image.
+  </p>
+
+  <p>
+    As you can see the paragraphs gracefully wrap around the floated image. Now imagine how this would look with some actual content in here, rather than just this boring placeholder text that goes on and on, but actually conveys no tangible information at. It simply takes up space and should not really be read.
+  </p>
+
+  <p>
+    And yet, here you are, still persevering in reading this placeholder text, hoping for some more insights, or some hidden easter egg of content. A joke, perhaps. Unfortunately, there's none of that here.
+  </p>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"clearfix"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">svg</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"bd-placeholder-img col-md-6 float-md-end mb-3 ms-md-3"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"100%"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"210"</span> <span class="tok-attr">xmlns</span><span class="tok-punct">=</span><span class="tok-val">"http://www.w3.org/2000/svg"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"img"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Placeholder: Responsive floated image"</span> <span class="tok-attr">preserveAspectRatio</span><span class="tok-punct">=</span><span class="tok-val">"xMidYMid slice"</span> <span class="tok-attr">focusable</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">title</span><span class="tok-punct">&gt;</span>Placeholder<span class="tok-punct">&lt;/</span><span class="tok-tag">title</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">rect</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"100%"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"100%"</span> <span class="tok-attr">fill</span><span class="tok-punct">=</span><span class="tok-val">"#868e96"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">rect</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">text</span> <span class="tok-attr">x</span><span class="tok-punct">=</span><span class="tok-val">"50%"</span> <span class="tok-attr">y</span><span class="tok-punct">=</span><span class="tok-val">"50%"</span> <span class="tok-attr">fill</span><span class="tok-punct">=</span><span class="tok-val">"#dee2e6"</span> <span class="tok-attr">dy</span><span class="tok-punct">=</span><span class="tok-val">".3em"</span><span class="tok-punct">&gt;</span>Responsive floated image<span class="tok-punct">&lt;/</span><span class="tok-tag">text</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">svg</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    A paragraph of placeholder text. We're using it here to show the use of the clearfix class. We're adding quite a few meaningless phrases here to demonstrate how the columns interact here with the floated image.
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    As you can see the paragraphs gracefully wrap around the floated image. Now imagine how this would look with some actual content in here, rather than just this boring placeholder text that goes on and on, but actually conveys no tangible information at. It simply takes up space and should not really be read.
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    And yet, here you are, still persevering in reading this placeholder text, hoping for some more insights, or some hidden easter egg of content. A joke, perhaps. Unfortunately, there's none of that here.
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../layout/grid/"><small>Previous</small>Grid</a><a class="bd-pager-next" href="../../layout/gutters/"><small>Next</small>Gutters</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

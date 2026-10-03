@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Form controls · felt-css</title>
+  <meta name="description" content="Give textual form controls like &lt;input&gt;s and &lt;textarea&gt;s an upgrade with custom styles, sizing, focus states, and more.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="../../../index.html">Kitchen sink</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Forms</p>
+        <h1>Form controls</h1>
+        <p class="lead">Give textual form controls like &lt;input&gt;s and &lt;textarea&gt;s an upgrade with custom styles, sizing, focus states, and more.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/forms/form-control.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#example">Example</a></li><li><a href="#sizing">Sizing</a></li><li><a href="#form-text">Form text</a></li><li><a href="#disabled">Disabled</a></li><li><a href="#readonly">Readonly</a></li><li><a href="#readonly-plain-text">Readonly plain text</a></li><li><a href="#file-input">File input</a></li><li><a href="#color">Color</a></li><li><a href="#datalists">Datalists</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#example">Example</a></li><li><a href="#sizing">Sizing</a></li><li><a href="#form-text">Form text</a></li><li><a href="#disabled">Disabled</a></li><li><a href="#readonly">Readonly</a></li><li><a href="#readonly-plain-text">Readonly plain text</a></li><li><a href="#file-input">File input</a></li><li><a href="#color">Color</a></li><li><a href="#datalists">Datalists</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="example">Example<a class="bd-anchor" href="#example" aria-label="Link to this section">#</a></h2>
+<p>Form controls are styled with custom properties (<code>--field</code>, <code>--border</code>, <code>--focus</code> and friends), so they adapt to color modes and to both looks.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Email address</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"exampleFormControlInput1"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Email address<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"email"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleFormControlInput1"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"name@example.com"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"exampleFormControlTextarea1"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Example textarea<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">textarea</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleFormControlTextarea1"</span> <span class="tok-attr">rows</span><span class="tok-punct">=</span><span class="tok-val">"3"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">textarea</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look, a field is a cream (or charcoal) piece pressed slightly into the felt: a soft inner shadow and the same fibre texture as the page. The focus ring is the same as in the clean look.</p>
+</div>
+
+<h2 id="sizing">Sizing<a class="bd-anchor" href="#sizing" aria-label="Link to this section">#</a></h2>
+<p>Set heights using classes like <code>.form-control-lg</code> and <code>.form-control-sm</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<input class="form-control form-control-lg mb-2" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example">
+<input class="form-control mb-2" type="text" placeholder="Default input" aria-label="default input example">
+<input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" aria-label=".form-control-sm example">
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control form-control-lg mb-2"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">".form-control-lg"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">".form-control-lg example"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control mb-2"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Default input"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"default input example"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control form-control-sm"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">".form-control-sm"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">".form-control-sm example"</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="form-text">Form text<a class="bd-anchor" href="#form-text" aria-label="Link to this section">#</a></h2>
+<p>Block-level or inline-level form text can be created using <code>.form-text</code>.</p>
+<p>Form text should be explicitly associated with the form control it relates to using the <code>aria-describedby</code> attribute. This will ensure that assistive technologies—such as screen readers—will announce this form text when the user focuses or enters the control.</p>
+<p>Form text below inputs can be styled with <code>.form-text</code>. If a block-level element will be used, a top margin is added for easy spacing from the inputs above.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<label for="inputPassword5" class="form-label">Password</label>
+<input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+<div id="passwordHelpBlock" class="form-text">
+  Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inputPassword5"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Password<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"password"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inputPassword5"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">aria-describedby</span><span class="tok-punct">=</span><span class="tok-val">"passwordHelpBlock"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"passwordHelpBlock"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-text"</span><span class="tok-punct">&gt;</span>
+  Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Inline text can use any typical inline HTML element (be it a <code>&lt;span&gt;</code>, <code>&lt;small&gt;</code>, or something else) with nothing more than the <code>.form-text</code> class.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="row g-3 align-items-center">
+  <div class="col-auto">
+    <label for="inputPassword6" class="col-form-label">Password</label>
+  </div>
+  <div class="col-auto">
+    <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+  </div>
+  <div class="col-auto">
+    <span id="passwordHelpInline" class="form-text">
+      Must be 8-20 characters long.
+    </span>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row g-3 align-items-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inputPassword6"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-form-label"</span><span class="tok-punct">&gt;</span>Password<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"password"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inputPassword6"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">aria-describedby</span><span class="tok-punct">=</span><span class="tok-val">"passwordHelpInline"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"passwordHelpInline"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-text"</span><span class="tok-punct">&gt;</span>
+      Must be 8-20 characters long.
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="disabled">Disabled<a class="bd-anchor" href="#disabled" aria-label="Link to this section">#</a></h2>
+<p>Add the <code>disabled</code> boolean attribute on an input to give it a grayed out appearance, remove pointer events, and prevent focusing.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<input class="form-control mb-2" type="text" placeholder="Disabled input" aria-label="Disabled input example" disabled>
+<input class="form-control" type="text" value="Disabled readonly input" aria-label="Disabled input example" disabled readonly>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control mb-2"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Disabled input"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Disabled input example"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"Disabled readonly input"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Disabled input example"</span> <span class="tok-attr">disabled</span> <span class="tok-attr">readonly</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="readonly">Readonly<a class="bd-anchor" href="#readonly" aria-label="Link to this section">#</a></h2>
+<p>Add the <code>readonly</code> boolean attribute on an input to prevent modification of the input's value. <code>readonly</code> inputs can still be focused and selected, while <code>disabled</code> inputs cannot. felt-css gives them a slightly sunken background.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<input class="form-control" type="text" value="Readonly input here..." aria-label="readonly input example" readonly>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"Readonly input here..."</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"readonly input example"</span> <span class="tok-attr">readonly</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="readonly-plain-text">Readonly plain text<a class="bd-anchor" href="#readonly-plain-text" aria-label="Link to this section">#</a></h2>
+<p>If you want to have <code>&lt;input readonly&gt;</code> elements in your form styled as plain text, replace <code>.form-control</code> with <code>.form-control-plaintext</code> to remove the default form field styling and preserve the correct <code>margin</code> and <code>padding</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="mb-3 row">
+  <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+  <div class="col-sm-10">
+    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+  </div>
+</div>
+<div class="mb-3 row">
+  <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+  <div class="col-sm-10">
+    <input type="password" class="form-control" id="inputPassword">
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3 row"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"staticEmail"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-2 col-form-label"</span><span class="tok-punct">&gt;</span>Email<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-10"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">readonly</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control-plaintext"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"staticEmail"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"email@example.com"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3 row"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inputPassword"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-2 col-form-label"</span><span class="tok-punct">&gt;</span>Password<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-10"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"password"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inputPassword"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<form class="row g-3">
+  <div class="col-auto">
+    <label for="staticEmail2" class="visually-hidden">Email</label>
+    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
+  </div>
+  <div class="col-auto">
+    <label for="inputPassword2" class="visually-hidden">Password</label>
+    <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
+  </div>
+</form>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row g-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"staticEmail2"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Email<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">readonly</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control-plaintext"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"staticEmail2"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"email@example.com"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inputPassword2"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Password<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"password"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inputPassword2"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Password"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary mb-3"</span><span class="tok-punct">&gt;</span>Confirm identity<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="file-input">File input<a class="bd-anchor" href="#file-input" aria-label="Link to this section">#</a></h2>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="mb-3">
+  <label for="formFile" class="form-label">Default file input example</label>
+  <input class="form-control" type="file" id="formFile">
+</div>
+<div class="mb-3">
+  <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+  <input class="form-control" type="file" id="formFileMultiple" multiple>
+</div>
+<div class="mb-3">
+  <label for="formFileDisabled" class="form-label">Disabled file input example</label>
+  <input class="form-control" type="file" id="formFileDisabled" disabled>
+</div>
+<div class="mb-3">
+  <label for="formFileSm" class="form-label">Small file input example</label>
+  <input class="form-control form-control-sm" id="formFileSm" type="file">
+</div>
+<div>
+  <label for="formFileLg" class="form-label">Large file input example</label>
+  <input class="form-control form-control-lg" id="formFileLg" type="file">
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"formFile"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Default file input example<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"file"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"formFile"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"formFileMultiple"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Multiple files input example<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"file"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"formFileMultiple"</span> <span class="tok-attr">multiple</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"formFileDisabled"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Disabled file input example<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"file"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"formFileDisabled"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"formFileSm"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Small file input example<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control form-control-sm"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"formFileSm"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"file"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"formFileLg"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Large file input example<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control form-control-lg"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"formFileLg"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"file"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="color">Color<a class="bd-anchor" href="#color" aria-label="Link to this section">#</a></h2>
+<p>Set the <code>type="color"</code> and add <code>.form-control-color</code> to the <code>&lt;input&gt;</code>. The modifier class sets a fixed <code>width</code> and <code>height</code> and overrides some inconsistencies between browsers.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<label for="exampleColorInput" class="form-label">Color picker</label>
+<input type="color" class="form-control form-control-color" id="exampleColorInput" value="#3d64a0" title="Choose your color">
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"exampleColorInput"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Color picker<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"color"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control form-control-color"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleColorInput"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"#3d64a0"</span> <span class="tok-attr">title</span><span class="tok-punct">=</span><span class="tok-val">"Choose your color"</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="datalists">Datalists<a class="bd-anchor" href="#datalists" aria-label="Link to this section">#</a></h2>
+<p>Datalists allow you to create a group of <code>&lt;option&gt;</code>s that can be accessed (and autocompleted) from within an <code>&lt;input&gt;</code>. These are similar to <code>&lt;select&gt;</code> elements, but come with more menu styling limitations and differences. While most browsers and operating systems include some support for <code>&lt;datalist&gt;</code> elements, their styling is inconsistent at best.</p>
+<p>Learn more about <a href="https://caniuse.com/datalist">support for datalist elements</a>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<label for="exampleDataList" class="form-label">Datalist example</label>
+<input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+<datalist id="datalistOptions">
+  <option value="San Francisco">
+  <option value="New York">
+  <option value="Seattle">
+  <option value="Los Angeles">
+  <option value="Chicago">
+</datalist>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"exampleDataList"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Datalist example<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">list</span><span class="tok-punct">=</span><span class="tok-val">"datalistOptions"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleDataList"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Type to search..."</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">datalist</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"datalistOptions"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"San Francisco"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"New York"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"Seattle"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"Los Angeles"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"Chicago"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">datalist</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../forms/overview/"><small>Previous</small>Overview</a><a class="bd-pager-next" href="../../forms/select/"><small>Next</small>Select</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

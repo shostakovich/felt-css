@@ -1,0 +1,880 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modal · felt-css</title>
+  <meta name="description" content="Use Bootstrap's JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content. felt-css also styles a native dialog element that needs no JavaScript.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="../../../index.html">Kitchen sink</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Components</p>
+        <h1>Modal</h1>
+        <p class="lead">Use Bootstrap's JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content. felt-css also styles a native dialog element that needs no JavaScript.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/components/modal.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#how-it-works">How it works</a></li><li><a href="#examples">Examples</a><ul><li><a href="#modal-components">Modal components</a></li><li><a href="#live-demo">Live demo</a></li><li><a href="#static-backdrop">Static backdrop</a></li><li><a href="#scrolling-long-content">Scrolling long content</a></li><li><a href="#vertically-centered">Vertically centered</a></li><li><a href="#tooltips-and-popovers">Tooltips and popovers</a></li></ul></li><li><a href="#popover-in-a-modal">Popover in a modal</a></li><li><a href="#tooltips-in-a-modal">Tooltips in a modal</a><ul><li><a href="#using-the-grid">Using the grid</a></li><li><a href="#varying-modal-content">Varying modal content</a></li><li><a href="#toggle-between-modals">Toggle between modals</a></li><li><a href="#remove-animation">Remove animation</a></li><li><a href="#dynamic-heights">Dynamic heights</a></li><li><a href="#accessibility">Accessibility</a></li></ul></li><li><a href="#native-dialog">Native dialog</a></li><li><a href="#optional-sizes">Optional sizes</a></li><li><a href="#fullscreen-modal">Fullscreen Modal</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#how-it-works">How it works</a></li><li><a href="#examples">Examples</a><ul><li><a href="#modal-components">Modal components</a></li><li><a href="#live-demo">Live demo</a></li><li><a href="#static-backdrop">Static backdrop</a></li><li><a href="#scrolling-long-content">Scrolling long content</a></li><li><a href="#vertically-centered">Vertically centered</a></li><li><a href="#tooltips-and-popovers">Tooltips and popovers</a></li></ul></li><li><a href="#popover-in-a-modal">Popover in a modal</a></li><li><a href="#tooltips-in-a-modal">Tooltips in a modal</a><ul><li><a href="#using-the-grid">Using the grid</a></li><li><a href="#varying-modal-content">Varying modal content</a></li><li><a href="#toggle-between-modals">Toggle between modals</a></li><li><a href="#remove-animation">Remove animation</a></li><li><a href="#dynamic-heights">Dynamic heights</a></li><li><a href="#accessibility">Accessibility</a></li></ul></li><li><a href="#native-dialog">Native dialog</a></li><li><a href="#optional-sizes">Optional sizes</a></li><li><a href="#fullscreen-modal">Fullscreen Modal</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="how-it-works">How it works<a class="bd-anchor" href="#how-it-works" aria-label="Link to this section">#</a></h2>
+<p>Before getting started with the modal component, be sure to read the following.</p>
+<ul>
+  <li>Modals are built with HTML, CSS, and JavaScript. They're positioned over everything else in the document and remove scroll from the <code>&lt;body&gt;</code> so that modal content scrolls instead.</li>
+  <li>Clicking on the modal "backdrop" will automatically close the modal.</li>
+  <li>Bootstrap only supports one modal window at a time. Nested modals aren't supported as we believe them to be poor user experiences.</li>
+  <li>Modals use <code>position: fixed</code>, which can sometimes be a bit particular about its rendering. Whenever possible, place your modal HTML in a top-level position to avoid potential interference from other elements. You'll likely run into issues when nesting a <code>.modal</code> within another fixed element.</li>
+  <li>Due to how HTML5 defines its semantics, <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-autofocus">the <code>autofocus</code> HTML attribute</a> has no effect in Bootstrap modals. To achieve the same effect, use some custom JavaScript:</li>
+</ul>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> myModal = <span class="tok-tag">document</span>.getElementById(<span class="tok-val">'myModal'</span>)
+<span class="tok-tag">const</span> myInput = <span class="tok-tag">document</span>.getElementById(<span class="tok-val">'myInput'</span>)
+
+myModal.addEventListener(<span class="tok-val">'shown.bs.modal'</span>, () =&gt; {
+  myInput.focus()
+})</code></pre></div>
+
+<p>Don't need the plugin? felt-css styles a native <a href="#native-dialog"><code>&lt;dialog class="modal"&gt;</code></a> too, which brings its own backdrop, focus handling and <kbd>Esc</kbd> key.</p>
+
+<h2 id="examples">Examples<a class="bd-anchor" href="#examples" aria-label="Link to this section">#</a></h2>
+<h3 id="modal-components">Modal components<a class="bd-anchor" href="#modal-components" aria-label="Link to this section">#</a></h3>
+<p>Below is a <em>static</em> modal example (meaning its <code>position</code> and <code>display</code> have been overridden). Included are the modal header, modal body (required for <code>padding</code>), and modal footer (optional). We ask that you include modal headers with dismiss actions whenever possible, or provide another explicit dismiss action.</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-modal">
+<div class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"-1"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-content"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-header"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-title"</span><span class="tok-punct">&gt;</span>Modal title<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-body"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Modal body text goes here.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-footer"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span><span class="tok-punct">&gt;</span>Close<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Save changes<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-info">
+  <p>In the above static example, we use <code>&lt;h5&gt;</code>, to avoid issues with the heading hierarchy in the documentation page. Structurally, however, a modal dialog represents its own separate document/context, so the <code>.modal-title</code> should ideally be an <code>&lt;h1&gt;</code>. If necessary, you can use the <a href="../../utilities/text/">font size utilities</a> to control the heading's appearance. All the following live examples use this approach.</p>
+</div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In felt, the modal is a flat sheet of felt lying on the dimmed page, sewn round like a card, with a long soft shadow below it.</p>
+</div>
+
+<h3 id="live-demo">Live demo<a class="bd-anchor" href="#live-demo" aria-label="Link to this section">#</a></h3>
+<p>Toggle a working modal demo by clicking the button below. It will slide down and fade in from the top of the page.</p>
+
+<div class="modal fade" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLiveLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Woo-hoo, you're reading this text in a modal!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalLive">Launch demo modal</button>
+</div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-com">&lt;!-- Button trigger modal --&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#exampleModal"</span><span class="tok-punct">&gt;</span>
+  Launch demo modal
+<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-com">&lt;!-- Modal --&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal fade"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleModal"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"-1"</span> <span class="tok-attr">aria-labelledby</span><span class="tok-punct">=</span><span class="tok-val">"exampleModalLabel"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-content"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-header"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h1</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-title fs-5"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleModalLabel"</span><span class="tok-punct">&gt;</span>Modal title<span class="tok-punct">&lt;/</span><span class="tok-tag">h1</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-body"</span><span class="tok-punct">&gt;</span>
+        ...
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-footer"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span><span class="tok-punct">&gt;</span>Close<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Save changes<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<h3 id="static-backdrop">Static backdrop<a class="bd-anchor" href="#static-backdrop" aria-label="Link to this section">#</a></h3>
+<p>When backdrop is set to static, the modal will not close when clicking outside of it. Click the button below to try it.</p>
+
+<div class="modal fade" id="staticBackdropLive" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLiveLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>I will not close if you click outside of me. Don't even try to press escape key.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropLive">Launch static backdrop modal</button>
+</div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-com">&lt;!-- Button trigger modal --&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#staticBackdrop"</span><span class="tok-punct">&gt;</span>
+  Launch static backdrop modal
+<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-com">&lt;!-- Modal --&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal fade"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"staticBackdrop"</span> <span class="tok-attr">data-bs-backdrop</span><span class="tok-punct">=</span><span class="tok-val">"static"</span> <span class="tok-attr">data-bs-keyboard</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"-1"</span> <span class="tok-attr">aria-labelledby</span><span class="tok-punct">=</span><span class="tok-val">"staticBackdropLabel"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-content"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-header"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h1</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-title fs-5"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"staticBackdropLabel"</span><span class="tok-punct">&gt;</span>Modal title<span class="tok-punct">&lt;/</span><span class="tok-tag">h1</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-body"</span><span class="tok-punct">&gt;</span>
+        ...
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-footer"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span><span class="tok-punct">&gt;</span>Close<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Understood<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<h3 id="scrolling-long-content">Scrolling long content<a class="bd-anchor" href="#scrolling-long-content" aria-label="Link to this section">#</a></h3>
+<p>When modals become too long for the user's viewport or device, they scroll independent of the page itself. Try the demo below to see what we mean.</p>
+
+<div class="modal fade" id="exampleModalLong" tabindex="-1" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLongTitle">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="min-height: 100vh">
+        <p>This is some placeholder content to show the scrolling behavior for modals. Instead of repeating the text in the modal, we use an inline style to set a minimum height, thereby extending the length of the overall modal and demonstrating the overflow scrolling. When content becomes longer than the height of the viewport, scrolling will move the modal as needed.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalLong">Launch demo modal</button>
+</div></div>
+
+<p>You can also create a scrollable modal that allows scrolling the modal body by adding <code>.modal-dialog-scrollable</code> to <code>.modal-dialog</code>.</p>
+
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalScrollableTitle">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>This is some placeholder content to show the scrolling behavior for modals. We use repeated line breaks to demonstrate how content can exceed minimum inner height, thereby showing inner scrolling. When content becomes longer than the predefined max-height of modal, content will be cropped and scrollable within the modal.</p>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <p>This content should appear at the bottom after you scroll.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">Launch demo modal</button>
+</div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-com">&lt;!-- Scrollable modal --&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog modal-dialog-scrollable"</span><span class="tok-punct">&gt;</span>
+  ...
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<h3 id="vertically-centered">Vertically centered<a class="bd-anchor" href="#vertically-centered" aria-label="Link to this section">#</a></h3>
+<p>Add <code>.modal-dialog-centered</code> to <code>.modal-dialog</code> to vertically center the modal.</p>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalCenterTitle">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>This is a vertically centered modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalCenteredScrollable" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalCenteredScrollableTitle">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>This is some placeholder content to show a vertically centered modal. We've added some extra copy here to show how vertically centering the modal works when combined with scrollable modals. We also use some repeated line breaks to quickly extend the height of the content, thereby triggering the scrolling. When content becomes longer than the predefined max-height of modal, content will be cropped and scrollable within the modal.</p>
+        <br><br><br><br><br><br><br><br><br><br>
+        <p>Just like that.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Vertically centered modal</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable">Vertically centered scrollable modal</button>
+</div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-com">&lt;!-- Vertically centered modal --&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog modal-dialog-centered"</span><span class="tok-punct">&gt;</span>
+  ...
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-com">&lt;!-- Vertically centered scrollable modal --&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog modal-dialog-centered modal-dialog-scrollable"</span><span class="tok-punct">&gt;</span>
+  ...
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<h3 id="tooltips-and-popovers">Tooltips and popovers<a class="bd-anchor" href="#tooltips-and-popovers" aria-label="Link to this section">#</a></h3>
+<p><a href="../tooltips/">Tooltips</a> and <a href="../popovers/">popovers</a> can be placed within modals as needed. When modals are closed, any tooltips and popovers within are also automatically dismissed.</p>
+
+<div class="modal fade" id="exampleModalPopovers" tabindex="-1" aria-labelledby="exampleModalPopoversLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalPopoversLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h2 class="fs-5" id="popover-in-a-modal">Popover in a modal<a class="bd-anchor" href="#popover-in-a-modal" aria-label="Link to this section">#</a></h2>
+        <p>This <button class="btn btn-secondary" data-bs-toggle="popover" title="Popover title" data-bs-content="Popover body content is set in this attribute." data-bs-container="#exampleModalPopovers">button</button> triggers a popover on click.</p>
+        <hr>
+        <h2 class="fs-5" id="tooltips-in-a-modal">Tooltips in a modal<a class="bd-anchor" href="#tooltips-in-a-modal" aria-label="Link to this section">#</a></h2>
+        <p><a href="#" data-bs-toggle="tooltip" title="Tooltip" data-bs-container="#exampleModalPopovers">This link</a> and <a href="#" data-bs-toggle="tooltip" title="Tooltip" data-bs-container="#exampleModalPopovers">that link</a> have tooltips on hover.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalPopovers">Launch demo modal</button>
+</div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-body"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">h2</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"fs-5"</span><span class="tok-punct">&gt;</span>Popover in a modal<span class="tok-punct">&lt;/</span><span class="tok-tag">h2</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">title</span><span class="tok-punct">=</span><span class="tok-val">"Popover title"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"Popover body content is set in this attribute."</span><span class="tok-punct">&gt;</span>button<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span> triggers a popover on click.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">hr</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">h2</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"fs-5"</span><span class="tok-punct">&gt;</span>Tooltips in a modal<span class="tok-punct">&lt;/</span><span class="tok-tag">h2</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"tooltip"</span> <span class="tok-attr">title</span><span class="tok-punct">=</span><span class="tok-val">"Tooltip"</span><span class="tok-punct">&gt;</span>This link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span> and <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"tooltip"</span> <span class="tok-attr">title</span><span class="tok-punct">=</span><span class="tok-val">"Tooltip"</span><span class="tok-punct">&gt;</span>that link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span> have tooltips on hover.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<h3 id="using-the-grid">Using the grid<a class="bd-anchor" href="#using-the-grid" aria-label="Link to this section">#</a></h3>
+<p>Utilize the grid system within a modal by nesting <code>.container-fluid</code> within the <code>.modal-body</code>. Then, use the normal grid system classes as you would anywhere else.</p>
+
+<div class="modal fade" id="gridSystemModal" tabindex="-1" aria-labelledby="gridModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="gridModalLabel">Grids in modals</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid bd-example-row">
+          <div class="row">
+            <div class="col-md-4">.col-md-4</div>
+            <div class="col-md-4 ms-auto">.col-md-4 .ms-auto</div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 ms-auto">.col-md-3 .ms-auto</div>
+            <div class="col-md-2 ms-auto">.col-md-2 .ms-auto</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 ms-auto">.col-md-6 .ms-auto</div>
+          </div>
+          <div class="row">
+            <div class="col-sm-9">
+              Level 1: .col-sm-9
+              <div class="row">
+                <div class="col-8 col-sm-6">
+                  Level 2: .col-8 .col-sm-6
+                </div>
+                <div class="col-4 col-sm-6">
+                  Level 2: .col-4 .col-sm-6
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gridSystemModal">Launch demo modal</button>
+</div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-body"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-4"</span><span class="tok-punct">&gt;</span>.col-md-4<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-4 ms-auto"</span><span class="tok-punct">&gt;</span>.col-md-4 .ms-auto<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-3 ms-auto"</span><span class="tok-punct">&gt;</span>.col-md-3 .ms-auto<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-2 ms-auto"</span><span class="tok-punct">&gt;</span>.col-md-2 .ms-auto<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-6 ms-auto"</span><span class="tok-punct">&gt;</span>.col-md-6 .ms-auto<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-9"</span><span class="tok-punct">&gt;</span>
+        Level 1: .col-sm-9
+        <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-8 col-sm-6"</span><span class="tok-punct">&gt;</span>
+            Level 2: .col-8 .col-sm-6
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4 col-sm-6"</span><span class="tok-punct">&gt;</span>
+            Level 2: .col-4 .col-sm-6
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<h3 id="varying-modal-content">Varying modal content<a class="bd-anchor" href="#varying-modal-content" aria-label="Link to this section">#</a></h3>
+<p>Have a bunch of buttons that all trigger the same modal with slightly different contents? Use <code>event.relatedTarget</code> and <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes">HTML <code>data-bs-*</code> attributes</a> to vary the contents of the modal depending on which button was clicked.</p>
+<p>Below is a live demo followed by example HTML and JavaScript.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Open modal for @fat</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#exampleModal"</span> <span class="tok-attr">data-bs-whatever</span><span class="tok-punct">=</span><span class="tok-val">"@mdo"</span><span class="tok-punct">&gt;</span>Open modal for @mdo<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#exampleModal"</span> <span class="tok-attr">data-bs-whatever</span><span class="tok-punct">=</span><span class="tok-val">"@fat"</span><span class="tok-punct">&gt;</span>Open modal for @fat<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#exampleModal"</span> <span class="tok-attr">data-bs-whatever</span><span class="tok-punct">=</span><span class="tok-val">"@getbootstrap"</span><span class="tok-punct">&gt;</span>Open modal for @getbootstrap<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal fade"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleModal"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"-1"</span> <span class="tok-attr">aria-labelledby</span><span class="tok-punct">=</span><span class="tok-val">"exampleModalLabel"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-content"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-header"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h1</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-title fs-5"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleModalLabel"</span><span class="tok-punct">&gt;</span>New message<span class="tok-punct">&lt;/</span><span class="tok-tag">h1</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-body"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"recipient-name"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-form-label"</span><span class="tok-punct">&gt;</span>Recipient:<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"recipient-name"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"message-text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-form-label"</span><span class="tok-punct">&gt;</span>Message:<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">textarea</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"message-text"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">textarea</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-footer"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span><span class="tok-punct">&gt;</span>Close<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Send message<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> exampleModal = <span class="tok-tag">document</span>.getElementById(<span class="tok-val">'exampleModal'</span>)
+<span class="tok-tag">if</span> (exampleModal) {
+  exampleModal.addEventListener(<span class="tok-val">'show.bs.modal'</span>, event =&gt; {
+    <span class="tok-com">// Button that triggered the modal</span>
+    <span class="tok-tag">const</span> button = event.relatedTarget
+    <span class="tok-com">// Extract info from data-bs-* attributes</span>
+    <span class="tok-tag">const</span> recipient = button.getAttribute(<span class="tok-val">'data-bs-whatever'</span>)
+    <span class="tok-com">// Update the modal's content.</span>
+    <span class="tok-tag">const</span> modalTitle = exampleModal.querySelector(<span class="tok-val">'.modal-title'</span>)
+    <span class="tok-tag">const</span> modalBodyInput = exampleModal.querySelector(<span class="tok-val">'.modal-body input'</span>)
+
+    modalTitle.textContent = <span class="tok-val">`New message to ${recipient}`</span>
+    modalBodyInput.value = recipient
+  })
+}</code></pre></div>
+
+<script>
+(() => {
+  const exampleModal = document.getElementById('exampleModal')
+  exampleModal.addEventListener('show.bs.modal', event => {
+    const recipient = event.relatedTarget.getAttribute('data-bs-whatever')
+    exampleModal.querySelector('.modal-title').textContent = `New message to ${recipient}`
+    exampleModal.querySelector('.modal-body input').value = recipient
+  })
+})()
+</script>
+
+<h3 id="toggle-between-modals">Toggle between modals<a class="bd-anchor" href="#toggle-between-modals" aria-label="Link to this section">#</a></h3>
+<p>Toggle between multiple modals with some clever placement of the <code>data-bs-target</code> and <code>data-bs-toggle</code> attributes. For example, you could toggle a password reset modal from within an already open sign in modal. <strong>Please note multiple modals cannot be open at the same time</strong>—this method simply toggles between two separate modals.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal 1</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Show a second modal and hide this one with the button below.
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Open second modal</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Hide this modal and show the first with the button below.
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button>
+      </div>
+    </div>
+  </div>
+</div>
+<button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Open first modal</button>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal fade"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleModalToggle"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">aria-labelledby</span><span class="tok-punct">=</span><span class="tok-val">"exampleModalToggleLabel"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"-1"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog modal-dialog-centered"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-content"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-header"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h1</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-title fs-5"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleModalToggleLabel"</span><span class="tok-punct">&gt;</span>Modal 1<span class="tok-punct">&lt;/</span><span class="tok-tag">h1</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-body"</span><span class="tok-punct">&gt;</span>
+        Show a second modal and hide this one with the button below.
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-footer"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#exampleModalToggle2"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span><span class="tok-punct">&gt;</span>Open second modal<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal fade"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleModalToggle2"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">aria-labelledby</span><span class="tok-punct">=</span><span class="tok-val">"exampleModalToggleLabel2"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"-1"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog modal-dialog-centered"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-content"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-header"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h1</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-title fs-5"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleModalToggleLabel2"</span><span class="tok-punct">&gt;</span>Modal 2<span class="tok-punct">&lt;/</span><span class="tok-tag">h1</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">data-bs-dismiss</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-body"</span><span class="tok-punct">&gt;</span>
+        Hide this modal and show the first with the button below.
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-footer"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#exampleModalToggle"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span><span class="tok-punct">&gt;</span>Back to first<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#exampleModalToggle"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span><span class="tok-punct">&gt;</span>Open first modal<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="remove-animation">Remove animation<a class="bd-anchor" href="#remove-animation" aria-label="Link to this section">#</a></h3>
+<p>For modals that simply appear rather than fade in to view, remove the <code>.fade</code> class from your modal markup.</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"-1"</span> <span class="tok-attr">aria-labelledby</span><span class="tok-punct">=</span><span class="tok-val">"..."</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+  ...
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<h3 id="dynamic-heights">Dynamic heights<a class="bd-anchor" href="#dynamic-heights" aria-label="Link to this section">#</a></h3>
+<p>If the height of a modal changes while it is open, you should call <code>myModal.handleUpdate()</code> to readjust the modal's position in case a scrollbar appears.</p>
+
+<h3 id="accessibility">Accessibility<a class="bd-anchor" href="#accessibility" aria-label="Link to this section">#</a></h3>
+<p>Be sure to add <code>aria-labelledby="..."</code>, referencing the modal title, to <code>.modal</code>. Additionally, you may give a description of your modal dialog with <code>aria-describedby</code> on <code>.modal</code>. Note that you don't need to add <code>role="dialog"</code> since Bootstrap's JavaScript already adds it.</p>
+
+<h2 id="native-dialog">Native dialog<a class="bd-anchor" href="#native-dialog" aria-label="Link to this section">#</a></h2>
+<p>felt-css also styles the browser's own <code>&lt;dialog&gt;</code> element. Give it the <code>.modal</code> class and put the usual <code>.modal-dialog</code> and <code>.modal-content</code> inside: it looks exactly like the plugin's modal, but needs no Bootstrap JavaScript. The browser draws the backdrop (styled through <code>::backdrop</code>), keeps focus inside, makes the rest of the page inert and closes the dialog on <kbd>Esc</kbd>; felt-css stops the page from scrolling behind it.</p>
+<p>Any submit button inside a <code>&lt;form method="dialog"&gt;</code> closes the dialog without a line of script, and the button's <code>value</code> ends up in <code>dialog.returnValue</code>. Here the whole <code>.modal-content</code> is that form. Buttons with <code>type="button"</code> (like the field below would need) don't close it.</p>
+
+<dialog class="modal" id="nativeDialog" aria-labelledby="nativeDialogLabel" closedby="any">
+  <div class="modal-dialog modal-dialog-centered">
+    <form method="dialog" class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="nativeDialogLabel">New expense</h1>
+        <button class="btn-close" value="cancel" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label class="form-label" for="nativeDialogInput">Title</label>
+        <input class="form-control" id="nativeDialogInput" placeholder="e.g. Bakery">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" value="cancel">Cancel</button>
+        <button class="btn btn-primary" value="save">Save</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-primary" data-bd-dialog="#nativeDialog">Open native dialog</button>
+</div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">commandfor</span><span class="tok-punct">=</span><span class="tok-val">"newExpense"</span> <span class="tok-attr">command</span><span class="tok-punct">=</span><span class="tok-val">"show-modal"</span><span class="tok-punct">&gt;</span>Open dialog<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">dialog</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"newExpense"</span> <span class="tok-attr">aria-labelledby</span><span class="tok-punct">=</span><span class="tok-val">"newExpenseLabel"</span> <span class="tok-attr">closedby</span><span class="tok-punct">=</span><span class="tok-val">"any"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog modal-dialog-centered"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">method</span><span class="tok-punct">=</span><span class="tok-val">"dialog"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-content"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-header"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h1</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-title fs-5"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"newExpenseLabel"</span><span class="tok-punct">&gt;</span>New expense<span class="tok-punct">&lt;/</span><span class="tok-tag">h1</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"cancel"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-body"</span><span class="tok-punct">&gt;</span>
+        ...
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-footer"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"cancel"</span><span class="tok-punct">&gt;</span>Cancel<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"save"</span><span class="tok-punct">&gt;</span>Save<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">dialog</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<p>To open it, <code>commandfor</code> and <code>command="show-modal"</code> on a button do the job declaratively in browsers that support invoker commands; everywhere else it's one line of JavaScript. <code>closedby="any"</code> lets a click on the backdrop close the dialog where supported.</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">document</span>.getElementById(<span class="tok-val">'newExpense'</span>).showModal()</code></pre></div>
+
+<div class="bd-callout bd-callout-info">
+  <p>Don't add <code>.fade</code> or <code>data-bs-*</code> attributes to a native dialog: it isn't driven by Bootstrap's modal plugin and opens without the slide-in animation. Use the plugin's <code>.modal</code> when you need its options or events.</p>
+</div>
+
+<h2 id="optional-sizes">Optional sizes<a class="bd-anchor" href="#optional-sizes" aria-label="Link to this section">#</a></h2>
+<p>Modals have three optional sizes, available via modifier classes to be placed on a <code>.modal-dialog</code>. They shrink with narrower viewports to avoid horizontal scrollbars.</p>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr><th>Size</th><th>Class</th><th>Modal max-width</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Small</td><td><code>.modal-sm</code></td><td><code>300px</code></td></tr>
+      <tr><td>Default</td><td class="text-body-secondary">None</td><td><code>500px</code></td></tr>
+      <tr><td>Large</td><td><code>.modal-lg</code></td><td><code>800px</code></td></tr>
+      <tr><td>Extra large</td><td><code>.modal-xl</code></td><td><code>1140px</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>Our default modal without modifier class constitutes the "medium" size modal.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalXl">Extra large modal</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalLg">Large modal</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalSm">Small modal</button>
+</div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog modal-xl"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog modal-lg"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog modal-sm"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<div class="modal fade" id="exampleModalXl" tabindex="-1" aria-labelledby="exampleModalXlLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4" id="exampleModalXlLabel">Extra large modal</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalLg" tabindex="-1" aria-labelledby="exampleModalLgLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4" id="exampleModalLgLabel">Large modal</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalSm" tabindex="-1" aria-labelledby="exampleModalSmLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4" id="exampleModalSmLabel">Small modal</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 id="fullscreen-modal">Fullscreen Modal<a class="bd-anchor" href="#fullscreen-modal" aria-label="Link to this section">#</a></h2>
+<p>Another override is the option to pop up a modal that covers the user viewport, available via modifier classes that are placed on a <code>.modal-dialog</code>.</p>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr><th>Class</th><th>Availability</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>.modal-fullscreen</code></td><td>Always</td></tr>
+      <tr><td><code>.modal-fullscreen-sm-down</code></td><td>Below <code>576px</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>felt-css has no <code>-md-down</code>, <code>-lg-down</code>, <code>-xl-down</code> or <code>-xxl-down</code> variants.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen">Full screen</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreenSm">Full screen below sm</button>
+</div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-com">&lt;!-- Full screen modal --&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"modal-dialog modal-fullscreen-sm-down"</span><span class="tok-punct">&gt;</span>
+  ...
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<div class="modal fade" id="exampleModalFullscreen" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4" id="exampleModalFullscreenLabel">Full screen modal</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalFullscreenSm" tabindex="-1" aria-labelledby="exampleModalFullscreenSmLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4" id="exampleModalFullscreenSmLabel">Full screen below sm</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 id="javascript-behavior">JavaScript behavior<a class="bd-anchor" href="#javascript-behavior" aria-label="Link to this section">#</a></h2>
+<p>felt-css is CSS only; opening, closing, focus handling and the backdrop come from Bootstrap's modal plugin. Activate a modal without writing JavaScript by setting <code>data-bs-toggle="modal"</code> on a controller element, like a button, along with a <code>data-bs-target="#foo"</code> or <code>href="#foo"</code> to target a specific modal. Dismiss it with <code>data-bs-dismiss="modal"</code> on a button inside it.</p>
+<p>Options (<code>backdrop</code>, <code>focus</code>, <code>keyboard</code>), methods (<code>show</code>, <code>hide</code>, <code>toggle</code>, <code>handleUpdate</code>, <code>dispose</code>, <code>getInstance</code>, <code>getOrCreateInstance</code>) and events (<code>show.bs.modal</code>, <code>shown.bs.modal</code>, <code>hide.bs.modal</code>, <code>hidden.bs.modal</code>, <code>hidePrevented.bs.modal</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/modal/#usage">Bootstrap's modal documentation</a>.</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> myModal = <span class="tok-tag">new</span> bootstrap.Modal(<span class="tok-val">'#myModal'</span>, {
+  keyboard: false
+})
+myModal.show()</code></pre></div>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/list-group/"><small>Previous</small>List group</a><a class="bd-pager-next" href="../../components/navbar/"><small>Next</small>Navbar</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Button group · felt-css</title>
+  <meta name="description" content="Group a series of buttons together on a single line or stack them in a vertical column.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="../../../index.html">Kitchen sink</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Components</p>
+        <h1>Button group</h1>
+        <p class="lead">Group a series of buttons together on a single line or stack them in a vertical column.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/components/button-group.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#basic-example">Basic example</a></li><li><a href="#mixed-styles">Mixed styles</a></li><li><a href="#outlined-styles">Outlined styles</a></li><li><a href="#checkbox-and-radio-button-groups">Checkbox and radio button groups</a></li><li><a href="#button-toolbar">Button toolbar</a></li><li><a href="#sizing">Sizing</a></li><li><a href="#nesting">Nesting</a></li><li><a href="#vertical-variation">Vertical variation</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#basic-example">Basic example</a></li><li><a href="#mixed-styles">Mixed styles</a></li><li><a href="#outlined-styles">Outlined styles</a></li><li><a href="#checkbox-and-radio-button-groups">Checkbox and radio button groups</a></li><li><a href="#button-toolbar">Button toolbar</a></li><li><a href="#sizing">Sizing</a></li><li><a href="#nesting">Nesting</a></li><li><a href="#vertical-variation">Vertical variation</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="basic-example">Basic example<a class="bd-anchor" href="#basic-example" aria-label="Link to this section">#</a></h2>
+<p>Wrap a series of buttons with <code>.btn</code> in <code>.btn-group</code>.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-primary">Left</button>
+  <button type="button" class="btn btn-primary">Middle</button>
+  <button type="button" class="btn btn-primary">Right</button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Basic example"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Left<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Middle<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Right<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-info">
+  <p>Button groups require an appropriate <code>role</code> attribute and explicit label to ensure assistive technologies like screen readers identify buttons as grouped and announce them. Use <code>role="group"</code> for button groups or <code>role="toolbar"</code> for button toolbars. Then use <code>aria-label</code> or <code>aria-labelledby</code> to label them.</p>
+</div>
+
+<p>These classes can also be added to groups of links, as an alternative to the <a href="../navs-tabs/"><code>.nav</code> navigation components</a>.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-group">
+  <a href="#" class="btn btn-primary active" aria-current="page">Active link</a>
+  <a href="#" class="btn btn-primary">Link</a>
+  <a href="#" class="btn btn-primary">Link</a>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span><span class="tok-punct">&gt;</span>Active link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look a group of filled buttons is cut from one piece of felt with a single seam around it and a pressed fold between the buttons. A group of toggles (<code>.btn-check</code>, outline or light buttons) becomes a groove pressed into the felt, and the chosen segment is a small patch sewn into it.</p>
+</div>
+
+<h2 id="mixed-styles">Mixed styles<a class="bd-anchor" href="#mixed-styles" aria-label="Link to this section">#</a></h2>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+  <button type="button" class="btn btn-danger">Left</button>
+  <button type="button" class="btn btn-warning">Middle</button>
+  <button type="button" class="btn btn-success">Right</button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Basic mixed styles example"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-danger"</span><span class="tok-punct">&gt;</span>Left<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-warning"</span><span class="tok-punct">&gt;</span>Middle<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-success"</span><span class="tok-punct">&gt;</span>Right<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="outlined-styles">Outlined styles<a class="bd-anchor" href="#outlined-styles" aria-label="Link to this section">#</a></h2>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-group" role="group" aria-label="Basic outlined example">
+  <button type="button" class="btn btn-outline-primary">Left</button>
+  <button type="button" class="btn btn-outline-primary">Middle</button>
+  <button type="button" class="btn btn-outline-primary">Right</button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Basic outlined example"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span><span class="tok-punct">&gt;</span>Left<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span><span class="tok-punct">&gt;</span>Middle<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span><span class="tok-punct">&gt;</span>Right<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="checkbox-and-radio-button-groups">Checkbox and radio button groups<a class="bd-anchor" href="#checkbox-and-radio-button-groups" aria-label="Link to this section">#</a></h2>
+<p>Combine button-like checkbox and radio <a href="../../forms/checks-radios/">toggle buttons</a> into a seamless looking button group.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+  <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btncheck1">Checkbox 1</label>
+
+  <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btncheck2">Checkbox 2</label>
+
+  <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btncheck3">Checkbox 3</label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Basic checkbox toggle button group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btncheck1"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btncheck1"</span><span class="tok-punct">&gt;</span>Checkbox 1<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btncheck2"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btncheck2"</span><span class="tok-punct">&gt;</span>Checkbox 2<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btncheck3"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btncheck3"</span><span class="tok-punct">&gt;</span>Checkbox 3<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+  <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>
+
+  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label>
+
+  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Basic radio toggle button group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"btnradio"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btnradio1"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span> <span class="tok-attr">checked</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btnradio1"</span><span class="tok-punct">&gt;</span>Radio 1<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"btnradio"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btnradio2"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btnradio2"</span><span class="tok-punct">&gt;</span>Radio 2<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"btnradio"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btnradio3"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btnradio3"</span><span class="tok-punct">&gt;</span>Radio 3<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>The toggles work with every button variant, for instance the plain <code>.btn</code> or <code>.btn-light</code> for a quiet segmented control.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-group" role="group" aria-label="Segmented control">
+  <input type="radio" class="btn-check" name="btnperiod" id="btnperiod1" autocomplete="off">
+  <label class="btn btn-light" for="btnperiod1">Day</label>
+
+  <input type="radio" class="btn-check" name="btnperiod" id="btnperiod2" autocomplete="off" checked>
+  <label class="btn btn-light" for="btnperiod2">Week</label>
+
+  <input type="radio" class="btn-check" name="btnperiod" id="btnperiod3" autocomplete="off">
+  <label class="btn btn-light" for="btnperiod3">Month</label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Segmented control"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"btnperiod"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btnperiod1"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-light"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btnperiod1"</span><span class="tok-punct">&gt;</span>Day<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"btnperiod"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btnperiod2"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span> <span class="tok-attr">checked</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-light"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btnperiod2"</span><span class="tok-punct">&gt;</span>Week<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"btnperiod"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btnperiod3"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-light"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"btnperiod3"</span><span class="tok-punct">&gt;</span>Month<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="button-toolbar">Button toolbar<a class="bd-anchor" href="#button-toolbar" aria-label="Link to this section">#</a></h2>
+<p>Combine sets of button groups into button toolbars for more complex components. Use utility classes as needed to space out groups, buttons, and more.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group me-2" role="group" aria-label="First group">
+    <button type="button" class="btn btn-primary">1</button>
+    <button type="button" class="btn btn-primary">2</button>
+    <button type="button" class="btn btn-primary">3</button>
+    <button type="button" class="btn btn-primary">4</button>
+  </div>
+  <div class="btn-group me-2" role="group" aria-label="Second group">
+    <button type="button" class="btn btn-secondary">5</button>
+    <button type="button" class="btn btn-secondary">6</button>
+    <button type="button" class="btn btn-secondary">7</button>
+  </div>
+  <div class="btn-group" role="group" aria-label="Third group">
+    <button type="button" class="btn btn-info">8</button>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-toolbar"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"toolbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toolbar with button groups"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group me-2"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"First group"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>1<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>2<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>3<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>4<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group me-2"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Second group"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span><span class="tok-punct">&gt;</span>5<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span><span class="tok-punct">&gt;</span>6<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span><span class="tok-punct">&gt;</span>7<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Third group"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-info"</span><span class="tok-punct">&gt;</span>8<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Feel free to mix input groups with button groups in your toolbars. Similar to the example above, you’ll likely need some utilities though to space things properly.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group me-2" role="group" aria-label="First group">
+    <button type="button" class="btn btn-outline-secondary">1</button>
+    <button type="button" class="btn btn-outline-secondary">2</button>
+    <button type="button" class="btn btn-outline-secondary">3</button>
+    <button type="button" class="btn btn-outline-secondary">4</button>
+  </div>
+  <div class="input-group">
+    <div class="input-group-text" id="btnGroupAddon">@</div>
+    <input type="text" class="form-control" placeholder="Input group example" aria-label="Input group example" aria-describedby="btnGroupAddon">
+  </div>
+</div>
+
+<div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group" role="group" aria-label="First group">
+    <button type="button" class="btn btn-outline-secondary">1</button>
+    <button type="button" class="btn btn-outline-secondary">2</button>
+    <button type="button" class="btn btn-outline-secondary">3</button>
+    <button type="button" class="btn btn-outline-secondary">4</button>
+  </div>
+  <div class="input-group">
+    <div class="input-group-text" id="btnGroupAddon2">@</div>
+    <input type="text" class="form-control" placeholder="Input group example" aria-label="Input group example" aria-describedby="btnGroupAddon2">
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-toolbar mb-3"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"toolbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toolbar with button groups"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group me-2"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"First group"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-secondary"</span><span class="tok-punct">&gt;</span>1<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-secondary"</span><span class="tok-punct">&gt;</span>2<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-secondary"</span><span class="tok-punct">&gt;</span>3<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-secondary"</span><span class="tok-punct">&gt;</span>4<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"input-group"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"input-group-text"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btnGroupAddon"</span><span class="tok-punct">&gt;</span>@<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Input group example"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Input group example"</span> <span class="tok-attr">aria-describedby</span><span class="tok-punct">=</span><span class="tok-val">"btnGroupAddon"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-toolbar justify-content-between"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"toolbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toolbar with button groups"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"First group"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-secondary"</span><span class="tok-punct">&gt;</span>1<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-secondary"</span><span class="tok-punct">&gt;</span>2<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-secondary"</span><span class="tok-punct">&gt;</span>3<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-secondary"</span><span class="tok-punct">&gt;</span>4<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"input-group"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"input-group-text"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"btnGroupAddon2"</span><span class="tok-punct">&gt;</span>@<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Input group example"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Input group example"</span> <span class="tok-attr">aria-describedby</span><span class="tok-punct">=</span><span class="tok-val">"btnGroupAddon2"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>felt-css's <code>.btn-toolbar</code> already puts a small gap between its groups, so the margin utilities are optional.</p>
+
+<h2 id="sizing">Sizing<a class="bd-anchor" href="#sizing" aria-label="Link to this section">#</a></h2>
+<p>Instead of applying button sizing classes to every button in a group, just add <code>.btn-group-lg</code> or <code>.btn-group-sm</code> to each <code>.btn-group</code>, including each one when nesting multiple groups.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+  <button type="button" class="btn btn-outline-primary">Left</button>
+  <button type="button" class="btn btn-outline-primary">Middle</button>
+  <button type="button" class="btn btn-outline-primary">Right</button>
+</div>
+<br>
+<div class="btn-group" role="group" aria-label="Default button group">
+  <button type="button" class="btn btn-outline-primary">Left</button>
+  <button type="button" class="btn btn-outline-primary">Middle</button>
+  <button type="button" class="btn btn-outline-primary">Right</button>
+</div>
+<br>
+<div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+  <button type="button" class="btn btn-outline-primary">Left</button>
+  <button type="button" class="btn btn-outline-primary">Middle</button>
+  <button type="button" class="btn btn-outline-primary">Right</button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group btn-group-lg"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Large button group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span><span class="tok-punct">&gt;</span>Left<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span><span class="tok-punct">&gt;</span>Middle<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span><span class="tok-punct">&gt;</span>Right<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Default button group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span><span class="tok-punct">&gt;</span>Left<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span><span class="tok-punct">&gt;</span>Middle<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span><span class="tok-punct">&gt;</span>Right<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group btn-group-sm"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Small button group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span><span class="tok-punct">&gt;</span>Left<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span><span class="tok-punct">&gt;</span>Middle<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-primary"</span><span class="tok-punct">&gt;</span>Right<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="nesting">Nesting<a class="bd-anchor" href="#nesting" aria-label="Link to this section">#</a></h2>
+<p>Place a <code>.btn-group</code> within another <code>.btn-group</code> when you want dropdown menus mixed with a series of buttons.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+  <button type="button" class="btn btn-primary">1</button>
+  <button type="button" class="btn btn-primary">2</button>
+
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      Dropdown
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+    </ul>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Button group with nested dropdown"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>1<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>2<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary dropdown-toggle"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"dropdown"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span>
+      Dropdown
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-menu"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Dropdown link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Dropdown link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="vertical-variation">Vertical variation<a class="bd-anchor" href="#vertical-variation" aria-label="Link to this section">#</a></h2>
+<p>Make a set of buttons appear vertically stacked rather than horizontally. <strong>Split button dropdowns are not supported here.</strong></p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+  <button type="button" class="btn btn-primary">Button</button>
+  <button type="button" class="btn btn-primary">Button</button>
+  <button type="button" class="btn btn-primary">Button</button>
+  <button type="button" class="btn btn-primary">Button</button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group-vertical"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Vertical button group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Button<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Button<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Button<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Button<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      Dropdown
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+    </ul>
+  </div>
+  <button type="button" class="btn btn-primary">Button</button>
+  <button type="button" class="btn btn-primary">Button</button>
+  <div class="btn-group dropstart" role="group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      Dropdown
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+    </ul>
+  </div>
+  <div class="btn-group dropend" role="group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      Dropdown
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+    </ul>
+  </div>
+  <div class="btn-group dropup" role="group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      Dropdown
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+      <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+    </ul>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group-vertical"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Vertical button group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary dropdown-toggle"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"dropdown"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span>
+      Dropdown
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-menu"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Dropdown link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Dropdown link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Button<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Button<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group dropstart"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary dropdown-toggle"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"dropdown"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span>
+      Dropdown
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-menu"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Dropdown link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Dropdown link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group dropend"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary dropdown-toggle"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"dropdown"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span>
+      Dropdown
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-menu"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Dropdown link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Dropdown link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group dropup"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary dropdown-toggle"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"dropdown"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span>
+      Dropdown
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-menu"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Dropdown link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Dropdown link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+  <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked>
+  <label class="btn btn-outline-danger" for="vbtn-radio1">Radio 1</label>
+  <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
+  <label class="btn btn-outline-danger" for="vbtn-radio2">Radio 2</label>
+  <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
+  <label class="btn btn-outline-danger" for="vbtn-radio3">Radio 3</label>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-group-vertical"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"group"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Vertical radio toggle button group"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"vbtn-radio"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"vbtn-radio1"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span> <span class="tok-attr">checked</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-danger"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"vbtn-radio1"</span><span class="tok-punct">&gt;</span>Radio 1<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"vbtn-radio"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"vbtn-radio2"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-danger"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"vbtn-radio2"</span><span class="tok-punct">&gt;</span>Radio 2<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-check"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"vbtn-radio"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"vbtn-radio3"</span> <span class="tok-attr">autocomplete</span><span class="tok-punct">=</span><span class="tok-val">"off"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-danger"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"vbtn-radio3"</span><span class="tok-punct">&gt;</span>Radio 3<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/buttons/"><small>Previous</small>Buttons</a><a class="bd-pager-next" href="../../components/card/"><small>Next</small>Card</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

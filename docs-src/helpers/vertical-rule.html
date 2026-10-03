@@ -1,0 +1,40 @@
+<!--
+title: Vertical rule
+description: Use the custom vertical rule helper to create vertical dividers like the &lt;hr&gt; element.
+-->
+<style>
+  .bd-example-stacks :is(.hstack, .vstack) > div:not(.vr) { background-color: color-mix(in oklab, var(--primary) 14%, transparent); border: 1px solid color-mix(in oklab, var(--primary) 30%, transparent); }
+</style>
+<h2>How it works</h2>
+<p>Vertical rules are inspired by the <code>&lt;hr&gt;</code> element, allowing you to create vertical dividers in common layouts. They're styled just like <code>&lt;hr&gt;</code> elements:</p>
+<ul>
+  <li>They're <code>1px</code> wide</li>
+  <li>They have <code>min-height</code> of <code>1em</code></li>
+  <li>Their color is set via <code>currentColor</code> and <code>opacity</code></li>
+</ul>
+<p>Customize them with additional styles as needed.</p>
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look a vertical rule is a standing row of stitches, the same thread as the dividers inside cards and lists, tinted to the felt underneath.</p>
+</div>
+
+<h2>Example</h2>
+<example>
+<div class="vr"></div>
+</example>
+<p>Vertical rules scale their height in flex layouts:</p>
+<example>
+<div class="d-flex" style="height: 200px;">
+  <div class="vr"></div>
+</div>
+</example>
+
+<h2>With stacks</h2>
+<p>They can also be used in <a href="../stacks/">stacks</a>:</p>
+<example class="bd-example-stacks">
+<div class="hstack gap-3">
+  <div class="p-2">First item</div>
+  <div class="p-2 ms-auto">Second item</div>
+  <div class="vr"></div>
+  <div class="p-2">Third item</div>
+</div>
+</example>

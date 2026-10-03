@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Forms · felt-css</title>
+  <meta name="description" content="Examples and usage guidelines for form control styles, layout options, and custom components for creating a wide variety of forms.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="../../../index.html">Kitchen sink</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Forms</p>
+        <h1>Forms</h1>
+        <p class="lead">Examples and usage guidelines for form control styles, layout options, and custom components for creating a wide variety of forms.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/forms/overview.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#overview">Overview</a></li><li><a href="#form-components">Form components</a></li><li><a href="#disabled-forms">Disabled forms</a></li><li><a href="#accessibility">Accessibility</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#overview">Overview</a></li><li><a href="#form-components">Form components</a></li><li><a href="#disabled-forms">Disabled forms</a></li><li><a href="#accessibility">Accessibility</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="overview">Overview<a class="bd-anchor" href="#overview" aria-label="Link to this section">#</a></h2>
+<p>felt-css's form controls expand on <a href="../../content/reboot/#forms">the rebooted form styles</a> with classes. Use these classes to opt into their customized displays for a more consistent rendering across browsers and devices.</p>
+<p>Be sure to use an appropriate <code>type</code> attribute on all inputs (e.g., <code>email</code> for email address or <code>number</code> for numerical information) to take advantage of newer input controls like email verification, number selection, and more.</p>
+<p>Here's a quick example to demonstrate the form styles. Keep reading for documentation on required classes, form layout, and more.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<form>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1">
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"exampleInputEmail1"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Email address<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"email"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleInputEmail1"</span> <span class="tok-attr">aria-describedby</span><span class="tok-punct">=</span><span class="tok-val">"emailHelp"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"emailHelp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-text"</span><span class="tok-punct">&gt;</span>We'll never share your email with anyone else.<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"exampleInputPassword1"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Password<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"password"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleInputPassword1"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3 form-check"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"exampleCheck1"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"exampleCheck1"</span><span class="tok-punct">&gt;</span>Check me out<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Submit<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look, fields stay nearly clean: they are pressed slightly into the felt (an inner shadow and a faint fibre texture), while checkboxes, radios, switches and range thumbs become small felt patches in the primary colour. Sizes and spacing are identical in both looks.</p>
+</div>
+
+<h2 id="form-components">Form components<a class="bd-anchor" href="#form-components" aria-label="Link to this section">#</a></h2>
+<ul>
+  <li><a href="../form-control/">Form control</a>: textual inputs and textareas, sizes, plaintext, file and colour inputs.</li>
+  <li><a href="../select/">Select</a>: the native <code>&lt;select&gt;</code> with a custom look.</li>
+  <li><a href="../checks-radios/">Checks &amp; radios</a>: checkboxes, radios, switches and toggle buttons.</li>
+  <li><a href="../range/">Range</a>: range inputs with an optional filled track.</li>
+  <li><a href="../input-group/">Input group</a>: text, buttons and dropdowns attached to controls.</li>
+  <li><a href="../floating-labels/">Floating labels</a>: labels that float over their fields, without JavaScript.</li>
+  <li><a href="../validation/">Validation</a>: valid and invalid states with feedback messages.</li>
+</ul>
+<p>For form layout, use the <a href="../../layout/grid/">grid</a> and <a href="../../layout/gutters/">gutters</a> (e.g. <code>.row.g-3</code> with <code>.col-md-*</code>) and the <a href="../../utilities/spacing/">margin utilities</a>.</p>
+
+<h2 id="disabled-forms">Disabled forms<a class="bd-anchor" href="#disabled-forms" aria-label="Link to this section">#</a></h2>
+<p>Add the <code>disabled</code> boolean attribute on an input to prevent user interactions and make it appear lighter.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"disabledInput"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Disabled input here..."</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Add the <code>disabled</code> attribute to a <code>&lt;fieldset&gt;</code> to disable all the controls within. Browsers treat all native form controls (<code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, and <code>&lt;button&gt;</code> elements) inside a <code>&lt;fieldset disabled&gt;</code> as disabled, preventing both keyboard and mouse interactions on them.</p>
+<p>However, if your form also includes custom button-like elements such as <code>&lt;a class="btn btn-*"&gt;...&lt;/a&gt;</code>, these will only be given a style of <code>pointer-events: none</code>, meaning they are still focusable and operable using the keyboard. In this case, you must manually modify these controls by adding <code>tabindex="-1"</code> to prevent them from receiving focus and <code>aria-disabled="true"</code> to signal their state to assistive technologies.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<form>
+  <fieldset disabled>
+    <legend>Disabled fieldset example</legend>
+    <div class="mb-3">
+      <label for="disabledTextInput" class="form-label">Disabled input</label>
+      <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
+    </div>
+    <div class="mb-3">
+      <label for="disabledSelect" class="form-label">Disabled select menu</label>
+      <select id="disabledSelect" class="form-select">
+        <option>Disabled select</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="disabledFieldsetCheck" disabled>
+        <label class="form-check-label" for="disabledFieldsetCheck">
+          Can't check this
+        </label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </fieldset>
+</form>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">fieldset</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">legend</span><span class="tok-punct">&gt;</span>Disabled fieldset example<span class="tok-punct">&lt;/</span><span class="tok-tag">legend</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"disabledTextInput"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Disabled input<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"disabledTextInput"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Disabled input"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"disabledSelect"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Disabled select menu<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">select</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"disabledSelect"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-select"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>Disabled select<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">select</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"disabledFieldsetCheck"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"disabledFieldsetCheck"</span><span class="tok-punct">&gt;</span>
+          Can't check this
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Submit<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">fieldset</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="accessibility">Accessibility<a class="bd-anchor" href="#accessibility" aria-label="Link to this section">#</a></h2>
+<p>Ensure that all form controls have an appropriate accessible name so that their purpose can be conveyed to users of assistive technologies. The simplest way to achieve this is to use a <code>&lt;label&gt;</code> element, or—in the case of buttons—to include sufficiently descriptive text as part of the <code>&lt;button&gt;...&lt;/button&gt;</code> content.</p>
+<p>For situations where it's not possible to include a visible <code>&lt;label&gt;</code> or appropriate text content, there are alternative ways of still providing an accessible name, such as:</p>
+<ul>
+  <li><code>&lt;label&gt;</code> elements hidden using the <a href="../../helpers/visually-hidden/"><code>.visually-hidden</code></a> class</li>
+  <li>Pointing to an existing element that can act as a label using <code>aria-labelledby</code></li>
+  <li>Providing a <code>title</code> attribute</li>
+  <li>Explicitly setting the accessible name on an element using <code>aria-label</code></li>
+</ul>
+<p>If none of these are present, assistive technologies may resort to using the <code>placeholder</code> attribute as a fallback for the accessible name on <code>&lt;input&gt;</code> and <code>&lt;textarea&gt;</code> elements.</p>
+<p>While using visually hidden content (<code>.visually-hidden</code>, <code>aria-label</code>, and even <code>placeholder</code> content, which disappears once a form field has content) will benefit assistive technology users, a lack of visible label text may still be problematic for certain users. Some form of visible label is generally the best approach, both for accessibility and usability.</p>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../content/figures/"><small>Previous</small>Figures</a><a class="bd-pager-next" href="../../forms/form-control/"><small>Next</small>Form control</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. Public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by the Bootstrap team
+            (code <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">MIT</a>, docs
+            <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>), trimmed to what felt-css supports.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

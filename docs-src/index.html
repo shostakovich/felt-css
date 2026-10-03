@@ -1,0 +1,93 @@
+<!--
+title: Bootstrap, but made of wool felt
+description: felt-css is a small, dependency-free CSS toolkit with Bootstrap 5 class names and two looks: a clean one for everyday work, and a cosy one where every card is cut from felt and every button is sewn on by hand.
+layout: home
+-->
+<section class="bd-hero">
+  <img class="bd-hero-banner" src="{{root}}banner.webp" width="1400" height="467" alt="felt-css, spelled in stitched felt letters">
+  <h1 class="display-4 mb-3">Bootstrap, but made of wool felt</h1>
+  <p class="lead mb-4">A small, dependency-free CSS toolkit with Bootstrap 5 class names and two looks: a clean one for everyday work, and a cosy one where every card is cut from felt and every button is sewn on by hand.</p>
+  <div class="d-flex flex-wrap justify-content-center gap-2">
+    <a class="btn btn-primary btn-lg" href="{{root}}getting-started/introduction/">Get started</a>
+    <a class="btn btn-lg" href="{{root}}examples/">Examples</a>
+    <a class="btn btn-lg" href="{{repo}}{{kitchen}}">Kitchen sink</a>
+  </div>
+  <p class="small text-body-secondary mt-3 mb-0">Public domain · CSS only · about 33 KB gzipped plus 42 KB of felt photos</p>
+</section>
+
+<section class="row g-4 align-items-center mb-5">
+  <div class="col-lg-5">
+    <h2 class="h1">Get started in a minute</h2>
+    <p>No build step and no package to install. Copy <code>felt.css</code> and the <code>img/</code> folder next to it, link the stylesheet and switch on the felt look with one attribute. Bring Bootstrap's own JavaScript for dropdowns, modals and friends.</p>
+    <a href="{{root}}getting-started/introduction/">Read the quick start →</a>
+  </div>
+  <div class="col-lg-7">
+<codeblock lang="html">
+<html data-look="felt">   <!-- leave it out for the clean look -->
+<head>
+  <link rel="stylesheet" href="felt.css">
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">New expense</div>
+    <div class="card-body">…</div>
+    <div class="card-footer">
+      <button class="btn">Cancel</button>
+      <button class="btn btn-primary">Save</button>
+    </div>
+  </div>
+</body>
+</codeblock>
+  </div>
+</section>
+
+<section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+  <div class="col">
+    <div class="card bd-feature"><div class="card-body">
+      <img class="bd-plush" src="{{root}}assets/plush/nav_switches.webp" width="72" height="72" alt="">
+      <h3>Bootstrap names</h3>
+      <p class="mb-0">Same classes, same markup, same JavaScript. If you know Bootstrap 5.3 you already know felt-css; most pages of these docs are Bootstrap's own, trimmed to what is here.</p>
+    </div></div>
+  </div>
+  <div class="col">
+    <div class="card bd-feature"><div class="card-body">
+      <img class="bd-plush" src="{{root}}assets/plush/settings.webp" width="72" height="72" alt="">
+      <h3>Two looks, one layout</h3>
+      <p class="mb-0">The felt layer only swaps colours, textures, shadows and seams — never padding, borders or fonts. Toggle the look and not a single pixel moves. <a href="{{root}}getting-started/looks/">How the felt works</a></p>
+    </div></div>
+  </div>
+  <div class="col">
+    <div class="card bd-feature"><div class="card-body">
+      <img class="bd-plush" src="{{root}}assets/plush/weather_partly_cloudy_day.webp" width="72" height="72" alt="">
+      <h3>Light and dark</h3>
+      <p class="mb-0">Dark mode works like Bootstrap's: <code>data-bs-theme</code> on any element, or the system setting. Dark felt is charcoal. <a href="{{root}}getting-started/color-modes/">Color modes</a></p>
+    </div></div>
+  </div>
+  <div class="col">
+    <div class="card bd-feature"><div class="card-body">
+      <img class="bd-plush" src="{{root}}assets/plush/nav_reports.webp" width="72" height="72" alt="">
+      <h3>Grid and utilities</h3>
+      <p class="mb-0">Bootstrap's flex grid and all of its 5.3 utilities, responsive at <code>sm</code>, <code>md</code> and <code>lg</code>. <a href="{{root}}layout/grid/">Grid</a> · <a href="{{root}}utilities/spacing/">Utilities</a></p>
+    </div></div>
+  </div>
+  <div class="col">
+    <div class="card bd-feature"><div class="card-body">
+      <img class="bd-plush" src="{{root}}assets/plush/icon_sonne.webp" width="72" height="72" alt="">
+      <h3>Re-dye it</h3>
+      <p class="mb-0">Every colour is a custom property written as <code>light-dark()</code>. Override <code>--primary</code> and friends and the whole sheet takes the new dye. <a href="{{root}}customize/color/">Color</a></p>
+    </div></div>
+  </div>
+  <div class="col">
+    <div class="card bd-feature"><div class="card-body">
+      <img class="bd-plush" src="{{root}}assets/plush/icon_haus.webp" width="72" height="72" alt="">
+      <h3>Your CSS wins</h3>
+      <p class="mb-0">All felt rules live in <code>@layer felt</code> behind <code>:where()</code>, with zero specificity. Whatever you write on top simply applies.</p>
+    </div></div>
+  </div>
+</section>
+
+<section class="text-center mb-4">
+  <h2 class="h1">See it sewn together</h2>
+  <p class="lead mb-4">Three small apps built from nothing but felt-css: a smart-home dashboard, a shared-expenses app and a blog.</p>
+  <a class="btn btn-primary btn-lg" href="{{root}}examples/">Browse examples</a>
+</section>

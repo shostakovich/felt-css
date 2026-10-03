@@ -1,0 +1,207 @@
+<!--
+title: Buttons
+description: Use custom button styles for actions in forms, dialogs, and more with support for multiple sizes, states, and more.
+-->
+<h2>Base class</h2>
+<p>felt-css has a base <code>.btn</code> class that sets up basic styles such as padding and content alignment. On its own, <code>.btn</code> is a plain, borderless button with a quiet hover, useful for secondary actions such as “Cancel”.</p>
+<example>
+<button type="button" class="btn">Base class</button>
+</example>
+<p>The <code>.btn</code> class is intended to be used in conjunction with the button variants, or to serve as a basis for your own custom styles.</p>
+
+<h2>Variants</h2>
+<p>felt-css includes several button variants, each serving its own semantic purpose, with a few extras thrown in for more control.</p>
+<example>
+<button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-secondary">Secondary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-light">Light</button>
+<button type="button" class="btn btn-dark">Dark</button>
+
+<button type="button" class="btn btn-link">Link</button>
+</example>
+
+<div class="bd-callout bd-callout-warning">
+  <p><strong>Conveying meaning to assistive technologies.</strong> Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies like screen readers. Make sure the meaning is obvious from the content itself (e.g., the visible text of a button), or is included through alternative means, such as additional text hidden with the <code>.visually-hidden</code> class.</p>
+</div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look every filled button is a patch of saturated felt, sewn on with a running stitch in a lighter tone of its colour. Pressed, it sinks into the felt instead of darkening; disabled, it goes pale and flat rather than see-through. Outline buttons are patches of plain felt, sewn on with thread in the button's colour (tone-on-tone in Firefox).</p>
+</div>
+
+<h2>Disable text wrapping</h2>
+<p>Unlike Bootstrap's, felt-css buttons don't wrap their text by default (<code>white-space: nowrap</code>). If you want long labels to wrap, add the <a href="../../utilities/text/"><code>.text-wrap</code></a> class to the button.</p>
+
+<h2>Button tags</h2>
+<p>The <code>.btn</code> classes are designed to be used with the <code>&lt;button&gt;</code> element. However, you can also use these classes on <code>&lt;a&gt;</code> or <code>&lt;input&gt;</code> elements (though some browsers may apply a slightly different rendering).</p>
+<p>When using button classes on <code>&lt;a&gt;</code> elements that are used to trigger in-page functionality (like collapsing content), rather than linking to new pages or sections within the current page, these links should be given a <code>role="button"</code> to appropriately convey their purpose to assistive technologies such as screen readers.</p>
+<example>
+<a class="btn btn-primary" href="#" role="button">Link</a>
+<button class="btn btn-primary" type="submit">Button</button>
+<input class="btn btn-primary" type="button" value="Input">
+<input class="btn btn-primary" type="submit" value="Submit">
+<input class="btn btn-primary" type="reset" value="Reset">
+</example>
+
+<h2>Outline buttons</h2>
+<p>In need of a button, but not the hefty background colors they bring? Replace the default modifier classes with the <code>.btn-outline-*</code> ones to remove all background colors on any button.</p>
+<example>
+<button type="button" class="btn btn-outline-primary">Primary</button>
+<button type="button" class="btn btn-outline-secondary">Secondary</button>
+<button type="button" class="btn btn-outline-success">Success</button>
+<button type="button" class="btn btn-outline-danger">Danger</button>
+<button type="button" class="btn btn-outline-warning">Warning</button>
+<button type="button" class="btn btn-outline-info">Info</button>
+<button type="button" class="btn btn-outline-light">Light</button>
+<button type="button" class="btn btn-outline-dark">Dark</button>
+</example>
+
+<h2>Sizes</h2>
+<p>Fancy larger or smaller buttons? Add <code>.btn-lg</code> or <code>.btn-sm</code> for additional sizes.</p>
+<example>
+<button type="button" class="btn btn-primary btn-lg">Large button</button>
+<button type="button" class="btn btn-secondary btn-lg">Large button</button>
+</example>
+<example>
+<button type="button" class="btn btn-primary btn-sm">Small button</button>
+<button type="button" class="btn btn-secondary btn-sm">Small button</button>
+</example>
+
+<p>felt-css has no <code>--bs-btn-*</code> variables. To roll your own size, use <a href="../../utilities/spacing/">spacing</a> and <a href="../../utilities/text/">font size</a> utilities:</p>
+<example>
+<button type="button" class="btn btn-primary py-1 px-2 small">
+  Custom button
+</button>
+</example>
+
+<h2>Pill and icon buttons</h2>
+<p>Two extras that Bootstrap doesn't have. <code>.btn-pill</code> gives a button fully rounded ends; it works with every variant and size.</p>
+<example>
+<button type="button" class="btn btn-primary btn-pill">Primary</button>
+<button type="button" class="btn btn-secondary btn-pill">Secondary</button>
+<button type="button" class="btn btn-outline-success btn-pill">Outline</button>
+<button type="button" class="btn btn-danger btn-pill btn-sm">Small</button>
+<button type="button" class="btn btn-warning btn-pill btn-lg">Large</button>
+</example>
+
+<p><code>.btn-icon</code> makes a round, square-sized button (2.75rem) without padding, for a single icon. Since there is no visible text, always add an <code>aria-label</code>.</p>
+<example>
+<button type="button" class="btn btn-primary btn-icon" aria-label="Add">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 2a.75.75 0 0 1 .75.75v4.5h4.5a.75.75 0 0 1 0 1.5h-4.5v4.5a.75.75 0 0 1-1.5 0v-4.5h-4.5a.75.75 0 0 1 0-1.5h4.5v-4.5A.75.75 0 0 1 8 2"/></svg>
+</button>
+<button type="button" class="btn btn-danger btn-icon" aria-label="Delete">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/></svg>
+</button>
+<button type="button" class="btn btn-outline-secondary btn-icon" aria-label="Edit">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/></svg>
+</button>
+<button type="button" class="btn btn-icon" aria-label="Settings">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/></svg>
+</button>
+</example>
+
+<h2>Disabled state</h2>
+<p>Make buttons look inactive by adding the <code>disabled</code> boolean attribute to any <code>&lt;button&gt;</code> element. Disabled buttons have <code>pointer-events: none</code> applied to, preventing hover and active states from triggering.</p>
+<example>
+<button type="button" class="btn btn-primary" disabled>Primary button</button>
+<button type="button" class="btn btn-secondary" disabled>Button</button>
+<button type="button" class="btn btn-outline-primary" disabled>Primary button</button>
+<button type="button" class="btn btn-outline-secondary" disabled>Button</button>
+</example>
+
+<p>Disabled buttons using the <code>&lt;a&gt;</code> element behave a bit different:</p>
+<ul>
+  <li><code>&lt;a&gt;</code>s don’t support the <code>disabled</code> attribute, so you must add the <code>.disabled</code> class to make it visually appear disabled.</li>
+  <li><code>pointer-events: none</code> disables the link functionality for the mouse.</li>
+  <li>Disabled buttons using <code>&lt;a&gt;</code> should include the <code>aria-disabled="true"</code> attribute to indicate the state of the element to assistive technologies.</li>
+  <li>Disabled buttons using <code>&lt;a&gt;</code> <em>should not</em> include the <code>href</code> attribute.</li>
+</ul>
+<example>
+<a class="btn btn-primary disabled" role="button" aria-disabled="true">Primary link</a>
+<a class="btn btn-secondary disabled" role="button" aria-disabled="true">Link</a>
+</example>
+
+<h3>Link functionality caveat</h3>
+<p>To cover cases where you have to keep the <code>href</code> attribute on a disabled link, the <code>.disabled</code> class uses <code>pointer-events: none</code> to try to disable the link functionality of <code>&lt;a&gt;</code>s. Keyboard navigation remains unaffected, though, meaning that sighted keyboard users and users of assistive technologies will still be able to activate these links. So to be safe, in addition to <code>aria-disabled="true"</code>, also include a <code>tabindex="-1"</code> attribute on these links to prevent them from receiving keyboard focus, and use custom JavaScript to disable their functionality altogether.</p>
+<example>
+<a href="#" class="btn btn-primary disabled" tabindex="-1" role="button" aria-disabled="true">Primary link</a>
+<a href="#" class="btn btn-secondary disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>
+</example>
+
+<h2>Block buttons</h2>
+<p>Create responsive stacks of full-width, “block buttons” with a mix of display and gap utilities. By using utilities instead of button-specific classes, we have much greater control over spacing, alignment, and responsive behaviors.</p>
+<example>
+<div class="d-grid gap-2">
+  <button class="btn btn-primary" type="button">Button</button>
+  <button class="btn btn-primary" type="button">Button</button>
+</div>
+</example>
+
+<p>Here we create a responsive variation, starting with vertically stacked buttons until the <code>md</code> breakpoint, where <code>.d-md-block</code> replaces the <code>.d-grid</code> class, thus nullifying the <code>gap-2</code> utility. Resize your browser to see them change.</p>
+<example>
+<div class="d-grid gap-2 d-md-block">
+  <button class="btn btn-primary" type="button">Button</button>
+  <button class="btn btn-primary" type="button">Button</button>
+</div>
+</example>
+
+<p>You can adjust the width of your block buttons with grid column width classes. For example, for a half-width “block button”, use <code>.col-6</code>. Center it horizontally with <code>.mx-auto</code>, too.</p>
+<example>
+<div class="d-grid gap-2 col-6 mx-auto">
+  <button class="btn btn-primary" type="button">Button</button>
+  <button class="btn btn-primary" type="button">Button</button>
+</div>
+</example>
+
+<p>Additional utilities can be used to adjust the alignment of buttons when horizontal. Here we’ve taken our previous responsive example and added some flex utilities and a margin utility on the button to right-align the buttons when they’re no longer stacked.</p>
+<example>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button class="btn btn-primary me-md-2" type="button">Button</button>
+  <button class="btn btn-primary" type="button">Button</button>
+</div>
+</example>
+
+<h2>Button plugin</h2>
+<p>Bootstrap's button plugin allows you to create simple on/off toggle buttons.</p>
+
+<div class="bd-callout bd-callout-info">
+  <p>Visually, these toggle buttons are identical to the <a href="../../forms/checks-radios/#toggle-buttons">checkbox toggle buttons</a>. However, they are conveyed differently by assistive technologies: the checkbox toggles will be announced by screen readers as “checked”/“not checked” (since, despite their appearance, they are fundamentally still checkboxes), whereas these toggle buttons will be announced as “button”/“button pressed”. The choice between these two approaches will depend on the type of toggle you are creating.</p>
+</div>
+
+<h3>Toggle states</h3>
+<p>Add <code>data-bs-toggle="button"</code> to toggle a button’s <code>active</code> state. If you’re pre-toggling a button, you must manually add the <code>.active</code> class <strong>and</strong> <code>aria-pressed="true"</code> to ensure that it is conveyed appropriately to assistive technologies.</p>
+<example>
+<p class="d-inline-flex gap-1">
+  <button type="button" class="btn" data-bs-toggle="button">Toggle button</button>
+  <button type="button" class="btn active" data-bs-toggle="button" aria-pressed="true">Active toggle button</button>
+  <button type="button" class="btn" disabled data-bs-toggle="button">Disabled toggle button</button>
+</p>
+<p class="d-inline-flex gap-1">
+  <button type="button" class="btn btn-primary" data-bs-toggle="button">Toggle button</button>
+  <button type="button" class="btn btn-primary active" data-bs-toggle="button" aria-pressed="true">Active toggle button</button>
+  <button type="button" class="btn btn-primary" disabled data-bs-toggle="button">Disabled toggle button</button>
+</p>
+</example>
+
+<example>
+<p class="d-inline-flex gap-1">
+  <a href="#" class="btn" role="button" data-bs-toggle="button">Toggle link</a>
+  <a href="#" class="btn active" role="button" data-bs-toggle="button" aria-pressed="true">Active toggle link</a>
+  <a class="btn disabled" aria-disabled="true" role="button" data-bs-toggle="button">Disabled toggle link</a>
+</p>
+<p class="d-inline-flex gap-1">
+  <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">Toggle link</a>
+  <a href="#" class="btn btn-primary active" role="button" data-bs-toggle="button" aria-pressed="true">Active toggle link</a>
+  <a class="btn btn-primary disabled" aria-disabled="true" role="button" data-bs-toggle="button">Disabled toggle link</a>
+</p>
+</example>
+
+<h2>JavaScript behavior</h2>
+<p>felt-css is CSS only; toggling comes from Bootstrap's button plugin. The methods (<code>toggle</code>, <code>dispose</code>, <code>getInstance</code>, <code>getOrCreateInstance</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/buttons/#button-plugin">Bootstrap's button documentation</a>.</p>
+<codeblock lang="js">
+const bsButton = bootstrap.Button.getOrCreateInstance('#myButton')
+bsButton.toggle()
+</codeblock>

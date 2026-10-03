@@ -1,0 +1,87 @@
+<!--
+title: Breakpoints
+description: Breakpoints are the widths that determine how your responsive layout behaves across device or viewport sizes in felt-css.
+-->
+<h2>Core concepts</h2>
+<ul>
+  <li><strong>Breakpoints are the building blocks of responsive design.</strong> Use them to control when your layout can be adapted at a particular viewport or device size.</li>
+  <li><strong>Use media queries to architect your CSS by breakpoint.</strong> Media queries are a feature of CSS that allow you to conditionally apply styles based on a set of browser and operating system parameters. We most commonly use <code>min-width</code> in our media queries.</li>
+  <li><strong>Mobile first, responsive design is the goal.</strong> felt-css aims to apply the bare minimum of styles to make a layout work at the smallest breakpoint, and then layers on styles to adjust that design for larger devices.</li>
+</ul>
+
+<h2>Available breakpoints</h2>
+<p>felt-css includes four breakpoints, sometimes referred to as <em>grid tiers</em>, for building responsively. They are the same as Bootstrap's first four; Bootstrap's <code>xl</code> (&ge;1200px) and <code>xxl</code> (&ge;1400px) tiers don't exist here, since felt-css is made for apps whose content rarely needs more than a large screen.</p>
+
+<div class="table-responsive">
+<table class="table">
+  <thead>
+    <tr><th>Breakpoint</th><th>Class infix</th><th>Dimensions</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Extra small</td><td><em>None</em></td><td>&lt;576px</td></tr>
+    <tr><td>Small</td><td><code>sm</code></td><td>&ge;576px</td></tr>
+    <tr><td>Medium</td><td><code>md</code></td><td>&ge;768px</td></tr>
+    <tr><td>Large</td><td><code>lg</code></td><td>&ge;992px</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>The same breakpoints drive the <a href="../containers/">responsive containers</a>, the <a href="../grid/">grid</a>, <code>.navbar-expand-*</code> and the responsive utilities. Only some utility families come per breakpoint: grid, <a href="../../utilities/display/">display</a>, <a href="../../utilities/flex/">flex</a> (including order), <a href="../../utilities/spacing/">spacing and gap</a>, <a href="../../utilities/text/#text-alignment">text alignment</a>, <a href="../../utilities/float/">float</a>, <a href="../../utilities/object-fit/">object-fit</a> and <a href="../../helpers/position/#responsive-sticky-top">sticky</a>.</p>
+
+<h2>Media queries</h2>
+<p>Since felt-css is developed to be mobile first, it uses a handful of <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries">media queries</a> to create sensible breakpoints for layouts and interfaces. These breakpoints are based on minimum viewport widths and allow us to scale up elements as the viewport changes. felt-css is plain CSS without Sass mixins, so use the media queries directly in your own CSS.</p>
+
+<h3>Min-width</h3>
+<p>felt-css uses the following media query ranges for its layout, grid system and components.</p>
+<codeblock lang="css">
+/* X-Small devices (portrait phones, less than 576px):
+   no media query, since this is the default */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { ... }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { ... }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { ... }
+</codeblock>
+<p>For example, to hide an element on the smallest screens and show it from the <code>sm</code> breakpoint up:</p>
+<codeblock lang="css">
+.custom-class {
+  display: none;
+}
+@media (min-width: 576px) {
+  .custom-class {
+    display: block;
+  }
+}
+</codeblock>
+
+<h3>Max-width</h3>
+<p>We occasionally use media queries that go in the other direction (the given screen size <em>or smaller</em>). Subtract <code>.02px</code> from the breakpoint so the two ranges don't overlap:</p>
+<codeblock lang="css">
+/* X-Small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) { ... }
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) { ... }
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) { ... }
+</codeblock>
+<div class="bd-callout bd-callout-warning">
+  <p>Why subtract .02px? Browsers don't currently support <a href="https://www.w3.org/TR/mediaqueries-4/#range-context">range context queries</a> everywhere, so we work around the limitations of <a href="https://www.w3.org/TR/mediaqueries-4/#mq-min-max"><code>min-</code> and <code>max-</code> prefixes</a> and viewports with fractional widths (which can occur under certain conditions on high-dpi devices, for instance) by using values with higher precision.</p>
+</div>
+
+<h3>Single breakpoint</h3>
+<p>There are also media queries for targeting a single segment of screen sizes using the minimum and maximum breakpoint widths. For example, medium devices only:</p>
+<codeblock lang="css">
+@media (min-width: 768px) and (max-width: 991.98px) { ... }
+</codeblock>
+
+<h3>Between breakpoints</h3>
+<p>Similarly, media queries may span multiple breakpoint widths, e.g. from small up to (but not including) large devices:</p>
+<codeblock lang="css">
+@media (min-width: 576px) and (max-width: 991.98px) { ... }
+</codeblock>
