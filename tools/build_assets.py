@@ -9,7 +9,7 @@ Textures (Codex-generated seamless felt photos):
 
 Seams (from raw/stitch-b.png, a white running stitch on grey felt):
   Single stitches are cut out, reduced to the thread alone (no shadow, no needle holes) and laid
-  along rounded rectangles as 9-slice images for border-image, plus a straight row. Long seams
+  along rounded rectangles as 9-slice images for border-image, plus a straight row and column. Long seams
   (cards, dividers) alternate three different stitches with a little hand-sewn wobble, so the
   thread doesn't read as printed; short seams (buttons) keep one stitch per tile, because
   border-image `round` would squash a longer tile on a short edge. The
@@ -201,6 +201,20 @@ def row(sprites):
     return f"    --seam-row-size: {size[0] / DPR:g}px {MARGIN_CSS * 2}px;"
 
 
+def column(sprites):
+    """The row stood upright (for .vr), drawn rather than rotated so the thread's shadow still falls down."""
+    w = MARGIN_CSS * 2 * S
+    run, length = run_of(sprites, ROW_STITCHES)
+    layers = []
+    for sp, t, da, dy in run:
+        layers += place(sp, w / 2 + dy, t, 90 + da)
+    out = OUT / "seam-col.webp"
+    size = (round(w * DPR / S), round(length * DPR / S))
+    render(layers, w, length, out, size, groove=f"line {w / 2:.1f},-10 {w / 2:.1f},{length + 10:.1f}")
+    print(f"{out.name}: {os.path.getsize(out)} bytes")
+    return f"    --seam-col-size: {MARGIN_CSS * 2}px {size[1] / DPR:g}px;"
+
+
 def write_tokens(lines):
     css = ROOT / "felt.css"
     text = css.read_text()
@@ -216,4 +230,5 @@ with tempfile.TemporaryDirectory() as t:
     tokens = [f"    --seam-margin: {MARGIN_CSS}px;"]
     tokens += [frame(sprites, radius, name, n) for name, (radius, n) in SHAPES.items()]
     tokens.append(row(sprites))
+    tokens.append(column(sprites))
     write_tokens(tokens)
