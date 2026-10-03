@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Popovers · felt-css</title>
-  <meta name="description" content="This page has not been written yet.">
+  <meta name="description" content="Documentation and examples for adding popovers, like those found in iOS, to any element on your site.">
   <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
   <link rel="stylesheet" href="../../../felt.css">
   <link rel="stylesheet" href="../../assets/docs.css">
@@ -66,12 +66,169 @@
       <div class="bd-intro">
         <p class="bd-section">Components</p>
         <h1>Popovers</h1>
-        <p class="lead">This page has not been written yet.</p>
+        <p class="lead">Documentation and examples for adding popovers, like those found in iOS, to any element on your site.</p>
         <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/components/popovers.html">View page source on GitHub</a>
       </div>
       
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#overview">Overview</a></li><li><a href="#examples">Examples</a><ul><li><a href="#enable-popovers">Enable popovers</a></li><li><a href="#live-demo">Live demo</a></li><li><a href="#four-directions">Four directions</a></li><li><a href="#custom-container">Custom container</a></li><li><a href="#custom-popovers">Custom popovers</a></li><li><a href="#dismiss-on-next-click">Dismiss on next click</a></li><li><a href="#disabled-elements">Disabled elements</a></li></ul></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#overview">Overview</a></li><li><a href="#examples">Examples</a><ul><li><a href="#enable-popovers">Enable popovers</a></li><li><a href="#live-demo">Live demo</a></li><li><a href="#four-directions">Four directions</a></li><li><a href="#custom-container">Custom container</a></li><li><a href="#custom-popovers">Custom popovers</a></li><li><a href="#dismiss-on-next-click">Dismiss on next click</a></li><li><a href="#disabled-elements">Disabled elements</a></li></ul></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul>
+        </nav>
+      </div>
+      
       <div class="bd-content">
-        <p class="text-body-secondary">Coming soon.</p>
+        
+<h2 id="overview">Overview<a class="bd-anchor" href="#overview" aria-label="Link to this section">#</a></h2>
+<p>Things to know when using the popover plugin:</p>
+<ul>
+  <li>Popovers rely on the third party library <a href="https://popper.js.org/docs/v2/">Popper</a> for positioning. Use <code>bootstrap.bundle.min.js</code>, which contains Popper (see <a href="../../getting-started/javascript/">JavaScript</a>).</li>
+  <li>Popovers are opt-in for performance reasons, so <strong>you must initialize them yourself</strong>.</li>
+  <li>Zero-length <code>title</code> and <code>content</code> values will never show a popover.</li>
+  <li>Specify <code>container: 'body'</code> to avoid rendering problems in more complex components (like input groups, button groups, etc).</li>
+  <li>Triggering popovers on hidden elements will not work.</li>
+  <li>Popovers for <code>.disabled</code> or <code>disabled</code> elements must be triggered on a wrapper element.</li>
+  <li>When triggered from anchors that wrap across multiple lines, popovers will be centered between the anchors' overall width. Use <code>.text-nowrap</code> on your <code>&lt;a&gt;</code>s to avoid this behavior.</li>
+  <li>Popovers must be hidden before their corresponding elements have been removed from the DOM.</li>
+  <li>Popovers can be triggered thanks to an element inside a shadow DOM.</li>
+</ul>
+<p>Keep reading to see how popovers work with some examples.</p>
+
+<h2 id="examples">Examples<a class="bd-anchor" href="#examples" aria-label="Link to this section">#</a></h2>
+<h3 id="enable-popovers">Enable popovers<a class="bd-anchor" href="#enable-popovers" aria-label="Link to this section">#</a></h3>
+<p>As mentioned above, you must initialize popovers before they can be used. One way to initialize all popovers on a page would be to select them by their <code>data-bs-toggle</code> attribute, like so:</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> popoverTriggerList = <span class="tok-tag">document</span>.querySelectorAll(<span class="tok-val">'[data-bs-toggle="popover"]'</span>)
+<span class="tok-tag">const</span> popoverList = [...popoverTriggerList].map(popoverTriggerEl =&gt; <span class="tok-tag">new</span> bootstrap.Popover(popoverTriggerEl))</code></pre></div>
+
+<h3 id="live-demo">Live demo<a class="bd-anchor" href="#live-demo" aria-label="Link to this section">#</a></h3>
+<p>We use JavaScript similar to the snippet above to render the following live popover. Titles are set via <code>data-bs-title</code> and body content is set via <code>data-bs-content</code>.</p>
+
+<div class="bd-callout bd-callout-warning">
+  <p>Feel free to use either <code>title</code> or <code>data-bs-title</code> in your HTML. When <code>title</code> is used, Popper will replace it automatically with <code>data-bs-title</code> when the element is rendered.</p>
+</div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-lg btn-danger"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-title</span><span class="tok-punct">=</span><span class="tok-val">"Popover title"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"And here's some amazing content. It's very engaging. Right?"</span><span class="tok-punct">&gt;</span>Click to toggle popover<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>This is the markup the plugin generates, drawn in place for each of the four placements:</p>
+
+<div class="bd-example-snippet"><div class="bd-example d-flex flex-wrap align-items-start gap-5">
+<div class="popover bs-popover-top position-relative" role="tooltip">
+  <div class="popover-arrow" style="left: calc(50% - .5rem)"></div>
+  <h3 class="popover-header">Popover top</h3>
+  <div class="popover-body">And here's some amazing content. It's very engaging.</div>
+</div>
+<div class="popover bs-popover-end position-relative" role="tooltip">
+  <div class="popover-arrow" style="top: calc(50% - .5rem)"></div>
+  <h3 class="popover-header">Popover end</h3>
+  <div class="popover-body">And here's some amazing content. It's very engaging.</div>
+</div>
+<div class="popover bs-popover-bottom position-relative" role="tooltip">
+  <div class="popover-arrow" style="left: calc(50% - .5rem)"></div>
+  <h3 class="popover-header">Popover bottom</h3>
+  <div class="popover-body">And here's some amazing content. It's very engaging.</div>
+</div>
+<div class="popover bs-popover-start position-relative" role="tooltip">
+  <div class="popover-arrow" style="top: calc(50% - .5rem)"></div>
+  <h3 class="popover-header">Popover start</h3>
+  <div class="popover-body">And here's some amazing content. It's very engaging.</div>
+</div>
+</div></div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In felt, a popover is a flat piece of felt lying above the page, sewn round with a fine running stitch like a dropdown menu. Its arrow is cut from the same felt, without an outline.</p>
+</div>
+
+<h3 id="four-directions">Four directions<a class="bd-anchor" href="#four-directions" aria-label="Link to this section">#</a></h3>
+<p>Four options are available: top, right, bottom, and left. Set <code>data-bs-placement</code> to change the direction.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+  Popover on top
+</button>
+<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover">
+  Popover on right
+</button>
+<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
+  Popover on bottom
+</button>
+<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left popover">
+  Popover on left
+</button>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">data-bs-container</span><span class="tok-punct">=</span><span class="tok-val">"body"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-placement</span><span class="tok-punct">=</span><span class="tok-val">"top"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"Top popover"</span><span class="tok-punct">&gt;</span>
+  Popover on top
+<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">data-bs-container</span><span class="tok-punct">=</span><span class="tok-val">"body"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-placement</span><span class="tok-punct">=</span><span class="tok-val">"right"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"Right popover"</span><span class="tok-punct">&gt;</span>
+  Popover on right
+<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">data-bs-container</span><span class="tok-punct">=</span><span class="tok-val">"body"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-placement</span><span class="tok-punct">=</span><span class="tok-val">"bottom"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"Bottom popover"</span><span class="tok-punct">&gt;</span>
+  Popover on bottom
+<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-secondary"</span> <span class="tok-attr">data-bs-container</span><span class="tok-punct">=</span><span class="tok-val">"body"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-placement</span><span class="tok-punct">=</span><span class="tok-val">"left"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"Left popover"</span><span class="tok-punct">&gt;</span>
+  Popover on left
+<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="custom-container">Custom <code>container</code><a class="bd-anchor" href="#custom-container" aria-label="Link to this section">#</a></h3>
+<p>When you have some styles on a parent element that interfere with a popover, you'll want to specify a custom <code>container</code> so that the popover's HTML appears within that element instead. This is common in responsive tables, input groups, and the like.</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> popover = <span class="tok-tag">new</span> bootstrap.Popover(<span class="tok-val">'.example-popover'</span>, {
+  container: <span class="tok-val">'body'</span>
+})</code></pre></div>
+
+<p>Another situation where you'll want to set an explicit custom <code>container</code> are popovers inside a <a href="../modal/">modal dialog</a>, to make sure that the popover itself is appended to the modal. This is particularly important for popovers that contain interactive elements – modal dialogs will trap focus, so unless the popover is a child element of the modal, users won't be able to focus or activate these interactive elements.</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> popover = <span class="tok-tag">new</span> bootstrap.Popover(<span class="tok-val">'.example-popover'</span>, {
+  container: <span class="tok-val">'.modal-body'</span>
+})</code></pre></div>
+
+<h3 id="custom-popovers">Custom popovers<a class="bd-anchor" href="#custom-popovers" aria-label="Link to this section">#</a></h3>
+<p>felt-css has no <code>--bs-popover-*</code> variables. To restyle single popovers, add a class with <code>data-bs-custom-class="custom-popover"</code> and target <code>.custom-popover</code>, <code>.popover-header</code> and <code>.popover-body</code> in your own CSS.</p>
+
+<h3 id="dismiss-on-next-click">Dismiss on next click<a class="bd-anchor" href="#dismiss-on-next-click" aria-label="Link to this section">#</a></h3>
+<p>Use the <code>focus</code> trigger to dismiss popovers on the user's next click of an element other than the toggle element.</p>
+
+<div class="bd-callout bd-callout-danger">
+  <p><strong>Dismissing on next click requires specific HTML for proper cross-browser and cross-platform behavior.</strong> You can only use <code>&lt;a&gt;</code> elements, not <code>&lt;button&gt;</code>s, and you must include a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex"><code>tabindex</code></a>.</p>
+</div>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<a tabindex="0" class="btn btn-lg btn-danger" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Dismissible popover" data-bs-content="And here's some amazing content. It's very engaging. Right?">Dismissible popover</a>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-lg btn-danger"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-trigger</span><span class="tok-punct">=</span><span class="tok-val">"focus"</span> <span class="tok-attr">data-bs-title</span><span class="tok-punct">=</span><span class="tok-val">"Dismissible popover"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"And here's some amazing content. It's very engaging. Right?"</span><span class="tok-punct">&gt;</span>Dismissible popover<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> popover = <span class="tok-tag">new</span> bootstrap.Popover(<span class="tok-val">'.popover-dismiss'</span>, {
+  trigger: <span class="tok-val">'focus'</span>
+})</code></pre></div>
+
+<h3 id="disabled-elements">Disabled elements<a class="bd-anchor" href="#disabled-elements" aria-label="Link to this section">#</a></h3>
+<p>Elements with the <code>disabled</code> attribute aren't interactive, meaning users cannot hover or click them to trigger a popover (or tooltip). As a workaround, you'll want to trigger the popover from a wrapper <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code>, ideally made keyboard-focusable using <code>tabindex="0"</code>.</p>
+<p>For disabled popover triggers, you may also prefer <code>data-bs-trigger="hover focus"</code> so that the popover appears as immediate visual feedback to your users as they may not expect to <em>click</em> on a disabled element.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
+  <button class="btn btn-primary" type="button" disabled>Disabled button</button>
+</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-inline-block"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"popover"</span> <span class="tok-attr">data-bs-trigger</span><span class="tok-punct">=</span><span class="tok-val">"hover focus"</span> <span class="tok-attr">data-bs-content</span><span class="tok-punct">=</span><span class="tok-val">"Disabled popover"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>Disabled button<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="javascript-behavior">JavaScript behavior<a class="bd-anchor" href="#javascript-behavior" aria-label="Link to this section">#</a></h2>
+<p>felt-css is CSS only; positioning, showing and hiding come from Bootstrap's popover plugin, which builds the <code>.popover</code> markup shown above and sets its placement class. Enable popovers via JavaScript:</p>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> exampleEl = <span class="tok-tag">document</span>.getElementById(<span class="tok-val">'example'</span>)
+<span class="tok-tag">const</span> popover = <span class="tok-tag">new</span> bootstrap.Popover(exampleEl, options)</code></pre></div>
+
+<div class="bd-callout bd-callout-warning">
+  <p><strong>Keep popovers accessible to keyboard and assistive technology users</strong> by only adding them to HTML elements that are traditionally keyboard-focusable and interactive (such as links or form controls). Do not rely solely on <code>hover</code> as the trigger for your popovers as this will make them impossible to trigger for keyboard users. Popovers do not manage keyboard focus order, so be careful when adding interactive elements to them; consider using a modal dialog instead.</p>
+</div>
+
+<p>Options (<code>placement</code>, <code>trigger</code>, <code>container</code>, <code>html</code>, <code>offset</code>, <code>customClass</code>, …), methods (<code>show</code>, <code>hide</code>, <code>toggle</code>, <code>enable</code>, <code>disable</code>, <code>setContent</code>, <code>update</code>, <code>dispose</code>) and events (<code>show.bs.popover</code>, <code>shown.bs.popover</code>, <code>hide.bs.popover</code>, <code>hidden.bs.popover</code>, <code>inserted.bs.popover</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/popovers/#usage">Bootstrap's popover documentation</a>.</p>
+
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/placeholders/"><small>Previous</small>Placeholders</a><a class="bd-pager-next" href="../../components/progress/"><small>Next</small>Progress</a></nav>
       </div>
     </main>

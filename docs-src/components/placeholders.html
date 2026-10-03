@@ -1,0 +1,139 @@
+<!--
+title: Placeholders
+description: Use loading placeholders (skeleton loaders) for your components or pages to indicate something may still be loading.
+-->
+<style>
+  .bd-example-placeholder-cards { gap: 1.5rem; }
+  .bd-example-placeholder-cards .card { width: 18rem; }
+  .bd-example-placeholder-cards .card + .card { margin-top: 0; }
+</style>
+
+<h2>About</h2>
+<p>Placeholders can be used to enhance the experience of your application. They're built only with HTML and CSS, meaning you don't need any JavaScript to create them. You will, however, need some custom JavaScript to toggle their visibility. Their appearance, color, and sizing can be easily customized with utility classes.</p>
+
+<h2>Example</h2>
+<p>In the example below, we take a typical card component and recreate it with placeholders applied to create a "loading card". Size and proportions are the same between the two.</p>
+
+<example code="false" class="bd-example-placeholder-cards d-flex flex-wrap justify-content-around">
+<div class="card">
+  <img src="../../../docs/sample-photo.webp" class="card-img-top" alt="Stitched felt landscape with sun and hills">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+
+<div class="card" aria-hidden="true">
+  <svg class="bd-placeholder-img card-img-top" width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#868e96"></rect></svg>
+  <div class="card-body">
+    <div class="h5 card-title placeholder-glow">
+      <span class="placeholder col-6"></span>
+    </div>
+    <p class="card-text placeholder-glow">
+      <span class="placeholder col-7"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-6"></span>
+      <span class="placeholder col-8"></span>
+    </p>
+    <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+  </div>
+</div>
+</example>
+
+<codeblock lang="html">
+<div class="card">
+  <img src="..." class="card-img-top" alt="...">
+
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+
+<div class="card" aria-hidden="true">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title placeholder-glow">
+      <span class="placeholder col-6"></span>
+    </h5>
+    <p class="card-text placeholder-glow">
+      <span class="placeholder col-7"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-6"></span>
+      <span class="placeholder col-8"></span>
+    </p>
+    <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+  </div>
+</div>
+</codeblock>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In felt, placeholders are soft felt pressed into the piece they sit on: the fibre texture shows through and a small inner shadow makes them look sunk in rather than painted on.</p>
+</div>
+
+<h2>How it works</h2>
+<p>Create placeholders with the <code>.placeholder</code> class and a grid column class (e.g., <code>.col-6</code>) to set the <code>width</code>. They can replace the text inside an element or be added as a modifier class to an existing component.</p>
+<p>We apply additional styling to <code>.btn</code>s via <code>::before</code> to ensure the <code>height</code> is respected. You may extend this pattern for other situations as needed, or add a <code>&amp;nbsp;</code> within the element to reflect the height when actual text is rendered in its place.</p>
+
+<example>
+<p aria-hidden="true">
+  <span class="placeholder col-6"></span>
+</p>
+
+<a class="btn btn-primary disabled placeholder col-4" aria-disabled="true"></a>
+</example>
+
+<div class="bd-callout bd-callout-info">
+  <p>The use of <code>aria-hidden="true"</code> only indicates that the element should be hidden to screen readers. The <em>loading</em> behavior of the placeholder depends on how authors will actually use the placeholder styles, how they plan to update things, etc. Some JavaScript code may be needed to <em>swap</em> the state of the placeholder and inform AT users of the update.</p>
+</div>
+
+<h3>Width</h3>
+<p>You can change the <code>width</code> through grid column classes, width utilities, or inline styles.</p>
+
+<example>
+<span class="placeholder col-6"></span>
+<span class="placeholder w-75"></span>
+<span class="placeholder" style="width: 25%;"></span>
+</example>
+
+<h3>Color</h3>
+<p>By default, the <code>placeholder</code> uses <code>currentColor</code>. This can be overridden with a custom color or utility class.</p>
+
+<example>
+<span class="placeholder col-12"></span>
+<span class="placeholder col-12 bg-primary"></span>
+<span class="placeholder col-12 bg-secondary"></span>
+<span class="placeholder col-12 bg-success"></span>
+<span class="placeholder col-12 bg-danger"></span>
+<span class="placeholder col-12 bg-warning"></span>
+<span class="placeholder col-12 bg-info"></span>
+<span class="placeholder col-12 bg-light"></span>
+<span class="placeholder col-12 bg-dark"></span>
+</example>
+
+<h3>Sizing</h3>
+<p>The size of <code>.placeholder</code>s are based on the typographic style of the parent element. Customize them with sizing modifiers: <code>.placeholder-lg</code>, <code>.placeholder-sm</code>, or <code>.placeholder-xs</code>.</p>
+
+<example>
+<span class="placeholder col-12 placeholder-lg"></span>
+<span class="placeholder col-12"></span>
+<span class="placeholder col-12 placeholder-sm"></span>
+<span class="placeholder col-12 placeholder-xs"></span>
+</example>
+
+<h3>Animation</h3>
+<p>Animate placeholders with <code>.placeholder-glow</code> or <code>.placeholder-wave</code> to better convey the perception of something being <em>actively</em> loaded.</p>
+
+<example>
+<p class="placeholder-glow">
+  <span class="placeholder col-12"></span>
+</p>
+
+<p class="placeholder-wave">
+  <span class="placeholder col-12"></span>
+</p>
+</example>

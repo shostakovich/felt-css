@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Placeholders · felt-css</title>
-  <meta name="description" content="This page has not been written yet.">
+  <meta name="description" content="Use loading placeholders (skeleton loaders) for your components or pages to indicate something may still be loading.">
   <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
   <link rel="stylesheet" href="../../../felt.css">
   <link rel="stylesheet" href="../../assets/docs.css">
@@ -66,12 +66,180 @@
       <div class="bd-intro">
         <p class="bd-section">Components</p>
         <h1>Placeholders</h1>
-        <p class="lead">This page has not been written yet.</p>
+        <p class="lead">Use loading placeholders (skeleton loaders) for your components or pages to indicate something may still be loading.</p>
         <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/components/placeholders.html">View page source on GitHub</a>
       </div>
       
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#about">About</a></li><li><a href="#example">Example</a></li><li><a href="#how-it-works">How it works</a><ul><li><a href="#width">Width</a></li><li><a href="#color">Color</a></li><li><a href="#sizing">Sizing</a></li><li><a href="#animation">Animation</a></li></ul></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#about">About</a></li><li><a href="#example">Example</a></li><li><a href="#how-it-works">How it works</a><ul><li><a href="#width">Width</a></li><li><a href="#color">Color</a></li><li><a href="#sizing">Sizing</a></li><li><a href="#animation">Animation</a></li></ul></li></ul>
+        </nav>
+      </div>
+      
       <div class="bd-content">
-        <p class="text-body-secondary">Coming soon.</p>
+        
+<style>
+  .bd-example-placeholder-cards { gap: 1.5rem; }
+  .bd-example-placeholder-cards .card { width: 18rem; }
+  .bd-example-placeholder-cards .card + .card { margin-top: 0; }
+</style>
+
+<h2 id="about">About<a class="bd-anchor" href="#about" aria-label="Link to this section">#</a></h2>
+<p>Placeholders can be used to enhance the experience of your application. They're built only with HTML and CSS, meaning you don't need any JavaScript to create them. You will, however, need some custom JavaScript to toggle their visibility. Their appearance, color, and sizing can be easily customized with utility classes.</p>
+
+<h2 id="example">Example<a class="bd-anchor" href="#example" aria-label="Link to this section">#</a></h2>
+<p>In the example below, we take a typical card component and recreate it with placeholders applied to create a "loading card". Size and proportions are the same between the two.</p>
+
+<div class="bd-example-snippet"><div class="bd-example bd-example-placeholder-cards d-flex flex-wrap justify-content-around">
+<div class="card">
+  <img src="../../../docs/sample-photo.webp" class="card-img-top" alt="Stitched felt landscape with sun and hills">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+
+<div class="card" aria-hidden="true">
+  <svg class="bd-placeholder-img card-img-top" width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#868e96"></rect></svg>
+  <div class="card-body">
+    <div class="h5 card-title placeholder-glow">
+      <span class="placeholder col-6"></span>
+    </div>
+    <p class="card-text placeholder-glow">
+      <span class="placeholder col-7"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-6"></span>
+      <span class="placeholder col-8"></span>
+    </p>
+    <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+  </div>
+</div>
+</div></div>
+
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"..."</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-img-top"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"..."</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-body"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-title"</span><span class="tok-punct">&gt;</span>Card title<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-text"</span><span class="tok-punct">&gt;</span>Some quick example text to build on the card title and make up the bulk of the card's content.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Go somewhere<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"..."</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-img-top"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"..."</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-body"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-title placeholder-glow"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-6"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-text placeholder-glow"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-7"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-4"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-4"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-6"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-8"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary disabled placeholder col-6"</span> <span class="tok-attr">aria-disabled</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In felt, placeholders are soft felt pressed into the piece they sit on: the fibre texture shows through and a small inner shadow makes them look sunk in rather than painted on.</p>
+</div>
+
+<h2 id="how-it-works">How it works<a class="bd-anchor" href="#how-it-works" aria-label="Link to this section">#</a></h2>
+<p>Create placeholders with the <code>.placeholder</code> class and a grid column class (e.g., <code>.col-6</code>) to set the <code>width</code>. They can replace the text inside an element or be added as a modifier class to an existing component.</p>
+<p>We apply additional styling to <code>.btn</code>s via <code>::before</code> to ensure the <code>height</code> is respected. You may extend this pattern for other situations as needed, or add a <code>&amp;nbsp;</code> within the element to reflect the height when actual text is rendered in its place.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<p aria-hidden="true">
+  <span class="placeholder col-6"></span>
+</p>
+
+<a class="btn btn-primary disabled placeholder col-4" aria-disabled="true"></a>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-6"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary disabled placeholder col-4"</span> <span class="tok-attr">aria-disabled</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-info">
+  <p>The use of <code>aria-hidden="true"</code> only indicates that the element should be hidden to screen readers. The <em>loading</em> behavior of the placeholder depends on how authors will actually use the placeholder styles, how they plan to update things, etc. Some JavaScript code may be needed to <em>swap</em> the state of the placeholder and inform AT users of the update.</p>
+</div>
+
+<h3 id="width">Width<a class="bd-anchor" href="#width" aria-label="Link to this section">#</a></h3>
+<p>You can change the <code>width</code> through grid column classes, width utilities, or inline styles.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<span class="placeholder col-6"></span>
+<span class="placeholder w-75"></span>
+<span class="placeholder" style="width: 25%;"></span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-6"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder w-75"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 25%;"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="color">Color<a class="bd-anchor" href="#color" aria-label="Link to this section">#</a></h3>
+<p>By default, the <code>placeholder</code> uses <code>currentColor</code>. This can be overridden with a custom color or utility class.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<span class="placeholder col-12"></span>
+<span class="placeholder col-12 bg-primary"></span>
+<span class="placeholder col-12 bg-secondary"></span>
+<span class="placeholder col-12 bg-success"></span>
+<span class="placeholder col-12 bg-danger"></span>
+<span class="placeholder col-12 bg-warning"></span>
+<span class="placeholder col-12 bg-info"></span>
+<span class="placeholder col-12 bg-light"></span>
+<span class="placeholder col-12 bg-dark"></span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12 bg-primary"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12 bg-secondary"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12 bg-success"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12 bg-danger"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12 bg-warning"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12 bg-info"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12 bg-light"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12 bg-dark"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="sizing">Sizing<a class="bd-anchor" href="#sizing" aria-label="Link to this section">#</a></h3>
+<p>The size of <code>.placeholder</code>s are based on the typographic style of the parent element. Customize them with sizing modifiers: <code>.placeholder-lg</code>, <code>.placeholder-sm</code>, or <code>.placeholder-xs</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<span class="placeholder col-12 placeholder-lg"></span>
+<span class="placeholder col-12"></span>
+<span class="placeholder col-12 placeholder-sm"></span>
+<span class="placeholder col-12 placeholder-xs"></span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12 placeholder-lg"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12 placeholder-sm"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12 placeholder-xs"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="animation">Animation<a class="bd-anchor" href="#animation" aria-label="Link to this section">#</a></h3>
+<p>Animate placeholders with <code>.placeholder-glow</code> or <code>.placeholder-wave</code> to better convey the perception of something being <em>actively</em> loaded.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<p class="placeholder-glow">
+  <span class="placeholder col-12"></span>
+</p>
+
+<p class="placeholder-wave">
+  <span class="placeholder col-12"></span>
+</p>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder-glow"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+
+<span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder-wave"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"placeholder col-12"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/pagination/"><small>Previous</small>Pagination</a><a class="bd-pager-next" href="../../components/popovers/"><small>Next</small>Popovers</a></nav>
       </div>
     </main>

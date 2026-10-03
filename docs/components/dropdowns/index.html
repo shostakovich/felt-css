@@ -83,6 +83,12 @@
       
       <div class="bd-content">
         
+<style>
+  .bd-example-dropdown-groups > .btn-group { display: inline-flex; }
+  .bd-example-menu-fit .dropdown-menu { width: max-content; max-width: 100%; }
+  .bd-example-snippet:has(.dropdown-menu) { overflow: visible; }
+  .bd-example-snippet:has(.dropdown-menu) > .bd-code { overflow: hidden; border-radius: 0 0 calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px); }
+</style>
 <h2 id="overview">Overview<a class="bd-anchor" href="#overview" aria-label="Link to this section">#</a></h2>
 <p>Dropdowns are toggleable, contextual overlays for displaying lists of links and more. They’re made interactive with Bootstrap’s dropdown JavaScript plugin. They’re toggled by clicking, not by hovering; this is <a href="https://markdotto.com/blog/bootstrap-explained-dropdowns/">an intentional design decision</a>.</p>
 <p>Dropdowns are built on a third party library, <a href="https://popper.js.org/docs/v2/">Popper</a>, which provides dynamic positioning and viewport detection. Use <code>bootstrap.bundle.min.js</code>, which contains Popper (see <a href="../../getting-started/javascript/">JavaScript</a>). Popper isn’t used to position dropdowns in navbars though as dynamic positioning isn’t required.</p>
@@ -485,7 +491,7 @@
 
 <h3 id="dropup">Dropup<a class="bd-anchor" href="#dropup" aria-label="Link to this section">#</a></h3>
 <p>Trigger dropdown menus above elements by adding <code>.dropup</code> to the parent element.</p>
-<div class="bd-example-snippet"><div class="bd-example">
+<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-groups">
 <div class="btn-group dropup">
   <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
     Dropup
@@ -559,7 +565,7 @@
 
 <h3 id="dropend">Dropend<a class="bd-anchor" href="#dropend" aria-label="Link to this section">#</a></h3>
 <p>Trigger dropdown menus at the right of the elements by adding <code>.dropend</code> to the parent element.</p>
-<div class="bd-example-snippet"><div class="bd-example">
+<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-groups">
 <div class="btn-group dropend">
   <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
     Dropend
@@ -609,7 +615,7 @@
 
 <h3 id="dropstart">Dropstart<a class="bd-anchor" href="#dropstart" aria-label="Link to this section">#</a></h3>
 <p>Trigger dropdown menus at the left of the elements by adding <code>.dropstart</code> to the parent element. In the split version, the toggle comes first.</p>
-<div class="bd-example-snippet"><div class="bd-example">
+<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-groups">
 <div class="btn-group dropstart">
   <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
     Dropstart
@@ -682,7 +688,7 @@
 <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 
 <p>You can also create non-interactive dropdown items with <code>.dropdown-item-text</code>. Feel free to style further with custom CSS or text utilities.</p>
-<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static">
+<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static bd-example-menu-fit">
 <ul class="dropdown-menu">
   <li><span class="dropdown-item-text">Dropdown item text</span></li>
   <li><a class="dropdown-item" href="#">Action</a></li>
@@ -698,7 +704,7 @@
 
 <h3 id="active">Active<a class="bd-anchor" href="#active" aria-label="Link to this section">#</a></h3>
 <p>Add <code>.active</code> to items in the dropdown to <strong>style them as active</strong>. To convey the active state to assistive technologies, use the <code>aria-current</code> attribute — using the <code>page</code> value for the current page, or <code>true</code> for the current item in a set.</p>
-<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static">
+<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static bd-example-menu-fit">
 <ul class="dropdown-menu">
   <li><a class="dropdown-item" href="#">Regular link</a></li>
   <li><a class="dropdown-item active" href="#" aria-current="true">Active link</a></li>
@@ -712,7 +718,7 @@
 
 <h3 id="disabled">Disabled<a class="bd-anchor" href="#disabled" aria-label="Link to this section">#</a></h3>
 <p>Add <code>.disabled</code> to items in the dropdown to <strong>style them as disabled</strong>.</p>
-<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static">
+<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static bd-example-menu-fit">
 <ul class="dropdown-menu">
   <li><a class="dropdown-item" href="#">Regular link</a></li>
   <li><a class="dropdown-item disabled" aria-disabled="true">Disabled link</a></li>
@@ -872,7 +878,7 @@
 
 <h3 id="headers">Headers<a class="bd-anchor" href="#headers" aria-label="Link to this section">#</a></h3>
 <p>Add a header to label sections of actions in any dropdown menu.</p>
-<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static">
+<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static bd-example-menu-fit">
 <ul class="dropdown-menu">
   <li><h6 class="dropdown-header">Dropdown header</h6></li>
   <li><a class="dropdown-item" href="#">Action</a></li>
@@ -886,7 +892,7 @@
 
 <h3 id="dividers">Dividers<a class="bd-anchor" href="#dividers" aria-label="Link to this section">#</a></h3>
 <p>Separate groups of related menu items with a divider.</p>
-<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static">
+<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static bd-example-menu-fit">
 <ul class="dropdown-menu">
   <li><a class="dropdown-item" href="#">Action</a></li>
   <li><a class="dropdown-item" href="#">Another action</a></li>
@@ -904,7 +910,7 @@
 
 <h3 id="text">Text<a class="bd-anchor" href="#text" aria-label="Link to this section">#</a></h3>
 <p>Place any freeform text within a dropdown menu with text and use <a href="../../utilities/spacing/">spacing utilities</a>. Note that you’ll likely need additional sizing styles to constrain the menu width.</p>
-<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static">
+<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static bd-example-menu-fit">
 <div class="dropdown-menu p-4 text-body-secondary" style="max-width: 200px;">
   <p>
     Some example text that’s free-flowing within the dropdown menu.
@@ -924,7 +930,7 @@
 
 <h3 id="forms">Forms<a class="bd-anchor" href="#forms" aria-label="Link to this section">#</a></h3>
 <p>Put a form within a dropdown menu, or make it into a dropdown menu, and use <a href="../../utilities/spacing/">margin or padding utilities</a> to give it the negative space you require.</p>
-<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static">
+<div class="bd-example-snippet"><div class="bd-example bd-example-dropdown-static bd-example-menu-fit">
 <div class="dropdown-menu">
   <form class="px-4 py-3">
     <div class="mb-3">
