@@ -1,0 +1,164 @@
+<!--
+title: Stat tiles
+description: Big-number KPI tiles for dashboards — a felt-css extra, not part of Bootstrap.
+-->
+<h2>Example</h2>
+<p>A stat tile is a <a href="../card/">card</a> whose body carries <code>.stat</code>: a small uppercase <code>.stat-label</code> above a big <code>.stat-value</code>. Values use tabular figures, so numbers that update in place don't jitter. Color the card with a <a href="../../helpers/color-background/"><code>.text-bg-*</code></a> helper and lay the tiles out with the <a href="../../layout/grid/">grid</a>.</p>
+
+<example>
+<div class="row row-cols-2 row-cols-lg-4 g-3">
+  <div class="col">
+    <div class="card text-bg-warning">
+      <div class="card-body stat">
+        <span class="stat-label">Solar</span>
+        <span class="stat-value">1.2 kW</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-primary">
+      <div class="card-body stat">
+        <span class="stat-label">Consumption</span>
+        <span class="stat-value">380 W</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-success">
+      <div class="card-body stat">
+        <span class="stat-label">Battery</span>
+        <span class="stat-value">82 %</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-danger">
+      <div class="card-body stat">
+        <span class="stat-label">Outside</span>
+        <span class="stat-value">14 °C</span>
+      </div>
+    </div>
+  </div>
+</div>
+</example>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In felt, a colored tile is a patch: saturated felt with a soft cut edge and a cast shadow, sewn on with thread a shade lighter than the patch.</p>
+</div>
+
+<h2>Colors</h2>
+<p>Every <code>.text-bg-*</code> color works, and so does a plain card for a quieter tile.</p>
+
+<example>
+<div class="row row-cols-2 row-cols-md-3 g-3">
+  <div class="col">
+    <div class="card">
+      <div class="card-body stat">
+        <span class="stat-label">Default</span>
+        <span class="stat-value">42</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-primary">
+      <div class="card-body stat">
+        <span class="stat-label">Primary</span>
+        <span class="stat-value">42</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-secondary">
+      <div class="card-body stat">
+        <span class="stat-label">Secondary</span>
+        <span class="stat-value">42</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-success">
+      <div class="card-body stat">
+        <span class="stat-label">Success</span>
+        <span class="stat-value">42</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-danger">
+      <div class="card-body stat">
+        <span class="stat-label">Danger</span>
+        <span class="stat-value">42</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-warning">
+      <div class="card-body stat">
+        <span class="stat-label">Warning</span>
+        <span class="stat-value">42</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-info">
+      <div class="card-body stat">
+        <span class="stat-label">Info</span>
+        <span class="stat-value">42</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-light">
+      <div class="card-body stat">
+        <span class="stat-label">Light</span>
+        <span class="stat-value">42</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-dark">
+      <div class="card-body stat">
+        <span class="stat-label">Dark</span>
+        <span class="stat-value">42</span>
+      </div>
+    </div>
+  </div>
+</div>
+</example>
+
+<h2>Sizing</h2>
+<p>The value is <code>1.75rem</code> by default. On small tiles, such as two to a row on a phone, scale it down with a <a href="../../utilities/text/#font-size">font size utility</a> like <code>.fs-4</code>.</p>
+
+<example>
+<div class="row row-cols-2 g-2" style="max-width: 22rem">
+  <div class="col">
+    <div class="card text-bg-warning">
+      <div class="card-body stat">
+        <span class="stat-label">Solar</span>
+        <span class="stat-value fs-4">1,240 W</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-bg-primary">
+      <div class="card-body stat">
+        <span class="stat-label">Consumption</span>
+        <span class="stat-value fs-4">380 W</span>
+      </div>
+    </div>
+  </div>
+</div>
+</example>
+
+<h2>Semantic markup</h2>
+<p><code>.stat</code>, <code>.stat-label</code> and <code>.stat-value</code> reset their margins, so they work on any element. A description list ties each label to its value for assistive technologies, and extra lines like a trend fit underneath.</p>
+
+<example>
+<div class="card text-bg-success" style="max-width: 16rem">
+  <dl class="card-body stat">
+    <dt class="stat-label">Balance</dt>
+    <dd class="stat-value">+42.10 €</dd>
+    <dd class="small mb-0">since last settlement</dd>
+  </dl>
+</div>
+</example>
