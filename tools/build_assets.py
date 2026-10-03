@@ -5,6 +5,7 @@ matching tokens into felt.css (between the stitches:start/end markers).
 Textures (Codex-generated seamless felt photos):
   felt.webp        from raw/felt-neutral.png (grey felt): mean 50 % grey, soft-light on saturated colours
   felt-light.webp  from raw/cream-a.png (cream felt): warm ~94 % with fine fibres, multiply on light colours
+  felt-dark.webp   from raw/cream-a.png as well: the fibres around 50 % grey, soft-light on charcoal (dark mode)
 
 Seams (from raw/stitch-b.png, a white running stitch on grey felt):
   One stitch is cut out, reduced to the thread alone (no shadow, no needle holes) and laid
@@ -53,6 +54,8 @@ def textures():
     print(f"{out.name}: {os.path.getsize(out)} bytes")
     # light felt: a photo of cream felt, reduced to its fibre structure around a warm ~94 %
     light_felt(RAW / "cream-a.png", OUT / "felt-light.webp")
+    # dark felt: the same cream fibres around 50 % grey, soft-light on charcoal surfaces
+    dark_felt(RAW / "cream-a.png", OUT / "felt-dark.webp")
 
 
 def read_rgb(src, size=1024):
@@ -73,6 +76,18 @@ def light_felt(src, out, tile=512):
         (out_rgb * 65535).round().astype(">u2").tofile(raw)
         magick("-size", "1024x1024", "-endian", "MSB", "-depth", "16", f"rgb:{raw}", "-resize", f"{tile}x{tile}",
                "-define", "webp:method=6", "-quality", "70", out)
+    print(f"{out.name}: {os.path.getsize(out)} bytes")
+
+
+def dark_felt(src, out, tile=256):
+    rgb = read_rgb(src)
+    ratio = (rgb / rgb.mean(axis=(0, 1))).mean(-1)
+    grey = np.clip(0.5 + 0.06 * (ratio - 1) / ratio.std(), 0, 1)
+    with tempfile.TemporaryDirectory() as t:
+        raw = Path(t) / "t.gray"
+        (grey * 65535).round().astype(">u2").tofile(raw)
+        magick("-size", "1024x1024", "-endian", "MSB", "-depth", "16", f"gray:{raw}", "-resize", f"{tile}x{tile}",
+               "-define", "webp:method=6", "-quality", "60", out)
     print(f"{out.name}: {os.path.getsize(out)} bytes")
 
 
