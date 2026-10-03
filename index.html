@@ -18,14 +18,14 @@
     .demo-section { margin-top: var(--space-5); scroll-margin-top: var(--space-3); }
     .demo-section > h2 { margin-bottom: var(--space-3); }
     .demo-label { margin: var(--space-4) 0 var(--space-2); font-size: .8125rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
-    .demo-stage { padding: var(--space-3); border: 1px dashed var(--border); border-radius: var(--radius-lg); }
+    .demo-stage { padding: var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-lg); }
     .demo-dim { border-color: transparent; background-color: var(--backdrop); }
     .icon { width: 1.375rem; height: 1.375rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .demo-saldo .progress { position: relative; }
     .demo-saldo .progress::after { content: ""; position: absolute; inset: 0 auto 0 50%; width: 2px; margin-left: -1px; background: var(--text); opacity: .55; z-index: 1; }
     .demo-bs-modal .modal { position: relative; display: block; }
     .demo-phone { width: 375px; max-width: 100%; height: 720px; border: 1px solid var(--border); border-radius: 2.25rem; background-color: var(--body-bg); background-image: var(--sheet, none); background-size: var(--sheet-size, auto); background-blend-mode: var(--sheet-blend, normal); box-shadow: var(--shadow-lg); overflow: hidden; transform: translateZ(0); }
-    .demo-phone-screen { height: 100%; overflow: auto; padding-bottom: 6.5rem; }
+    .demo-phone-screen { height: 100%; overflow: auto; padding-bottom: 9.5rem; }
   </style>
 </head>
 <body>
@@ -45,7 +45,7 @@
 
     <nav class="navbar mb-4" id="top">
       <a class="navbar-brand" href="#top">felt-css</a>
-      <ul class="nav nav-pills">
+      <ul class="nav nav-pills flex-nowrap overflow-auto text-nowrap">
         <li class="nav-item"><a class="nav-link active" href="#top" aria-current="page">Übersicht</a></li>
         <li class="nav-item"><a class="nav-link" href="#forms">Formulare</a></li>
         <li class="nav-item"><a class="nav-link" href="#mobile">Mobil</a></li>
@@ -208,7 +208,7 @@
       </div>
 
       <h3 class="demo-label">Button Groups</h3>
-      <div class="btn-toolbar gap-3">
+      <div class="btn-toolbar gap-3 align-items-center">
         <div class="btn-group" role="group" aria-label="Zeitraum">
           <button type="button" class="btn btn-outline-primary">Tag</button>
           <button type="button" class="btn btn-outline-primary active" aria-pressed="true">Woche</button>
@@ -228,13 +228,13 @@
       <h3 class="demo-label">btn-check: Wochentage, An/Aus</h3>
       <div class="d-flex flex-wrap align-items-center gap-3">
         <div class="btn-group" role="group" aria-label="Wochentage">
-          <input type="checkbox" class="btn-check" id="wd-mo" autocomplete="off" checked><label class="btn btn-outline-primary px-2" for="wd-mo">Mo</label>
-          <input type="checkbox" class="btn-check" id="wd-di" autocomplete="off" checked><label class="btn btn-outline-primary px-2" for="wd-di">Di</label>
-          <input type="checkbox" class="btn-check" id="wd-mi" autocomplete="off" checked><label class="btn btn-outline-primary px-2" for="wd-mi">Mi</label>
-          <input type="checkbox" class="btn-check" id="wd-do" autocomplete="off"><label class="btn btn-outline-primary px-2" for="wd-do">Do</label>
-          <input type="checkbox" class="btn-check" id="wd-fr" autocomplete="off"><label class="btn btn-outline-primary px-2" for="wd-fr">Fr</label>
-          <input type="checkbox" class="btn-check" id="wd-sa" autocomplete="off"><label class="btn btn-outline-primary px-2" for="wd-sa">Sa</label>
-          <input type="checkbox" class="btn-check" id="wd-so" autocomplete="off"><label class="btn btn-outline-primary px-2" for="wd-so">So</label>
+          <input type="checkbox" class="btn-check" id="wd-mo" autocomplete="off" checked><label class="btn btn-outline-primary px-2" style="min-width: 2.9rem" for="wd-mo">Mo</label>
+          <input type="checkbox" class="btn-check" id="wd-di" autocomplete="off" checked><label class="btn btn-outline-primary px-2" style="min-width: 2.9rem" for="wd-di">Di</label>
+          <input type="checkbox" class="btn-check" id="wd-mi" autocomplete="off" checked><label class="btn btn-outline-primary px-2" style="min-width: 2.9rem" for="wd-mi">Mi</label>
+          <input type="checkbox" class="btn-check" id="wd-do" autocomplete="off"><label class="btn btn-outline-primary px-2" style="min-width: 2.9rem" for="wd-do">Do</label>
+          <input type="checkbox" class="btn-check" id="wd-fr" autocomplete="off"><label class="btn btn-outline-primary px-2" style="min-width: 2.9rem" for="wd-fr">Fr</label>
+          <input type="checkbox" class="btn-check" id="wd-sa" autocomplete="off"><label class="btn btn-outline-primary px-2" style="min-width: 2.9rem" for="wd-sa">Sa</label>
+          <input type="checkbox" class="btn-check" id="wd-so" autocomplete="off"><label class="btn btn-outline-primary px-2" style="min-width: 2.9rem" for="wd-so">So</label>
         </div>
         <div class="btn-group" role="group" aria-label="Steckdose">
           <input type="radio" class="btn-check" name="power" id="power-on" autocomplete="off" checked><label class="btn btn-outline-success" for="power-on">An</label>
@@ -532,11 +532,11 @@
                   <caption class="caption-top">Wechselkurse zum Euro, Stand 3. Oktober 2026</caption>
                   <thead class="table-light"><tr><th scope="col">Währung</th><th scope="col" class="text-end">Kurs</th><th scope="col" class="text-end">24 h</th><th scope="col">Quelle</th></tr></thead>
                   <tbody>
-                    <tr><td>US-Dollar (USD)</td><td class="text-end tabular-nums">1,0842</td><td class="text-end tabular-nums text-success">+0,12 %</td><td>EZB</td></tr>
-                    <tr><td>Pfund (GBP)</td><td class="text-end tabular-nums">0,8561</td><td class="text-end tabular-nums text-danger">−0,08 %</td><td>EZB</td></tr>
-                    <tr><td>Franken (CHF)</td><td class="text-end tabular-nums">0,9423</td><td class="text-end tabular-nums">±0,00 %</td><td>EZB</td></tr>
-                    <tr class="table-warning"><td>Yen (JPY)</td><td class="text-end tabular-nums">162,31</td><td class="text-end tabular-nums text-danger">−0,54 %</td><td>manuell</td></tr>
-                    <tr><td>Krone (SEK)</td><td class="text-end tabular-nums">11,284</td><td class="text-end tabular-nums text-success">+0,21 %</td><td>EZB</td></tr>
+                    <tr><td>US-Dollar (USD)</td><td class="text-end tabular-nums text-nowrap">1,0842</td><td class="text-end tabular-nums text-success text-nowrap">+0,12 %</td><td>EZB</td></tr>
+                    <tr><td>Pfund (GBP)</td><td class="text-end tabular-nums text-nowrap">0,8561</td><td class="text-end tabular-nums text-danger text-nowrap">−0,08 %</td><td>EZB</td></tr>
+                    <tr><td>Franken (CHF)</td><td class="text-end tabular-nums text-nowrap">0,9423</td><td class="text-end tabular-nums text-nowrap">±0,00 %</td><td>EZB</td></tr>
+                    <tr class="table-warning"><td>Yen (JPY)</td><td class="text-end tabular-nums text-nowrap">162,31</td><td class="text-end tabular-nums text-danger text-nowrap">−0,54 %</td><td>manuell</td></tr>
+                    <tr><td>Krone (SEK)</td><td class="text-end tabular-nums text-nowrap">11,284</td><td class="text-end tabular-nums text-success text-nowrap">+0,21 %</td><td>EZB</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -549,10 +549,10 @@
             <table class="table table-sm table-striped">
               <thead><tr><th scope="col">Tag</th><th scope="col" class="text-end">Solar</th><th scope="col" class="text-end">Verbrauch</th></tr></thead>
               <tbody>
-                <tr><td>Mo 28.09.</td><td class="text-end tabular-nums">7,2 kWh</td><td class="text-end tabular-nums">5,9 kWh</td></tr>
-                <tr><td>Di 29.09.</td><td class="text-end tabular-nums">4,1 kWh</td><td class="text-end tabular-nums">6,3 kWh</td></tr>
-                <tr><td>Mi 30.09.</td><td class="text-end tabular-nums">2,8 kWh</td><td class="text-end tabular-nums">5,4 kWh</td></tr>
-                <tr><td>Do 01.10.</td><td class="text-end tabular-nums">5,6 kWh</td><td class="text-end tabular-nums">6,1 kWh</td></tr>
+                <tr><td>Mo 28.09.</td><td class="text-end tabular-nums text-nowrap">7,2 kWh</td><td class="text-end tabular-nums text-nowrap">5,9 kWh</td></tr>
+                <tr><td>Di 29.09.</td><td class="text-end tabular-nums text-nowrap">4,1 kWh</td><td class="text-end tabular-nums text-nowrap">6,3 kWh</td></tr>
+                <tr><td>Mi 30.09.</td><td class="text-end tabular-nums text-nowrap">2,8 kWh</td><td class="text-end tabular-nums text-nowrap">5,4 kWh</td></tr>
+                <tr><td>Do 01.10.</td><td class="text-end tabular-nums text-nowrap">5,6 kWh</td><td class="text-end tabular-nums text-nowrap">6,1 kWh</td></tr>
               </tbody>
             </table>
           </div>
@@ -563,9 +563,9 @@
         <table class="table table-bordered" style="min-width: 36rem">
           <thead><tr><th scope="col">Titel</th><th scope="col">Autor</th><th scope="col" class="text-end">Seiten</th><th scope="col">Gelesen</th><th scope="col">Bewertung</th></tr></thead>
           <tbody>
-            <tr><td>Die Mitternachtsbibliothek</td><td>Matt Haig</td><td class="text-end tabular-nums">336</td><td>März 2025</td><td class="text-warning" aria-label="4 von 5 Sternen">★★★★☆</td></tr>
-            <tr><td>Atomic Habits</td><td>James Clear</td><td class="text-end tabular-nums">320</td><td>Januar 2025</td><td class="text-warning" aria-label="4 von 5 Sternen">★★★★☆</td></tr>
-            <tr><td>Geflochtenes Süßgras</td><td>Robin Wall Kimmerer</td><td class="text-end tabular-nums">390</td><td>Juli 2024</td><td class="text-warning" aria-label="5 von 5 Sternen">★★★★★</td></tr>
+            <tr><td>Die Mitternachtsbibliothek</td><td>Matt Haig</td><td class="text-end tabular-nums text-nowrap">336</td><td>März 2025</td><td class="text-warning" aria-label="4 von 5 Sternen">★★★★☆</td></tr>
+            <tr><td>Atomic Habits</td><td>James Clear</td><td class="text-end tabular-nums text-nowrap">320</td><td>Januar 2025</td><td class="text-warning" aria-label="4 von 5 Sternen">★★★★☆</td></tr>
+            <tr><td>Geflochtenes Süßgras</td><td>Robin Wall Kimmerer</td><td class="text-end tabular-nums text-nowrap">390</td><td>Juli 2024</td><td class="text-warning" aria-label="5 von 5 Sternen">★★★★★</td></tr>
           </tbody>
         </table>
       </div>
@@ -592,10 +592,10 @@
             <div class="progress" role="progressbar" aria-label="Sonstige" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 15%"><div class="progress-bar bg-danger">15 %</div></div>
           </div>
           <div class="d-flex flex-wrap gap-3 mt-2 small text-body-secondary">
-            <span><span class="badge text-bg-primary">&nbsp;</span> Kaffeemaschine</span>
-            <span><span class="badge text-bg-success">&nbsp;</span> Waschmaschine</span>
-            <span><span class="badge text-bg-warning">&nbsp;</span> Trockner</span>
-            <span><span class="badge text-bg-danger">&nbsp;</span> Sonstige</span>
+            <span><span class="d-inline-block rounded-circle bg-primary align-middle" style="width: .75rem; height: .75rem"></span> Kaffeemaschine</span>
+            <span><span class="d-inline-block rounded-circle bg-success align-middle" style="width: .75rem; height: .75rem"></span> Waschmaschine</span>
+            <span><span class="d-inline-block rounded-circle bg-warning align-middle" style="width: .75rem; height: .75rem"></span> Trockner</span>
+            <span><span class="d-inline-block rounded-circle bg-danger align-middle" style="width: .75rem; height: .75rem"></span> Sonstige</span>
           </div>
         </div>
 
@@ -610,10 +610,10 @@
 
           <h3 class="demo-label">Salden mit Mittellinie</h3>
           <div class="vstack gap-3 demo-saldo">
-            <div class="d-flex align-items-center gap-3"><span class="w-25">Robert</span><div class="progress flex-grow-1" role="progressbar" aria-label="Robert" aria-valuenow="42" aria-valuemin="-100" aria-valuemax="100" style="height: 1rem"><div class="progress-bar bg-success" style="width: 21%; margin-left: 50%"></div></div><span class="tabular-nums text-success text-end" style="min-width: 5.5rem">+42,10 €</span></div>
-            <div class="d-flex align-items-center gap-3"><span class="w-25">Anna</span><div class="progress flex-grow-1" role="progressbar" aria-label="Anna" aria-valuenow="-42" aria-valuemin="-100" aria-valuemax="100" style="height: 1rem"><div class="progress-bar bg-danger" style="width: 21%; margin-left: 29%"></div></div><span class="tabular-nums text-danger text-end" style="min-width: 5.5rem">−42,10 €</span></div>
-            <div class="d-flex align-items-center gap-3"><span class="w-25">Tom</span><div class="progress flex-grow-1" role="progressbar" aria-label="Tom" aria-valuenow="18" aria-valuemin="-100" aria-valuemax="100" style="height: 1rem"><div class="progress-bar bg-success" style="width: 9%; margin-left: 50%"></div></div><span class="tabular-nums text-success text-end" style="min-width: 5.5rem">+18,40 €</span></div>
-            <div class="d-flex align-items-center gap-3"><span class="w-25">Lena</span><div class="progress flex-grow-1" role="progressbar" aria-label="Lena" aria-valuenow="-18" aria-valuemin="-100" aria-valuemax="100" style="height: 1rem"><div class="progress-bar bg-danger" style="width: 9%; margin-left: 41%"></div></div><span class="tabular-nums text-danger text-end" style="min-width: 5.5rem">−18,40 €</span></div>
+            <div class="d-flex align-items-center gap-3"><span class="w-25">Robert</span><div class="progress flex-grow-1" role="progressbar" aria-label="Robert" aria-valuenow="42" aria-valuemin="-100" aria-valuemax="100" style="height: 1rem"><div class="progress-bar bg-success rounded-start-0" style="width: 21%; margin-left: 50%"></div></div><span class="tabular-nums text-success text-end" style="min-width: 5.5rem">+42,10 €</span></div>
+            <div class="d-flex align-items-center gap-3"><span class="w-25">Anna</span><div class="progress flex-grow-1" role="progressbar" aria-label="Anna" aria-valuenow="-42" aria-valuemin="-100" aria-valuemax="100" style="height: 1rem"><div class="progress-bar bg-danger rounded-end-0" style="width: 21%; margin-left: 29%"></div></div><span class="tabular-nums text-danger text-end" style="min-width: 5.5rem">−42,10 €</span></div>
+            <div class="d-flex align-items-center gap-3"><span class="w-25">Tom</span><div class="progress flex-grow-1" role="progressbar" aria-label="Tom" aria-valuenow="18" aria-valuemin="-100" aria-valuemax="100" style="height: 1rem"><div class="progress-bar bg-success rounded-start-0" style="width: 9%; margin-left: 50%"></div></div><span class="tabular-nums text-success text-end" style="min-width: 5.5rem">+18,40 €</span></div>
+            <div class="d-flex align-items-center gap-3"><span class="w-25">Lena</span><div class="progress flex-grow-1" role="progressbar" aria-label="Lena" aria-valuenow="-18" aria-valuemin="-100" aria-valuemax="100" style="height: 1rem"><div class="progress-bar bg-danger rounded-end-0" style="width: 9%; margin-left: 41%"></div></div><span class="tabular-nums text-danger text-end" style="min-width: 5.5rem">−18,40 €</span></div>
           </div>
         </div>
       </div>
@@ -677,7 +677,7 @@
           </nav>
           <h3 class="demo-label">Pagination</h3>
           <nav aria-label="Seiten">
-            <ul class="pagination">
+            <ul class="pagination mb-3">
               <li class="page-item disabled"><span class="page-link">Zurück</span></li>
               <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
               <li class="page-item"><a class="page-link" href="#navigation">2</a></li>
@@ -881,9 +881,9 @@
                 </div>
               </div>
             </div>
-            <div class="card text-bg-dark">
+            <div class="card border-0 text-white">
               <img src="docs/sample-photo.webp" class="card-img" width="600" height="400" alt="">
-              <div class="card-img-overlay d-flex flex-column justify-content-end" style="background: linear-gradient(transparent 40%, rgb(20 15 10 / .6))">
+              <div class="card-img-overlay d-flex flex-column justify-content-end" style="background: linear-gradient(transparent 30%, rgb(20 15 10 / .78)); text-shadow: 0 1px 2px rgb(0 0 0 / .5)">
                 <h3 class="card-title">Ein Spaziergang ohne Ziel</h3>
                 <p class="card-text">Draußen sein, Pläne loslassen.</p>
               </div>
@@ -897,7 +897,7 @@
     <section class="demo-section" id="prose">
       <h2>16 · Prosa</h2>
       <article class="card">
-        <div class="card-body">
+        <div class="card-body" style="max-width: 72ch">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#prose">Home</a></li>
@@ -978,7 +978,7 @@
                   </div>
                 </div>
               </div>
-              <div class="list-group mx-3 mb-3">
+              <div class="list-group mx-3">
                 <div class="list-group-item sticky-top bg-body-secondary d-flex justify-content-between small fw-bold text-uppercase"><span>Oktober 2026</span><span class="tabular-nums">143,05 €</span></div>
                 <a href="#mobile" class="list-group-item list-group-item-action d-flex align-items-center gap-3"><span class="fs-4" aria-hidden="true">🛒</span><span class="me-auto fw-semibold">Rewe</span><span class="fw-bold tabular-nums">34,20 €</span></a>
                 <a href="#mobile" class="list-group-item list-group-item-action d-flex align-items-center gap-3"><span class="fs-4" aria-hidden="true">⛽</span><span class="me-auto fw-semibold">Tankstelle</span><span class="fw-bold tabular-nums">61,00 €</span></a>
@@ -986,13 +986,6 @@
                 <a href="#mobile" class="list-group-item list-group-item-action d-flex align-items-center gap-3"><span class="fs-4" aria-hidden="true">💊</span><span class="me-auto fw-semibold">dm</span><span class="fw-bold tabular-nums">12,95 €</span></a>
                 <a href="#mobile" class="list-group-item list-group-item-action d-flex align-items-center gap-3"><span class="fs-4" aria-hidden="true">🥖</span><span class="me-auto fw-semibold">Bäckerei</span><span class="fw-bold tabular-nums">6,40 €</span></a>
               </div>
-              <div class="list-group mx-3">
-                <div class="list-group-item sticky-top bg-body-secondary d-flex justify-content-between small fw-bold text-uppercase"><span>September 2026</span><span class="tabular-nums">1.261,00 €</span></div>
-                <a href="#mobile" class="list-group-item list-group-item-action d-flex align-items-center gap-3"><span class="fs-4" aria-hidden="true">🏠</span><span class="me-auto fw-semibold">Miete</span><span class="fw-bold tabular-nums">1.150,00 €</span></a>
-                <a href="#mobile" class="list-group-item list-group-item-action d-flex align-items-center gap-3"><span class="fs-4" aria-hidden="true">🔌</span><span class="me-auto fw-semibold">Strom</span><span class="fw-bold tabular-nums">84,00 €</span></a>
-                <a href="#mobile" class="list-group-item list-group-item-action d-flex align-items-center gap-3"><span class="fs-4" aria-hidden="true">🎬</span><span class="me-auto fw-semibold">Kino</span><span class="fw-bold tabular-nums">27,00 €</span></a>
-              </div>
-            </div>
             <button type="button" class="btn btn-primary btn-lg rounded-pill position-fixed bottom-0 end-0 m-3" style="margin-bottom: 5.5rem !important" aria-label="Ausgabe hinzufügen"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Neu</button>
             <nav class="navbar fixed-bottom pb-safe" aria-label="Hauptnavigation">
               <ul class="nav nav-pills nav-fill w-100">
