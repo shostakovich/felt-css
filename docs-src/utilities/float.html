@@ -1,0 +1,27 @@
+<!--
+title: Float
+description: Toggle floats on any element, across any breakpoint, using the responsive float utilities.
+-->
+<h2>Overview</h2>
+<p>These utility classes float an element to the left or right, or disable floating, based on the current viewport size using the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float">CSS <code>float</code> property</a>. <code>!important</code> is included to avoid specificity issues. These use the same viewport breakpoints as the grid system. Please be aware float utilities have no effect on flex items.</p>
+<example>
+<div class="float-start">Float start on all viewport sizes</div><br>
+<div class="float-end">Float end on all viewport sizes</div><br>
+<div class="float-none">Don't float on all viewport sizes</div>
+</example>
+<p>Use the <a href="../../helpers/clearfix/">clearfix helper</a> on a parent element to clear floats.</p>
+
+<h2>Responsive</h2>
+<p>Responsive variations also exist for each <code>float</code> value. felt-css has no <code>-xl</code>/<code>-xxl</code> variants.</p>
+<example>
+<div class="float-sm-end">Float end on viewports sized SM (small) or wider</div><br>
+<div class="float-md-end">Float end on viewports sized MD (medium) or wider</div><br>
+<div class="float-lg-end">Float end on viewports sized LG (large) or wider</div><br>
+</example>
+<p>Here are all the support classes:</p>
+<ul>
+  <li><code>.float-start</code>, <code>.float-end</code>, <code>.float-none</code></li>
+  <li><code>.float-sm-start</code>, <code>.float-sm-end</code>, <code>.float-sm-none</code></li>
+  <li><code>.float-md-start</code>, <code>.float-md-end</code>, <code>.float-md-none</code></li>
+  <li><code>.float-lg-start</code>, <code>.float-lg-end</code>, <code>.float-lg-none</code></li>
+</ul>

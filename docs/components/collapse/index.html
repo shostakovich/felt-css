@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Collapse · felt-css</title>
-  <meta name="description" content="This page has not been written yet.">
+  <meta name="description" content="Toggle the visibility of content across your project with a few classes and Bootstrap’s JavaScript plugins.">
   <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
   <link rel="stylesheet" href="../../../felt.css">
   <link rel="stylesheet" href="../../assets/docs.css">
@@ -67,12 +67,147 @@
       <div class="bd-intro">
         <p class="bd-section">Components</p>
         <h1>Collapse</h1>
-        <p class="lead">This page has not been written yet.</p>
+        <p class="lead">Toggle the visibility of content across your project with a few classes and Bootstrap’s JavaScript plugins.</p>
         <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/components/collapse.html">View page source on GitHub</a>
       </div>
       
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#how-it-works">How it works</a></li><li><a href="#example">Example</a></li><li><a href="#multiple-toggles-and-targets">Multiple toggles and targets</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#usage">Usage</a><ul><li><a href="#via-data-attributes">Via data attributes</a></li><li><a href="#via-javascript">Via JavaScript</a></li></ul></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#how-it-works">How it works</a></li><li><a href="#example">Example</a></li><li><a href="#multiple-toggles-and-targets">Multiple toggles and targets</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#usage">Usage</a><ul><li><a href="#via-data-attributes">Via data attributes</a></li><li><a href="#via-javascript">Via JavaScript</a></li></ul></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul>
+        </nav>
+      </div>
+      
       <div class="bd-content">
-        <p class="text-body-secondary">Coming soon.</p>
+        
+<h2 id="how-it-works">How it works<a class="bd-anchor" href="#how-it-works" aria-label="Link to this section">#</a></h2>
+<p>Bootstrap’s collapse JavaScript plugin is used to show and hide content. Buttons or anchors are used as triggers that are mapped to specific elements you toggle. Collapsing an element will animate the <code>height</code> from its current value to <code>0</code>. Given how CSS handles animations, you cannot use <code>padding</code> on a <code>.collapse</code> element. Instead, use the class as an independent wrapping element.</p>
+
+<div class="bd-callout bd-callout-info">
+  <p>The animation effect of this component is dependent on the <code>prefers-reduced-motion</code> media query.</p>
+</div>
+
+<h2 id="example">Example<a class="bd-anchor" href="#example" aria-label="Link to this section">#</a></h2>
+<p>Click the buttons below to show and hide another element via class changes:</p>
+<ul>
+  <li><code>.collapse</code> hides content</li>
+  <li><code>.collapsing</code> is applied during transitions</li>
+  <li><code>.collapse.show</code> shows content</li>
+</ul>
+<p>Generally, we recommend using a <code>&lt;button&gt;</code> with the <code>data-bs-target</code> attribute. While not recommended from a semantic point of view, you can also use an <code>&lt;a&gt;</code> link with the <code>href</code> attribute (and a <code>role="button"</code>). In both cases, the <code>data-bs-toggle="collapse"</code> is required.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<p class="d-inline-flex flex-wrap gap-1">
+  <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Link with href
+  </a>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Button with data-bs-target
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-inline-flex flex-wrap gap-1"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#collapseExample"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"collapseExample"</span><span class="tok-punct">&gt;</span>
+    Link with href
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#collapseExample"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"collapseExample"</span><span class="tok-punct">&gt;</span>
+    Button with data-bs-target
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"collapseExample"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card card-body"</span><span class="tok-punct">&gt;</span>
+    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>felt-css has no horizontal collapse (<code>.collapse-horizontal</code>); collapsing always animates the height. For a disclosure that needs no JavaScript at all, see the <a href="../accordion/#without-javascript"><code>&lt;details&gt;</code> accordion</a>.</p>
+
+<h2 id="multiple-toggles-and-targets">Multiple toggles and targets<a class="bd-anchor" href="#multiple-toggles-and-targets" aria-label="Link to this section">#</a></h2>
+<p>A <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> element can show and hide multiple elements by referencing them with a selector in its <code>data-bs-target</code> or <code>href</code> attribute. Conversely, multiple <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> elements can show and hide the same element if they each reference it with their <code>data-bs-target</code> or <code>href</code> attribute.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<p class="d-inline-flex flex-wrap gap-1">
+  <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Toggle second element</button>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample1, #multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Toggle both elements</button>
+</p>
+<div class="row">
+  <div class="col">
+    <div class="collapse" id="multiCollapseExample1">
+      <div class="card card-body">
+        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="collapse" id="multiCollapseExample2">
+      <div class="card card-body">
+        Some placeholder content for the second collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+      </div>
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-inline-flex flex-wrap gap-1"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#multiCollapseExample1"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"multiCollapseExample1"</span><span class="tok-punct">&gt;</span>Toggle first element<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#multiCollapseExample2"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"multiCollapseExample2"</span><span class="tok-punct">&gt;</span>Toggle second element<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#multiCollapseExample1, #multiCollapseExample2"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"multiCollapseExample1 multiCollapseExample2"</span><span class="tok-punct">&gt;</span>Toggle both elements<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"multiCollapseExample1"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card card-body"</span><span class="tok-punct">&gt;</span>
+        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"collapse"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"multiCollapseExample2"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card card-body"</span><span class="tok-punct">&gt;</span>
+        Some placeholder content for the second collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Bootstrap’s version of this example targets a <code>.multi-collapse</code> class; any CSS selector works, here a list of ids.</p>
+
+<h2 id="accessibility">Accessibility<a class="bd-anchor" href="#accessibility" aria-label="Link to this section">#</a></h2>
+<p>Be sure to add <code>aria-expanded</code> to the control element. This attribute explicitly conveys the current state of the collapsible element tied to the control to screen readers and similar assistive technologies. If the collapsible element is closed by default, the attribute on the control element should have a value of <code>aria-expanded="false"</code>. If you’ve set the collapsible element to be open by default using the <code>show</code> class, set <code>aria-expanded="true"</code> on the control instead. The plugin will automatically toggle this attribute on the control based on whether or not the collapsible element has been opened or closed. If the control element’s HTML element is not a button (e.g., an <code>&lt;a&gt;</code> or <code>&lt;div&gt;</code>), the attribute <code>role="button"</code> should be added to the element.</p>
+<p>If your control element is targeting a single collapsible element – i.e. the <code>data-bs-target</code> attribute is pointing to an <code>id</code> selector – you should add the <code>aria-controls</code> attribute to the control element, containing the <code>id</code> of the collapsible element. Modern screen readers and similar assistive technologies make use of this attribute to provide users with additional shortcuts to navigate directly to the collapsible element itself.</p>
+<p>Note that Bootstrap’s current implementation does not cover the various <em>optional</em> keyboard interactions described in the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/">ARIA Authoring Practices Guide accordion pattern</a> - you will need to include these yourself with custom JavaScript.</p>
+
+<h2 id="usage">Usage<a class="bd-anchor" href="#usage" aria-label="Link to this section">#</a></h2>
+<p>The collapse plugin utilizes a few classes to handle the heavy lifting:</p>
+<ul>
+  <li><code>.collapse</code> hides the content</li>
+  <li><code>.collapse.show</code> shows the content</li>
+  <li><code>.collapsing</code> is added when the transition starts, and removed when it finishes</li>
+</ul>
+
+<h3 id="via-data-attributes">Via data attributes<a class="bd-anchor" href="#via-data-attributes" aria-label="Link to this section">#</a></h3>
+<p>Just add <code>data-bs-toggle="collapse"</code> and a <code>data-bs-target</code> to the element to automatically assign control of one or more collapsible elements. The <code>data-bs-target</code> attribute accepts a CSS selector to apply the collapse to. Be sure to add the class <code>collapse</code> to the collapsible element. If you’d like it to default open, add the additional class <code>show</code>.</p>
+<p>To add accordion-like group management to a collapsible area, add the data attribute <code>data-bs-parent="#selector"</code>. Refer to the <a href="../accordion/">accordion page</a> for more information.</p>
+
+<h3 id="via-javascript">Via JavaScript<a class="bd-anchor" href="#via-javascript" aria-label="Link to this section">#</a></h3>
+<p>Enable manually with:</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> collapseElementList = <span class="tok-tag">document</span>.querySelectorAll(<span class="tok-val">'.collapse'</span>)
+<span class="tok-tag">const</span> collapseList = [...collapseElementList].map(collapseEl =&gt; <span class="tok-tag">new</span> bootstrap.Collapse(collapseEl))</code></pre></div>
+
+<h2 id="javascript-behavior">JavaScript behavior<a class="bd-anchor" href="#javascript-behavior" aria-label="Link to this section">#</a></h2>
+<p>felt-css is CSS only; showing and hiding comes from Bootstrap’s collapse plugin. Options (<code>parent</code>, <code>toggle</code>), methods (<code>show</code>, <code>hide</code>, <code>toggle</code>, <code>dispose</code>, <code>getInstance</code>, <code>getOrCreateInstance</code>) and events (<code>show.bs.collapse</code>, <code>shown.bs.collapse</code>, <code>hide.bs.collapse</code>, <code>hidden.bs.collapse</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/collapse/#usage">Bootstrap’s collapse documentation</a>.</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> bsCollapse = <span class="tok-tag">new</span> bootstrap.Collapse(<span class="tok-val">'#myCollapse'</span>, {
+  toggle: false
+})
+bsCollapse.show()</code></pre></div>
+
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/close-button/"><small>Previous</small>Close button</a><a class="bd-pager-next" href="../../components/dropdowns/"><small>Next</small>Dropdowns</a></nav>
       </div>
     </main>

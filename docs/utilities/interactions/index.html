@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Interactions · felt-css</title>
-  <meta name="description" content="This page has not been written yet.">
+  <meta name="description" content="Utility classes that change how users interact with contents of a website.">
   <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
   <link rel="stylesheet" href="../../../felt.css">
   <link rel="stylesheet" href="../../assets/docs.css">
@@ -67,12 +67,49 @@
       <div class="bd-intro">
         <p class="bd-section">Utilities</p>
         <h1>Interactions</h1>
-        <p class="lead">This page has not been written yet.</p>
+        <p class="lead">Utility classes that change how users interact with contents of a website.</p>
         <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/utilities/interactions.html">View page source on GitHub</a>
       </div>
       
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#text-selection">Text selection</a></li><li><a href="#pointer-events">Pointer events</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#text-selection">Text selection</a></li><li><a href="#pointer-events">Pointer events</a></li></ul>
+        </nav>
+      </div>
+      
       <div class="bd-content">
-        <p class="text-body-secondary">Coming soon.</p>
+        
+<h2 id="text-selection">Text selection<a class="bd-anchor" href="#text-selection" aria-label="Link to this section">#</a></h2>
+<p>Change the way in which the content is selected when the user interacts with it.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<p class="user-select-all">This paragraph will be entirely selected when clicked by the user.</p>
+<p class="user-select-auto">This paragraph has default select behavior.</p>
+<p class="user-select-none">This paragraph will not be selectable when clicked by the user.</p>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"user-select-all"</span><span class="tok-punct">&gt;</span>This paragraph will be entirely selected when clicked by the user.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"user-select-auto"</span><span class="tok-punct">&gt;</span>This paragraph has default select behavior.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"user-select-none"</span><span class="tok-punct">&gt;</span>This paragraph will not be selectable when clicked by the user.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="pointer-events">Pointer events<a class="bd-anchor" href="#pointer-events" aria-label="Link to this section">#</a></h2>
+<p>felt-css provides <code>.pe-none</code> and <code>.pe-auto</code> classes to prevent or add element interactions.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<p><a href="#" class="pe-none" tabindex="-1" aria-disabled="true">This link</a> can not be clicked.</p>
+<p><a href="#" class="pe-auto">This link</a> can be clicked (this is default behavior).</p>
+<p class="pe-none"><a href="#" tabindex="-1" aria-disabled="true">This link</a> can not be clicked because the <code>pointer-events</code> property is inherited from its parent. However, <a href="#" class="pe-auto">this link</a> has a <code>pe-auto</code> class and can be clicked.</p>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"pe-none"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"-1"</span> <span class="tok-attr">aria-disabled</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>This link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span> can not be clicked.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"pe-auto"</span><span class="tok-punct">&gt;</span>This link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span> can be clicked (this is default behavior).<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"pe-none"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"-1"</span> <span class="tok-attr">aria-disabled</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>This link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span> can not be clicked because the <span class="tok-punct">&lt;</span><span class="tok-tag">code</span><span class="tok-punct">&gt;</span>pointer-events<span class="tok-punct">&lt;/</span><span class="tok-tag">code</span><span class="tok-punct">&gt;</span> property is inherited from its parent. However, <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"pe-auto"</span><span class="tok-punct">&gt;</span>this link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span> has a <span class="tok-punct">&lt;</span><span class="tok-tag">code</span><span class="tok-punct">&gt;</span>pe-auto<span class="tok-punct">&lt;/</span><span class="tok-tag">code</span><span class="tok-punct">&gt;</span> class and can be clicked.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>The <code>.pe-none</code> class (and the <code>pointer-events</code> CSS property it sets) only prevents interactions with a pointer (mouse, stylus, touch). Links and controls with <code>.pe-none</code> are, by default, still focusable and actionable for keyboard users. To ensure that they are completely neutralized even for keyboard users, you may need to add further attributes such as <code>tabindex="-1"</code> (to prevent them from receiving keyboard focus) and <code>aria-disabled="true"</code> (to convey the fact they are effectively disabled to assistive technologies), and possibly use JavaScript to completely prevent them from being actionable.</p>
+<p>If possible, the simpler solution is:</p>
+<ul>
+  <li>For form controls, add the <code>disabled</code> HTML attribute.</li>
+  <li>For links, remove the <code>href</code> attribute, making it a non-interactive anchor or placeholder link.</li>
+</ul>
+
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../utilities/float/"><small>Previous</small>Float</a><a class="bd-pager-next" href="../../utilities/link/"><small>Next</small>Link</a></nav>
       </div>
     </main>

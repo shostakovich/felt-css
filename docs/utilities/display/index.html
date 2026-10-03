@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Display · felt-css</title>
-  <meta name="description" content="This page has not been written yet.">
+  <title>Display property · felt-css</title>
+  <meta name="description" content="Quickly and responsively toggle the display value of components and more with the display utilities. Includes support for some of the more common values, as well as some extras for controlling display when printing.">
   <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
   <link rel="stylesheet" href="../../../felt.css">
   <link rel="stylesheet" href="../../assets/docs.css">
@@ -66,13 +66,115 @@
     <main class="bd-main" id="content">
       <div class="bd-intro">
         <p class="bd-section">Utilities</p>
-        <h1>Display</h1>
-        <p class="lead">This page has not been written yet.</p>
+        <h1>Display property</h1>
+        <p class="lead">Quickly and responsively toggle the display value of components and more with the display utilities. Includes support for some of the more common values, as well as some extras for controlling display when printing.</p>
         <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/utilities/display.html">View page source on GitHub</a>
       </div>
       
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#how-it-works">How it works</a></li><li><a href="#notation">Notation</a></li><li><a href="#examples">Examples</a></li><li><a href="#hiding-elements">Hiding elements</a></li><li><a href="#display-in-print">Display in print</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#how-it-works">How it works</a></li><li><a href="#notation">Notation</a></li><li><a href="#examples">Examples</a></li><li><a href="#hiding-elements">Hiding elements</a></li><li><a href="#display-in-print">Display in print</a></li></ul>
+        </nav>
+      </div>
+      
       <div class="bd-content">
-        <p class="text-body-secondary">Coming soon.</p>
+        
+<h2 id="how-it-works">How it works<a class="bd-anchor" href="#how-it-works" aria-label="Link to this section">#</a></h2>
+<p>Change the value of the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display"><code>display</code> property</a> with the responsive display utility classes. We purposely support only a subset of all possible values for <code>display</code>. Classes can be combined for various effects as you need.</p>
+
+<h2 id="notation">Notation<a class="bd-anchor" href="#notation" aria-label="Link to this section">#</a></h2>
+<p>Display utility classes that apply to all <a href="../../layout/breakpoints/">breakpoints</a>, from <code>xs</code> to <code>lg</code>, have no breakpoint abbreviation in them. This is because those classes are applied from <code>min-width: 0;</code> and up, and thus are not bound by a media query. The remaining breakpoints, however, do include a breakpoint abbreviation.</p>
+<p>As such, the classes are named using the format:</p>
+<ul>
+  <li><code>.d-{value}</code> for <code>xs</code></li>
+  <li><code>.d-{breakpoint}-{value}</code> for <code>sm</code>, <code>md</code> and <code>lg</code> (felt-css has no <code>xl</code>/<code>xxl</code> variants)</li>
+</ul>
+<p>Where <em>value</em> is one of:</p>
+<ul>
+  <li><code>none</code></li>
+  <li><code>inline</code></li>
+  <li><code>inline-block</code></li>
+  <li><code>block</code></li>
+  <li><code>grid</code></li>
+  <li><code>inline-grid</code></li>
+  <li><code>table</code></li>
+  <li><code>table-cell</code></li>
+  <li><code>table-row</code></li>
+  <li><code>flex</code></li>
+  <li><code>inline-flex</code></li>
+</ul>
+<p>The media queries affect screen widths with the given breakpoint <em>or larger</em>. For example, <code>.d-md-none</code> sets <code>display: none;</code> on <code>md</code> and <code>lg</code> screens.</p>
+
+<h2 id="examples">Examples<a class="bd-anchor" href="#examples" aria-label="Link to this section">#</a></h2>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="d-inline p-2 text-bg-primary">d-inline</div>
+<div class="d-inline p-2 text-bg-dark">d-inline</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-inline p-2 text-bg-primary"</span><span class="tok-punct">&gt;</span>d-inline<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-inline p-2 text-bg-dark"</span><span class="tok-punct">&gt;</span>d-inline<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<div class="bd-example-snippet"><div class="bd-example">
+<span class="d-block p-2 text-bg-primary">d-block</span>
+<span class="d-block p-2 text-bg-dark">d-block</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-block p-2 text-bg-primary"</span><span class="tok-punct">&gt;</span>d-block<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-block p-2 text-bg-dark"</span><span class="tok-punct">&gt;</span>d-block<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="hiding-elements">Hiding elements<a class="bd-anchor" href="#hiding-elements" aria-label="Link to this section">#</a></h2>
+<p>For faster mobile-friendly development, use responsive display classes for showing and hiding elements by device. Avoid creating entirely different versions of the same site, instead hide elements responsively for each screen size.</p>
+<p>To hide elements simply use the <code>.d-none</code> class or one of the <code>.d-{sm,md,lg}-none</code> classes for any responsive screen variation.</p>
+<p>To show an element only on a given interval of screen sizes you can combine one <code>.d-*-none</code> class with a <code>.d-*-*</code> class, for example <code>.d-none .d-md-block .d-lg-none</code> will hide the element for all screen sizes except on medium devices.</p>
+<div class="table-responsive">
+<table class="table">
+  <thead>
+    <tr><th>Screen size</th><th>Class</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Hidden on all</td><td><code>.d-none</code></td></tr>
+    <tr><td>Hidden only on xs</td><td><code>.d-none .d-sm-block</code></td></tr>
+    <tr><td>Hidden only on sm</td><td><code>.d-sm-none .d-md-block</code></td></tr>
+    <tr><td>Hidden only on md</td><td><code>.d-md-none .d-lg-block</code></td></tr>
+    <tr><td>Hidden only on lg</td><td><code>.d-lg-none</code></td></tr>
+    <tr><td>Visible on all</td><td><code>.d-block</code></td></tr>
+    <tr><td>Visible only on xs</td><td><code>.d-block .d-sm-none</code></td></tr>
+    <tr><td>Visible only on sm</td><td><code>.d-none .d-sm-block .d-md-none</code></td></tr>
+    <tr><td>Visible only on md</td><td><code>.d-none .d-md-block .d-lg-none</code></td></tr>
+    <tr><td>Visible only on lg</td><td><code>.d-none .d-lg-block</code></td></tr>
+  </tbody>
+</table>
+</div>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="d-lg-none">hide on lg and wider screens</div>
+<div class="d-none d-lg-block">hide on screens smaller than lg</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-lg-none"</span><span class="tok-punct">&gt;</span>hide on lg and wider screens<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-none d-lg-block"</span><span class="tok-punct">&gt;</span>hide on screens smaller than lg<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="display-in-print">Display in print<a class="bd-anchor" href="#display-in-print" aria-label="Link to this section">#</a></h2>
+<p>Change the <code>display</code> value of elements when printing with the print display utility classes. Includes support for the same <code>display</code> values as the responsive <code>.d-*</code> utilities.</p>
+<ul>
+  <li><code>.d-print-none</code></li>
+  <li><code>.d-print-inline</code></li>
+  <li><code>.d-print-inline-block</code></li>
+  <li><code>.d-print-block</code></li>
+  <li><code>.d-print-grid</code></li>
+  <li><code>.d-print-inline-grid</code></li>
+  <li><code>.d-print-table</code></li>
+  <li><code>.d-print-table-row</code></li>
+  <li><code>.d-print-table-cell</code></li>
+  <li><code>.d-print-flex</code></li>
+  <li><code>.d-print-inline-flex</code></li>
+</ul>
+<p>The print and display classes can be combined.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="d-print-none">Screen Only (Hide on print only)</div>
+<div class="d-none d-print-block">Print Only (Hide on screen only)</div>
+<div class="d-none d-lg-block d-print-block">Hide up to large on screen, but always show on print</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-print-none"</span><span class="tok-punct">&gt;</span>Screen Only (Hide on print only)<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-none d-print-block"</span><span class="tok-punct">&gt;</span>Print Only (Hide on screen only)<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-none d-lg-block d-print-block"</span><span class="tok-punct">&gt;</span>Hide up to large on screen, but always show on print<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../utilities/colors/"><small>Previous</small>Colors</a><a class="bd-pager-next" href="../../utilities/flex/"><small>Next</small>Flex</a></nav>
       </div>
     </main>

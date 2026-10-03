@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Opacity · felt-css</title>
-  <meta name="description" content="This page has not been written yet.">
+  <meta name="description" content="Control the opacity of elements.">
   <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
   <link rel="stylesheet" href="../../../felt.css">
   <link rel="stylesheet" href="../../assets/docs.css">
@@ -67,12 +67,28 @@
       <div class="bd-intro">
         <p class="bd-section">Utilities</p>
         <h1>Opacity</h1>
-        <p class="lead">This page has not been written yet.</p>
+        <p class="lead">Control the opacity of elements.</p>
         <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/utilities/opacity.html">View page source on GitHub</a>
       </div>
       
       <div class="bd-content">
-        <p class="text-body-secondary">Coming soon.</p>
+        
+<p>The <code>opacity</code> property sets the opacity level for an element. The opacity level describes the transparency level, where <code>1</code> is not transparent at all, <code>.5</code> is 50% visible, and <code>0</code> is completely transparent.</p>
+<p>Set the <code>opacity</code> of an element using <code>.opacity-{value}</code> utilities.</p>
+<div class="bd-example-snippet"><div class="bd-example d-sm-flex">
+<div class="opacity-100 p-3 m-2 bg-primary text-white fw-bold rounded">100%</div>
+<div class="opacity-75 p-3 m-2 bg-primary text-white fw-bold rounded">75%</div>
+<div class="opacity-50 p-3 m-2 bg-primary text-white fw-bold rounded">50%</div>
+<div class="opacity-25 p-3 m-2 bg-primary text-white fw-bold rounded">25%</div>
+<div class="opacity-0 p-3 m-2 bg-primary text-white fw-bold rounded">0%</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"opacity-100"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"opacity-75"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"opacity-50"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"opacity-25"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"opacity-0"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<p>To fade only a color rather than the whole element, use the <code>.bg-opacity-*</code>, <code>.text-opacity-*</code>, <code>.border-opacity-*</code> and <code>.link-opacity-*</code> utilities on the <a href="../background/#opacity">background</a>, <a href="../colors/#opacity">colors</a>, <a href="../borders/#opacity">borders</a> and <a href="../link/#link-opacity">link</a> pages.</p>
+
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../utilities/object-fit/"><small>Previous</small>Object fit</a><a class="bd-pager-next" href="../../utilities/overflow/"><small>Next</small>Overflow</a></nav>
       </div>
     </main>

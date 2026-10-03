@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Float · felt-css</title>
-  <meta name="description" content="This page has not been written yet.">
+  <meta name="description" content="Toggle floats on any element, across any breakpoint, using the responsive float utilities.">
   <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
   <link rel="stylesheet" href="../../../felt.css">
   <link rel="stylesheet" href="../../assets/docs.css">
@@ -67,12 +67,51 @@
       <div class="bd-intro">
         <p class="bd-section">Utilities</p>
         <h1>Float</h1>
-        <p class="lead">This page has not been written yet.</p>
+        <p class="lead">Toggle floats on any element, across any breakpoint, using the responsive float utilities.</p>
         <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/utilities/float.html">View page source on GitHub</a>
       </div>
       
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#overview">Overview</a></li><li><a href="#responsive">Responsive</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#overview">Overview</a></li><li><a href="#responsive">Responsive</a></li></ul>
+        </nav>
+      </div>
+      
       <div class="bd-content">
-        <p class="text-body-secondary">Coming soon.</p>
+        
+<h2 id="overview">Overview<a class="bd-anchor" href="#overview" aria-label="Link to this section">#</a></h2>
+<p>These utility classes float an element to the left or right, or disable floating, based on the current viewport size using the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float">CSS <code>float</code> property</a>. <code>!important</code> is included to avoid specificity issues. These use the same viewport breakpoints as the grid system. Please be aware float utilities have no effect on flex items.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="float-start">Float start on all viewport sizes</div><br>
+<div class="float-end">Float end on all viewport sizes</div><br>
+<div class="float-none">Don't float on all viewport sizes</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"float-start"</span><span class="tok-punct">&gt;</span>Float start on all viewport sizes<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"float-end"</span><span class="tok-punct">&gt;</span>Float end on all viewport sizes<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"float-none"</span><span class="tok-punct">&gt;</span>Don't float on all viewport sizes<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>Use the <a href="../../helpers/clearfix/">clearfix helper</a> on a parent element to clear floats.</p>
+
+<h2 id="responsive">Responsive<a class="bd-anchor" href="#responsive" aria-label="Link to this section">#</a></h2>
+<p>Responsive variations also exist for each <code>float</code> value. felt-css has no <code>-xl</code>/<code>-xxl</code> variants.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="float-sm-end">Float end on viewports sized SM (small) or wider</div><br>
+<div class="float-md-end">Float end on viewports sized MD (medium) or wider</div><br>
+<div class="float-lg-end">Float end on viewports sized LG (large) or wider</div><br>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"float-sm-end"</span><span class="tok-punct">&gt;</span>Float end on viewports sized SM (small) or wider<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"float-md-end"</span><span class="tok-punct">&gt;</span>Float end on viewports sized MD (medium) or wider<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"float-lg-end"</span><span class="tok-punct">&gt;</span>Float end on viewports sized LG (large) or wider<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">br</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>Here are all the support classes:</p>
+<ul>
+  <li><code>.float-start</code>, <code>.float-end</code>, <code>.float-none</code></li>
+  <li><code>.float-sm-start</code>, <code>.float-sm-end</code>, <code>.float-sm-none</code></li>
+  <li><code>.float-md-start</code>, <code>.float-md-end</code>, <code>.float-md-none</code></li>
+  <li><code>.float-lg-start</code>, <code>.float-lg-end</code>, <code>.float-lg-none</code></li>
+</ul>
+
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../utilities/flex/"><small>Previous</small>Flex</a><a class="bd-pager-next" href="../../utilities/interactions/"><small>Next</small>Interactions</a></nav>
       </div>
     </main>

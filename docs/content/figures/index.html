@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Figures · felt-css</title>
-  <meta name="description" content="This page has not been written yet.">
+  <meta name="description" content="Documentation and examples for displaying related images and text with the figure component.">
   <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
   <link rel="stylesheet" href="../../../felt.css">
   <link rel="stylesheet" href="../../assets/docs.css">
@@ -67,12 +67,41 @@
       <div class="bd-intro">
         <p class="bd-section">Content</p>
         <h1>Figures</h1>
-        <p class="lead">This page has not been written yet.</p>
+        <p class="lead">Documentation and examples for displaying related images and text with the figure component.</p>
         <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/content/figures.html">View page source on GitHub</a>
       </div>
       
       <div class="bd-content">
-        <p class="text-body-secondary">Coming soon.</p>
+        
+<p>Anytime you need to display a piece of content—like an image with an optional caption, consider using a <code>&lt;figure&gt;</code>.</p>
+<p>Use the included <code>.figure</code>, <code>.figure-img</code> and <code>.figure-caption</code> classes to provide some baseline styles for the HTML5 <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> elements. Images in figures have no explicit size, so be sure to add the <code>.img-fluid</code> class to your <code>&lt;img&gt;</code> to make it responsive.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<figure class="figure">
+  <img src="../../../docs/sample-photo.webp" class="figure-img img-fluid rounded" alt="Sample photo" width="400" height="267">
+  <figcaption class="figure-caption">A caption for the above image.</figcaption>
+</figure>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">figure</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"figure"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/sample-photo.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"figure-img img-fluid rounded"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Sample photo"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"400"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"267"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">figcaption</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"figure-caption"</span><span class="tok-punct">&gt;</span>A caption for the above image.<span class="tok-punct">&lt;/</span><span class="tok-tag">figcaption</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">figure</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>Aligning the figure's caption is easy with the <a href="../../utilities/text/#text-alignment">text utilities</a>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<figure class="figure">
+  <img src="../../../docs/sample-photo.webp" class="figure-img img-fluid rounded" alt="Sample photo" width="400" height="267">
+  <figcaption class="figure-caption text-end">A caption for the above image.</figcaption>
+</figure>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">figure</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"figure"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/sample-photo.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"figure-img img-fluid rounded"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Sample photo"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"400"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"267"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">figcaption</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"figure-caption text-end"</span><span class="tok-punct">&gt;</span>A caption for the above image.<span class="tok-punct">&lt;/</span><span class="tok-tag">figcaption</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">figure</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look, the figure image gets a hairline edge and a small shadow, so the photo seems to lie on the felt. The caption stays plain text in <code>--muted</code>.</p>
+</div>
+
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../content/tables/"><small>Previous</small>Tables</a><a class="bd-pager-next" href="../../forms/overview/"><small>Next</small>Overview</a></nav>
       </div>
     </main>

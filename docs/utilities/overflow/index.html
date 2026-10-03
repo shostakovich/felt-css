@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Overflow · felt-css</title>
-  <meta name="description" content="This page has not been written yet.">
+  <meta name="description" content="Use these shorthand utilities for quickly configuring how content overflows an element.">
   <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
   <link rel="stylesheet" href="../../../felt.css">
   <link rel="stylesheet" href="../../assets/docs.css">
@@ -67,12 +67,90 @@
       <div class="bd-intro">
         <p class="bd-section">Utilities</p>
         <h1>Overflow</h1>
-        <p class="lead">This page has not been written yet.</p>
+        <p class="lead">Use these shorthand utilities for quickly configuring how content overflows an element.</p>
         <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/utilities/overflow.html">View page source on GitHub</a>
       </div>
       
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#overflow">Overflow</a><ul><li><a href="#overflow-x">overflow-x</a></li><li><a href="#overflow-y">overflow-y</a></li></ul></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#overflow">Overflow</a><ul><li><a href="#overflow-x">overflow-x</a></li><li><a href="#overflow-y">overflow-y</a></li></ul></li></ul>
+        </nav>
+      </div>
+      
       <div class="bd-content">
-        <p class="text-body-secondary">Coming soon.</p>
+        
+<h2 id="overflow">Overflow<a class="bd-anchor" href="#overflow" aria-label="Link to this section">#</a></h2>
+<p>Adjust the <code>overflow</code> property on the fly with four default values and classes. These classes are not responsive.</p>
+<div class="bd-example-snippet"><div class="bd-example d-md-flex">
+<div class="overflow-auto p-3 mb-3 mb-md-0 me-md-3 bg-body-tertiary" style="max-width: 260px; max-height: 100px;">
+  This is an example of using <code>.overflow-auto</code> on an element with set width and height dimensions. By design, this content will vertically scroll.
+</div>
+<div class="overflow-hidden p-3 mb-3 mb-md-0 me-md-3 bg-body-tertiary" style="max-width: 260px; max-height: 100px;">
+  This is an example of using <code>.overflow-hidden</code> on an element with set width and height dimensions.
+</div>
+<div class="overflow-visible p-3 mb-3 mb-md-0 me-md-3 bg-body-tertiary" style="max-width: 260px; max-height: 100px;">
+  This is an example of using <code>.overflow-visible</code> on an element with set width and height dimensions.
+</div>
+<div class="overflow-scroll p-3 bg-body-tertiary" style="max-width: 260px; max-height: 100px;">
+  This is an example of using <code>.overflow-scroll</code> on an element with set width and height dimensions.
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-auto"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-hidden"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-visible"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-scroll"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<h3 id="overflow-x"><code>overflow-x</code><a class="bd-anchor" href="#overflow-x" aria-label="Link to this section">#</a></h3>
+<p>Adjust the <code>overflow-x</code> property to affect the overflow of content horizontally.</p>
+<div class="bd-example-snippet"><div class="bd-example d-md-flex">
+<div class="overflow-x-auto p-3 mb-3 mb-md-0 me-md-3 bg-body-tertiary w-100" style="max-width: 200px; max-height: 100px; white-space: nowrap;">
+  <div><code>.overflow-x-auto</code> example on an element</div>
+  <div> with set width and height dimensions.</div>
+</div>
+<div class="overflow-x-hidden p-3 mb-3 mb-md-0 me-md-3 bg-body-tertiary w-100" style="max-width: 200px; max-height: 100px; white-space: nowrap;">
+  <div><code>.overflow-x-hidden</code> example</div>
+  <div>on an element with set width and height dimensions.</div>
+</div>
+<div class="overflow-x-visible p-3 mb-3 mb-md-0 me-md-3 bg-body-tertiary w-100" style="max-width: 200px; max-height: 100px; white-space: nowrap;">
+  <div><code>.overflow-x-visible</code> example </div>
+  <div>on an element with set width and height dimensions.</div>
+</div>
+<div class="overflow-x-scroll p-3 bg-body-tertiary w-100" style="max-width: 200px; max-height: 100px; white-space: nowrap;">
+  <div><code>.overflow-x-scroll</code> example on an element</div>
+  <div> with set width and height dimensions.</div>
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-x-auto"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-x-hidden"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-x-visible"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-x-scroll"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
+<h3 id="overflow-y"><code>overflow-y</code><a class="bd-anchor" href="#overflow-y" aria-label="Link to this section">#</a></h3>
+<p>Adjust the <code>overflow-y</code> property to affect the overflow of content vertically.</p>
+<div class="bd-example-snippet"><div class="bd-example d-md-flex">
+<div class="overflow-y-auto p-3 mb-3 mb-md-0 me-md-3 bg-body-tertiary w-100" style="max-width: 200px; max-height: 100px;">
+  <code>.overflow-y-auto</code> example on an element with set width and height dimensions.
+</div>
+<div class="overflow-y-hidden p-3 mb-3 mb-md-0 me-md-3 bg-body-tertiary w-100" style="max-width: 200px; max-height: 100px;">
+  <code>.overflow-y-hidden</code> example on an element with set width and height dimensions.
+</div>
+<div class="overflow-y-visible p-3 mb-3 mb-md-0 me-md-3 bg-body-tertiary w-100" style="max-width: 200px; max-height: 100px;">
+  <code>.overflow-y-visible</code> example on an element with set width and height dimensions.
+</div>
+<div class="overflow-y-scroll p-3 bg-body-tertiary w-100" style="max-width: 200px; max-height: 100px;">
+  <code>.overflow-y-scroll</code> example on an element with set width and height dimensions.
+</div>
+</div></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-y-auto"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-y-hidden"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-y-visible"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-y-scroll"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../utilities/opacity/"><small>Previous</small>Opacity</a><a class="bd-pager-next" href="../../utilities/position/"><small>Next</small>Position</a></nav>
       </div>
     </main>
