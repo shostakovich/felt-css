@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="de" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>felt-css</title>
+  <link rel="stylesheet" href="felt.css">
+  <script>
+    try {
+      const l = new URLSearchParams(location.search).get("look") || localStorage.getItem("look");
+      if (l) document.documentElement.dataset.look = l;
+    } catch {}
+  </script>
+  <style>
+    .demo-section { margin-top: var(--space-5); }
+    .demo-section > h2 { margin-bottom: var(--space-3); }
+    .expense { display: flex; align-items: center; gap: var(--space-3); }
+    .expense-amount { margin-left: auto; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .demo-toggle { min-width: 7.5rem; order: 3; }
+    @media (max-width: 640px) {
+      .demo-toggle { order: 0; }
+      .navbar .nav-pills { order: 1; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="padding-block: var(--space-4) var(--space-5)">
+
+    <nav class="navbar">
+      <a class="navbar-brand" href="#">felt-css</a>
+      <button class="btn btn-sm btn-outline-secondary btn-pill demo-toggle" id="look-toggle" type="button">Look: <span>Filz</span></button>
+      <ul class="nav-pills">
+        <li><a class="nav-link active" href="#">Übersicht</a></li>
+        <li><a class="nav-link" href="#">Schalten</a></li>
+        <li><a class="nav-link" href="#">Wetter</a></li>
+      </ul>
+    </nav>
+
+    <section class="demo-section">
+      <h2>KPI-Kacheln</h2>
+      <div class="grid" style="--grid-min: 200px">
+        <div class="card text-bg-warning"><div class="card-body stat"><span class="stat-label">Solar</span><span class="stat-value">1.240 W</span></div></div>
+        <div class="card text-bg-primary"><div class="card-body stat"><span class="stat-label">Verbrauch</span><span class="stat-value">380 W</span></div></div>
+        <div class="card text-bg-success"><div class="card-body stat"><span class="stat-label">Batterie</span><span class="stat-value">82 %</span></div></div>
+        <div class="card text-bg-danger"><div class="card-body stat"><span class="stat-label">Außen</span><span class="stat-value">14 °C</span></div></div>
+      </div>
+    </section>
+
+    <section class="demo-section grid" style="--grid-min: 320px; align-items: start">
+      <div class="card">
+        <div class="card-header">Neue Ausgabe</div>
+        <form class="card-body stack" onsubmit="return false">
+          <div>
+            <label class="form-label" for="title">Titel</label>
+            <input class="form-control is-invalid" id="title" placeholder="z. B. Rewe">
+            <div class="invalid-feedback">Bitte einen Titel angeben.</div>
+          </div>
+          <div class="grid" style="--grid-min: 140px">
+            <div>
+              <label class="form-label" for="amount">Betrag</label>
+              <div class="input-group">
+                <input class="form-control" id="amount" inputmode="decimal" value="34,20" autofocus>
+                <span class="input-group-text">€</span>
+              </div>
+            </div>
+            <div>
+              <label class="form-label" for="cat">Kategorie</label>
+              <select class="form-select" id="cat">
+                <option>Lebensmittel</option><option>Tanken</option><option>Restaurant</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="c1" checked><label for="c1">Gleichmäßig aufteilen</label></div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="s1"><label for="s1">Wiederkehrend</label></div>
+          </div>
+          <p class="form-text">Wird zwischen allen Mitgliedern der Gruppe geteilt.</p>
+        </form>
+        <div class="card-footer row">
+          <button class="btn ms-auto" type="button">Abbrechen</button>
+          <button class="btn btn-primary" type="button">Speichern</button>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Steckdosen</h3>
+            <div class="stack" style="gap: var(--space-2)">
+              <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="p1" checked><label for="p1">Kaffeemaschine</label><span class="badge text-bg-success ms-auto">an</span></div>
+              <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="p2"><label for="p2">Waschmaschine</label><span class="badge ms-auto">aus</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body stack" style="gap: var(--space-2)">
+            <div class="expense"><span>Rewe</span><span class="badge text-bg-warning">Lebensmittel</span><span class="expense-amount">34,20 €</span></div>
+            <div class="expense"><span>Tankstelle</span><span class="badge text-bg-primary">Auto</span><span class="expense-amount">61,00 €</span></div>
+            <div class="expense"><span>Pizza</span><span class="badge text-bg-danger">Restaurant</span><span class="expense-amount">28,50 €</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo-section">
+      <h2>Buttons</h2>
+      <div class="row">
+        <button class="btn btn-primary">Primary</button>
+        <button class="btn btn-secondary">Secondary</button>
+        <button class="btn btn-success">Success</button>
+        <button class="btn btn-danger">Danger</button>
+        <button class="btn btn-warning">Warning</button>
+        <button class="btn btn-light">Light</button>
+        <button class="btn btn-outline-primary">Outline</button>
+        <button class="btn btn-outline-secondary">Outline</button>
+        <button class="btn btn-outline-warning">Outline</button>
+        <button class="btn btn-link">Link</button>
+      </div>
+      <div class="row mt-3">
+        <button class="btn btn-primary btn-sm">Klein</button>
+        <button class="btn btn-secondary btn-pill">Pille</button>
+        <button class="btn btn-success btn-lg">Groß</button>
+        <button class="btn btn-danger btn-icon" aria-label="Hinzufügen">＋</button>
+        <button class="btn btn-primary active">Aktiv</button>
+        <button class="btn btn-primary" disabled>Deaktiviert</button>
+      </div>
+    </section>
+
+    <section class="demo-section">
+      <h2>Alerts</h2>
+      <div class="stack">
+        <div class="alert alert-success"><div class="alert-heading">Gespeichert</div>Die Ausgabe wurde angelegt.</div>
+        <div class="alert alert-warning"><div class="alert-heading">Sensor offline</div>Der Außensensor meldet sich seit 2 Stunden nicht.</div>
+        <div class="alert alert-danger"><div class="alert-heading">Fehler</div>Der Betrag muss größer als 0 sein.</div>
+      </div>
+    </section>
+
+    <section class="demo-section">
+      <h2>Text</h2>
+      <article class="card"><div class="card-body">
+        <p class="text-muted" style="font-size:.875rem">3. Oktober 2026</p>
+        <h3 class="card-title">Platz für kleine Dinge</h3>
+        <p class="card-text">Ein paar Gedanken übers Langsamerwerden. Fließtext bleibt bewusst schlicht, damit er auch auf Filz gut lesbar ist — <a href="#">Links</a> inklusive.</p>
+      </div></article>
+    </section>
+  </div>
+
+  <script>
+    const btn = document.getElementById("look-toggle");
+    const label = () => btn.querySelector("span").textContent = document.documentElement.dataset.look === "felt" ? "Filz" : "Clean";
+    label();
+    btn.addEventListener("click", () => {
+      const next = document.documentElement.dataset.look === "felt" ? "clean" : "felt";
+      document.documentElement.dataset.look = next;
+      try { localStorage.setItem("look", next); } catch {}
+      label();
+    });
+  </script>
+</body>
+</html>

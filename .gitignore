@@ -1,0 +1,13 @@
+.DS_Store
+.claude/
+__pycache__/
+
+# raw/: only the photos tools/build_assets.py builds from
+raw/*
+!raw/felt-neutral.png
+!raw/stitch-b.png
+!raw/cream-a.png
+
+# brainstorm/: keep the small JPEG previews, not the generator output
+brainstorm/*.png
+brainstorm/*.log

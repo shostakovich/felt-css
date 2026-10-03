@@ -1,0 +1,590 @@
+/*! felt-css — a small Bootstrap-flavoured toolkit with a switchable felt look.
+ * Clean by default; add data-look="felt" to <html> for wool felt and stitched seams.
+ * Switching looks never changes layout: felt only swaps colours, textures, shadows and seams. */
+
+@layer reset, tokens, base, components, utilities, felt;
+
+/* ---------------------------------------------------------------- reset */
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; }
+  body, h1, h2, h3, h4, p, figure, blockquote, dl, dd { margin: 0; }
+  img, svg { display: block; max-width: 100%; }
+  input, button, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+}
+
+/* --------------------------------------------------------------- tokens */
+@layer tokens {
+  :root {
+    /* palette — chosen to look good as felt, works flat too */
+    --mustard: #e0a224;
+    --denim: #3d64a0;
+    --moss: #5a7f33;
+    --tomato: #c4452f;
+    --taupe: #7a6e60;
+    --navy: #1e2b45;
+
+    /* semantic */
+    --primary: var(--denim);
+    --primary-ink: #fff;
+    --secondary: var(--taupe);
+    --secondary-ink: #fff;
+    --success: var(--moss);
+    --success-ink: #fff;
+    --danger: var(--tomato);
+    --danger-ink: #fff;
+    --warning: var(--mustard);
+    --warning-ink: #3a2a06;
+    /* dark variants for text on tinted surfaces (Bootstrap's *-text-emphasis), >= 4.5:1 */
+    --primary-emphasis: #26406a;
+    --secondary-emphasis: #4a4136;
+    --success-emphasis: #36501d;
+    --danger-emphasis: #7d2a1b;
+    --warning-emphasis: #6b4e12;
+
+    --body-bg: #f6f7f9;
+    --surface: #fff;
+    --surface-sunk: #f1f3f5;
+    --surface-raised: #f8f9fa;
+    --field: #fff;
+    --border: #e2e5ea;
+    --text: #1f2633;
+    --muted: #677084;
+    --focus: color-mix(in oklab, var(--primary) 30%, transparent);
+
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-heading: var(--font);
+
+    --radius-sm: 6px;
+    --radius: 10px;
+    --radius-lg: 14px;
+    --radius-pill: 999px;
+
+    --space-1: .25rem;
+    --space-2: .5rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 3rem;
+
+    --shadow-sm: 0 1px 2px rgb(16 24 40 / .06);
+    --shadow: 0 1px 3px rgb(16 24 40 / .08), 0 1px 2px rgb(16 24 40 / .04);
+  }
+
+  :root[data-look="felt"] {
+    --body-bg: #e7dccb;
+    --surface: #faf5ee;
+    --surface-raised: #fffcf7;
+    --surface-sunk: #ece4d4;
+    --field: #fcfaf5;
+    --border: #e2d8c6;
+    --text: var(--navy);
+    --muted: #6d6656;
+
+    --radius-sm: 5px;
+    --radius: 12px;
+    --radius-lg: 18px;
+
+    /* Two felt recipes:
+     * light felt  — creams; fibres via multiply with a nearly white tile, flat, quiet
+     * patch       — saturated colours; fibres via soft-light, slightly domed, sewn on */
+    --felt-light: url("img/felt-light.webp");
+    --felt-light-size: 256px;
+    --felt: url("img/felt.webp");
+    --felt-size: 256px;
+    --shadow-felt:
+      0 0 1px .5px rgb(236 229 217 / .55),
+      inset 0 -2px 0 rgb(0 0 0 / .05),
+      0 1px 0 rgb(90 70 40 / .10),
+      0 6px 14px -6px rgb(90 70 40 / .25);
+    --patch-dome: radial-gradient(120% 95% at 35% 10%, rgb(255 255 255 / .16), transparent 60%);
+
+    /* Stitched seams: 9-slice images of real thread (tools/build_assets.py), tinted by hard-light.
+     * Default thread is for light felt: a darker tone of the felt underneath. */
+    /* stitches:start */
+    --seam-margin: 3px;
+    --seam-lg-slice: 24; --seam-lg-width: 12px;
+    --seam-md-slice: 20; --seam-md-width: 10px;
+    --seam-pill-slice: 40; --seam-pill-width: 20px;
+    --seam-row-size: 10.5px 6px;
+    /* stitches:end */
+    --seam-img: url("img/seam-md.webp");
+    --seam-slice: var(--seam-md-slice);
+    --seam-width: var(--seam-md-width);
+    --seam-inset: 5px;
+    --seam-filter: brightness(.42) sepia(.3);
+    --seam-strength: .6;
+  }
+}
+
+/* ----------------------------------------------------------------- base */
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--body-bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; font-weight: 700; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.375rem; }
+  h3 { font-size: 1.125rem; }
+  a { color: var(--primary); }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+}
+
+/* ----------------------------------------------------------- components */
+@layer components {
+  /* layout */
+  .container { width: 100%; max-width: 1080px; margin-inline: auto; padding-inline: var(--space-3); }
+  .grid { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min, 220px)), 1fr)); }
+  .stack { display: flex; flex-direction: column; gap: var(--space-3); }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+
+  /* navbar */
+  .navbar {
+    position: relative;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  .navbar-brand { font-weight: 800; font-size: 1.25rem; color: inherit; text-decoration: none; }
+
+  .nav-pills { display: flex; flex-wrap: wrap; gap: var(--space-1); padding: 0; margin: 0; list-style: none; }
+  .nav-link {
+    position: relative;
+    display: block;
+    padding: .4rem 1rem;
+    border-radius: var(--radius-pill);
+    color: var(--muted);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .nav-link:hover { color: var(--text); background: var(--surface-sunk); }
+  .nav-link.active, .nav-link[aria-current="page"] { background: var(--primary); color: var(--primary-ink); }
+
+  /* card */
+  .card {
+    position: relative;
+    display: flex; flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+  }
+  .card-header, .card-footer { padding: var(--space-3) var(--space-4); }
+  .card-header { border-bottom: 1px solid var(--border); font-weight: 700; }
+  .card-footer { border-top: 1px solid var(--border); margin-top: auto; }
+  .card-body { padding: var(--space-4); }
+  .card-title { font-size: 1.125rem; margin-bottom: var(--space-2); }
+  .card-text { color: var(--muted); }
+
+  /* stat / KPI */
+  .stat { display: flex; flex-direction: column; gap: .15rem; }
+  .stat-label { font-size: .8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; opacity: .75; }
+  .stat-value { font-size: 1.75rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
+
+  /* button */
+  .btn {
+    --tone: transparent;
+    position: relative;
+    display: inline-flex; align-items: center; justify-content: center; gap: .4em;
+    padding: .6rem 1.15rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    background-color: var(--tone);
+    color: var(--text);
+    font-weight: 650;
+    line-height: 1.25;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+    transition: transform .08s ease, box-shadow .12s ease, filter .12s ease;
+  }
+  .btn:hover { filter: brightness(.96); }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled, .btn.disabled { opacity: .55; pointer-events: none; }
+
+  .btn-primary   { --tone: var(--primary);   color: var(--primary-ink);   border-color: transparent; }
+  .btn-secondary { --tone: var(--secondary); color: var(--secondary-ink); border-color: transparent; }
+  .btn-success   { --tone: var(--success);   color: var(--success-ink);   border-color: transparent; }
+  .btn-danger    { --tone: var(--danger);    color: var(--danger-ink);    border-color: transparent; }
+  .btn-warning   { --tone: var(--warning);   color: var(--warning-ink);   border-color: transparent; }
+  .btn-light     { --tone: var(--surface-raised); border-color: var(--border); }
+  .btn-link      { color: var(--primary); text-decoration: underline; text-underline-offset: .2em; }
+  .btn:not([class*="btn-"]):hover, .btn-link:hover { --tone: var(--surface-sunk); filter: none; }
+  [class*="btn-outline-"] { border-color: currentColor; }
+  [class*="btn-outline-"]:hover { filter: none; background-color: color-mix(in oklab, currentColor 10%, transparent); }
+  .btn-outline-primary   { color: var(--primary); }
+  .btn-outline-secondary { color: var(--secondary); }
+  .btn-outline-success   { color: var(--success-emphasis); }
+  .btn-outline-danger    { color: var(--danger-emphasis); }
+  .btn-outline-warning   { color: var(--warning-emphasis); }
+  .btn.active { transform: translateY(1px); filter: brightness(.88); }
+
+  .btn-sm { padding: .45rem .9rem; font-size: .875rem; }
+  .btn-lg { padding: .8rem 1.5rem; font-size: 1.125rem; }
+  .btn-pill { border-radius: var(--radius-pill); }
+  .btn-icon { padding: 0; width: 2.75rem; height: 2.75rem; border-radius: var(--radius-pill); }
+
+  /* forms */
+  .form-label { display: block; margin-bottom: var(--space-1); font-weight: 600; font-size: .9375rem; }
+  .form-text { margin-top: var(--space-1); font-size: .8125rem; color: var(--muted); }
+  .form-control, .form-select {
+    display: block; width: 100%;
+    padding: .6rem .85rem;
+    background-color: var(--field);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    line-height: 1.4;
+    appearance: none;
+  }
+  .form-control::placeholder { color: var(--muted); opacity: 1; }
+  .form-control:focus, .form-select:focus { outline: none; border-color: color-mix(in oklab, var(--primary) 60%, var(--border)); box-shadow: 0 0 0 .25rem var(--focus); }
+  :is(.form-control, .form-select).is-invalid { --state: var(--danger); border-color: var(--state); }
+  :is(.form-control, .form-select).is-valid { --state: var(--success); border-color: var(--state); }
+  :is(.form-control, .form-select):is(.is-invalid, .is-valid):focus { border-color: var(--state); box-shadow: 0 0 0 .25rem color-mix(in oklab, var(--state) 30%, transparent); }
+  .invalid-feedback, .valid-feedback { display: none; margin-top: var(--space-1); font-size: .8125rem; font-weight: 600; }
+  .invalid-feedback { color: var(--danger-emphasis); }
+  .valid-feedback { color: var(--success-emphasis); }
+  .is-invalid ~ .invalid-feedback, .is-valid ~ .valid-feedback { display: block; }
+  .form-select {
+    padding-right: 2.25rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 6 4.5 4.5L12.5 6' fill='none' stroke='%23677084' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right .75rem center;
+    background-size: 14px;
+  }
+  .input-group { display: flex; }
+  .input-group > .form-control { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+  /* the focus ring goes around the whole group, following its radius */
+  .input-group { border-radius: var(--radius); }
+  .input-group:focus-within { box-shadow: 0 0 0 .25rem var(--focus); }
+  .input-group > .form-control:focus { box-shadow: none; }
+  .input-group-text {
+    display: flex; align-items: center; padding: 0 .85rem;
+    background: var(--surface-sunk); border: 1px solid var(--border); border-left: 0;
+    border-radius: 0 var(--radius) var(--radius) 0; color: var(--muted); font-weight: 600;
+  }
+
+  .form-check { display: flex; align-items: center; gap: .6rem; min-height: 1.75rem; }
+  .form-check-input {
+    flex: none;
+    width: 1.25rem; height: 1.25rem; margin: 0;
+    appearance: none;
+    background-color: var(--field);
+    border: 1.5px solid color-mix(in oklab, var(--border) 60%, var(--muted));
+    border-radius: var(--radius-sm);
+    background-repeat: no-repeat; background-position: center; background-size: 80%;
+    cursor: pointer;
+  }
+  .form-check-input[type="radio"] { border-radius: 50%; }
+  .form-check-input:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 8.5 3 3 6-7' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+
+  .form-switch .form-check-input {
+    --knob: radial-gradient(circle closest-side, #fff 88%, rgb(0 0 0 / .14) 95%, transparent 100%);
+    width: 2.75rem; height: 1.5rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--surface-sunk);
+    background-image: var(--knob);
+    background-size: 1.25rem 1.25rem;
+    background-position: 1px center;
+    transition: background-position .15s ease, background-color .15s ease;
+  }
+  .form-switch .form-check-input:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    background-image: var(--knob);
+    background-position: calc(100% - 1px) center;
+  }
+
+  /* badge */
+  .badge {
+    --tone: var(--surface-sunk);
+    position: relative;
+    display: inline-flex; align-items: center;
+    padding: .2rem .6rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--tone);
+    color: var(--text);
+    font-size: .75rem; font-weight: 700; line-height: 1.3;
+  }
+
+  /* alert */
+  .alert {
+    --tone: var(--primary);
+    --tone-emphasis: var(--primary-emphasis);
+    position: relative;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid color-mix(in oklab, var(--tone) 30%, var(--surface));
+    border-radius: var(--radius-lg);
+    background-color: color-mix(in oklab, var(--tone) 12%, var(--surface));
+    color: var(--tone-emphasis);
+  }
+  .alert-primary   { --tone: var(--primary);   --tone-emphasis: var(--primary-emphasis); }
+  .alert-secondary { --tone: var(--secondary); --tone-emphasis: var(--secondary-emphasis); }
+  .alert-success { --tone: var(--success); --tone-emphasis: var(--success-emphasis); }
+  .alert-warning { --tone: var(--warning); --tone-emphasis: var(--warning-emphasis); }
+  .alert-danger  { --tone: var(--danger);  --tone-emphasis: var(--danger-emphasis); }
+  .alert-heading { font-weight: 700; margin-bottom: .15rem; }
+}
+
+/* ------------------------------------------------------------ utilities */
+@layer utilities {
+  /* solid colour helpers for cards, badges, … (Bootstrap's .text-bg-*) */
+  .text-bg-primary   { --tone: var(--primary);   background-color: var(--primary);   color: var(--primary-ink); border-color: transparent; }
+  .text-bg-secondary { --tone: var(--secondary); background-color: var(--secondary); color: var(--secondary-ink); border-color: transparent; }
+  .text-bg-success   { --tone: var(--success);   background-color: var(--success);   color: var(--success-ink); border-color: transparent; }
+  .text-bg-danger    { --tone: var(--danger);    background-color: var(--danger);    color: var(--danger-ink); border-color: transparent; }
+  .text-bg-warning   { --tone: var(--warning);   background-color: var(--warning);   color: var(--warning-ink); border-color: transparent; }
+
+  .text-muted { color: var(--muted); }
+  .text-success { color: var(--success); }
+  .text-danger { color: var(--danger); }
+  .fw-bold { font-weight: 700; }
+  .mt-3 { margin-top: var(--space-3); }
+  .mt-4 { margin-top: var(--space-4); }
+  .mb-3 { margin-bottom: var(--space-3); }
+  .my-5 { margin-block: var(--space-5); }
+  .ms-auto { margin-left: auto; }
+}
+
+/* ----------------------------------------------------------------- felt
+ * Everything below only applies under [data-look="felt"]. :where() keeps the
+ * specificity at zero so project CSS can always override it. Border widths and
+ * paddings are never touched, so both looks share one layout. */
+@layer felt {
+  /* Sewn-on pieces are ~2mm thick felt: a darker cut edge below, edges rolling off
+   * outside the seam, a soft cast shadow. Declared on the elements (not :root) so that
+   * --felt-edge follows each piece's own --tone. */
+  :where([data-look="felt"]) :where(.btn, .badge, .alert, .text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger, .text-bg-warning) {
+    --felt-edge: color-mix(in oklab, var(--tone, #d8ccb6) 70%, #2a1a08 30%);
+    --shadow-patch:
+      0 0 1px .5px color-mix(in oklab, var(--tone, #f3ecdf) 45%, transparent),
+      inset 0 0 0 1px rgb(0 0 0 / .06),
+      inset 0 1px 0 rgb(255 255 255 / .22),
+      inset 0 -3px 4px -1px rgb(0 0 0 / .18),
+      inset 0 0 7px rgb(0 0 0 / .10),
+      0 var(--felt-edge-y, 1.5px) 1px var(--felt-edge),
+      0 3px 6px -1px rgb(60 40 15 / .18),
+      0 10px 18px -8px rgb(60 40 15 / .28);
+    --shadow-patch-pressed:
+      inset 0 0 0 1px rgb(0 0 0 / .08),
+      inset 0 2px 4px rgb(0 0 0 / .22),
+      inset 0 0 7px rgb(0 0 0 / .10),
+      0 1px 1px var(--felt-edge),
+      0 1px 2px rgb(60 40 15 / .18);
+  }
+
+  /* page: one big piece of light felt */
+  :where([data-look="felt"]) body {
+    background-image: var(--felt-light);
+    background-size: var(--felt-light-size);
+    background-blend-mode: multiply;
+  }
+
+  /* --- recipe 1: light felt (cards, navbar, alerts, light buttons, chips) */
+  :where([data-look="felt"]) :where(.card, .navbar, .btn, .badge, .alert) {
+    background-image: var(--felt-light);
+    background-size: var(--felt-light-size);
+    background-blend-mode: multiply;
+    border-color: transparent;
+  }
+  :where([data-look="felt"]) :where(.card, .navbar) { box-shadow: var(--shadow-felt); }
+  /* light pieces that are sewn on as well: same depth as the coloured patches */
+  :where([data-look="felt"]) :where(.btn-light, [class*="btn-outline-"]) {
+    --felt-edge: #cbbca2;
+    background-color: var(--surface-raised);
+    box-shadow: var(--shadow-patch);
+  }
+  /* alerts: a large tinted piece, so it lies flatter than the small patches */
+  :where([data-look="felt"]) :where(.alert) {
+    --felt-edge: color-mix(in oklab, var(--tone) 35%, #a8987c);
+    --seam-strength: .8;
+    background-color: color-mix(in oklab, var(--tone) 20%, var(--surface));
+    box-shadow:
+      0 0 1px .5px color-mix(in oklab, var(--tone) 20%, rgb(236 229 217 / .5)),
+      inset 0 1px 0 rgb(255 255 255 / .3),
+      0 1px 1px var(--felt-edge),
+      0 3px 6px -1px rgb(60 40 15 / .14),
+      0 10px 18px -8px rgb(60 40 15 / .22);
+  }
+
+  /* --- recipe 2: patch (saturated felt, sewn on) */
+  :where([data-look="felt"]) :where(.text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger, .text-bg-warning,
+    .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning) {
+    background-image: var(--felt), var(--patch-dome);
+    background-size: var(--felt-size), 100% 100%;
+    background-repeat: repeat, no-repeat;
+    background-blend-mode: soft-light, normal;
+    box-shadow: var(--shadow-patch);
+    /* thread: a lighter tone of the patch */
+    --seam-filter: brightness(.9);
+    --seam-strength: .4;
+  }
+
+  /* --- seams: a 9-slice image of thread, blended tone-on-tone into the felt.
+   * Sewn: navbar, cards, alerts and all filled/outline buttons; not badges, pills or inputs.
+   * --seam-inset is measured from the outer edge, so the seam radius is radius − inset. */
+  :where([data-look="felt"]) :where(.card, .navbar, .alert,
+    .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-light, [class*="btn-outline-"])::after {
+    content: "";
+    position: absolute;
+    inset: calc(var(--seam-inset) - var(--seam-margin) - 1px);   /* 1px: the element's own border */
+    pointer-events: none;
+    border: 0 solid transparent;
+    border-image: var(--seam-img) var(--seam-slice) / var(--seam-width) round;
+    mix-blend-mode: hard-light;
+    filter: var(--seam-filter);
+    opacity: var(--seam-strength);
+  }
+  :where([data-look="felt"]) .card { --felt-edge-y: 1px; }
+  :where([data-look="felt"]) :is(.card, .navbar, .alert) {
+    --seam-img: url("img/seam-lg.webp"); --seam-slice: var(--seam-lg-slice); --seam-width: var(--seam-lg-width); --seam-inset: 9px;
+  }
+  :where([data-look="felt"]) :is(.btn-pill, .btn-icon) {
+    --seam-img: url("img/seam-pill.webp"); --seam-slice: var(--seam-pill-slice); --seam-width: var(--seam-pill-width);
+  }
+  :where([data-look="felt"]) .btn-sm { --seam-inset: 3.5px; }
+
+  /* inside the card, header and footer are separated by a straight row of stitches that
+   * stops at the outer seam; quieter than the outer seam so it reads as a divider */
+  :where([data-look="felt"]) :is(.card-header, .card-footer) { position: relative; border-color: transparent; }
+  :where([data-look="felt"]) :is(.card-header, .card-footer)::after {
+    content: "";
+    position: absolute;
+    left: calc(var(--seam-inset) + 6px); right: calc(var(--seam-inset) + 6px);
+    height: calc(2 * var(--seam-margin));
+    pointer-events: none;
+    background: url("img/seam-row.webp") left center / var(--seam-row-size) round no-repeat;
+    mix-blend-mode: hard-light;
+    filter: var(--seam-filter);
+    opacity: calc(var(--seam-strength) * .7);
+  }
+  :where([data-look="felt"]) .card-header::after { bottom: calc(-.5px - var(--seam-margin)); }
+  :where([data-look="felt"]) .card-footer::after { top: calc(-.5px - var(--seam-margin)); }
+  :where([data-look="felt"]) :where(.text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger) :is(.card-header, .card-footer) {
+    --border: rgb(255 255 255 / .2);
+  }
+
+  /* --- buttons */
+  :where([data-look="felt"]) .btn:hover { filter: brightness(1.04); }
+  :where([data-look="felt"]) :is(.btn:active, .btn.active) {
+    transform: translateY(1px);
+    filter: brightness(.92);
+    box-shadow: var(--shadow-patch-pressed);
+  }
+  /* outline: a cream felt patch, sewn on with thread in the button colour */
+  :where([data-look="felt"]) [class*="btn-outline-"] { border-color: transparent; }
+  @supports (-webkit-mask-box-image: none) {
+    :where([data-look="felt"]) [class*="btn-outline-"]::after {
+      border: 0;
+      border-image: none;
+      background: currentColor;
+      -webkit-mask-box-image: var(--seam-img) var(--seam-slice) / var(--seam-width) round;
+      mix-blend-mode: normal;
+      filter: none;
+      opacity: .75;
+    }
+  }
+  :where([data-look="felt"]) :where(.btn:not([class*="btn-"]), .btn-link) { background: none; box-shadow: none; }
+  :where([data-look="felt"]) :is(.btn:not([class*="btn-"]), .btn-link):hover { background-color: rgb(90 70 40 / .07); }
+
+  /* --- nav pills: the active one is a small felt chip */
+  :where([data-look="felt"]) .nav-link:hover { background-color: rgb(90 70 40 / .07); }
+  :where([data-look="felt"]) :is(.nav-link.active, .nav-link[aria-current="page"]) {
+    background-image: var(--felt);
+    background-size: var(--felt-size);
+    background-blend-mode: soft-light;
+    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .12), 0 1px 2px rgb(70 50 20 / .25);
+  }
+
+  /* --- badges: small felt chips, quiet texture so small text stays clean */
+  :where([data-look="felt"]) .badge {
+    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .14), 0 1px 0 var(--felt-edge), 0 2px 3px rgb(60 40 15 / .2);
+  }
+
+  /* --- form controls: nearly clean, pressed slightly into the felt */
+  :where([data-look="felt"]) :is(.form-control, .form-select) {
+    background-color: #fffdf8;
+    box-shadow: inset 0 2px 3px rgb(60 40 20 / .08);
+  }
+  :where([data-look="felt"]) .form-control {
+    background-image: var(--felt-light);
+    background-size: var(--felt-light-size);
+    background-blend-mode: multiply;
+  }
+  :where([data-look="felt"]) :is(.form-control, .form-select).is-invalid {
+    border-color: color-mix(in oklab, var(--danger-emphasis) 80%, transparent);
+    background-color: #fdf3ee;
+  }
+  :where([data-look="felt"]) .input-group > .form-control:focus { box-shadow: inset 0 2px 3px rgb(60 40 20 / .08); }
+  :where([data-look="felt"]) .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 6 4.5 4.5L12.5 6' fill='none' stroke='%231e2b45' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
+      var(--felt-light);
+    background-size: 14px, var(--felt-light-size);
+    background-position: right .75rem center, 0 0;
+    background-repeat: no-repeat, repeat;
+    background-blend-mode: normal, multiply;
+  }
+  :where([data-look="felt"]) :is(.form-control, .form-select):focus {
+    box-shadow: inset 0 2px 3px rgb(60 40 20 / .08), 0 0 0 .25rem var(--focus);
+  }
+  :where([data-look="felt"]) :is(.form-control, .form-select):is(.is-invalid, .is-valid):focus {
+    box-shadow: inset 0 2px 3px rgb(60 40 20 / .08), 0 0 0 .25rem color-mix(in oklab, var(--state) 30%, transparent);
+  }
+  :where([data-look="felt"]) .input-group-text {
+    background-color: #f3eee4;
+    background-image: var(--felt-light);
+    background-size: var(--felt-light-size);
+    background-blend-mode: multiply;
+  }
+
+  /* checkbox: a little felt square */
+  :where([data-look="felt"]) .form-check-input {
+    border-color: color-mix(in oklab, var(--border) 50%, var(--muted));
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / .08);
+  }
+  :where([data-look="felt"]) .form-check-input:checked {
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 8.5 3 3 6-7' fill='none' stroke='%23fbf6ea' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
+      var(--felt);
+    background-size: 80%, var(--felt-size);
+    background-repeat: no-repeat, repeat;
+    background-blend-mode: normal, soft-light;
+    border-color: transparent;
+    box-shadow: inset 0 -1px 2px rgb(0 0 0 / .15), 0 1px 0 color-mix(in oklab, var(--primary) 70%, #2a1a08), 0 2px 3px rgb(60 40 15 / .2);
+  }
+
+  /* switch: felt track, matte felt disc as knob */
+  :where([data-look="felt"]) .form-switch .form-check-input {
+    --knob: radial-gradient(circle closest-side, #fbf7ee 82%, rgb(70 50 20 / .22) 90%, transparent 100%);
+    background-color: #dcd2be;
+    background-image: var(--knob), var(--felt-light);
+    background-size: 1.25rem 1.25rem, var(--felt-light-size);
+    background-repeat: no-repeat, repeat;
+    background-position: 1px center, 0 0;
+    background-blend-mode: normal, multiply;
+    border-color: transparent;
+    box-shadow: inset 0 1px 3px rgb(70 50 20 / .25);
+  }
+  :where([data-look="felt"]) .form-switch .form-check-input:checked {
+    background-color: var(--primary);
+    background-image: var(--knob), var(--felt);
+    background-size: 1.25rem 1.25rem, var(--felt-size);
+    background-position: calc(100% - 1px) center, 0 0;
+    background-blend-mode: normal, soft-light;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .form-switch .form-check-input { transition: none; }
+}
