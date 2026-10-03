@@ -85,8 +85,7 @@
       <div class="bd-content">
         
 <style>
-  .bd-example-navbar-fixed .navbar:is(.fixed-top, .fixed-bottom) { position: relative !important; z-index: auto !important; }
-  .bd-example-tabbar .navbar { max-width: 24rem; margin-inline: auto; }
+  .bd-example-navbar-fixed { transform: translate(0); min-height: 7rem; }
 </style>
 
 <h2 id="how-it-works">How it works<a class="bd-anchor" href="#how-it-works" aria-label="Link to this section">#</a></h2>
@@ -142,9 +141,6 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -177,9 +173,6 @@
             <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">hr</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-divider"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
             <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Something else here<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
           <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
-        <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
-        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
-          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link disabled"</span> <span class="tok-attr">aria-disabled</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>Disabled<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
         <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
       <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
       <span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"search"</span><span class="tok-punct">&gt;</span>
@@ -574,7 +567,7 @@
 <span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 
 <h2 id="color-schemes">Color schemes<a class="bd-anchor" href="#color-schemes" aria-label="Link to this section">#</a></h2>
-<p>The default navbar uses the page's colors. Apply <code>data-bs-theme="dark"</code> to the <code>.navbar</code> for dark background colors, then customize with <code>.bg-*</code> and additional utilities. felt-css has no <code>.navbar-dark</code> or <code>.navbar-light</code>; the color mode attribute does that job (<a href="../../getting-started/color-modes/">learn more about color modes</a>).</p>
+<p>The default navbar uses the page's colors. Apply <code>data-bs-theme="dark"</code> to the <code>.navbar</code> for dark background colors, then customize with <code>.bg-*</code> and additional utilities. felt-css has no <code>.navbar-dark</code> or <code>.navbar-light</code>; the color mode attribute does that job (<a href="../../getting-started/color-modes/">learn more about color modes</a>). Avoid <code>.bg-primary</code> on a navbar with an active <code>.nav-link</code>: the active pill is primary too and would disappear.</p>
 
 <div class="bd-example-snippet"><div class="bd-example">
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
@@ -594,9 +587,6 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -606,7 +596,7 @@
   </div>
 </nav>
 
-<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-secondary" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
@@ -622,9 +612,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
         </li>
       </ul>
       <form class="d-flex" role="search">
@@ -652,9 +639,6 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -669,7 +653,7 @@
   <span class="tok-com">&lt;!-- Navbar content --&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span>
 
-<span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-primary"</span> <span class="tok-attr">data-bs-theme</span><span class="tok-punct">=</span><span class="tok-val">"dark"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-secondary"</span> <span class="tok-attr">data-bs-theme</span><span class="tok-punct">=</span><span class="tok-val">"dark"</span><span class="tok-punct">&gt;</span>
   <span class="tok-com">&lt;!-- Navbar content --&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span>
 
@@ -712,7 +696,7 @@
 
 <h2 id="placement">Placement<a class="bd-anchor" href="#placement" aria-label="Link to this section">#</a></h2>
 <p>Use <a href="../../utilities/position/">position utilities</a> to place navbars in non-static positions. Choose from fixed to the top, fixed to the bottom, stickied to the top (scrolls with the page until it reaches the top, then stays there), or stickied to the bottom (scrolls with the page until it reaches the bottom, then stays there).</p>
-<p>Fixed navbars use <code>position: fixed</code>, meaning they're pulled from the normal flow of the DOM and may require custom CSS (e.g., <code>padding-top</code> on the <code>&lt;body&gt;</code>) to prevent overlap with other elements. The fixed examples below are rendered in place so they don't cover this page.</p>
+<p>Fixed navbars use <code>position: fixed</code>, meaning they're pulled from the normal flow of the DOM and may require custom CSS (e.g., <code>padding-top</code> on the <code>&lt;body&gt;</code>) to prevent overlap with other elements. In the fixed examples below, the example frame stands in for the viewport.</p>
 
 <div class="bd-example-snippet"><div class="bd-example">
 <nav class="navbar bg-body-tertiary">
@@ -776,9 +760,9 @@
 
 <h2 id="mobile-tab-bar">Mobile tab bar<a class="bd-anchor" href="#mobile-tab-bar" aria-label="Link to this section">#</a></h2>
 <p>A felt-css recipe, not part of Bootstrap: a <code>.navbar.fixed-bottom</code> holding a <code>.nav-pills.nav-fill</code>, with an icon stacked above each label. Give the links <code>.d-flex.flex-column.align-items-center</code>, put the icon first and the label in a <code>&lt;small&gt;</code>. <code>.pb-safe</code> pads the bar by the device's safe area (at least <code>.5rem</code>), so it stays clear of the home indicator on phones without a home button.</p>
-<p>The example is rendered in place and phone-wide; on a real page the bar sticks to the bottom of the viewport, so leave room for it at the end of your content.</p>
+<p>Here the example frame stands in for the viewport. On a real page the bar sits at the bottom of the screen and covers whatever scrolls under it, so leave room for it at the end of your content (for example with <code>.pb-5</code> on <code>&lt;body&gt;</code>).</p>
 
-<div class="bd-example-snippet"><div class="bd-example bd-example-navbar-fixed bd-example-tabbar">
+<div class="bd-example-snippet"><div class="bd-example bd-example-navbar-fixed">
 <nav class="navbar fixed-bottom pb-safe" aria-label="Main navigation">
   <ul class="nav nav-pills nav-fill w-100">
     <li class="nav-item">
@@ -1046,10 +1030,10 @@
 
 <h3 id="offcanvas">Offcanvas<a class="bd-anchor" href="#offcanvas" aria-label="Link to this section">#</a></h3>
 <p>Transform your expanding and collapsing navbar into an offcanvas drawer with the <a href="../offcanvas/">offcanvas component</a>. Put the offcanvas inside the navbar and point the toggler at it with <code>data-bs-toggle="offcanvas"</code>.</p>
-<p>The offcanvas navbar is always collapsed: felt-css has no responsive offcanvas, so it doesn't expand into a normal navbar at a breakpoint. The example is rendered in place instead of fixed to the top.</p>
+<p>The offcanvas navbar is always collapsed: felt-css has no responsive offcanvas, so it doesn't expand into a normal navbar at a breakpoint. Add <code>.fixed-top</code> to the <code>.navbar</code> to pin it to the top of the page as Bootstrap does; it's left out here so the example stays in place.</p>
 
-<div class="bd-example-snippet"><div class="bd-example bd-example-navbar-fixed">
-<nav class="navbar bg-body-tertiary fixed-top">
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Offcanvas navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -1090,7 +1074,7 @@
     </div>
   </div>
 </nav>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary fixed-top"</span><span class="tok-punct">&gt;</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary"</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Offcanvas navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#offcanvasNavbar"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"offcanvasNavbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toggle navigation"</span><span class="tok-punct">&gt;</span>
@@ -1134,8 +1118,8 @@
 
 <p>In a dark navbar, <code>data-bs-theme="dark"</code> on the <code>.navbar</code> carries over to the offcanvas inside it and to its dropdowns, so no extra classes are needed.</p>
 
-<div class="bd-example-snippet"><div class="bd-example bd-example-navbar-fixed">
-<nav class="navbar bg-dark fixed-top" data-bs-theme="dark">
+<div class="bd-example-snippet"><div class="bd-example">
+<nav class="navbar bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Offcanvas dark navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
@@ -1176,7 +1160,7 @@
     </div>
   </div>
 </nav>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-dark fixed-top"</span> <span class="tok-attr">data-bs-theme</span><span class="tok-punct">=</span><span class="tok-val">"dark"</span><span class="tok-punct">&gt;</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-dark"</span> <span class="tok-attr">data-bs-theme</span><span class="tok-punct">=</span><span class="tok-val">"dark"</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"container-fluid"</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Offcanvas dark navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-toggler"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"offcanvas"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#offcanvasDarkNavbar"</span> <span class="tok-attr">aria-controls</span><span class="tok-punct">=</span><span class="tok-val">"offcanvasDarkNavbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Toggle navigation"</span><span class="tok-punct">&gt;</span>

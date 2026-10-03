@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Visibility · felt-css</title>
-  <meta name="description" content="This page has not been written yet.">
+  <meta name="description" content="Control the visibility of elements, without modifying their display, with visibility utilities.">
   <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
   <link rel="stylesheet" href="../../../felt.css">
   <link rel="stylesheet" href="../../assets/docs.css">
@@ -67,12 +67,27 @@
       <div class="bd-intro">
         <p class="bd-section">Utilities</p>
         <h1>Visibility</h1>
-        <p class="lead">This page has not been written yet.</p>
+        <p class="lead">Control the visibility of elements, without modifying their display, with visibility utilities.</p>
         <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/utilities/visibility.html">View page source on GitHub</a>
       </div>
       
       <div class="bd-content">
-        <p class="text-body-secondary">Coming soon.</p>
+        
+<p>Set the <code>visibility</code> of elements with the visibility utilities. These utility classes do not modify the <code>display</code> value at all and do not affect layout – <code>.invisible</code> elements still take up space in the page.</p>
+<div class="bd-callout bd-callout-warning">
+  <p>Elements with the <code>.invisible</code> class will be hidden <em>both</em> visually and for assistive technology/screen reader users.</p>
+</div>
+<p>Apply <code>.visible</code> or <code>.invisible</code> as needed.</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visible"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"invisible"</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-css"><span class="tok-tag">.visible</span> {
+  <span class="tok-attr">visibility</span>: visible !important;
+}
+<span class="tok-tag">.invisible</span> {
+  <span class="tok-attr">visibility</span>: hidden !important;
+}</code></pre></div>
+<p>To hide an element visually but keep it available to screen readers, use <a href="../../helpers/visually-hidden/"><code>.visually-hidden</code></a> instead.</p>
+
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../utilities/vertical-align/"><small>Previous</small>Vertical align</a><a class="bd-pager-next" href="../../utilities/z-index/"><small>Next</small>Z-index</a></nav>
       </div>
     </main>

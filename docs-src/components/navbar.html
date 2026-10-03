@@ -3,8 +3,7 @@ title: Navbar
 description: Documentation and examples for the powerful, responsive navigation header, the navbar. Includes support for branding, navigation, and more, including support for Bootstrap's collapse plugin.
 -->
 <style>
-  .bd-example-navbar-fixed .navbar:is(.fixed-top, .fixed-bottom) { position: relative !important; z-index: auto !important; }
-  .bd-example-tabbar .navbar { max-width: 24rem; margin-inline: auto; }
+  .bd-example-navbar-fixed { transform: translate(0); min-height: 7rem; }
 </style>
 
 <h2>How it works</h2>
@@ -59,9 +58,6 @@ description: Documentation and examples for the powerful, responsive navigation 
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li>
       </ul>
       <form class="d-flex" role="search">
@@ -308,7 +304,7 @@ description: Documentation and examples for the powerful, responsive navigation 
 </example>
 
 <h2>Color schemes</h2>
-<p>The default navbar uses the page's colors. Apply <code>data-bs-theme="dark"</code> to the <code>.navbar</code> for dark background colors, then customize with <code>.bg-*</code> and additional utilities. felt-css has no <code>.navbar-dark</code> or <code>.navbar-light</code>; the color mode attribute does that job (<a href="../../getting-started/color-modes/">learn more about color modes</a>).</p>
+<p>The default navbar uses the page's colors. Apply <code>data-bs-theme="dark"</code> to the <code>.navbar</code> for dark background colors, then customize with <code>.bg-*</code> and additional utilities. felt-css has no <code>.navbar-dark</code> or <code>.navbar-light</code>; the color mode attribute does that job (<a href="../../getting-started/color-modes/">learn more about color modes</a>). Avoid <code>.bg-primary</code> on a navbar with an active <code>.nav-link</code>: the active pill is primary too and would disappear.</p>
 
 <example code="false">
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
@@ -328,9 +324,6 @@ description: Documentation and examples for the powerful, responsive navigation 
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -340,7 +333,7 @@ description: Documentation and examples for the powerful, responsive navigation 
   </div>
 </nav>
 
-<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-secondary" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
@@ -356,9 +349,6 @@ description: Documentation and examples for the powerful, responsive navigation 
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
         </li>
       </ul>
       <form class="d-flex" role="search">
@@ -386,9 +376,6 @@ description: Documentation and examples for the powerful, responsive navigation 
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -404,7 +391,7 @@ description: Documentation and examples for the powerful, responsive navigation 
   <!-- Navbar content -->
 </nav>
 
-<nav class="navbar bg-primary" data-bs-theme="dark">
+<nav class="navbar bg-secondary" data-bs-theme="dark">
   <!-- Navbar content -->
 </nav>
 
@@ -438,7 +425,7 @@ description: Documentation and examples for the powerful, responsive navigation 
 
 <h2>Placement</h2>
 <p>Use <a href="../../utilities/position/">position utilities</a> to place navbars in non-static positions. Choose from fixed to the top, fixed to the bottom, stickied to the top (scrolls with the page until it reaches the top, then stays there), or stickied to the bottom (scrolls with the page until it reaches the bottom, then stays there).</p>
-<p>Fixed navbars use <code>position: fixed</code>, meaning they're pulled from the normal flow of the DOM and may require custom CSS (e.g., <code>padding-top</code> on the <code>&lt;body&gt;</code>) to prevent overlap with other elements. The fixed examples below are rendered in place so they don't cover this page.</p>
+<p>Fixed navbars use <code>position: fixed</code>, meaning they're pulled from the normal flow of the DOM and may require custom CSS (e.g., <code>padding-top</code> on the <code>&lt;body&gt;</code>) to prevent overlap with other elements. In the fixed examples below, the example frame stands in for the viewport.</p>
 
 <example>
 <nav class="navbar bg-body-tertiary">
@@ -482,9 +469,9 @@ description: Documentation and examples for the powerful, responsive navigation 
 
 <h2>Mobile tab bar</h2>
 <p>A felt-css recipe, not part of Bootstrap: a <code>.navbar.fixed-bottom</code> holding a <code>.nav-pills.nav-fill</code>, with an icon stacked above each label. Give the links <code>.d-flex.flex-column.align-items-center</code>, put the icon first and the label in a <code>&lt;small&gt;</code>. <code>.pb-safe</code> pads the bar by the device's safe area (at least <code>.5rem</code>), so it stays clear of the home indicator on phones without a home button.</p>
-<p>The example is rendered in place and phone-wide; on a real page the bar sticks to the bottom of the viewport, so leave room for it at the end of your content.</p>
+<p>Here the example frame stands in for the viewport. On a real page the bar sits at the bottom of the screen and covers whatever scrolls under it, so leave room for it at the end of your content (for example with <code>.pb-5</code> on <code>&lt;body&gt;</code>).</p>
 
-<example class="bd-example-navbar-fixed bd-example-tabbar">
+<example class="bd-example-navbar-fixed">
 <nav class="navbar fixed-bottom pb-safe" aria-label="Main navigation">
   <ul class="nav nav-pills nav-fill w-100">
     <li class="nav-item">
@@ -643,10 +630,10 @@ description: Documentation and examples for the powerful, responsive navigation 
 
 <h3>Offcanvas</h3>
 <p>Transform your expanding and collapsing navbar into an offcanvas drawer with the <a href="../offcanvas/">offcanvas component</a>. Put the offcanvas inside the navbar and point the toggler at it with <code>data-bs-toggle="offcanvas"</code>.</p>
-<p>The offcanvas navbar is always collapsed: felt-css has no responsive offcanvas, so it doesn't expand into a normal navbar at a breakpoint. The example is rendered in place instead of fixed to the top.</p>
+<p>The offcanvas navbar is always collapsed: felt-css has no responsive offcanvas, so it doesn't expand into a normal navbar at a breakpoint. Add <code>.fixed-top</code> to the <code>.navbar</code> to pin it to the top of the page as Bootstrap does; it's left out here so the example stays in place.</p>
 
-<example class="bd-example-navbar-fixed">
-<nav class="navbar bg-body-tertiary fixed-top">
+<example>
+<nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Offcanvas navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -691,8 +678,8 @@ description: Documentation and examples for the powerful, responsive navigation 
 
 <p>In a dark navbar, <code>data-bs-theme="dark"</code> on the <code>.navbar</code> carries over to the offcanvas inside it and to its dropdowns, so no extra classes are needed.</p>
 
-<example class="bd-example-navbar-fixed">
-<nav class="navbar bg-dark fixed-top" data-bs-theme="dark">
+<example>
+<nav class="navbar bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Offcanvas dark navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
