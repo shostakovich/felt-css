@@ -25,7 +25,8 @@ Both looks come in light and dark; dark felt is charcoal.
 - I don't accept pull requests (benevolent dictator and all that), but forks are very welcome — please
   take it, change it, make it yours. If you come up with something lovely, I'll happily steal the best
   ideas back. 🧵
-- Public domain ([The Unlicense](LICENSE)): no strings attached, not even a thread.
+- Public domain ([The Unlicense](LICENSE)): no strings attached, not even a thread. (The docs borrow from
+  Bootstrap's, see [License](#license).)
 
 ## Quick start
 
@@ -181,3 +182,14 @@ the root, the docs under `docs/`.
 ## Status
 
 A proof of concept that grew up: most of Bootstrap 5.3's components, light and dark, in both looks.
+
+## License
+
+- `felt.css`, `img/`, `tools/`, `index.html` and the docs' own pages and examples are public domain under
+  [The Unlicense](LICENSE).
+- `docs-src/` and `docs/` adapt the [Bootstrap 5.3 documentation](https://getbootstrap.com/docs/5.3/):
+  - its text stays under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/);
+  - its example markup and icons stay under the MIT License, © The Bootstrap Authors
+    ([docs/LICENSE-bootstrap.txt](docs/LICENSE-bootstrap.txt)).
+- The plush icons in `docs/assets/plush/` come from [ZiWoAS](https://github.com/shostakovich/ziwoas).
+  They are © Robert Curth, all rights reserved, and not part of the public-domain release.
