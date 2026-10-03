@@ -157,3 +157,6 @@
 .bd-feature .card-body { display: flex; flex-direction: column; gap: var(--space-2); }
 .bd-feature h3 { margin: 0; }
 .bd-gallery-shot { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-bottom: 1px solid var(--border); }
+
+/* plush icons come in their own proportions: fit them into square boxes, never stretch them */
+img[src*="plush/"] { object-fit: contain; }

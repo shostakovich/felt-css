@@ -179,10 +179,10 @@ description: Provide valuable, actionable feedback to your users with valid and 
 </example>
 
 <h2>Tooltips</h2>
-<p>If your form layout allows it, you can swap the <code>.{valid|invalid}-feedback</code> classes for <code>.{valid|invalid}-tooltip</code> classes to display validation feedback in a styled tooltip. Be sure to have a parent with <code>position: relative</code> on it for tooltip positioning; in the example below, <code>.position-relative</code> on the columns does that.</p>
+<p>If your form layout allows it, you can swap the <code>.{valid|invalid}-feedback</code> classes for <code>.{valid|invalid}-tooltip</code> classes to display validation feedback in a styled tooltip. Be sure to have a parent with <code>position: relative</code> on it for tooltip positioning; in the example below, <code>.position-relative</code> on the columns does that. Tooltips lie over what follows, so leave room for them (here with <code>.gy-5</code>).</p>
 
 <example>
-<form class="row g-3">
+<form class="row gx-3 gy-5">
   <div class="col-md-4 position-relative">
     <label for="validationTooltip01" class="form-label">First name</label>
     <input type="text" class="form-control is-valid" id="validationTooltip01" value="Mark" required>
@@ -231,7 +231,7 @@ description: Provide valuable, actionable feedback to your users with valid and 
       Looks good!
     </div>
   </div>
-  <div class="col-12 mt-5">
+  <div class="col-12">
     <button class="btn btn-primary" type="submit">Submit form</button>
   </div>
 </form>

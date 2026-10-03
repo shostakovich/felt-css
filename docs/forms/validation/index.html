@@ -393,10 +393,10 @@
 <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 
 <h2 id="tooltips">Tooltips<a class="bd-anchor" href="#tooltips" aria-label="Link to this section">#</a></h2>
-<p>If your form layout allows it, you can swap the <code>.{valid|invalid}-feedback</code> classes for <code>.{valid|invalid}-tooltip</code> classes to display validation feedback in a styled tooltip. Be sure to have a parent with <code>position: relative</code> on it for tooltip positioning; in the example below, <code>.position-relative</code> on the columns does that.</p>
+<p>If your form layout allows it, you can swap the <code>.{valid|invalid}-feedback</code> classes for <code>.{valid|invalid}-tooltip</code> classes to display validation feedback in a styled tooltip. Be sure to have a parent with <code>position: relative</code> on it for tooltip positioning; in the example below, <code>.position-relative</code> on the columns does that. Tooltips lie over what follows, so leave room for them (here with <code>.gy-5</code>).</p>
 
 <div class="bd-example-snippet"><div class="bd-example">
-<form class="row g-3">
+<form class="row gx-3 gy-5">
   <div class="col-md-4 position-relative">
     <label for="validationTooltip01" class="form-label">First name</label>
     <input type="text" class="form-control is-valid" id="validationTooltip01" value="Mark" required>
@@ -445,11 +445,11 @@
       Looks good!
     </div>
   </div>
-  <div class="col-12 mt-5">
+  <div class="col-12">
     <button class="btn btn-primary" type="submit">Submit form</button>
   </div>
 </form>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row g-3"</span><span class="tok-punct">&gt;</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row gx-3 gy-5"</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-4 position-relative"</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"validationTooltip01"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>First name<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control is-valid"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"validationTooltip01"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"Mark"</span> <span class="tok-attr">required</span><span class="tok-punct">&gt;</span>
@@ -498,7 +498,7 @@
       Looks good!
     <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
-  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-12 mt-5"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-12"</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span><span class="tok-punct">&gt;</span>Submit form<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span></code></pre></div></div>

@@ -17,11 +17,12 @@
     })();
   </script>
   <style>
+    img[src*="plush/"] { object-fit: contain; }
     .dash { max-width: 1320px; }
-    .dash-nav-icon { width: 28px; height: 28px; }
-    .dash-tile-icon { width: 56px; height: 56px; flex-shrink: 0; }
+    .dash-nav-icon { width: 28px; height: 28px; object-fit: contain; }
+    .dash-tile-icon { width: 56px; height: 56px; flex-shrink: 0; object-fit: contain; }
     .dash-art { width: 64px; height: 64px; flex-shrink: 0; }
-    .dash-list-icon { width: 36px; height: 36px; flex-shrink: 0; }
+    .dash-list-icon { width: 36px; height: 36px; flex-shrink: 0; object-fit: contain; }
     .dash-dot { width: .75rem; height: .75rem; padding: 0; }
     @media (max-width: 575.98px) { .dash .stat-value { font-size: 1.375rem; } }
     .dash-temp { font-size: 2.75rem; font-weight: 800; line-height: 1; }
