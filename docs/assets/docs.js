@@ -22,6 +22,12 @@
   if (link) { link.classList.add("active"); link.setAttribute("aria-current", "true"); }
 })();
 
+// keep the current page in view in the sidebar
+(() => {
+  const sidebar = document.querySelector(".bd-sidebar"), active = sidebar?.querySelector(".nav-link.active");
+  if (active && sidebar.scrollHeight > sidebar.clientHeight) sidebar.scrollTop += active.getBoundingClientRect().top - sidebar.getBoundingClientRect().top - sidebar.clientHeight / 2;
+})();
+
 // copy buttons on code blocks
 document.addEventListener("click", async e => {
   const button = e.target.closest(".bd-copy");

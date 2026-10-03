@@ -89,6 +89,8 @@
 /* no overflow: hidden on the frame, so live dropdowns and popovers can leave it */
 .bd-example-snippet { margin-block: var(--space-3) var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-lg); }
 .bd-example { position: relative; padding: var(--space-4); }
+/* wide examples scroll inside their frame on phones; frames with live menus stay open so the menus can leave them */
+.bd-example:not(:has(.dropdown-menu)) { overflow-x: auto; }
 .bd-example::after { content: ""; display: block; clear: both; }
 .bd-example > :last-child { margin-bottom: 0; }
 .bd-example-snippet > .bd-code { border-top: 1px solid var(--border); }
@@ -134,6 +136,31 @@
 .bd-example-toasts .toast:not(.show) { display: block; opacity: 1; }
 .bd-example-position-static .position-relative { height: 12rem; background-color: var(--surface-sunk); }
 .bd-example-position-static .position-absolute { width: 2em; height: 2em; border-radius: var(--radius-sm); background-color: var(--primary); }
+
+/* frames for single pages: stacks, ratios, z-index levels, fixed navbars, … */
+.bd-example-menu-fit .dropdown-menu { width: max-content; max-width: 100%; }
+.bd-example-navbar-fixed { transform: translate(0); min-height: 7rem; }
+.bd-example-placeholder-cards { gap: 1.5rem; }
+.bd-example-placeholder-cards .card { width: 18rem; }
+.bd-example-placeholder-cards .card + .card { margin-top: 0; }
+.bd-example-toast-static .toast:not(.show) { display: block; }
+.bd-example-ratios .ratio { display: inline-block; width: 10rem; color: var(--muted); background-color: var(--surface-sunk); border: 1px solid var(--border); }
+.bd-example-ratios .ratio > div { display: flex; align-items: center; justify-content: center; }
+.bd-example-ratios-breakpoint .ratio-4x3 { width: 16rem; }
+@media (min-width: 768px) { .bd-example-ratios-breakpoint .ratio-4x3 { --ratio: 2 / 1; } }
+.bd-example-stacks :is(.hstack, .vstack) > div:not(.vr) { background-color: color-mix(in oklab, var(--primary) 14%, transparent); border: 1px solid color-mix(in oklab, var(--primary) 30%, transparent); }
+.bd-example-row-flex-cols .row { min-height: 10rem; background-color: color-mix(in oklab, var(--primary) 6%, transparent); }
+.bd-example-border-utils [class^="border"] { display: inline-block; width: 5em; height: 5em; margin: .25rem; background-color: var(--surface-sunk); }
+.bd-example-rounded-utils .bd-placeholder-img { display: inline-block; margin: .25rem; }
+.bd-example-sizing div { background-color: color-mix(in oklab, var(--primary) 10%, transparent); border: 1px solid color-mix(in oklab, var(--primary) 30%, transparent); }
+.bd-example-cssgrid .d-grid > * { background-color: color-mix(in oklab, var(--primary) 12%, transparent); border: 1px solid color-mix(in oklab, var(--primary) 30%, transparent); }
+.bd-example-zindex-levels { min-height: 15rem; isolation: isolate; }
+.bd-example-zindex-levels > div { color: var(--primary-ink); background-color: var(--primary); border: 1px solid color-mix(in oklab, var(--primary) 70%, #000); }
+.bd-example-zindex-levels > div > span { position: absolute; right: 5px; bottom: 0; }
+.bd-example-zindex-levels > :nth-child(2) { top: 3rem; left: 3rem; }
+.bd-example-zindex-levels > :nth-child(3) { top: 4.5rem; left: 4.5rem; }
+.bd-example-zindex-levels > :nth-child(4) { top: 6rem; left: 6rem; }
+.bd-example-zindex-levels > :nth-child(5) { top: 7.5rem; left: 7.5rem; }
 
 /* placeholder images for content examples */
 .bd-placeholder-img { display: block; max-width: 100%; height: auto; font-size: 1.125rem; user-select: none; text-anchor: middle; }
