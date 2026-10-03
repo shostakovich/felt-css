@@ -375,17 +375,11 @@
 })()
 </script>
 
-<p>For systems that generate more notifications, consider using a wrapping element so they can easily stack.</p>
+<p>For systems that generate more notifications, consider using a wrapping element so they can easily stack. Here <code>.toast-container</code> adds the spacing between toasts, <code>.top-0</code> and <code>.end-0</code> put them in the upper right corner, and <code>.p-3</code> keeps them off the edge of the container.</p>
 
 <div class="bd-example-snippet"><div class="bd-example bd-example-toasts p-0">
 <div aria-live="polite" aria-atomic="true" class="position-relative">
-  <!-- Position it: -->
-  <!-- - `.toast-container` for spacing between toasts -->
-  <!-- - `top-0` & `end-0` to position the toasts in the upper right corner -->
-  <!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
   <div class="toast-container top-0 end-0 p-3">
-
-    <!-- Then put toasts within -->
       <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
           <img src="../../assets/plush/nav_dashboard.webp" class="rounded me-2" width="20" height="20" alt="">
@@ -412,13 +406,7 @@
   </div>
 </div>
 </div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"polite"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"position-relative"</span><span class="tok-punct">&gt;</span>
-  <span class="tok-com">&lt;!-- Position it: --&gt;</span>
-  <span class="tok-com">&lt;!-- - `.toast-container` for spacing between toasts --&gt;</span>
-  <span class="tok-com">&lt;!-- - `top-0` &amp; `end-0` to position the toasts in the upper right corner --&gt;</span>
-  <span class="tok-com">&lt;!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  --&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-container top-0 end-0 p-3"</span><span class="tok-punct">&gt;</span>
-
-    <span class="tok-com">&lt;!-- Then put toasts within --&gt;</span>
       <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"assertive"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
         <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-header"</span><span class="tok-punct">&gt;</span>
           <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../assets/plush/nav_dashboard.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"rounded me-2"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>
@@ -448,10 +436,7 @@
 <p>You can also get fancy with flexbox utilities to align toasts horizontally and/or vertically.</p>
 
 <div class="bd-example-snippet"><div class="bd-example bd-example-toasts d-flex">
-<!-- Flexbox container for aligning the toasts -->
 <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
-
-  <!-- Then put toasts within -->
   <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
       <img src="../../assets/plush/nav_dashboard.webp" class="rounded me-2" width="20" height="20" alt="">
@@ -464,10 +449,7 @@
     </div>
   </div>
 </div>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-com">&lt;!-- Flexbox container for aligning the toasts --&gt;</span>
-<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"polite"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex justify-content-center align-items-center w-100"</span><span class="tok-punct">&gt;</span>
-
-  <span class="tok-com">&lt;!-- Then put toasts within --&gt;</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"polite"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-flex justify-content-center align-items-center w-100"</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"alert"</span> <span class="tok-attr">aria-live</span><span class="tok-punct">=</span><span class="tok-val">"assertive"</span> <span class="tok-attr">aria-atomic</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"toast-header"</span><span class="tok-punct">&gt;</span>
       <span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../assets/plush/nav_dashboard.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"rounded me-2"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"20"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">""</span><span class="tok-punct">&gt;</span>

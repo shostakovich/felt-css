@@ -212,17 +212,11 @@ if (toastTrigger) {
 })()
 </script>
 
-<p>For systems that generate more notifications, consider using a wrapping element so they can easily stack.</p>
+<p>For systems that generate more notifications, consider using a wrapping element so they can easily stack. Here <code>.toast-container</code> adds the spacing between toasts, <code>.top-0</code> and <code>.end-0</code> put them in the upper right corner, and <code>.p-3</code> keeps them off the edge of the container.</p>
 
 <example class="bd-example-toasts p-0">
 <div aria-live="polite" aria-atomic="true" class="position-relative">
-  <!-- Position it: -->
-  <!-- - `.toast-container` for spacing between toasts -->
-  <!-- - `top-0` & `end-0` to position the toasts in the upper right corner -->
-  <!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
   <div class="toast-container top-0 end-0 p-3">
-
-    <!-- Then put toasts within -->
       <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
           <img src="../../assets/plush/nav_dashboard.webp" class="rounded me-2" width="20" height="20" alt="">
@@ -253,10 +247,7 @@ if (toastTrigger) {
 <p>You can also get fancy with flexbox utilities to align toasts horizontally and/or vertically.</p>
 
 <example class="bd-example-toasts d-flex">
-<!-- Flexbox container for aligning the toasts -->
 <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
-
-  <!-- Then put toasts within -->
   <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
       <img src="../../assets/plush/nav_dashboard.webp" class="rounded me-2" width="20" height="20" alt="">
