@@ -25,8 +25,9 @@ DPR = 2                          # seams are drawn for 2x screens: width/height 
 # --- felt
 # Felt for the web: fine, dense craft felt (like the sheets sold for crafts and the felt of Stilbag's bags), calm
 # at 1x, with single light fibres up close. Photos of real felt were the reference, not a template.
-# Band: [frequency, octaves, f(ractal)|t(urbulence), amplitude (negative: bright ridges), mean, bend, blur, gamma,
-# (cut frequency, kept share)]. The nap's ridges brighten like fibre tips; a second noise cuts them into single
+# Band: [frequency, octaves, f(ractal)|t(urbulence)|s(treaks), amplitude (negative: bright ridges), mean, bend, blur,
+# gamma, (cut frequency, kept share)]. Streaks are fractal noise blurred along one axis ("3 .4") before they are bent,
+# so they lie in many directions. The nap's ridges brighten like fibre tips; a second noise cuts them into single
 # fibres (no network of cells); a soft, blurred nap lies under the sharp one. Bases are calibrated so the tile
 # has the mean of the photo textures it replaced (calibrate_felt.py); contrast per scale matches them too
 # (sd at 3/8 px blur .013/.009).
@@ -94,14 +95,14 @@ def felt(bands, base=.5, rgb=None, seed=1, warp=(".02", 10)):
         # negative amplitude: invert the noise instead (bright ridges); amplitudes stay positive so alpha stays 1
         grey = GREY if amp > 0 else '<feColorMatrix values="-1 0 0 0 1 -1 0 0 0 1 -1 0 0 0 1 0 0 0 0 1"/>'
         if amp < 0: amp, mean = -amp, 1 - mean
-        s.append(f'<feTurbulence {SUB} type="{"fractalNoise" if kind == "f" else "turbulence"}" baseFrequency="{freq}" '
+        s.append(f'<feTurbulence {SUB} type="{"turbulence" if kind == "t" else "fractalNoise"}" baseFrequency="{freq}" '
                  f'numOctaves="{oct}" seed="{seed + 7 * i}" stitchTiles="stitch"/>{grey}'
                  + (f'<feComponentTransfer><feFuncR type="gamma" exponent="{gamma}"/><feFuncG type="gamma" exponent="{gamma}"/><feFuncB type="gamma" exponent="{gamma}"/></feComponentTransfer>' if gamma else '')
                  + '<feTile result="n"/>')
-        if bend:
-            s.append(f'<feDisplacementMap in2="w" scale="{bend}" xChannelSelector="R" yChannelSelector="G" in="n" result="n"/>')
-        if blur:   # soft fibres: a fuzz, not a hairline
-            s.append(f'<feGaussianBlur in="n" stdDeviation="{blur}" result="n"/>')
+        steps = [f'<feDisplacementMap in2="w" scale="{bend}" xChannelSelector="R" yChannelSelector="G" in="n" result="n"/>' if bend else '',
+                 # soft fibres: a fuzz, not a hairline
+                 f'<feGaussianBlur in="n" stdDeviation="{blur}" result="n"/>' if blur else '']
+        s += steps[::-1] if kind == "s" else steps
         if cut:    # keep the band only where a second noise is high: n*m + mean*(1-m), m a soft threshold
             f_, keep = cut
             t = .5 + NormalDist().inv_cdf(1 - keep) * .12          # fractalNoise R: ~N(.5, .12)
