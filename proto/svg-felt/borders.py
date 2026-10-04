@@ -8,7 +8,12 @@ twist texture multiplied in, so it isn't a flat printed line. Without -webkit-ma
 border stays a plain coloured line, as today.
 """
 COLOURS = {c: f"light-dark(var(--{c}), var(--{c}-text))" for c in ("primary", "secondary", "success", "danger", "warning", "info")}
-COLOURS |= {"light": "var(--light-fixed)", "dark": "var(--dark-fixed)", "black": "#000", "white": "#fff"}
+# neutral threads are not dyed fills: white/light and dark/black thread is the seam itself, lightened or darkened,
+# with its shadow (or light edge), so it still reads on felt of its own tone
+NEUTRAL = {"white": "brightness(1.25) drop-shadow(0 .6px .3px rgb(0 0 0 / .3))",
+           "light": "brightness(1.1) sepia(.15) drop-shadow(0 .6px .3px rgb(0 0 0 / .3))",
+           "dark": "brightness(.16) drop-shadow(0 -.5px 0 rgb(255 255 255 / .22))",
+           "black": "brightness(.06) drop-shadow(0 -.5px 0 rgb(255 255 255 / .22))"}
 SUBTLE = ("primary", "secondary", "success", "danger", "warning", "info", "light", "dark")
 SEWN = (".card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu, "
         ".offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, "
@@ -21,7 +26,8 @@ F = ':where([data-look="felt"])'
 
 def css():
     colour_cls = [f".border-{c}" for c in COLOURS] + [f".border-{c}-subtle" for c in SUBTLE]
-    anyb = ", ".join([".border", ".border-top", ".border-bottom", ".border-start", ".border-end"] + colour_cls)
+    neutral_cls = [f".border-{c}" for c in NEUTRAL]
+    anyb = ", ".join([".border", ".border-top", ".border-bottom", ".border-start", ".border-end"] + colour_cls + neutral_cls)
     plain = f":is(.border):not({SEWN}, {NOT})"
     out = ["\n/* ---- prototype (proto/svg-felt/borders.py): .border-* in felt is the colour of the thread ---- */",
            # important in an earlier layer beats the utilities' !important
@@ -71,6 +77,13 @@ def css():
         out.append(f"  {F} .border-{side}:not(.border, {SEWN}, {NOT}):is({THICK})::after {{ content: \"\"; position: absolute; {pos}"
                    " pointer-events: none; background: var(--felt) 0 0 / var(--felt-size); mix-blend-mode: soft-light;"
                    " box-shadow: inset 0 0 1px rgb(0 0 0 / .25); }")
+    for c, flt in NEUTRAL.items():
+        out.append(f"  {F} :is({SEWN}, .border, {ONE}):not({NOT}).border-{c} {{ --seam-filter: {flt}; --seam-filter-cream: {flt}; "
+                   "--patch-seam-filter: var(--seam-filter); --seam-strength: .9; --patch-seam-strength: .9; }")
+    # square pieces get a square seam: the stitches stop short of the corner
+    out.append(f"  {F} {{ --seam-sq-slice: 6; --seam-sq-width: 3px; }}")
+    out.append(f"  {F} :is({SEWN}, .border):not({NOT}).rounded-0 {{ --seam-img: url(\"img/seam-sq.svg\"); "
+               "--seam-slice: var(--seam-sq-slice); --seam-width: var(--seam-sq-width); }")
     # seam radius follows the piece: pills and round buttons get a stadium/circle concentric with their edge.
     # The pill image (radius 17, margin 3, slice 20) is scaled by k = (h/2 - inset) / 17 for each button size,
     # and the margin with it, so the thread keeps its distance from the edge. Heights are those of felt.css's sizes.
@@ -81,7 +94,7 @@ def css():
         out.append(f"  {F} {sel} {{ --seam-img: url(\"img/seam-pill.svg\"); --seam-slice: var(--seam-pill-slice); "
                    f"--seam-width: {20 * k:.2f}px; --seam-margin: {3 * k:.2f}px;{' --seam-inset: 5px;' if 'icon' in sel else ''} }}")
     # dark mode: the drawn thread is finer than the photographed one, so it needs a little more light to read at 1x
-    dark = ("--seam-filter: brightness(.74) sepia(.2) var(--seam-relief); --seam-strength: .58; --patch-seam-filter: brightness(.9); "
+    dark = ("--seam-filter: brightness(.67) sepia(.22) var(--seam-relief); --seam-strength: .52; --patch-seam-filter: brightness(.9); "
             "--patch-seam-strength: .38;")
     out += ["  @media (prefers-color-scheme: dark) {",
             f"    :root[data-look=\"felt\"]:not([data-bs-theme=\"light\"]) {{ {dark} }}", "  }",
