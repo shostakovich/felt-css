@@ -5,7 +5,7 @@ Writes img/*.svg and felt.css (a copy of ../../felt.css with img/*.webp -> img/*
 component renders exactly as in the library, only the assets differ. Seams keep the WebPs' 9-slice
 geometry (same --seam-*-slice tokens): SVG width/height are device px at 2x, viewBox is CSS px.
 """
-import math, re
+import math, random, re
 from pathlib import Path
 from feltgen import felt
 
@@ -13,45 +13,57 @@ HERE = Path(__file__).resolve().parent
 OUT = HERE / "img"
 DPR = 2
 
-# --- felt: noise bands fitted to the photos' contrast at 0/1/3/8 px blur (see lab/)
+# --- felt: noise bands (see feltgen.py)
 FELT = {
+    # Dense felt: soft cloudy mottling, a short criss-cross nap (two anisotropic ridge bands, slightly bent and
+    # blurred so they read as fuzz, not hairlines), fine grain and a few longer stray fibres. Compared against
+    # photos of real wool and craft felt.
     # grey around 50 %, soft-light on saturated colours
-    "felt": dict(warp=(".035", 16), bands=[[".03", 2, "f", .038], [".08", 2, "f", .097],
-                 [".15", 2, "t", -.273, .25, 16], [".5", 1, "t", -.313, .145, 14]]),
-    # warm ~94 % cream, multiply on light surfaces
-    "felt-light": dict(base=.95, rgb=(1.004, .996, .973), warp=(".035", 16), bands=[[".03", 2, "f", .059], [".08", 2, "f", .054],
-                 [".15", 2, "t", -.092, .25, 16], [".3", 2, "t", -.056, .25, 14]]),
-    # grey around 50 %, quieter, soft-light on charcoal
-    "felt-dark": dict(warp=(".035", 16), bands=[[".03", 2, "f", .067], [".08", 2, "f", .056],
-                 [".15", 2, "t", -.157, .25, 16], [".3", 2, "t", -.139, .25, 14]]),
+    "felt": dict(warp=(".035", 12), bands=[[".012", 2, "f", 0.2], [".05", 2, "f", 0.12],
+                 [".22 .32", 2, "t", -0.24, .25, 6, .25], [".32 .22", 2, "t", -0.24, .25, 6, .25],
+                 [".7", 1, "f", 0.22], [".12", 2, "t", -0.16, .25, 12, .12]]),
+    # warm ~94 % cream, multiply on light surfaces: the same felt, much quieter, mottling under 3 %
+    "felt-light": dict(base=.95, rgb=(1.004, .996, .973), warp=(".035", 12), bands=[[".012", 2, "f", 0.05], [".05", 2, "f", 0.04],
+                 [".22 .32", 2, "t", -0.0864, .25, 6, .25], [".32 .22", 2, "t", -0.0864, .25, 6, .25],
+                 [".7", 1, "f", 0.0792], [".12", 2, "t", -0.0576, .25, 12, .12]]),
+    # grey around 50 %, soft-light on charcoal: a little quieter than the colours
+    "felt-dark": dict(warp=(".035", 12), bands=[[".012", 2, "f", 0.09], [".05", 2, "f", 0.06],
+                 [".22 .32", 2, "t", -0.149, .25, 6, .25], [".32 .22", 2, "t", -0.149, .25, 6, .25],
+                 [".7", 1, "f", 0.136], [".12", 2, "t", -0.0992, .25, 12, .12]]),
 }
 
 # --- seams (CSS px)
 MARGIN = 3            # slice edge -> thread centre line
-LEN, THICK = 6.5, 1.4 # stitch
+LEN, THICK = 7, 1.6   # stitch: about 2/3 of the period, like the photographed seam
 PERIOD = 10           # stitch + gap
 SHAPES = {"lg": (9, 3), "md": (7, 1), "pill": (17, 1)}   # seam radius, stitches per edge tile
 ROW = 3
-# per stitch: length factor, angle (deg), offset across the seam: a hand-sewn wobble
-WOBBLE = [(1, 0, 0), (.97, -2.5, .25), (.9, 2, -.2)]
+# a hand-sewn wobble: per stitch length factor (±8 %), angle (±2°) and offset across the seam (±0.3 px);
+# every edge of a frame draws other stitches from the table, so even one-stitch tiles differ round the piece
+_r = random.Random(7)
+WOBBLE = [(1 + _r.uniform(-.08, .08), _r.uniform(-2, 2), _r.uniform(-.3, .3)) for _ in range(32)]
 
 def f(x): return f"{x:.2f}".rstrip("0").rstrip(".")
 
 def defs():
     h, l = THICK / 2, LEN / 2
-    # one stitch along x: a lens-ended capsule, twisted ply (stripes), a highlight along its top
-    stitch = (f'M{f(-l)} 0Q{f(-l+.3)} {f(-h)} {f(-l+1.2)} {f(-h)}H{f(l-1.2)}Q{f(l-.3)} {f(-h)} {f(l)} 0'
-              f'Q{f(l-.3)} {f(h)} {f(l-1.2)} {f(h)}H{f(-l+1.2)}Q{f(-l+.3)} {f(h)} {f(-l)} 0Z')
+    # one stitch along x: a plump body that tapers to a point where it dives into the felt
+    stitch = (f'M{f(-l)} 0C{f(-l+.6)} {f(-h)} {f(-l+1.6)} {f(-h)} {f(-l+2.4)} {f(-h)}H{f(l-2.4)}'
+              f'C{f(l-1.6)} {f(-h)} {f(l-.6)} {f(-h)} {f(l)} 0C{f(l-.6)} {f(h)} {f(l-1.6)} {f(h)} {f(l-2.4)} {f(h)}'
+              f'H{f(-l+2.4)}C{f(-l+1.6)} {f(h)} {f(-l+.6)} {f(h)} {f(-l)} 0Z')
     return ('<defs>'
-            '<pattern id="t" width="1.1" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-58)">'
-            '<rect width="1.1" height="4" fill="#f4f4f4"/><rect width=".42" height="4" fill="#c9c9c9"/></pattern>'
-            f'<g id="s"><path d="{stitch}" fill="url(#t)"/>'
-            f'<rect x="{f(-l+1.1)}" y="{f(-h+.2)}" width="{f(LEN-2.2)}" height=".38" rx=".19" fill="#fff" opacity=".7"/></g>'
+            # twisted ply: soft diagonal ridges at ~32° to the thread
+            '<pattern id="t" width="1.25" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-58)">'
+            '<rect width="1.25" height="4" fill="#f3f3f3"/><rect width=".5" height="4" fill="#d5d5d5"/></pattern>'
+            f'<g id="s"><circle cx="{f(-l-.15)}" r=".55" opacity=".3"/><circle cx="{f(l+.15)}" r=".55" opacity=".3"/>'
+            f'<path d="{stitch}" fill="url(#t)"/>'
+            f'<rect x="{f(-l+1.6)}" y="{f(-h*.45)}" width="{f(LEN-3.2)}" height=".36" rx=".18" fill="#fff" opacity=".6"/></g>'
             # thread casts a soft shadow down; the stitches pull a faint groove into the felt
             '<filter id="d" x="-20%" y="-20%" width="140%" height="140%">'
-            '<feGaussianBlur in="SourceAlpha" stdDeviation=".35"/><feOffset dy=".7"/>'
-            '<feComponentTransfer><feFuncA type="linear" slope=".3"/></feComponentTransfer>'
-            '<feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
+            '<feGaussianBlur stdDeviation=".1" result="t"/>'
+            '<feGaussianBlur in="SourceAlpha" stdDeviation=".45"/><feOffset dy=".5"/>'
+            '<feComponentTransfer><feFuncA type="linear" slope=".25"/></feComponentTransfer>'
+            '<feMerge><feMergeNode/><feMergeNode in="t"/></feMerge></filter>'
             '<filter id="g"><feGaussianBlur stdDeviation=".8"/></filter>'
             '</defs>')
 
@@ -76,13 +88,13 @@ def frame(radius, n):
     out = []
     for k in range(n):
         t = c + (k + .5) * PERIOD
-        out += [stitch(t, m, 0, k), stitch(w - m, t, 90, k), stitch(w - t, w - m, 180, k), stitch(m, w - t, 270, k)]
+        out += [stitch(t, m, 0, k), stitch(w - m, t, 90, k + 5), stitch(w - t, w - m, 180, k + 10), stitch(m, w - t, 270, k + 15)]
     arc = math.pi / 2 * r
     na = max(1, round(arc / PERIOD))
     for j, ((cx, cy), start) in enumerate((((c, c), 180), ((w - c, c), 270), ((w - c, w - c), 0), ((c, w - c), 90))):
         for k in range(na):
             phi = math.radians(start + 90 * (k + .5) / na)
-            out.append(stitch(cx + r * math.cos(phi), cy + r * math.sin(phi), math.degrees(phi) + 90, j + k,
+            out.append(stitch(cx + r * math.cos(phi), cy + r * math.sin(phi), math.degrees(phi) + 90, 20 + 3 * j + k,
                               min(1.0, arc / na / PERIOD)))
     groove = f"M{f(m)} {f(c)}A{f(r)} {f(r)} 0 0 1 {f(c)} {f(m)}H{f(w-c)}A{f(r)} {f(r)} 0 0 1 {f(w-m)} {f(c)}V{f(w-c)}A{f(r)} {f(r)} 0 0 1 {f(w-c)} {f(w-m)}H{f(c)}A{f(r)} {f(r)} 0 0 1 {f(m)} {f(w-c)}Z"
     return svg(w, w, groove, out), c * DPR
