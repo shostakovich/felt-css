@@ -30,13 +30,16 @@ FELT = {
                  ['.18', 2, 't', -0.08, 0.5, 10, 1.0, 2.5],
                  ['.7', 1, 'f', 0.15, 0.5, 0, 0.45],
                  ['.12', 2, 't', -0.1, 0.82, 18, 0.12, 6, ('.2', 0.3)]]),
-    # cream, multiply on light surfaces: mean colour of felt-light.webp (dE < 1), a fine blurred fluff, clouds under
-    # ±1.5 %, no dark specks, no stray hairs
-    "felt-light": dict(base=0.9427, rgb=(1.0084, 1.0, 0.9772), warp=('.035', 12), bands=[['.008', 2, 'f', 0.06],
-                 ['.02', 2, 'f', 0.04],
-                 ['.22 .32', 2, 't', -0.128, 0.6, 12, 0.6, 3, ('.3', 0.55)],
-                 ['.32 .22', 2, 't', -0.128, 0.6, 12, 0.6, 3, ('.3', 0.55)],
-                 ['.9 .3', 1, 'f', 0.045, 0.5, 0, 0.45], ['.3 .9', 1, 'f', 0.045, 0.5, 0, 0.45]]),
+    # cream, multiply on light surfaces: the dark felt's recipe, quieter (fine light hairs over a slightly darker
+    # ground, like the cream photo); a dense blurred nap or grain here reads as pores, like elephant skin.
+    # Mean colour of felt-light.webp (dE < 1)
+    "felt-light": dict(base=0.955, rgb=(1.0084, 1.0, 0.9772), warp=('.035', 12), bands=[['.012', 2, 'f', 0.034],
+                 ['.05', 2, 'f', 0.0255],
+                 ['.22 .32', 2, 't', -0.0616, 0.6, 5, 0.25, 3, ('.3', 0.5)],
+                 ['.32 .22', 2, 't', -0.0616, 0.6, 5, 0.25, 3, ('.3', 0.5)],
+                 ['.18', 2, 't', -0.0272, 0.5, 10, 1.0, 2.5],
+                 ['.7', 1, 'f', 0.051, 0.5, 0, 0.45],
+                 ['.12', 2, 't', -0.14, 0.82, 14, 0.15, 6, ('.2', 0.25)]]),
     # grey around 50 %, soft-light on charcoal: the colours' felt, a little quieter
     "felt-dark": dict(base=0.4909, warp=('.035', 12), bands=[['.012', 2, 'f', 0.068],
                  ['.05', 2, 'f', 0.051],
@@ -81,12 +84,12 @@ def defs():
             f'<path d="{stitch}" fill="url(#t)"/>'
             f'<rect x="{f(-l+1.8)}" y="{f(-h*.4)}" width="{f(LEN-3.6)}" height=".34" rx=".17" fill="#fff" opacity=".7"/>'
             '</g>'
-            # light from above: a soft shadow below only, a faint light edge on top
+            # light from above: a soft shadow below; the light edge on top comes from felt.css's --seam-relief in the dark
+            # (drawn in here, the seam filter darkens it on cream into a haze over the thread)
             '<filter id="d" x="-20%" y="-30%" width="140%" height="160%">'
-            '<feGaussianBlur in="SourceAlpha" stdDeviation=".3"/><feOffset dy=".6"/>'
+            '<feGaussianBlur in="SourceAlpha" stdDeviation=".25"/><feOffset dy=".55"/>'
             '<feComponentTransfer result="s"><feFuncA type="linear" slope=".25"/></feComponentTransfer>'
-            '<feFlood flood-color="#fff" flood-opacity=".22"/><feComposite in2="SourceAlpha" operator="in"/><feOffset dy="-.35"/>'
-            '<feMerge><feMergeNode in="s"/><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
+            '<feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
             '<filter id="g"><feGaussianBlur stdDeviation=".7"/></filter>'
             '</defs>')
 

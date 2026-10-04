@@ -93,6 +93,21 @@ def css():
                    (".btn-icon.btn-sm", 1.0)):   # round buttons are 44px at every size: the same seam as .btn-icon
         out.append(f"  {F} {sel} {{ --seam-img: url(\"img/seam-pill.svg\"); --seam-slice: var(--seam-pill-slice); "
                    f"--seam-width: {20 * k:.2f}px; --seam-margin: {3 * k:.2f}px;{' --seam-inset: 5px;' if 'icon' in sel else ''} }}")
+    # light mode: depth and thread on a par with the dark. The patches stand higher (deeper cast shadow, darker
+    # lower inner edge, a little more sheen), cards lift a little more, and the thread on colour is a crisper,
+    # slightly stronger light tone. These override felt.css tokens, so they would also change the photo look.
+    out += [f"  :root {{ --felt-shadow-near: light-dark(rgb(60 40 15 / .26), rgb(0 0 0 / .35)); "
+            "--felt-shadow-far: light-dark(rgb(60 40 15 / .36), rgb(0 0 0 / .5)); "
+            "--patch-dome: radial-gradient(120% 95% at 35% 10%, rgb(255 255 255 / .2), transparent 60%); "
+            "--shadow-felt: 0 0 1px .5px light-dark(transparent, rgb(0 0 0 / .35)), 0 0 0 .5px light-dark(transparent, rgb(255 240 220 / .06)), "
+            "inset 0 -2px 0 light-dark(rgb(0 0 0 / .07), rgb(0 0 0 / .14)), inset 0 1px 0 light-dark(rgb(255 255 255 / .5), rgb(255 240 220 / .09)), "
+            "0 1px 0 light-dark(rgb(90 70 40 / .14), rgb(0 0 0 / .45)), 0 7px 16px -6px light-dark(rgb(90 70 40 / .32), rgb(0 0 0 / .6)); "
+            "--patch-seam-filter: brightness(1); --patch-seam-strength: .55; --seam-strength: .66; }",
+            f"  {F} :where(.btn, .btn-group, .btn-group-vertical, .badge, .alert, .toast, .page-link, .progress-bar, [class*=\"text-bg-\"]) {{ "
+            "--shadow-patch: 0 0 1px .5px color-mix(in oklab, color-mix(in oklab, var(--tone, light-dark(#f3ecdf, #3a3531)) 75%, var(--felt-cut)) 45%, transparent), "
+            "inset 0 0 0 1px rgb(0 0 0 / .06), inset 0 1px 0 var(--patch-gloss, rgb(255 255 255 / .26)), "
+            "inset 0 -3px 5px -1px light-dark(rgb(0 0 0 / .26), rgb(0 0 0 / .18)), inset 0 0 7px rgb(0 0 0 / .10), "
+            "0 var(--felt-edge-y, 1.5px) 1px var(--felt-edge), 0 3px 6px -1px var(--felt-shadow-near), 0 10px 18px -8px var(--felt-shadow-far); }"]
     # dark mode: the drawn thread is finer than the photographed one, so it needs a little more light to read at 1x
     dark = ("--seam-filter: brightness(.67) sepia(.22) var(--seam-relief); --seam-strength: .52; --patch-seam-filter: brightness(.9); "
             "--patch-seam-strength: .38;")
