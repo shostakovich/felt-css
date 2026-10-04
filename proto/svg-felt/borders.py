@@ -99,10 +99,22 @@ def css():
     out += [f"  :root {{ --felt-shadow-near: light-dark(rgb(60 40 15 / .26), rgb(0 0 0 / .35)); "
             "--felt-shadow-far: light-dark(rgb(60 40 15 / .36), rgb(0 0 0 / .5)); "
             "--patch-dome: radial-gradient(120% 95% at 35% 10%, rgb(255 255 255 / .2), transparent 60%); "
-            "--shadow-felt: 0 0 1px .5px light-dark(transparent, rgb(0 0 0 / .35)), 0 0 0 .5px light-dark(transparent, rgb(255 240 220 / .06)), "
-            "inset 0 -2px 0 light-dark(rgb(0 0 0 / .07), rgb(0 0 0 / .14)), inset 0 1px 0 light-dark(rgb(255 255 255 / .5), rgb(255 240 220 / .09)), "
-            "0 1px 0 light-dark(rgb(90 70 40 / .14), rgb(0 0 0 / .45)), 0 7px 16px -6px light-dark(rgb(90 70 40 / .32), rgb(0 0 0 / .6)); "
-            "--patch-seam-filter: brightness(1); --patch-seam-strength: .55; --seam-strength: .66; }",
+            "--shadow-felt: 0 0 0 1px light-dark(rgb(80 60 40 / .16), transparent), 0 0 1px .5px light-dark(transparent, rgb(0 0 0 / .35)), "
+            "0 0 0 .5px light-dark(transparent, rgb(255 240 220 / .06)), inset 0 -2px 0 light-dark(rgb(80 60 40 / .14), rgb(0 0 0 / .14)), "
+            "inset 0 1px 0 light-dark(rgb(255 255 255 / .15), rgb(255 240 220 / .09)), 0 1px 0 light-dark(transparent, rgb(0 0 0 / .45)), "
+            "0 1px 1.5px light-dark(rgb(70 50 30 / .26), transparent), 0 4px 12px light-dark(rgb(70 50 30 / .16), transparent), "
+            "0 6px 14px -6px light-dark(transparent, rgb(0 0 0 / .6)); "
+            "--body-bg: light-dark(#e0d3bf, #242220); --seam-filter-cream: brightness(.4) sepia(.45) var(--seam-relief); "
+            "--seam-row-strength: .58; "
+            "--patch-seam-filter: brightness(1); --patch-seam-strength: .55; --seam-strength: .72; }",
+            # large light pieces (alerts carry their own shadow): a felt cut edge and a contact shadow instead of a light rim
+            f"  {F} :where(.alert) {{ box-shadow: 0 0 0 1px light-dark(color-mix(in oklab, var(--tone) 25%, rgb(80 60 40 / .16)), transparent), "
+            "0 0 1px .5px color-mix(in oklab, var(--tone) 20%, light-dark(transparent, rgb(0 0 0 / .3))), "
+            "inset 0 1px 0 light-dark(rgb(255 255 255 / .15), color-mix(in srgb, var(--felt-highlight) 60%, transparent)), "
+            "inset 0 -2px 0 light-dark(rgb(80 60 40 / .12), transparent), 0 1px 1px light-dark(transparent, var(--felt-edge)), "
+            "0 1px 1.5px light-dark(rgb(70 50 30 / .24), transparent), 0 4px 12px light-dark(rgb(70 50 30 / .14), transparent), "
+            "0 3px 6px -1px light-dark(transparent, color-mix(in srgb, var(--felt-shadow-near) 80%, transparent)), "
+            "0 10px 18px -8px light-dark(transparent, color-mix(in srgb, var(--felt-shadow-far) 80%, transparent)); }",
             f"  {F} :where(.btn, .btn-group, .btn-group-vertical, .badge, .alert, .toast, .page-link, .progress-bar, [class*=\"text-bg-\"]) {{ "
             "--shadow-patch: 0 0 1px .5px color-mix(in oklab, color-mix(in oklab, var(--tone, light-dark(#f3ecdf, #3a3531)) 75%, var(--felt-cut)) 45%, transparent), "
             "inset 0 0 0 1px rgb(0 0 0 / .06), inset 0 1px 0 var(--patch-gloss, rgb(255 255 255 / .26)), "

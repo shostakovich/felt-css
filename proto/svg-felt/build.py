@@ -33,13 +33,13 @@ FELT = {
     # cream, multiply on light surfaces: the dark felt's recipe, quieter (fine light hairs over a slightly darker
     # ground, like the cream photo); a dense blurred nap or grain here reads as pores, like elephant skin.
     # Mean colour of felt-light.webp (dE < 1)
-    "felt-light": dict(base=0.955, rgb=(1.0084, 1.0, 0.9772), warp=('.035', 12), bands=[['.012', 2, 'f', 0.034],
-                 ['.05', 2, 'f', 0.0255],
-                 ['.22 .32', 2, 't', -0.0616, 0.6, 5, 0.25, 3, ('.3', 0.5)],
-                 ['.32 .22', 2, 't', -0.0616, 0.6, 5, 0.25, 3, ('.3', 0.5)],
-                 ['.18', 2, 't', -0.0272, 0.5, 10, 1.0, 2.5],
-                 ['.7', 1, 'f', 0.051, 0.5, 0, 0.45],
-                 ['.12', 2, 't', -0.14, 0.82, 14, 0.15, 6, ('.2', 0.25)]]),
+    "felt-light": dict(base=0.9401, rgb=(1.0084, 1.0, 0.9772), warp=('.035', 12), bands=[['.012', 2, 'f', 0.0476],
+                 ['.05', 2, 'f', 0.0357],
+                 ['.22 .32', 2, 't', -0.0801, 0.6, 5, 0.25, 3, ('.3', 0.5)],
+                 ['.32 .22', 2, 't', -0.0801, 0.6, 5, 0.25, 3, ('.3', 0.5)],
+                 ['.18', 2, 't', -0.0354, 0.5, 10, 1.0, 2.5],
+                 ['.7', 1, 'f', 0.0663, 0.5, 0, 0.45],
+                 ['.12', 2, 't', -0.18, 0.82, 14, 0.15, 6, ('.2', 0.25)]]),
     # grey around 50 %, soft-light on charcoal: the colours' felt, a little quieter
     "felt-dark": dict(base=0.4909, warp=('.035', 12), bands=[['.012', 2, 'f', 0.068],
                  ['.05', 2, 'f', 0.051],
@@ -56,7 +56,7 @@ FELT = {
 MARGIN = 3            # slice edge -> thread centre line
 LEN, THICK = 7, 1.6  # stitch: about 2/3 of the period
 PERIOD = 10           # stitch + gap
-SHAPES = {"lg": (9, 3, .14, .05), "md": (7, 1, .1, 0), "pill": (17, 1, .1, 0), "sq": (0, 1, .1, 0)}
+SHAPES = {"lg": (9, 3, .1, 0), "md": (7, 1, .1, 0), "pill": (17, 1, .1, 0), "sq": (0, 1, .1, 0)}
 # seam radius, stitches per edge tile, groove and lip alpha (small pieces: a fainter groove, so stitch and gap read at 1x)
 ROW = 3
 # a machine's small irregularities: per stitch length (±4 %), angle (±1°) and offset across the seam (±0.15 px);
