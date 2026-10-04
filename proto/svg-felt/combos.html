@@ -29,7 +29,7 @@
   let h = '<h6>Flächen × Buttons, Outline, Badges, hr/vr</h6>';
   for (const [l, cls] of surfaces) h += `<div class="surface ${cls}"><span class="lbl">${l}</span>${btns}<span class="vr mx-1" style="height:1.5rem"></span>${badges}<div class="w-100"></div><span class="lbl"></span>${outl}<hr class="flex-grow-1 my-0"></div>`;
   h += '<h6>Randfarben: .border .border-{farbe} (Card, div, Button) – auf Seite, Creme und Dunkel</h6><div class="grid">';
-  for (const c of [...C, 'white', 'black', 'body']) {
+  for (const c of [...C, 'white', 'black']) {
     h += `<div class="card border border-${c}"><div class="card-body">card .border-${c}</div></div>`;
     h += `<div class="border border-2 border-${c} rounded p-2 small">div .border-2 .border-${c}</div>`;
     h += `<div class="card text-bg-dark border border-${c}"><div class="card-body">dark .border-${c}</div></div>`;
