@@ -38,19 +38,21 @@ description: felt-css comes in two looks. One attribute on the html element swit
 
 <h2>How the felt works</h2>
 <h3>Two felt recipes</h3>
-<p>Saturated pieces (buttons, stat tiles, badges, the active pagination item) are <em>patches</em>: a photo of grey felt blended <code>soft-light</code> onto the colour, a soft cut edge and a cast shadow. Light surfaces (page, cards, alerts, list groups) are quiet felt: a photo of cream felt blended <code>multiply</code>, flat, at the same fibre scale. In dark mode the sheet is charcoal felt.</p>
-<h3>Real thread</h3>
-<p>Seams are 9-slice images built from one photographed stitch and laid on with <code>border-image</code>. They're tinted with <code>mix-blend-mode: hard-light</code>, so the thread is always a tone of the felt underneath: lighter on colour, a shade darker on cream. Dividers inside a piece (card headers, table rows, <a href="../../helpers/vertical-rule/"><code>.vr</code></a>, <code>&lt;hr&gt;</code>) are single rows of stitches.</p>
+<p>Saturated pieces (buttons, stat tiles, badges, the active pagination item) are <em>patches</em>: grey felt blended <code>soft-light</code> onto the colour, a soft cut edge and a cast shadow. Light surfaces (page, cards, alerts, list groups) are quiet felt: cream felt blended <code>multiply</code>, flat, at the same fibre scale. Both textures are SVG noise, a fine and dense craft felt. In dark mode the sheet is charcoal felt.</p>
+<h3>Thread</h3>
+<p>Seams are drawn 9-slice SVGs, taut stitches in a pressed groove, laid on with <code>border-image</code>; pills and square pieces get a seam that follows their edge. They're tinted with <code>mix-blend-mode: hard-light</code>, so the thread is always a tone of the felt underneath: lighter on colour, a shade darker on cream. Dividers inside a piece (card headers, table rows, <a href="../../helpers/vertical-rule/"><code>.vr</code></a>, <code>&lt;hr&gt;</code>) are single rows of stitches. Border utilities are thread too: <code>.border-{colour}</code> dyes a piece's seam, and a bordered element without one gets a seam of its own (Firefox keeps the plain line).</p>
 <h3>Never moves</h3>
 <p>The felt layer only changes colours, textures, shadows and seams — never padding, borders or fonts. Toggling the look doesn't shift a single pixel, so you can design in clean and switch to felt at the end, or let your users choose.</p>
 <h3>Opt-out friendly</h3>
 <p>All felt rules sit in <code>@layer felt</code> behind <code>:where([data-look="felt"])</code>, so they have zero specificity and your own CSS always wins. To keep one element flat, just style it.</p>
 
 <h2>Weight</h2>
-<p><code>felt.css</code> is about 33 KB gzipped. The felt photos and seam images in <code>img/</code> add about 42 KB and are only downloaded when the felt look is on.</p>
+<p><code>felt.css</code> is about 38 KB gzipped. The felt textures and seams in <code>img/</code> add about 9 KB and are only downloaded when the felt look is on.</p>
 
 <h2>Rebuilding the assets</h2>
-<p>The photos in <code>raw/</code> were drawn by an image model: grey felt, cream felt and a single running stitch. <code>tools/build_assets.py</code> turns them into the textures and seam frames in <code>img/</code> and writes the matching sizes into <code>felt.css</code>. Want chunkier stitches or rounder corners? Change <code>STITCH_CSS</code>, <code>GAP_CSS</code> or <code>SHAPES</code> at the top of the script and run it again.</p>
+<p><code>tools/build_assets.py</code> draws the textures and seam frames in <code>img/</code> and writes the matching sizes into <code>felt.css</code>. Want longer stitches or rounder corners? Change <code>LEN</code>, <code>PERIOD</code> or <code>SHAPES</code> at the top of the script and run it again. After changing a texture recipe (<code>FELT</code>), <code>tools/calibrate_felt.py</code> prints the bases that keep its brightness.</p>
 <codeblock lang="sh">
-python3 tools/build_assets.py   # needs numpy and ImageMagick
+python3 tools/build_assets.py     # plain python3
+python3 tools/calibrate_felt.py   # needs Node with Playwright and ImageMagick
 </codeblock>
+<p><code>tools/combos.html</code> shows every surface with every button, badge, border colour and seam radius, to check a change in both themes (<code>?theme=dark</code>).</p>
