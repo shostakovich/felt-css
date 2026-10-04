@@ -6,6 +6,7 @@ component renders exactly as in the library, only the assets differ. Seams keep 
 geometry (same --seam-*-slice tokens): SVG width/height are device px at 2x, viewBox is CSS px.
 """
 import math, random, re
+import borders
 from pathlib import Path
 from feltgen import felt
 
@@ -15,31 +16,35 @@ DPR = 2
 
 # --- felt: noise bands (see feltgen.py)
 FELT = {
-    # Wool felt, compared against photos of real felt (Wikimedia Commons, Stilbag): soft cloudy mottling, a short
-    # criss-cross nap whose ridges brighten (fibre tips catch the light; gamma keeps the ground calm), blurred grain
-    # and a few longer stray hairs. Band: [frequency, octaves, f(ractal)|t(urbulence), amplitude (negative: bright
-    # ridges), mean, bend, blur, gamma]. Bases are calibrated so the rendered tile has the photos' mean.
+    # Felt for the web: fine, dense craft felt (like the sheets sold for crafts and the felt of Stilbag's bags), calm
+    # at 1x, with single light fibres up close. Photos of real felt were the reference, not a template.
+    # Band: [frequency, octaves, f(ractal)|t(urbulence), amplitude (negative: bright ridges), mean, bend, blur, gamma,
+    # (cut frequency, kept share)]. The nap's ridges brighten like fibre tips; a second noise cuts them into single
+    # fibres (no network of cells); a soft, blurred nap lies under the sharp one. Bases are calibrated so the tile
+    # has the photos' mean (calibrate.py); contrast per scale matches the old photo (sd at 3/8 px blur .013/.009).
     # grey around 50 %, soft-light on saturated colours
-    "felt": dict(base=0.6349, warp=('.035', 12), bands=[['.012', 2, 'f', 0.156],
-                 ['.05', 2, 'f', 0.0936],
-                 ['.22 .32', 2, 't', -0.1404, 0.25, 12, 0.25, 3],
-                 ['.32 .22', 2, 't', -0.1404, 0.25, 12, 0.25, 3],
-                 ['.7', 1, 'f', 0.1248, 0.5, 0, 0.45],
-                 ['.12', 2, 't', -0.1123, 0.25, 18, 0.12, 6]]),
-    # cream, multiply on light surfaces: mean colour of felt-light.webp (dE < 1), large clouds of ±2 %, a faint nap,
-    # no dark specks and no stray hairs
-    "felt-light": dict(base=0.9658, rgb=(1.0084, 1.0, 0.9772), warp=('.035', 12), bands=[['.006', 2, 'f', 0.18],
-                 ['.05', 2, 'f', 0.036],
-                 ['.22 .32', 2, 't', -0.03465, 0.25, 12, 0.25, 3],
-                 ['.32 .22', 2, 't', -0.03465, 0.25, 12, 0.25, 3],
-                 ['.7', 1, 'f', 0.03, 0.5, 0, 0.45]]),
-    # grey around 50 %, soft-light on charcoal: a little quieter than the colours
-    "felt-dark": dict(base=0.6189, warp=('.035', 12), bands=[['.012', 2, 'f', 0.119],
-                 ['.05', 2, 'f', 0.0714],
-                 ['.22 .32', 2, 't', -0.116, 0.25, 12, 0.25, 3],
-                 ['.32 .22', 2, 't', -0.116, 0.25, 12, 0.25, 3],
-                 ['.7', 1, 'f', 0.0952, 0.5, 0, 0.45],
-                 ['.12', 2, 't', -0.1061, 0.25, 18, 0.12, 6]]),
+    "felt": dict(base=0.4857, warp=('.035', 12), bands=[['.012', 2, 'f', 0.08],
+                 ['.05', 2, 'f', 0.06],
+                 ['.22 .32', 2, 't', -0.26, 0.6, 12, 0.25, 3, ('.3', 0.5)],
+                 ['.32 .22', 2, 't', -0.26, 0.6, 12, 0.25, 3, ('.3', 0.5)],
+                 ['.18', 2, 't', -0.08, 0.5, 10, 1.0, 2.5],
+                 ['.7', 1, 'f', 0.15, 0.5, 0, 0.45],
+                 ['.12', 2, 't', -0.1, 0.82, 18, 0.12, 6, ('.2', 0.3)]]),
+    # cream, multiply on light surfaces: mean colour of felt-light.webp (dE < 1), a fine blurred fluff, clouds under
+    # ±1.5 %, no dark specks, no stray hairs
+    "felt-light": dict(base=0.9427, rgb=(1.0084, 1.0, 0.9772), warp=('.035', 12), bands=[['.008', 2, 'f', 0.06],
+                 ['.02', 2, 'f', 0.04],
+                 ['.22 .32', 2, 't', -0.12, 0.6, 12, 0.6, 3, ('.3', 0.55)],
+                 ['.32 .22', 2, 't', -0.12, 0.6, 12, 0.6, 3, ('.3', 0.55)],
+                 ['.7', 1, 'f', 0.06, 0.5, 0, 0.6]]),
+    # grey around 50 %, soft-light on charcoal: the colours' felt, a little quieter
+    "felt-dark": dict(base=0.4909, warp=('.035', 12), bands=[['.012', 2, 'f', 0.068],
+                 ['.05', 2, 'f', 0.051],
+                 ['.22 .32', 2, 't', -0.221, 0.6, 12, 0.25, 3, ('.3', 0.5)],
+                 ['.32 .22', 2, 't', -0.221, 0.6, 12, 0.25, 3, ('.3', 0.5)],
+                 ['.18', 2, 't', -0.068, 0.5, 10, 1.0, 2.5],
+                 ['.7', 1, 'f', 0.1275, 0.5, 0, 0.45],
+                 ['.12', 2, 't', -0.085, 0.82, 18, 0.12, 6, ('.2', 0.3)]]),
 }
 
 # --- seams (CSS px)
@@ -65,11 +70,11 @@ def defs():
               f'H{f(-l+2.4)}C{f(-l+1.6)} {f(h)} {f(-l+.8)} {f(h)} {f(-l)} 0Z')
     # a few strands standing off the thread
     fuzz = (f'<path d="M{f(-1.2)} {f(-h+.1)}l-.5 -.7M{f(1.6)} {f(h-.1)}l.6 .6M{f(.2)} {f(-h+.1)}l.4 -.6" '
-            'stroke="#f3f3f3" stroke-width=".22" stroke-linecap="round" opacity=".35"/>')
+            'stroke="#f3f3f3" stroke-width=".22" stroke-linecap="round" opacity=".2"/>')
     return ('<defs>'
             # twisted ply: soft diagonal ridges at ~32° to the thread
             '<pattern id="t" width="1.25" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-58)">'
-            '<rect width="1.25" height="4" fill="#f3f3f3"/><rect width=".5" height="4" fill="#d8d8d8"/></pattern>'
+            '<rect width="1.25" height="4" fill="#f3f3f3"/><rect width=".5" height="4" fill="#e0e0e0"/></pattern>'
             # the ends fade into the felt over ~0.6 px
             '<linearGradient id="e"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".09" stop-color="#fff"/>'
             '<stop offset=".91" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>'
@@ -84,7 +89,7 @@ def defs():
             '<filter id="d" x="-20%" y="-30%" width="140%" height="160%">'
             '<feGaussianBlur in="SourceAlpha" stdDeviation=".3"/><feOffset dy=".6"/>'
             '<feComponentTransfer result="s"><feFuncA type="linear" slope=".25"/></feComponentTransfer>'
-            '<feFlood flood-color="#fff" flood-opacity=".15"/><feComposite in2="SourceAlpha" operator="in"/><feOffset dy="-.35"/>'
+            '<feFlood flood-color="#fff" flood-opacity=".18"/><feComposite in2="SourceAlpha" operator="in"/><feOffset dy="-.35"/>'
             '<feMerge><feMergeNode in="s"/><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
             '<filter id="g"><feGaussianBlur stdDeviation=".7"/></filter>'
             '</defs>')
@@ -100,7 +105,8 @@ def stitch(x, y, angle, k=0, scale=1.0):
 def svg(w, h, groove, stitches):
     return (f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
             f'width="{round(w * DPR)}" height="{round(h * DPR)}" viewBox="0 0 {f(w)} {f(h)}">{defs()}'
-            f'<path d="{groove}" fill="none" stroke="#000" stroke-opacity=".17" stroke-width="1.9" filter="url(#g)"/>'
+            f'<path d="{groove}" fill="none" stroke="#fff" stroke-opacity=".09" stroke-width="3.8" filter="url(#g)"/>'
+            f'<path d="{groove}" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="2.4" filter="url(#g)"/>'
             f'<g filter="url(#d)">{"".join(stitches)}</g></svg>')
 
 def frame(radius, n):
@@ -141,6 +147,7 @@ if __name__ == "__main__":
     (OUT / "seam-col.svg").write_text(row(True))
     css = (HERE.parent.parent / "felt.css").read_text()
     css = re.sub(r'img/((?:felt|seam)[\w-]*)\.webp', r'img/\1.svg', css)
-    (HERE / "felt.css").write_text(css)
+    (OUT / "thread.svg").write_text(borders.THREAD)
+    (HERE / "felt.css").write_text(css + borders.css())
     for p in sorted(OUT.glob("*.svg")):
         print(f"{p.name}: {p.stat().st_size} B")

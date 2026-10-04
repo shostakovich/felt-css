@@ -3000,3 +3000,63 @@
 @media (prefers-reduced-motion: reduce) {
   .btn, .form-switch .form-check-input { transition: none; }
 }
+
+/* ---- prototype (proto/svg-felt/borders.py): .border-* in felt is the colour of the thread ---- */
+@layer base {
+  @supports (-webkit-mask-box-image: none) {
+    :where([data-look="felt"]) :is(.border, .border-top, .border-bottom, .border-start, .border-end, .border-primary, .border-secondary, .border-success, .border-danger, .border-warning, .border-info, .border-light, .border-dark, .border-black, .border-white, .border-primary-subtle, .border-secondary-subtle, .border-success-subtle, .border-danger-subtle, .border-warning-subtle, .border-info-subtle, .border-light-subtle, .border-dark-subtle):not(input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img) { border-color: transparent !important; }
+  }
+}
+@layer felt {
+  :where([data-look="felt"]) .border-primary { --thread: var(--primary); }
+  :where([data-look="felt"]) .border-secondary { --thread: var(--secondary); }
+  :where([data-look="felt"]) .border-success { --thread: var(--success); }
+  :where([data-look="felt"]) .border-danger { --thread: var(--danger); }
+  :where([data-look="felt"]) .border-warning { --thread: var(--warning); }
+  :where([data-look="felt"]) .border-info { --thread: var(--info); }
+  :where([data-look="felt"]) .border-light { --thread: var(--light-fixed); }
+  :where([data-look="felt"]) .border-dark { --thread: var(--dark-fixed); }
+  :where([data-look="felt"]) .border-black { --thread: #000; }
+  :where([data-look="felt"]) .border-white { --thread: #fff; }
+  :where([data-look="felt"]) .border-primary-subtle { --thread: var(--primary-border-subtle); }
+  :where([data-look="felt"]) .border-secondary-subtle { --thread: var(--secondary-border-subtle); }
+  :where([data-look="felt"]) .border-success-subtle { --thread: var(--success-border-subtle); }
+  :where([data-look="felt"]) .border-danger-subtle { --thread: var(--danger-border-subtle); }
+  :where([data-look="felt"]) .border-warning-subtle { --thread: var(--warning-border-subtle); }
+  :where([data-look="felt"]) .border-info-subtle { --thread: var(--info-border-subtle); }
+  :where([data-look="felt"]) .border-light-subtle { --thread: var(--light-border-subtle); }
+  :where([data-look="felt"]) .border-dark-subtle { --thread: var(--dark-border-subtle); }
+  :where([data-look="felt"]) .border-1 { --bw: 1px; }
+  :where([data-look="felt"]) .border-2 { --bw: 2px; }
+  :where([data-look="felt"]) .border-3 { --bw: 3px; }
+  :where([data-look="felt"]) .border-4 { --bw: 4px; }
+  :where([data-look="felt"]) .border-5 { --bw: 5px; }
+  :where([data-look="felt"]) :is(.border):not(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu, .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img), :where([data-look="felt"]) :is(.border-top, .border-bottom, .border-start, .border-end):not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu, .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img) { position: relative; }
+  :where([data-look="felt"]) :is(.border):not(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu, .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img)::after {
+    content: ""; position: absolute; z-index: 3; pointer-events: none;
+    inset: calc(5px - var(--seam-margin) - var(--bw, 1px));
+    border: 0 solid transparent;
+    border-image: var(--seam-img) var(--seam-slice) / var(--seam-width) round;
+    mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: var(--seam-strength);
+  }
+  :where([data-look="felt"]) .border-top:not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu, .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img)::after { content: ""; position: absolute; z-index: 3; pointer-events: none; left: 6px; right: 6px; top: calc(3px - var(--seam-margin) - var(--bw, 1px)); height: calc(2 * var(--seam-margin));
+    --rule-img: url("img/seam-row.svg") left center / var(--seam-row-size) round no-repeat; background: var(--rule-img); mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: var(--seam-strength); }
+  :where([data-look="felt"]) .border-bottom:not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu, .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img)::after { content: ""; position: absolute; z-index: 3; pointer-events: none; left: 6px; right: 6px; bottom: calc(3px - var(--seam-margin) - var(--bw, 1px)); height: calc(2 * var(--seam-margin));
+    --rule-img: url("img/seam-row.svg") left center / var(--seam-row-size) round no-repeat; background: var(--rule-img); mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: var(--seam-strength); }
+  :where([data-look="felt"]) .border-start:not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu, .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img)::after { content: ""; position: absolute; z-index: 3; pointer-events: none; top: 6px; bottom: 6px; left: calc(3px - var(--seam-margin) - var(--bw, 1px)); width: calc(2 * var(--seam-margin));
+    --rule-img: url("img/seam-col.svg") center top / var(--seam-col-size) no-repeat repeat; background: var(--rule-img); mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: var(--seam-strength); }
+  :where([data-look="felt"]) .border-end:not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu, .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img)::after { content: ""; position: absolute; z-index: 3; pointer-events: none; top: 6px; bottom: 6px; right: calc(3px - var(--seam-margin) - var(--bw, 1px)); width: calc(2 * var(--seam-margin));
+    --rule-img: url("img/seam-col.svg") center top / var(--seam-col-size) no-repeat repeat; background: var(--rule-img); mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: var(--seam-strength); }
+  @supports (-webkit-mask-box-image: none) {
+    :where([data-look="felt"]) :is(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu, .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, [class*="btn-outline-"], .border):is(.border-primary, .border-secondary, .border-success, .border-danger, .border-warning, .border-info, .border-light, .border-dark, .border-black, .border-white, .border-primary-subtle, .border-secondary-subtle, .border-success-subtle, .border-danger-subtle, .border-warning-subtle, .border-info-subtle, .border-light-subtle, .border-dark-subtle)::after {
+      border: 0; border-image: none;
+      background: url("img/thread.svg") 0 0 / 3px 3px, var(--thread); background-blend-mode: multiply;
+      -webkit-mask-box-image: var(--seam-img) var(--seam-slice) / var(--seam-width) round;
+      mix-blend-mode: normal; filter: none; opacity: calc(.85 * var(--border-opacity, 1));
+    }
+    :where([data-look="felt"]) :is(.border-top, .border-bottom, .border-start, .border-end):not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu, .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img):is(.border-primary, .border-secondary, .border-success, .border-danger, .border-warning, .border-info, .border-light, .border-dark, .border-black, .border-white, .border-primary-subtle, .border-secondary-subtle, .border-success-subtle, .border-danger-subtle, .border-warning-subtle, .border-info-subtle, .border-light-subtle, .border-dark-subtle)::after {
+      background: url("img/thread.svg") 0 0 / 3px 3px, var(--thread); background-blend-mode: multiply;
+      -webkit-mask: var(--rule-img); mix-blend-mode: normal; filter: none; opacity: calc(.85 * var(--border-opacity, 1));
+    }
+  }
+}
