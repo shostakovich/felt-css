@@ -1,219 +1,219 @@
 #!/usr/bin/env python3
-"""Build all felt assets in img/ from the Codex-generated photos in raw/ and write the
-matching tokens into felt.css (between the stitches:start/end markers).
+"""Draw the felt textures and seams in img/ as SVG and write the matching seam tokens into felt.css
+(between the stitches:start/end markers).
 
-Textures (Codex-generated seamless felt photos):
-  felt.webp        from raw/felt-neutral.png (grey felt): mean 50 % grey, soft-light on saturated colours
-  felt-light.webp  from raw/cream-a.png (cream felt): warm ~94 % with fine fibres, multiply on light colours
-  felt-dark.webp   from raw/cream-a.png as well: the fibres around 50 % grey, soft-light on charcoal (dark mode)
+Textures (felt.svg, felt-light.svg, felt-dark.svg): bands of feTurbulence summed on one 256 px tile.
+Fibre bands are bent by low noise (feDisplacementMap) to break up the noise's lattice and stretch its ridges
+into hairs; all noise is made on the tile and repeated with feTile, so the tile stays seamless.
 
-Seams (from raw/stitch-b.png, a white running stitch on grey felt):
-  Single stitches are cut out, reduced to the thread alone (no shadow, no needle holes) and laid
-  along rounded rectangles as 9-slice images for border-image, plus a straight row and column. Long seams
-  (cards, dividers) alternate three different stitches with a little hand-sewn wobble, so the
-  thread doesn't read as printed; short seams (buttons) keep one stitch per tile, because
-  border-image `round` would squash a longer tile on a short edge. The
-  thread is near-white; CSS tints it with mix-blend-mode: hard-light and filter: brightness()
-  (light thread on coloured felt, a darker tone of the same felt on light surfaces).
+Seams (seam-lg/md/pill/sq.svg, seam-row.svg, seam-col.svg): drawn stitches as 9-slice images for
+border-image, plus a straight row and column. The thread is near-white; felt.css tints it with
+mix-blend-mode: hard-light and filter: brightness(). thread.svg is the twist that dyed thread
+(.border-{colour} in the felt look) is multiplied with.
 
-Needs: python3 + numpy, ImageMagick (`magick`).
+Needs: python3. tools/calibrate_felt.py re-measures the textures' bases after a change to FELT.
 """
 import math
-import os
-import subprocess
-import tempfile
+import random
 from pathlib import Path
-
-import numpy as np
+from statistics import NormalDist
 
 ROOT = Path(__file__).resolve().parent.parent
-RAW = ROOT / "raw"
 OUT = ROOT / "img"
-DPR = 2                          # assets are rendered for 2x screens
+DPR = 2                          # seams are drawn for 2x screens: width/height in device px, viewBox in CSS px
 
-# measured in raw/stitch-b.png (1024 px): top seam line y 53..70; stitches (x from..to) on its straight part
-STITCHES = [(443, 511), (257, 324), (623, 684)]   # the first is the one used for single-stitch tiles
-STITCH_Y, STITCH_H, STITCH_PAD = 48, 28, 7
-WOBBLE = [(0, 0), (-2.5, 0.25), (2.0, -0.2)]   # per stitch: angle in degrees, offset across the seam in CSS px
-STITCH_SRC = 70                  # visible stitch length in source px (nominal)
-STITCH_CSS = 6.5                 # visible stitch length in CSS px
-GAP_CSS = 4
-THIN = 0.85                      # squash thread thickness (18 src px -> ~1.4 CSS px)
-S = STITCH_SRC / STITCH_CSS      # source px per CSS px
-PERIOD = (STITCH_CSS + GAP_CSS) * S
-MARGIN_CSS = 3                   # slice edge -> thread centre line
-SHAPES = {"lg": (9, 3), "md": (7, 1), "pill": (17, 1)}   # seam corner radius in CSS px, stitches per edge tile
-ROW_STITCHES = 3
+# --- felt
+# Felt for the web: fine, dense craft felt (like the sheets sold for crafts and the felt of Stilbag's bags), calm
+# at 1x, with single light fibres up close. Photos of real felt were the reference, not a template.
+# Band: [frequency, octaves, f(ractal)|t(urbulence), amplitude (negative: bright ridges), mean, bend, blur, gamma,
+# (cut frequency, kept share)]. The nap's ridges brighten like fibre tips; a second noise cuts them into single
+# fibres (no network of cells); a soft, blurred nap lies under the sharp one. Bases are calibrated so the tile
+# has the mean of the photo textures it replaced (calibrate_felt.py); contrast per scale matches them too
+# (sd at 3/8 px blur .013/.009).
+FELT = {
+    # grey around 50 %, soft-light on saturated colours
+    "felt": dict(base=0.4857, warp=('.035', 12), bands=[['.012', 2, 'f', 0.08],
+                 ['.05', 2, 'f', 0.06],
+                 ['.22 .32', 2, 't', -0.26, 0.6, 12, 0.25, 3, ('.3', 0.5)],
+                 ['.32 .22', 2, 't', -0.26, 0.6, 12, 0.25, 3, ('.3', 0.5)],
+                 ['.18', 2, 't', -0.08, 0.5, 10, 1.0, 2.5],
+                 ['.7', 1, 'f', 0.15, 0.5, 0, 0.45],
+                 ['.12', 2, 't', -0.1, 0.82, 18, 0.12, 6, ('.2', 0.3)]]),
+    # cream, multiply on light surfaces: the dark felt's recipe, quieter (fine light hairs over a slightly darker
+    # ground); a dense blurred nap or grain here reads as pores, like elephant skin
+    "felt-light": dict(base=0.9405, rgb=(1.0084, 1.0, 0.9772), warp=('.035', 12), bands=[['.012', 2, 'f', 0.034],
+                 ['.05', 2, 'f', 0.0255],
+                 ['.22 .32', 2, 't', -0.0647, 0.6, 5, 0.2, 3, ('.3', 0.5)],
+                 ['.32 .22', 2, 't', -0.0647, 0.6, 5, 0.2, 3, ('.3', 0.5)],
+                 ['.18', 2, 't', -0.0286, 0.5, 10, 1.0, 2.5],
+                 ['.7', 1, 'f', 0.0536, 0.5, 0, 0.45],
+                 ['.12', 2, 't', -0.17, 0.82, 14, 0.15, 6, ('.2', 0.25)]]),
+    # grey around 50 %, soft-light on charcoal: the colours' felt, a little quieter
+    "felt-dark": dict(base=0.4909, warp=('.035', 12), bands=[['.012', 2, 'f', 0.068],
+                 ['.05', 2, 'f', 0.051],
+                 ['.22 .32', 2, 't', -0.154, 0.6, 5, 0.25, 3, ('.3', 0.5)],
+                 ['.32 .22', 2, 't', -0.154, 0.6, 5, 0.25, 3, ('.3', 0.5)],
+                 ['.18', 2, 't', -0.068, 0.5, 10, 1.0, 2.5],
+                 ['.7', 1, 'f', 0.1275, 0.5, 0, 0.45],
+                 ['.12', 2, 't', -0.1, 0.82, 14, 0.15, 6, ('.2', 0.25)]]),
+}
+TILE, PAD = 256, 32
+SUB = f'x="0" y="0" width="{TILE}" height="{TILE}"'
+GREY = '<feColorMatrix values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1"/>'
 
+# --- seams (CSS px)
+# Modelled on professionally sewn felt (Stilbag bags): the thread is pulled taut into a pressed groove, tone on
+# tone, evenly spaced; its ends dive under the felt's fibres instead of stopping at a dot.
+MARGIN = 3            # slice edge -> thread centre line
+LEN, THICK = 7, 1.6   # stitch: about 2/3 of the period
+PERIOD = 10           # stitch + gap
+# seam radius, stitches per edge tile, groove and lip alpha (small pieces: a fainter groove, so stitch and gap read at 1x)
+SHAPES = {"lg": (9, 3, .1, 0), "md": (7, 1, .1, 0), "pill": (17, 1, .1, 0), "sq": (0, 1, .1, 0)}
+ROW = 3
+# a machine's small irregularities: per stitch length (±4 %), angle (±1°) and offset across the seam (±0.15 px);
+# every edge of a frame draws other stitches from the table, so even one-stitch tiles differ round the piece
+_r = random.Random(7)
+WOBBLE = [(1 + _r.uniform(-.04, .04), _r.uniform(-1, 1), _r.uniform(-.15, .15)) for _ in range(32)]
 
-def magick(*args):
-    subprocess.run(["magick", *map(str, args)], check=True)
-
-
-def textures():
-    src = RAW / "felt-neutral.png"
-    mean = float(subprocess.run(["magick", src, "-colorspace", "Gray", "-format", "%[fx:mean]", "info:"],
-                                check=True, capture_output=True, text=True).stdout)
-    out = OUT / "felt.webp"
-    magick(src, "-colorspace", "Gray", "-fx", f"(u-{mean})*1.5+0.5", "-resize", "256x256",
-           "-define", "webp:method=6", "-quality", "62", out)
-    print(f"{out.name}: {os.path.getsize(out)} bytes")
-    # light felt: a photo of cream felt, reduced to its fibre structure around a warm ~94 %
-    light_felt(RAW / "cream-a.png", OUT / "felt-light.webp")
-    # dark felt: the same cream fibres around 50 % grey, soft-light on charcoal surfaces
-    dark_felt(RAW / "cream-a.png", OUT / "felt-dark.webp")
-
-
-def read_rgb(src, size=1024):
-    with tempfile.TemporaryDirectory() as t:
-        raw = Path(t) / "c.rgb"
-        magick(src, "-endian", "MSB", "-depth", "16", f"rgb:{raw}")
-        return np.fromfile(raw, dtype=">u2").reshape(size, size, 3).astype(float) / 65535
-
-
-def light_felt(src, out, tile=512):
-    rgb = read_rgb(src)
-    ratio = rgb / rgb.mean(axis=(0, 1))                 # fibre structure, neutral on average
-    gain = 0.029 / (ratio.mean(-1).std())               # ~1.3 % fibre variation after downscaling
-    base = np.array([0.955, 0.945, 0.925])              # slightly warm, so multiply never greys
-    out_rgb = np.clip(base * (1 + gain * (ratio - 1)), 0, 1)
-    with tempfile.TemporaryDirectory() as t:
-        raw = Path(t) / "t.rgb"
-        (out_rgb * 65535).round().astype(">u2").tofile(raw)
-        magick("-size", "1024x1024", "-endian", "MSB", "-depth", "16", f"rgb:{raw}", "-resize", f"{tile}x{tile}",
-               "-define", "webp:method=6", "-quality", "70", out)
-    print(f"{out.name}: {os.path.getsize(out)} bytes")
-
-
-def dark_felt(src, out, tile=256):
-    rgb = read_rgb(src)
-    ratio = (rgb / rgb.mean(axis=(0, 1))).mean(-1)
-    grey = np.clip(0.5 + 0.051 * (ratio - 1) / ratio.std(), 0, 1)
-    with tempfile.TemporaryDirectory() as t:
-        raw = Path(t) / "t.gray"
-        (grey * 65535).round().astype(">u2").tofile(raw)
-        magick("-size", "1024x1024", "-endian", "MSB", "-depth", "16", f"gray:{raw}", "-resize", f"{tile}x{tile}",
-               "-define", "webp:method=6", "-quality", "60", out)
-    print(f"{out.name}: {os.path.getsize(out)} bytes")
+# twisted ply for dyed thread: diagonal ridges, multiplied into the dye
+THREAD = ('<svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 3 3"><rect width="3" height="3" fill="#fff"/>'
+          '<path d="M-1 1L1-1M0 3L3 0M2 4L4 2" stroke="#c4c4c4" stroke-width=".75"/></svg>')
 
 
-def make_sprites(tmp):
-    return [make_sprite(tmp, i, x0, x1) for i, (x0, x1) in enumerate(STITCHES)]
+def felt(bands, base=.5, rgb=None, seed=1, warp=(".02", 10)):
+    s = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{TILE}" height="{TILE}">'
+         f'<filter id="f" filterUnits="userSpaceOnUse" x="{-PAD}" y="{-PAD}" width="{TILE+2*PAD}" height="{TILE+2*PAD}" color-interpolation-filters="sRGB">'
+         f'<feTurbulence {SUB} type="fractalNoise" baseFrequency="{warp[0]}" numOctaves="2" seed="{seed+99}" stitchTiles="stitch"/><feTile result="w"/>'
+         f'<feFlood flood-color="rgb({base*255:.1f},{base*255:.1f},{base*255:.1f})" result="a"/>']
+    for i, (freq, oct, kind, amp, *opt) in enumerate(bands):
+        mean = opt[0] if opt else (.5 if kind == "f" else .25)
+        bend = opt[1] if len(opt) > 1 else 0
+        blur = opt[2] if len(opt) > 2 else 0
+        gamma = opt[3] if len(opt) > 3 else 0
+        cut = opt[4] if len(opt) > 4 else None   # (frequency, keep): cut the ridges into single fibres
+        # negative amplitude: invert the noise instead (bright ridges); amplitudes stay positive so alpha stays 1
+        grey = GREY if amp > 0 else '<feColorMatrix values="-1 0 0 0 1 -1 0 0 0 1 -1 0 0 0 1 0 0 0 0 1"/>'
+        if amp < 0: amp, mean = -amp, 1 - mean
+        s.append(f'<feTurbulence {SUB} type="{"fractalNoise" if kind == "f" else "turbulence"}" baseFrequency="{freq}" '
+                 f'numOctaves="{oct}" seed="{seed + 7 * i}" stitchTiles="stitch"/>{grey}'
+                 + (f'<feComponentTransfer><feFuncR type="gamma" exponent="{gamma}"/><feFuncG type="gamma" exponent="{gamma}"/><feFuncB type="gamma" exponent="{gamma}"/></feComponentTransfer>' if gamma else '')
+                 + '<feTile result="n"/>')
+        if bend:
+            s.append(f'<feDisplacementMap in2="w" scale="{bend}" xChannelSelector="R" yChannelSelector="G" in="n" result="n"/>')
+        if blur:   # soft fibres: a fuzz, not a hairline
+            s.append(f'<feGaussianBlur in="n" stdDeviation="{blur}" result="n"/>')
+        if cut:    # keep the band only where a second noise is high: n*m + mean*(1-m), m a soft threshold
+            f_, keep = cut
+            t = .5 + NormalDist().inv_cdf(1 - keep) * .12          # fractalNoise R: ~N(.5, .12)
+            ramp = f'type="linear" slope="10" intercept="{-10 * t:.3g}"'
+            s.append(f'<feTurbulence {SUB} type="fractalNoise" baseFrequency="{f_}" numOctaves="1" seed="{seed + 50 + i}" stitchTiles="stitch"/>'
+                     f'<feColorMatrix values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1"/>'
+                     f'<feComponentTransfer><feFuncR {ramp}/><feFuncG {ramp}/><feFuncB {ramp}/></feComponentTransfer>'
+                     f'<feTile result="m"/><feComposite in="n" in2="m" operator="arithmetic" k1="1" k3="{-mean:.3g}" k4="{mean:.3g}" result="n"/>')
+        s.append(f'<feComposite in="a" in2="n" operator="arithmetic" k2="1" k3="{amp:.4g}" k4="{-amp * mean:.3g}" result="a"/>')
+    if rgb:
+        s.append(f'<feColorMatrix values="{rgb[0]} 0 0 0 0 0 {rgb[1]} 0 0 0 0 0 {rgb[2]} 0 0 0 0 0 1 0"/>')
+    s.append(f'</filter><rect width="{TILE}" height="{TILE}" filter="url(#f)"/></svg>')
+    return "".join(s)
 
 
-def make_sprite(tmp, i, x0, x1):
-    c = dict(x=x0 - STITCH_PAD, y=STITCH_Y, w=x1 - x0 + 2 * STITCH_PAD, h=STITCH_H)
-    raw = tmp / f"sprite{i}.gray"
-    magick(RAW / "stitch-b.png", "-crop", f"{c['w']}x{c['h']}+{c['x']}+{c['y']}", "+repage",
-           "-colorspace", "Gray", "-depth", "8", f"gray:{raw}")
-    g = np.fromfile(raw, dtype=np.uint8).reshape(c["h"], c["w"]).astype(float) / 255
-    felt = np.median(np.concatenate([g[:3].ravel(), g[-3:].ravel()]))
-    d = g - felt
-    # keep only the thread: brighter than the felt by more than the fibre noise
-    alpha = np.clip((d - 0.06) / 0.10, 0, 1)
-    thread = g[alpha > 0.8].mean()
-    grey = np.clip(0.96 + 0.5 * (g - thread), 0, 1)   # near-white, twist at half contrast
-    rgba = np.stack([grey, grey, grey, alpha], -1)
-    out = tmp / f"sprite{i}.rgba"
-    (rgba * 255).round().astype(np.uint8).tofile(out)
-    png = tmp / f"sprite{i}.png"
-    magick("-size", f"{c['w']}x{c['h']}", "-depth", "8", f"rgba:{out}", png)
-    return dict(png=png, w=c["w"], h=c["h"], length=x1 - x0)
+def f(x):   # short numbers: one decimal, no trailing or leading zeros
+    v = f"{x:.1f}".rstrip("0").rstrip(".")
+    return "0" if v in ("", "-0") else v.replace("0.", ".", 1) if v.startswith(("0.", "-0.")) else v
 
 
-def place(sprite, x, y, angle, stretch=1.0):
-    cx, cy = sprite["w"] / 2, sprite["h"] / 2
-    return ["(", sprite["png"], "-virtual-pixel", "transparent", "+distort", "SRT",
-            f"{cx},{cy} {stretch},{THIN} {angle} {x:.2f},{y:.2f}", ")"]
+def defs():
+    h, l = THICK / 2, LEN / 2
+    # one stitch along x: a taut body that narrows where it enters the felt
+    stitch = (f'M{f(-l)} 0C{f(-l+.8)} {f(-h)} {f(-l+1.6)} {f(-h)} {f(-l+2.4)} {f(-h)}H{f(l-2.4)}'
+              f'C{f(l-1.6)} {f(-h)} {f(l-.8)} {f(-h)} {f(l)} 0C{f(l-.8)} {f(h)} {f(l-1.6)} {f(h)} {f(l-2.4)} {f(h)}'
+              f'H{f(-l+2.4)}C{f(-l+1.6)} {f(h)} {f(-l+.8)} {f(h)} {f(-l)} 0Z')
+    return ('<defs>'
+            # twisted ply: soft diagonal ridges at ~32° to the thread
+            '<pattern id="t" width="1.25" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-58)">'
+            '<rect width="1.25" height="4" fill="#fafafa"/><rect width=".5" height="4" fill="#e6e6e6"/></pattern>'
+            # where the needle went in, the felt dips: a soft dimple, not a dot
+            '<radialGradient id="h"><stop offset="0" stop-opacity=".16"/><stop offset="1" stop-opacity="0"/></radialGradient>'
+            f'<g id="s"><circle cx="{f(-l+.3)}" r=".9" fill="url(#h)"/><circle cx="{f(l-.3)}" r=".9" fill="url(#h)"/>'
+            f'<path d="{stitch}" fill="url(#t)"/>'
+            f'<rect x="{f(-l+1.8)}" y="{f(-h*.4)}" width="{f(LEN-3.6)}" height=".34" rx=".17" fill="#fff" opacity=".7"/>'
+            '</g>'
+            # light from above: a soft shadow below; the light edge on top comes from felt.css's --seam-relief
+            # (drawn in here, the seam filter darkens it on cream into a haze over the thread)
+            '<filter id="d" x="-20%" y="-30%" width="140%" height="160%">'
+            '<feGaussianBlur in="SourceAlpha" stdDeviation=".25"/><feOffset dy=".55"/>'
+            '<feComponentTransfer result="s"><feFuncA type="linear" slope=".25"/></feComponentTransfer>'
+            '<feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
+            '<filter id="g"><feGaussianBlur stdDeviation=".7"/></filter>'
+            '</defs>')
 
 
-def run_of(sprites, n):
-    """n stitches in a row: (sprite, centre along the run, angle wobble, offset across), and the run's length.
-    Each stitch keeps its own length; the gaps are equal, half a gap at either end of the run."""
-    gap, at, out = PERIOD - STITCH_SRC, 0.0, []
+def stitch(x, y, angle, k=0, scale=1.0):
+    lf, da, dy = WOBBLE[k % len(WOBBLE)]
+    s = lf * scale
+    rad = math.radians(angle)
+    x, y = x - dy * math.sin(rad), y + dy * math.cos(rad)
+    t = f"translate({f(x)} {f(y)})" + (f" rotate({f(angle + da)})" if f(angle + da) != "0" else "") + (f" scale({f(s)} 1)" if f(s) != "1" else "")
+    return f'<use href="#s" transform="{t}"/>'
+
+
+def svg(w, h, groove, stitches, ga=.14, la=.05):
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" '
+            f'width="{round(w * DPR)}" height="{round(h * DPR)}" viewBox="0 0 {f(w)} {f(h)}">{defs()}'
+            + (f'<path d="{groove}" fill="none" stroke="#fff" stroke-opacity="{str(la).lstrip("0")}" stroke-width="3.4" filter="url(#g)"/>' if la else '')
+            + f'<path d="{groove}" fill="none" stroke="#000" stroke-opacity="{str(ga).lstrip("0")}" stroke-width="2" filter="url(#g)"/>'
+            f'<g filter="url(#d)">{"".join(stitches)}</g></svg>')
+
+
+def arc_stitch(cx, cy, r, phi, length, k=0):
+    """A stitch bent along the corner's arc (centre angle phi, arc length `length`), so a curve stays a curve."""
+    lf = WOBBLE[k % len(WOBBLE)][0]
+    span = length * lf / r
+    h, n = THICK / 2, 6
+    pts_o, pts_i, mid = [], [], []
+    for i in range(n + 1):
+        t = i / n
+        a = phi - span / 2 + span * t
+        p = min(1.0, 1.15 * math.sin(math.pi * t) ** .5)       # plump body, ends taper into the felt
+        pts_o.append((cx + (r + h * p) * math.cos(a), cy + (r + h * p) * math.sin(a)))
+        pts_i.append((cx + (r - h * p) * math.cos(a), cy + (r - h * p) * math.sin(a)))
+        if .22 <= t <= .78: mid.append((cx + (r - h * .3) * math.cos(a), cy + (r - h * .3) * math.sin(a)))
+    body = "M" + "L".join(f"{f(x)} {f(y)}" for x, y in pts_o + pts_i[::-1]) + "Z"
+    hl = "M" + "L".join(f"{f(x)} {f(y)}" for x, y in mid)
+    ends = "".join(f'<circle cx="{f(x)}" cy="{f(y)}" r=".9" fill="url(#h)"/>' for x, y in (pts_o[0], pts_o[-1]))
+    return (f'{ends}<path d="{body}" fill="url(#t)"/>'
+            f'<path d="{hl}" fill="none" stroke="#fff" stroke-width=".32" stroke-linecap="round" opacity=".6"/>')
+
+
+def frame(radius, n, ga, la):
+    """A 9-slice seam frame: slice and border-image width are the margin plus the radius."""
+    m, r = MARGIN, radius
+    c = m + r
+    w = 2 * c + n * PERIOD
+    out = []
     for k in range(n):
-        sp = sprites[k % len(sprites)]
-        da, dy = WOBBLE[k % len(WOBBLE)] if n > 1 else (0, 0)
-        out.append((sp, at + gap / 2 + sp["length"] / 2, da, dy * S))
-        at += sp["length"] + gap
-    return out, at
-
-
-SHADOW = dict(dy=0.7, blur=0.35, alpha=0.3)   # soft drop shadow under the thread, CSS px
-GROOVE = dict(width=1.6, blur=0.8, alpha=0.12)  # the stitches pull the felt in a little, CSS px
-
-
-def render(layers, w, h, out, size, groove=None):
-    shadow = ["(", "+clone", "-fill", "black", "-colorize", "100",
-              "-channel", "A", "-blur", f"0x{SHADOW['blur'] * S:.1f}",
-              "-evaluate", "multiply", str(SHADOW["alpha"]), "+channel",
-              "-roll", f"+0+{round(SHADOW['dy'] * S)}", ")", "+swap"]
-    dent = []
-    if groove:
-        dent = ["(", "-size", f"{math.ceil(w)}x{math.ceil(h)}", "xc:none", "-fill", "none",
-                "-stroke", f"rgba(0,0,0,{GROOVE['alpha']})", "-strokewidth", f"{GROOVE['width'] * S:.1f}",
-                "-draw", groove, "-blur", f"0x{GROOVE['blur'] * S:.1f}", ")", "+swap"]
-    magick("-size", f"{math.ceil(w)}x{math.ceil(h)}", "xc:none", *layers,
-           "-background", "none", "-layers", "flatten", *shadow, "-flatten", *dent, "-flatten",
-           "-resize", f"{size[0]}x{size[1]}!", "-define", "webp:lossless=true", out)
-
-
-def frame(sprites, radius_css, name, stitches):
-    m, r, p = MARGIN_CSS * S, radius_css * S, PERIOD
-    c = m + r                     # corner slice size
-    run, length = run_of(sprites, stitches)
-    w = 2 * c + length            # one edge tile between the corners
-    layers = []
-    # straight edges, clockwise so the twist runs the same way all round
-    for sp, t, da, dy in run:
-        layers += place(sp, c + t, m + dy, da)
-        layers += place(sp, w - m - dy, c + t, 90 + da)
-        layers += place(sp, w - c - t, w - m - dy, 180 + da)
-        layers += place(sp, m + dy, w - c - t, 270 + da)
-    # corners: quarter arcs, stitches spread evenly, slice edges fall in the middle of a gap
+        t = c + (k + .5) * PERIOD
+        out += [stitch(t, m, 0, k), stitch(w - m, t, 90, k + 5), stitch(w - t, w - m, 180, k + 10), stitch(m, w - t, 270, k + 15)]
     arc = math.pi / 2 * r
-    n = max(1, round(arc / p))
+    na = max(1, round(arc / PERIOD * 1.3)) if r else 0   # a card's corner takes two shorter stitches, so it reads as a curve
     for j, ((cx, cy), start) in enumerate((((c, c), 180), ((w - c, c), 270), ((w - c, w - c), 0), ((c, w - c), 90))):
-        for k in range(n):
-            phi = math.radians(start + 90 * (k + 0.5) / n)
-            sp = sprites[(j + k) % stitches]
-            layers += place(sp, cx + r * math.cos(phi), cy + r * math.sin(phi),
-                            math.degrees(phi) + 90, min(1.0, arc / n / p))
-    size = round(w * DPR / S)
-    out = OUT / f"seam-{name}.webp"
-    render(layers, w, w, out, (size, size),
-           groove=f"roundrectangle {m:.1f},{m:.1f} {w - m:.1f},{w - m:.1f} {r:.1f},{r:.1f}")
-    slice_dev = round(c * DPR / S)
-    print(f"{out.name}: {os.path.getsize(out)} bytes")
-    return f"    --seam-{name}-slice: {slice_dev}; --seam-{name}-width: {slice_dev / DPR:g}px;"
+        for k in range(na):
+            phi = math.radians(start + 90 * (k + .5) / na)
+            out.append(arc_stitch(cx, cy, r, phi, LEN * min(1.0, arc / na / PERIOD), 20 + 3 * j + k))
+    if r:
+        groove = f"M{f(m)} {f(c)}A{f(r)} {f(r)} 0 0 1 {f(c)} {f(m)}H{f(w-c)}A{f(r)} {f(r)} 0 0 1 {f(w-m)} {f(c)}V{f(w-c)}A{f(r)} {f(r)} 0 0 1 {f(w-c)} {f(w-m)}H{f(c)}A{f(r)} {f(r)} 0 0 1 {f(m)} {f(w-c)}Z"
+    else:   # square corners: the stitches stop short of the corner, the groove turns sharply
+        groove = f"M{f(m)} {f(m)}H{f(w-m)}V{f(w-m)}H{f(m)}Z"
+    return svg(w, w, groove, out, ga, la), c
 
 
-def row(sprites):
-    h = MARGIN_CSS * 2 * S
-    run, length = run_of(sprites, ROW_STITCHES)
-    layers = []
-    for sp, t, da, dy in run:
-        layers += place(sp, t, h / 2 + dy, da)
-    out = OUT / "seam-row.webp"
-    size = (round(length * DPR / S), round(h * DPR / S))
-    render(layers, length, h, out, size, groove=f"line -10,{h / 2:.1f} {length + 10:.1f},{h / 2:.1f}")
-    print(f"{out.name}: {os.path.getsize(out)} bytes")
-    return f"    --seam-row-size: {size[0] / DPR:g}px {MARGIN_CSS * 2}px;"
-
-
-def column(sprites):
-    """The row stood upright (for .vr), drawn rather than rotated so the thread's shadow still falls down."""
-    w = MARGIN_CSS * 2 * S
-    run, length = run_of(sprites, ROW_STITCHES)
-    layers = []
-    for sp, t, da, dy in run:
-        layers += place(sp, w / 2 + dy, t, 90 + da)
-    out = OUT / "seam-col.webp"
-    size = (round(w * DPR / S), round(length * DPR / S))
-    render(layers, w, length, out, size, groove=f"line {w / 2:.1f},-10 {w / 2:.1f},{length + 10:.1f}")
-    print(f"{out.name}: {os.path.getsize(out)} bytes")
-    # stitches 4/5 as long as the row's, so a rule only 1em tall still shows two whole ones
-    return f"    --seam-col-size: {MARGIN_CSS * 2}px {size[1] / DPR * .8:g}px;"
+def row(vertical=False):
+    h, length = 2 * MARGIN, ROW * PERIOD
+    if vertical:
+        st = [stitch(MARGIN, (k + .5) * PERIOD, 90, k) for k in range(ROW)]
+        return svg(h, length, f"M{MARGIN} -10V{length + 10}", st)
+    st = [stitch((k + .5) * PERIOD, MARGIN, 0, k) for k in range(ROW)]
+    return svg(length, h, f"M-10 {MARGIN}H{length + 10}", st)
 
 
 def write_tokens(lines):
@@ -225,11 +225,25 @@ def write_tokens(lines):
     css.write_text(head + start + "\n" + "\n".join(lines) + "\n    " + end + tail)
 
 
-textures()
-with tempfile.TemporaryDirectory() as t:
-    sprites = make_sprites(Path(t))
-    tokens = [f"    --seam-margin: {MARGIN_CSS}px;"]
-    tokens += [frame(sprites, radius, name, n) for name, (radius, n) in SHAPES.items()]
-    tokens.append(row(sprites))
-    tokens.append(column(sprites))
+def write(name, text):
+    (OUT / name).write_text(text)
+    print(f"{name}: {len(text)} bytes")
+
+
+if __name__ == "__main__":
+    OUT.mkdir(exist_ok=True)
+    for name, kw in FELT.items():
+        write(f"{name}.svg", felt(**kw))
+    tokens = [f"    --seam-margin: {MARGIN}px;"]
+    for name, (r, n, ga, la) in SHAPES.items():
+        s, c = frame(r, n, ga, la)
+        write(f"seam-{name}.svg", s)
+        tokens.append(f"    --seam-{name}-slice: {c * DPR:g}; --seam-{name}-width: {c:g}px;")
+    write("seam-row.svg", row())
+    write("seam-col.svg", row(True))
+    write("thread.svg", THREAD)
+    length = ROW * PERIOD
+    tokens.append(f"    --seam-row-size: {length}px {2 * MARGIN}px;")
+    # .vr: stitches 4/5 as long as the row's, so a rule only 1em tall still shows two whole ones
+    tokens.append(f"    --seam-col-size: {2 * MARGIN}px {length * .8:g}px;")
     write_tokens(tokens)
