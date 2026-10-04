@@ -16,11 +16,14 @@ def felt(bands, base=.5, rgb=None, seed=1, warp=(".02", 10)):
         mean = opt[0] if opt else (.5 if kind == "f" else .25)
         bend = opt[1] if len(opt) > 1 else 0
         blur = opt[2] if len(opt) > 2 else 0
+        gamma = opt[3] if len(opt) > 3 else 0
         # negative amplitude: invert the noise instead (bright ridges); amplitudes stay positive so alpha stays 1
         grey = GREY if amp > 0 else '<feColorMatrix values="-1 0 0 0 1 -1 0 0 0 1 -1 0 0 0 1 0 0 0 0 1"/>'
         if amp < 0: amp, mean = -amp, 1 - mean
         s.append(f'<feTurbulence {SUB} type="{"fractalNoise" if kind == "f" else "turbulence"}" baseFrequency="{freq}" '
-                 f'numOctaves="{oct}" seed="{seed + 7 * i}" stitchTiles="stitch"/>{grey}<feTile result="n"/>')
+                 f'numOctaves="{oct}" seed="{seed + 7 * i}" stitchTiles="stitch"/>{grey}'
+                 + (f'<feComponentTransfer><feFuncR type="gamma" exponent="{gamma}"/><feFuncG type="gamma" exponent="{gamma}"/><feFuncB type="gamma" exponent="{gamma}"/></feComponentTransfer>' if gamma else '')
+                 + '<feTile result="n"/>')
         if bend:
             s.append(f'<feDisplacementMap in2="w" scale="{bend}" xChannelSelector="R" yChannelSelector="G" in="n" result="n"/>')
         if blur:   # soft fibres: a fuzz, not a hairline
