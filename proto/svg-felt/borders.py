@@ -10,10 +10,10 @@ border stays a plain coloured line, as today.
 COLOURS = {c: f"light-dark(var(--{c}), var(--{c}-text))" for c in ("primary", "secondary", "success", "danger", "warning", "info")}
 # neutral threads are not dyed fills: white/light and dark/black thread is the seam itself, lightened or darkened,
 # with its shadow (or light edge), so it still reads on felt of its own tone
-NEUTRAL = {"white": "brightness(1.25) drop-shadow(0 .6px .3px rgb(0 0 0 / .3))",
-           "light": "brightness(1.1) sepia(.15) drop-shadow(0 .6px .3px rgb(0 0 0 / .3))",
-           "dark": "brightness(.16) drop-shadow(0 -.5px 0 rgb(255 255 255 / .22))",
-           "black": "brightness(.06) drop-shadow(0 -.5px 0 rgb(255 255 255 / .22))"}
+NEUTRAL = {"white": "brightness(1.25) drop-shadow(0 0 .4px rgb(60 45 25 / .4)) drop-shadow(0 .8px .3px rgb(0 0 0 / .45))",
+           "light": "brightness(1.1) sepia(.15) drop-shadow(0 0 .4px rgb(60 45 25 / .4)) drop-shadow(0 .8px .3px rgb(0 0 0 / .45))",
+           "dark": "brightness(.1) drop-shadow(0 -.5px 0 rgb(255 255 255 / .3)) drop-shadow(0 .5px 0 rgb(255 255 255 / .12))",
+           "black": "brightness(.03) drop-shadow(0 -.5px 0 rgb(255 255 255 / .3)) drop-shadow(0 .5px 0 rgb(255 255 255 / .12))"}
 SUBTLE = ("primary", "secondary", "success", "danger", "warning", "info", "light", "dark")
 SEWN = (".card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu, "
         ".offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, "
