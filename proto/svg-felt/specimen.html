@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="de" data-look="felt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Filz-Specimen</title>
+<script>
+  // ?v=photo|svg  &theme=light|dark  — photo loads the library as is, svg the copy with SVG assets
+  const q = new URLSearchParams(location.search);
+  document.write(`<link rel="stylesheet" href="${q.get('v') === 'photo' ? '../../felt.css' : 'felt.css'}">`);
+  document.documentElement.dataset.bsTheme = q.get('theme') === 'dark' ? 'dark' : 'light';
+</script>
+<style>
+  body { padding: 24px; }
+  .row-c { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
+  .sw { width: 128px; height: 84px; border-radius: 12px; }
+  h6 { margin: 18px 0 8px; font-size: .75rem; letter-spacing: .05em; text-transform: uppercase; opacity: .6; }
+</style>
+</head>
+<body>
+<h6>Flächen: bg-* (Filz-Rezept 2) und Cremefilz</h6>
+<div class="row-c">
+  <div class="sw bg-primary"></div><div class="sw bg-secondary"></div><div class="sw bg-success"></div><div class="sw bg-danger"></div>
+  <div class="sw bg-warning"></div><div class="sw bg-info"></div><div class="sw bg-dark"></div><div class="sw bg-light"></div>
+</div>
+<h6>Buttons</h6>
+<div class="row-c">
+  <button class="btn btn-primary">Primary</button><button class="btn btn-secondary">Secondary</button><button class="btn btn-success">Success</button>
+  <button class="btn btn-danger">Danger</button><button class="btn btn-warning">Warning</button><button class="btn btn-info">Info</button>
+  <button class="btn btn-light">Light</button><button class="btn btn-dark">Dark</button>
+</div>
+<div class="row-c">
+  <button class="btn btn-outline-primary">Outline</button><button class="btn btn-outline-secondary">Outline</button><button class="btn btn-outline-success">Outline</button>
+  <button class="btn btn-outline-danger">Outline</button><button class="btn btn-outline-warning">Outline</button><button class="btn btn-outline-info">Outline</button>
+  <button class="btn btn-primary btn-sm">Klein</button><button class="btn btn-secondary btn-pill">Pille</button><button class="btn btn-success btn-lg">Groß</button>
+  <button class="btn btn-danger btn-icon" aria-label="Hinzufügen">＋</button><button class="btn btn-warning btn-sm btn-pill">Klein Pille</button>
+</div>
+<div class="row-c">
+  <div class="btn-group" role="group"><button class="btn btn-outline-primary">Tag</button><button class="btn btn-outline-primary active">Woche</button><button class="btn btn-outline-primary">Monat</button></div>
+  <div class="btn-group btn-group-sm" role="group"><button class="btn btn-secondary">Links</button><button class="btn btn-secondary">Mitte</button><button class="btn btn-secondary">Rechts</button></div>
+  <ul class="pagination mb-0"><li class="page-item"><a class="page-link" href="#">‹</a></li><li class="page-item active"><span class="page-link">1</span></li><li class="page-item"><a class="page-link" href="#">2</a></li><li class="page-item"><a class="page-link" href="#">3</a></li><li class="page-item"><a class="page-link" href="#">›</a></li></ul>
+  <span class="badge text-bg-primary">Badge</span><span class="badge rounded-pill text-bg-danger">12</span><span class="badge text-bg-warning">Neu</span>
+</div>
+<div class="row g-3">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header">Card-Header</div>
+      <div class="card-body"><h5 class="card-title">Wohnzimmer</h5><p class="card-text">Aufgenähte Karte mit Stichreihe unter dem Kopf und über dem Fuß.</p>
+        <hr><div class="d-flex align-items-center gap-2" style="height:1.5rem">Links <div class="vr"></div> Rechts</div></div>
+      <div class="card-footer">Footer</div>
+    </div>
+  </div>
+  <div class="col-4">
+    <ul class="list-group">
+      <li class="list-group-item active">Aktiver Eintrag</li><li class="list-group-item">Zweiter Eintrag</li><li class="list-group-item">Dritter Eintrag</li><li class="list-group-item">Vierter Eintrag</li>
+    </ul>
+    <div class="card text-bg-primary mt-3"><div class="card-body">Card text-bg-primary</div></div>
+  </div>
+  <div class="col-4">
+    <div class="alert alert-primary py-2">alert-primary</div><div class="alert alert-success py-2">alert-success</div>
+    <div class="alert alert-danger py-2">alert-danger</div><div class="alert alert-warning py-2">alert-warning</div>
+  </div>
+</div>
+<div class="row g-3 mt-0">
+  <div class="col-3"><div class="alert alert-secondary py-2 mb-0">alert-secondary</div></div>
+  <div class="col-3"><div class="alert alert-info py-2 mb-0">alert-info</div></div>
+  <div class="col-3"><div class="alert alert-light py-2 mb-0">alert-light</div></div>
+  <div class="col-3"><div class="alert alert-dark py-2 mb-0">alert-dark</div></div>
+</div>
+<div class="row-c mt-3">
+  <div class="progress flex-grow-1" style="height:1.25rem"><div class="progress-bar bg-success" style="width:70%">70 %</div></div>
+  <div class="progress flex-grow-1" style="height:1.25rem"><div class="progress-bar bg-warning" style="width:45%">45 %</div></div>
+</div>
+</body>
+</html>
