@@ -51,7 +51,7 @@ FELT = {
 # Modelled on professionally sewn felt (Stilbag bags): the thread is pulled taut into a pressed groove, tone on
 # tone, evenly spaced; its ends dive under the felt's fibres instead of stopping at a dot.
 MARGIN = 3            # slice edge -> thread centre line
-LEN, THICK = 7, 1.45  # stitch: about 2/3 of the period
+LEN, THICK = 7, 1.6  # stitch: about 2/3 of the period
 PERIOD = 10           # stitch + gap
 SHAPES = {"lg": (9, 3), "md": (7, 1), "pill": (17, 1)}   # seam radius, stitches per edge tile
 ROW = 3
@@ -68,13 +68,10 @@ def defs():
     stitch = (f'M{f(-l)} 0C{f(-l+.8)} {f(-h)} {f(-l+1.6)} {f(-h)} {f(-l+2.4)} {f(-h)}H{f(l-2.4)}'
               f'C{f(l-1.6)} {f(-h)} {f(l-.8)} {f(-h)} {f(l)} 0C{f(l-.8)} {f(h)} {f(l-1.6)} {f(h)} {f(l-2.4)} {f(h)}'
               f'H{f(-l+2.4)}C{f(-l+1.6)} {f(h)} {f(-l+.8)} {f(h)} {f(-l)} 0Z')
-    # a few strands standing off the thread
-    fuzz = (f'<path d="M{f(-1.2)} {f(-h+.1)}l-.5 -.7M{f(1.6)} {f(h-.1)}l.6 .6M{f(.2)} {f(-h+.1)}l.4 -.6" '
-            'stroke="#f3f3f3" stroke-width=".22" stroke-linecap="round" opacity=".2"/>')
     return ('<defs>'
             # twisted ply: soft diagonal ridges at ~32° to the thread
             '<pattern id="t" width="1.25" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-58)">'
-            '<rect width="1.25" height="4" fill="#f3f3f3"/><rect width=".5" height="4" fill="#e0e0e0"/></pattern>'
+            '<rect width="1.25" height="4" fill="#fafafa"/><rect width=".5" height="4" fill="#e6e6e6"/></pattern>'
             # the ends fade into the felt over ~0.6 px
             '<linearGradient id="e"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".09" stop-color="#fff"/>'
             '<stop offset=".91" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>'
@@ -83,13 +80,13 @@ def defs():
             '<radialGradient id="h"><stop offset="0" stop-opacity=".16"/><stop offset="1" stop-opacity="0"/></radialGradient>'
             f'<g id="s"><circle cx="{f(-l+.3)}" r=".9" fill="url(#h)"/><circle cx="{f(l-.3)}" r=".9" fill="url(#h)"/>'
             f'<path d="{stitch}" fill="url(#t)" mask="url(#m)"/>'
-            f'<rect x="{f(-l+1.8)}" y="{f(-h*.4)}" width="{f(LEN-3.6)}" height=".3" rx=".15" fill="#fff" opacity=".55"/>'
-            f'{fuzz}</g>'
+            f'<rect x="{f(-l+1.8)}" y="{f(-h*.4)}" width="{f(LEN-3.6)}" height=".34" rx=".17" fill="#fff" opacity=".7"/>'
+            '</g>'
             # light from above: a soft shadow below only, a faint light edge on top
             '<filter id="d" x="-20%" y="-30%" width="140%" height="160%">'
             '<feGaussianBlur in="SourceAlpha" stdDeviation=".3"/><feOffset dy=".6"/>'
             '<feComponentTransfer result="s"><feFuncA type="linear" slope=".25"/></feComponentTransfer>'
-            '<feFlood flood-color="#fff" flood-opacity=".18"/><feComposite in2="SourceAlpha" operator="in"/><feOffset dy="-.35"/>'
+            '<feFlood flood-color="#fff" flood-opacity=".22"/><feComposite in2="SourceAlpha" operator="in"/><feOffset dy="-.35"/>'
             '<feMerge><feMergeNode in="s"/><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
             '<filter id="g"><feGaussianBlur stdDeviation=".7"/></filter>'
             '</defs>')
@@ -105,9 +102,29 @@ def stitch(x, y, angle, k=0, scale=1.0):
 def svg(w, h, groove, stitches):
     return (f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
             f'width="{round(w * DPR)}" height="{round(h * DPR)}" viewBox="0 0 {f(w)} {f(h)}">{defs()}'
-            f'<path d="{groove}" fill="none" stroke="#fff" stroke-opacity=".09" stroke-width="3.8" filter="url(#g)"/>'
-            f'<path d="{groove}" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="2.4" filter="url(#g)"/>'
+            f'<path d="{groove}" fill="none" stroke="#fff" stroke-opacity=".05" stroke-width="3.4" filter="url(#g)"/>'
+            f'<path d="{groove}" fill="none" stroke="#000" stroke-opacity=".14" stroke-width="2" filter="url(#g)"/>'
             f'<g filter="url(#d)">{"".join(stitches)}</g></svg>')
+
+def arc_stitch(cx, cy, r, phi, length, k=0):
+    """A stitch bent along the corner's arc (centre angle phi, arc length `length`), so a curve stays a curve."""
+    lf = WOBBLE[k % len(WOBBLE)][0]
+    span = length * lf / r
+    h, n = THICK / 2, 6
+    pts_o, pts_i, mid = [], [], []
+    for i in range(n + 1):
+        t = i / n
+        a = phi - span / 2 + span * t
+        p = min(1.0, 1.15 * math.sin(math.pi * t) ** .5)       # plump body, ends taper into the felt
+        pts_o.append((cx + (r + h * p) * math.cos(a), cy + (r + h * p) * math.sin(a)))
+        pts_i.append((cx + (r - h * p) * math.cos(a), cy + (r - h * p) * math.sin(a)))
+        if .22 <= t <= .78: mid.append((cx + (r - h * .3) * math.cos(a), cy + (r - h * .3) * math.sin(a)))
+    g = lambda v: f"{v:.1f}".rstrip("0").rstrip(".")
+    body = "M" + "L".join(f"{g(x)} {g(y)}" for x, y in pts_o + pts_i[::-1]) + "Z"
+    hl = "M" + "L".join(f"{g(x)} {g(y)}" for x, y in mid)
+    ends = "".join(f'<circle cx="{f(x)}" cy="{f(y)}" r=".9" fill="url(#h)"/>' for x, y in (pts_o[0], pts_o[-1]))
+    return (f'{ends}<path d="{body}" fill="url(#t)"/>'
+            f'<path d="{hl}" fill="none" stroke="#fff" stroke-width=".32" stroke-linecap="round" opacity=".6"/>')
 
 def frame(radius, n):
     m, r = MARGIN, radius
@@ -122,8 +139,7 @@ def frame(radius, n):
     for j, ((cx, cy), start) in enumerate((((c, c), 180), ((w - c, c), 270), ((w - c, w - c), 0), ((c, w - c), 90))):
         for k in range(na):
             phi = math.radians(start + 90 * (k + .5) / na)
-            out.append(stitch(cx + r * math.cos(phi), cy + r * math.sin(phi), math.degrees(phi) + 90, 20 + 3 * j + k,
-                              min(1.0, arc / na / PERIOD)))
+            out.append(arc_stitch(cx, cy, r, phi, LEN * min(1.0, arc / na / PERIOD), 20 + 3 * j + k))
     groove = f"M{f(m)} {f(c)}A{f(r)} {f(r)} 0 0 1 {f(c)} {f(m)}H{f(w-c)}A{f(r)} {f(r)} 0 0 1 {f(w-m)} {f(c)}V{f(w-c)}A{f(r)} {f(r)} 0 0 1 {f(w-c)} {f(w-m)}H{f(c)}A{f(r)} {f(r)} 0 0 1 {f(m)} {f(w-c)}Z"
     return svg(w, w, groove, out), c * DPR
 

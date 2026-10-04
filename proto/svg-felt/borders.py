@@ -7,13 +7,15 @@ Coloured thread is a fill masked by the seam image (as felt.css already does for
 twist texture multiplied in, so it isn't a flat printed line. Without -webkit-mask-box-image (Firefox) the
 border stays a plain coloured line, as today.
 """
-COLOURS = {c: f"var(--{c})" for c in ("primary", "secondary", "success", "danger", "warning", "info")}
+COLOURS = {c: f"light-dark(var(--{c}), var(--{c}-text))" for c in ("primary", "secondary", "success", "danger", "warning", "info")}
 COLOURS |= {"light": "var(--light-fixed)", "dark": "var(--dark-fixed)", "black": "#000", "white": "#fff"}
 SUBTLE = ("primary", "secondary", "success", "danger", "warning", "info", "light", "dark")
 SEWN = (".card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu, "
         ".offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, "
         ".btn-light, [class*=\"btn-outline-\"]")
 NOT = "input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img"
+THICK = ".border-3, .border-4, .border-5"
+ONE = ".border-top, .border-bottom, .border-start, .border-end"
 SIDES = {"top": ("top", "row"), "bottom": ("bottom", "row"), "start": ("left", "col"), "end": ("right", "col")}
 F = ':where([data-look="felt"])'
 
@@ -24,7 +26,7 @@ def css():
     out = ["\n/* ---- prototype (proto/svg-felt/borders.py): .border-* in felt is the colour of the thread ---- */",
            # important in an earlier layer beats the utilities' !important
            "@layer base {\n  @supports (-webkit-mask-box-image: none) {",
-           f"    {F} :is({anyb}):not({NOT}) {{ border-color: transparent !important; }}",
+           f"    {F} :is({anyb}):not({NOT}, :is({ONE}):not(.border):is({THICK})) {{ border-color: transparent !important; }}",
            "  }\n}", "@layer felt {"]
     out += [f"  {F} .border-{c} {{ --thread: {v}; }}" for c, v in COLOURS.items()]
     out += [f"  {F} .border-{c}-subtle {{ --thread: var(--{c}-border-subtle); }}" for c in SUBTLE]
@@ -39,7 +41,7 @@ def css():
             "    mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: var(--seam-strength);",
             "  }"]
     for side, (phys, kind) in SIDES.items():
-        sel = f"{F} .border-{side}:not(.border, {SEWN}, {NOT})::after"
+        sel = f"{F} .border-{side}:not(.border, {SEWN}, {NOT}, {THICK})::after"
         if kind == "row":
             pos = f"left: 6px; right: 6px; {phys}: calc(3px - var(--seam-margin) - var(--bw, 1px)); height: calc(2 * var(--seam-margin));"
             img = 'url("img/seam-row.svg") left center / var(--seam-row-size) round no-repeat'
@@ -57,11 +59,34 @@ def css():
             "      -webkit-mask-box-image: var(--seam-img) var(--seam-slice) / var(--seam-width) round;",
             "      mix-blend-mode: normal; filter: none; opacity: calc(.85 * var(--border-opacity, 1));",
             "    }",
-            f"    {F} :is(.border-top, .border-bottom, .border-start, .border-end):not(.border, {SEWN}, {NOT}):is({cols})::after {{",
+            f"    {F} :is({ONE}):not(.border, {SEWN}, {NOT}, {THICK}):is({cols})::after {{",
             "      background: url(\"img/thread.svg\") 0 0 / 3px 3px, var(--thread); background-blend-mode: multiply;",
             "      -webkit-mask: var(--rule-img); mix-blend-mode: normal; filter: none; opacity: calc(.85 * var(--border-opacity, 1));",
             "    }",
-            "  }", "}"]
+            "  }"]
+    # a thick rule on one side (a quote's bar) is a strip of felt in that colour, laid in, not a thread
+    strip = {"start": "inset: 0 auto 0 calc(-1 * var(--bw)); width: var(--bw);", "end": "inset: 0 calc(-1 * var(--bw)) 0 auto; width: var(--bw);",
+             "top": "inset: calc(-1 * var(--bw)) 0 auto 0; height: var(--bw);", "bottom": "inset: auto 0 calc(-1 * var(--bw)) 0; height: var(--bw);"}
+    for side, pos in strip.items():
+        out.append(f"  {F} .border-{side}:not(.border, {SEWN}, {NOT}):is({THICK})::after {{ content: \"\"; position: absolute; {pos}"
+                   " pointer-events: none; background: var(--felt) 0 0 / var(--felt-size); mix-blend-mode: soft-light;"
+                   " box-shadow: inset 0 0 1px rgb(0 0 0 / .25); }")
+    # seam radius follows the piece: pills and round buttons get a stadium/circle concentric with their edge.
+    # The pill image (radius 17, margin 3, slice 20) is scaled by k = (h/2 - inset) / 17 for each button size,
+    # and the margin with it, so the thread keeps its distance from the edge. Heights are those of felt.css's sizes.
+    for sel, k in ((":is(.btn-sm, .btn-group-sm > .btn):is(.btn-pill, .rounded-pill)", .79),
+                   (".btn:is(.btn-pill, .rounded-pill):not(.btn-sm, .btn-lg, .btn-group-sm > .btn, .btn-group-lg > .btn)", .917),
+                   (":is(.btn-lg, .btn-group-lg > .btn):is(.btn-pill, .rounded-pill)", 1.178),
+                   (".btn-icon.btn-sm", 1.0)):   # round buttons are 44px at every size: the same seam as .btn-icon
+        out.append(f"  {F} {sel} {{ --seam-img: url(\"img/seam-pill.svg\"); --seam-slice: var(--seam-pill-slice); "
+                   f"--seam-width: {20 * k:.2f}px; --seam-margin: {3 * k:.2f}px;{' --seam-inset: 5px;' if 'icon' in sel else ''} }}")
+    # dark mode: the drawn thread is finer than the photographed one, so it needs a little more light to read at 1x
+    dark = ("--seam-filter: brightness(.74) sepia(.2) var(--seam-relief); --seam-strength: .58; --patch-seam-filter: brightness(.9); "
+            "--patch-seam-strength: .38;")
+    out += ["  @media (prefers-color-scheme: dark) {",
+            f"    :root[data-look=\"felt\"]:not([data-bs-theme=\"light\"]) {{ {dark} }}", "  }",
+            f"  :root[data-look=\"felt\"][data-bs-theme=\"dark\"], :root[data-look=\"felt\"] [data-bs-theme=\"dark\"] {{ {dark} }}"]
+    out.append("}")
     return "\n".join(out) + "\n"
 
 # twisted ply for coloured thread: diagonal ridges, multiplied into the dye
