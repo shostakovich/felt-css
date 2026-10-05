@@ -610,7 +610,7 @@
   .card-footer { border-top: 1px solid var(--border); margin-top: auto; }
   .card-header:first-child { border-radius: calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px) 0 0; }
   .card-footer:last-child { border-radius: 0 0 calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px); }
-  .card-body { padding: var(--space-4); }
+  .card-body { flex: 1 1 auto; padding: var(--space-4); }
   .card-title { font-size: 1.125rem; margin-bottom: var(--space-2); }
   .card-text { color: var(--muted); }
   :is([class*="text-bg-"], .card-img-overlay) .card-text { color: inherit; opacity: .85; }
