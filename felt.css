@@ -224,6 +224,9 @@
     /* the empty part of progress bars, ranges, the off switch and drawn tracks: one groove pressed into the felt, the
      * same shade on every surface (translucent, so the felt it lies in shows through) */
     --track: light-dark(rgb(90 70 40 / .16), rgb(0 0 0 / .36));
+    /* a groove's edges, inset: its shaded top wall and lit lower lip (progress, range, switch) */
+    --groove-shade: light-dark(rgb(70 50 20 / .16), rgb(0 0 0 / .45));
+    --groove-lip: light-dark(rgb(255 255 255 / .35), rgb(255 255 255 / .06));
     --felt-knob: light-dark(#fbf7ee, #e4dccd);
     --field-invalid: light-dark(#fdf3ee, #3a2823);
     --felt-cut: light-dark(#2a1a08, #000);
@@ -2567,8 +2570,9 @@
     :where(.bg-body-secondary, .bg-body-tertiary):not(.card, .navbar, .list-group-item, .accordion-item, .alert, .toast, .btn, .badge,
       .card-header, .card-footer, .modal-header, .modal-footer, input, select, textarea, .form-control, .form-select, table, tr, th, td,
       img, svg, video, canvas, picture) {
-    box-shadow: inset 0 1px 2px var(--felt-inset), inset 0 3px 6px -3px var(--felt-inset), inset 0 -1px 0 var(--felt-highlight), inset 0 0 0 999px var(--pocket-tint, transparent);
-    &.bg-body-tertiary { --pocket-tint: light-dark(rgb(90 70 40 / .07), rgb(0 0 0 / .14)); }
+    box-shadow: inset 0 1px 2px var(--felt-inset), inset 0 2px 3px light-dark(transparent, rgb(0 0 0 / .45)), inset 0 3px 6px -3px var(--felt-inset),
+      inset 0 -1px 0 light-dark(var(--felt-highlight), rgb(255 255 255 / .04)), inset 0 0 0 999px var(--pocket-tint, transparent);
+    &.bg-body-tertiary { --pocket-tint: light-dark(rgb(90 70 40 / .08), rgb(0 0 0 / .14)); }
   }
 
   /* --- recipe 2: patch (saturated felt, sewn on); solid bg-* fills get the same felt */
@@ -2966,7 +2970,7 @@
   /* --- progress: a groove pressed into the felt, the bar a patch laid in it */
   :where([data-look="felt"]) :is(.progress, .progress-stacked) {
     background-color: var(--track);
-    box-shadow: inset 0 1px 3px color-mix(in srgb, var(--felt-inset) 80%, transparent), inset 0 -1px 0 light-dark(rgb(255 255 255 / .35), rgb(255 240 220 / .08));
+    box-shadow: inset 0 1px 0 var(--groove-shade), inset 0 1px 3px color-mix(in srgb, var(--felt-inset) 80%, transparent), inset 0 -1px 0 var(--groove-lip);
   }
   :where([data-look="felt"]) .progress-bar {
     background-image: var(--felt), var(--patch-dome);
@@ -3096,7 +3100,7 @@
     background-image: var(--knob);
     background-size: 1.25rem 1.25rem;
     background-position: 1px center;
-    box-shadow: inset 0 1px 3px var(--felt-inset);   /* keeps the control outline, like the checkboxes */
+    box-shadow: inset 0 1px 0 var(--groove-shade), inset 0 1px 3px var(--felt-inset), inset 0 -1px 0 var(--groove-lip);   /* keeps the control outline, like the checkboxes */
   }
   :where([data-look="felt"]) .form-switch .form-check-input:checked {
     background-color: var(--primary);
@@ -3111,7 +3115,7 @@
   /* range: a felt groove (shaded at the top, lit at its lower lip, like the progress groove) with a patch as knob */
   :where([data-look="felt"]) .form-range {
     --range-track: var(--track);
-    --range-groove: inset 0 1px 2px color-mix(in srgb, var(--felt-inset) 75%, transparent), inset 0 -1px 0 light-dark(rgb(255 255 255 / .35), rgb(255 240 220 / .09));
+    --range-groove: inset 0 1px 0 var(--groove-shade), inset 0 1px 2px color-mix(in srgb, var(--felt-inset) 75%, transparent), inset 0 -1px 0 var(--groove-lip);
     --thumb-shadow: inset 0 1px 0 rgb(255 255 255 / .25), inset 0 -2px 3px rgb(0 0 0 / .2),
       0 0 0 1px color-mix(in oklab, var(--range-thumb, var(--primary)) 45%, var(--felt-cut)), 0 1px 1px color-mix(in oklab, var(--range-thumb, var(--primary)) 70%, #000), 0 3px 5px var(--felt-shadow-far);
   }
