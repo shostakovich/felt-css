@@ -1143,16 +1143,19 @@
   .badge.bg-info { --tone: var(--info); color: var(--info-ink); }
   .badge.bg-light { --tone: var(--light-fixed); color: var(--dark-fixed); }
   .badge.bg-dark { --tone: var(--dark-fixed); color: var(--light-fixed); }
-  /* extra, not in Bootstrap: a colour key (legend dot) in --dot-color, the text colour or a .text-bg-* fill. A fill
-   * that may match the surface (light, dark, secondary, a colour of its own) gets a rim towards the text colour; the
-   * saturated fills only a shade of their own (an outline: .text-bg-light owns the box-shadow) */
+  /* extra, not in Bootstrap: a colour key (legend dot) in --dot-color, the text colour or a .text-bg-* fill. Its rim is
+   * its own colour a shade darker; a fill that may match the surface (light; dark and secondary in the dark; a colour of
+   * its own) gets a neutral rim instead, and the light fill sits a step below the surface (an outline: .text-bg-light
+   * owns the box-shadow) */
   .badge-dot {
     --tone: var(--dot-color, currentColor);
+    --dot-rim: color-mix(in oklab, var(--tone) 65%, #000);
+    --dot-rim-neutral: light-dark(var(--border-strong), color-mix(in oklab, var(--border-strong), var(--text) 30%));
     width: .75rem; height: .75rem; padding: 0; border-radius: 50%; vertical-align: -.0625em;
-    outline: 1px solid color-mix(in oklab, var(--tone) 40%, var(--text)); outline-offset: -1px;
-  }
-  .badge-dot:is(.text-bg-primary, .text-bg-success, .text-bg-danger, .text-bg-warning, .text-bg-info) {
-    outline-color: color-mix(in oklab, var(--tone) 70%, light-dark(#000, #fff));
+    outline: .75px solid var(--dot-rim); outline-offset: -.75px;
+    &:not(.text-bg-primary, .text-bg-success, .text-bg-danger, .text-bg-warning, .text-bg-info, .text-bg-dark, .text-bg-secondary) { --dot-rim: var(--dot-rim-neutral); }
+    &:is(.text-bg-dark, .text-bg-secondary) { --dot-rim: light-dark(color-mix(in oklab, var(--tone) 65%, #000), var(--dot-rim-neutral)); }
+    &.text-bg-light { --light: light-dark(color-mix(in oklab, var(--surface) 95%, var(--muted)), color-mix(in oklab, var(--surface) 88%, var(--text))); }
   }
   .btn .badge { top: -1px; }
 
