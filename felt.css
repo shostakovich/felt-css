@@ -819,7 +819,8 @@
    * and gets a ring in the text colour (the focus ring while focused) */
   .btn-swatch { --tone: var(--swatch); border-color: color-mix(in oklab, var(--text) 15%, transparent); background-image: var(--swatch-image, none); background-origin: border-box; }
   .btn-check:checked + .btn-swatch { background-color: var(--tone); }
-  .btn-check:checked:not(:focus-visible) + .btn-swatch { outline: 2px solid var(--text); outline-offset: 2px; }
+  .btn-check:checked + .btn-swatch::before { content: ""; position: absolute; inset: -6px; border: 2px solid var(--text); border-radius: inherit; pointer-events: none; }
+  .btn-check:checked:focus-visible + .btn-swatch { outline-offset: 7px; }
 
   .btn-group, .btn-group-vertical { position: relative; display: inline-flex; vertical-align: middle; }
   .btn-group > .btn, .btn-group-vertical > .btn { position: relative; flex: 1 1 auto; }
@@ -2899,7 +2900,9 @@
     border: 0 solid transparent; border-image: var(--seam-img) var(--seam-slice) / var(--seam-width) round;
     filter: var(--seam-filter-ink);
   }
-  :where([data-look="felt"]) .btn-check:checked:not(:focus-visible) + .btn-swatch { outline: 0; }
+  /* disabled, the chosen ring fades with its patch; a dot fades with the label of a disabled button */
+  :where([data-look="felt"]) .btn-check:disabled:checked + .btn-swatch::before { opacity: .4; }
+  :where([data-look="felt"]) :is(.btn:disabled, .btn.disabled, .btn-check:disabled + .btn) .badge-dot { opacity: .45; }
   :where([data-look="felt"]) .page-link:hover { box-shadow: var(--groove-inset), inset 0 0 0 99px var(--surface-hover); }
   :where([data-look="felt"]) .page-link:active { box-shadow: var(--groove-inset), inset 0 0 0 99px var(--surface-pressed); }
 
@@ -3231,4 +3234,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .btn, .form-switch .form-check-input { transition: none; }
+}
+
+/* forced colours: a swatch keeps its colour (it is the content), and the chosen one a plain ring in the text colour */
+@media (forced-colors: active) {
+  .btn-swatch { forced-color-adjust: none; }
+  .btn-check:checked + .btn-swatch::before { border: 2px solid CanvasText; border-image: none; filter: none; opacity: 1; }
 }
