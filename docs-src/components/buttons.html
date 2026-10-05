@@ -126,7 +126,7 @@ description: Use custom button styles for actions in forms, dialogs, and more wi
 </example>
 
 <h2>Colour swatches</h2>
-<p>Another extra: <code>.btn-swatch</code> fills a button with the colour in <code>--swatch</code>. Round ones (<code>.btn-icon</code>) after <a href="../../forms/checks-radios/#toggle-buttons"><code>.btn-check</code></a> radios make a colour picker: the chosen swatch keeps its colour and gets a ring in the text colour (the focus ring takes its place while it has focus). Name each colour in the label, hidden with <code>.visually-hidden</code>.</p>
+<p>Another extra: <code>.btn-swatch</code> fills a button with the colour in <code>--swatch</code>. Round ones (<code>.btn-icon</code>) after <a href="../../forms/checks-radios/#toggle-buttons"><code>.btn-check</code></a> radios make a colour picker: the chosen swatch keeps its colour and gets a ring in the text colour (the focus ring takes its place while it has focus). A gradient, such as a colour wheel, goes in <code>--swatch-image</code>, over the colour. Name each colour in the label, hidden with <code>.visually-hidden</code>.</p>
 <example>
 <div class="d-flex flex-wrap gap-2" role="radiogroup" aria-label="Lamp colour">
   <input type="radio" class="btn-check" name="lamp-colour" id="lamp-warm" autocomplete="off" checked>
@@ -141,11 +141,13 @@ description: Use custom button styles for actions in forms, dialogs, and more wi
   <label class="btn btn-icon btn-swatch" for="lamp-blue" style="--swatch: #2f5fb3"><span class="visually-hidden">Blue</span></label>
   <input type="radio" class="btn-check" name="lamp-colour" id="lamp-purple" autocomplete="off">
   <label class="btn btn-icon btn-swatch" for="lamp-purple" style="--swatch: #7b3fa0"><span class="visually-hidden">Purple</span></label>
+  <input type="radio" class="btn-check" name="lamp-colour" id="lamp-any" autocomplete="off">
+  <label class="btn btn-icon btn-swatch" for="lamp-any" style="--swatch: #8a6fbf; --swatch-image: conic-gradient(#e0483b, #e8c13a, #4fae4a, #3aa8c9, #4f62c9, #b04fc0, #e0483b)"><span class="visually-hidden">Any colour</span></label>
 </div>
 </example>
 
 <div class="bd-callout bd-callout-felt">
-  <p>In the felt look a swatch is a patch of felt dyed in its colour and sewn on tone on tone, like the filled buttons. The chosen one is circled by a running stitch in the text's colour, sewn into the felt around it.</p>
+  <p>In the felt look a swatch is a patch of felt dyed in its colour and sewn on tone on tone, like the filled buttons. The chosen one is circled, a few millimetres off, by a running stitch in the text's colour, sewn into the felt around it.</p>
 </div>
 
 <h2>Icons and labels</h2>
