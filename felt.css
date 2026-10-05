@@ -2555,7 +2555,8 @@
     :where(.bg-body-secondary, .bg-body-tertiary):not(.card, .navbar, .list-group-item, .accordion-item, .alert, .toast, .btn, .badge,
       .card-header, .card-footer, .modal-header, .modal-footer, input, select, textarea, .form-control, .form-select, table, tr, th, td,
       img, svg, video, canvas, picture) {
-    box-shadow: inset 0 1px 2px var(--felt-inset), inset 0 3px 6px -3px var(--felt-inset), inset 0 0 1px color-mix(in srgb, var(--felt-inset) 70%, transparent), inset 0 -1px 0 var(--felt-highlight);
+    box-shadow: inset 0 1px 2px var(--felt-inset), inset 0 3px 6px -3px var(--felt-inset), inset 0 -1px 0 var(--felt-highlight), inset 0 0 0 999px var(--pocket-tint, transparent);
+    &.bg-body-tertiary { --pocket-tint: light-dark(rgb(90 70 40 / .07), rgb(0 0 0 / .14)); }
   }
 
   /* --- recipe 2: patch (saturated felt, sewn on); solid bg-* fills get the same felt */
