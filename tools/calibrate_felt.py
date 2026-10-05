@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Print the base each felt texture in build_assets.py needs, so the rendered tile has its target mean
-(grey felt 50 %, cream 94.6 %). Run it after changing FELT and paste the printed bases into FELT.
+(grey felt 50 %). Run it after changing FELT and paste the printed bases into FELT.
 
 Needs: python3, Node with Playwright (Chromium renders the SVG filters), ImageMagick (`convert`).
 """
@@ -10,7 +10,7 @@ from pathlib import Path
 
 from build_assets import FELT, felt
 
-TARGET = {"felt": .5, "felt-light": .946, "felt-dark": .5}
+TARGET = {"felt": .5}
 RENDER = """
 const { chromium } = require('playwright');
 (async () => {
