@@ -378,7 +378,8 @@
   :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
   /* felt: a border is thread (see the end of the felt layer), so the line itself turns transparent; it keeps its
    * width, so nothing moves when the look changes. !important here beats the utilities' !important. Browsers without
-   * -webkit-mask-box-image (Firefox) keep the plain coloured line. */
+   * -webkit-mask-box-image (Firefox) keep the plain coloured line. An element's own background image is laid out
+   * across the border too, or it would repeat into the strip that turned transparent. */
   @supports (-webkit-mask-box-image: none) {
     :where([data-look="felt"]) :is(.border, .border-top, .border-bottom, .border-start, .border-end,
       .border-primary, .border-secondary, .border-success, .border-danger, .border-warning, .border-info,
@@ -387,6 +388,7 @@
         input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img,
         :is(.border-top, .border-bottom, .border-start, .border-end):not(.border):is(.border-3, .border-4, .border-5)) {
       border-color: transparent !important;
+      background-origin: border-box !important;
     }
   }
 }
