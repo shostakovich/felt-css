@@ -22,6 +22,16 @@ description: Documentation and examples for opting images into responsive behavi
   <p>In the felt look, thumbnails, figure images and <code>img.rounded</code> lie on the felt like photos on a pin board: a hairline edge and a small shadow underneath.</p>
 </div>
 
+<h2>Icons</h2>
+<p>A felt-css extra: <code>.icon</code> puts an image of any shape into a square box, <code>2.25rem</code> by default, contained and never squeezed in a flex row. <code>.icon-sm</code> and <code>.icon-lg</code> make it <code>1.75rem</code> and <code>3.5rem</code>; for any other size set <code>--icon-size</code> on the icon or a parent.</p>
+
+<example>
+<img src="../../assets/plush/co2_good.webp" class="icon icon-sm" alt="">
+<img src="../../assets/plush/co2_good.webp" class="icon" alt="">
+<img src="../../assets/plush/co2_good.webp" class="icon icon-lg" alt="">
+<img src="../../assets/plush/co2_good.webp" class="icon" style="--icon-size: 5rem" alt="">
+</example>
+
 <h2>Aligning images</h2>
 <p>Align images with the <a href="../../utilities/float/">helper float classes</a> or <a href="../../utilities/text/#text-alignment">text alignment classes</a>. <code>block</code>-level images can be centered using <a href="../../utilities/spacing/#horizontal-centering">the <code>.mx-auto</code> margin utility class</a>.</p>
 

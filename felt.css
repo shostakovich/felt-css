@@ -2411,6 +2411,9 @@
   .ratio-1x1 { --ratio: 1 / 1; } .ratio-4x3 { --ratio: 4 / 3; } .ratio-16x9 { --ratio: 16 / 9; } .ratio-21x9 { --ratio: 21 / 9; }
   .img-fluid { max-width: 100%; height: auto; }
   .img-thumbnail { max-width: 100%; height: auto; padding: .25rem; background-color: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+  .icon { width: var(--icon-size, 2.25rem); height: var(--icon-size, 2.25rem); flex-shrink: 0; object-fit: contain; }
+  .icon-sm { --icon-size: 1.75rem; }
+  .icon-lg { --icon-size: 3.5rem; }
   .visually-hidden, .visually-hidden-focusable:not(:focus, :focus-within) { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
   .icon-link { display: inline-flex; gap: .375rem; align-items: center; text-decoration-color: color-mix(in srgb, currentcolor 50%, transparent); text-underline-offset: .25em; backface-visibility: hidden; }
   .icon-link > :is(svg, .bi) { flex-shrink: 0; width: 1em; height: 1em; fill: currentcolor; transition: transform .2s ease-in-out; }
