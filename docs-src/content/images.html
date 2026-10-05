@@ -9,7 +9,7 @@ description: Documentation and examples for opting images into responsive behavi
 <img src="../../../docs/sample-photo.webp" class="img-fluid" alt="Sample photo" width="600" height="400">
 </example>
 
-<p>felt-css's <a href="../reboot/#page-defaults">Reboot</a> already gives every <code>&lt;img&gt;</code> and <code>&lt;svg&gt;</code> <code>max-width: 100%</code> and every <code>&lt;img&gt;</code> <code>height: auto</code>, so images never overflow their parent and keep their aspect ratio, even with <code>width</code> and <code>height</code> attributes.</p>
+<p>felt-css's <a href="../reboot/#page-defaults">Reboot</a> already gives every <code>&lt;img&gt;</code> and <code>&lt;svg&gt;</code> <code>max-width: 100%</code>, but no <code>height: auto</code>: like in Bootstrap, the <code>width</code> and <code>height</code> attributes size the box, so use <code>.img-fluid</code> for images that should shrink with their parent.</p>
 
 <h2>Image thumbnails</h2>
 <p>In addition to the <a href="../../utilities/borders/">border-radius utilities</a>, you can use <code>.img-thumbnail</code> to give an image a rounded 1px border appearance.</p>
@@ -21,6 +21,16 @@ description: Documentation and examples for opting images into responsive behavi
 <div class="bd-callout bd-callout-felt">
   <p>In the felt look, thumbnails, figure images and <code>img.rounded</code> lie on the felt like photos on a pin board: a hairline edge and a small shadow underneath.</p>
 </div>
+
+<h2>Icons</h2>
+<p>A felt-css extra: <code>.icon</code> puts an image of any shape into a square box, <code>2.25rem</code> by default, contained and never squeezed in a flex row. <code>.icon-sm</code> and <code>.icon-lg</code> make it <code>1.75rem</code> and <code>3.5rem</code>; for any other size set <code>--icon-size</code> on the icon or a parent.</p>
+
+<example>
+<img src="../../assets/plush/co2_good.webp" class="icon icon-sm" alt="">
+<img src="../../assets/plush/co2_good.webp" class="icon" alt="">
+<img src="../../assets/plush/co2_good.webp" class="icon icon-lg" alt="">
+<img src="../../assets/plush/co2_good.webp" class="icon" style="--icon-size: 5rem" alt="">
+</example>
 
 <h2>Aligning images</h2>
 <p>Align images with the <a href="../../utilities/float/">helper float classes</a> or <a href="../../utilities/text/#text-alignment">text alignment classes</a>. <code>block</code>-level images can be centered using <a href="../../utilities/spacing/#horizontal-centering">the <code>.mx-auto</code> margin utility class</a>.</p>

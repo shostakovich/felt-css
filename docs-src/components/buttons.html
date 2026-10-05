@@ -148,6 +148,16 @@ description: Use custom button styles for actions in forms, dialogs, and more wi
   <p>In the felt look a swatch is a patch of felt dyed in its colour and sewn on tone on tone, like the filled buttons. The chosen one is circled by a running stitch in the text's colour, sewn into the felt around it.</p>
 </div>
 
+<h2>Icons and labels</h2>
+<p>A text label flows like Bootstrap's: <code>.btn</code> is an <code>inline-block</code>, so a label made of text and spans keeps its spaces. A button with a direct <code>&lt;svg&gt;</code>, <code>&lt;img&gt;</code>, <a href="../../content/images/#icons"><code>.icon</code></a>, <code>.bi</code>, badge or spinner child becomes an <code>inline-flex</code> row instead: icon and text centred, <code>.4em</code> apart, without spacing utilities.</p>
+<example>
+<button type="button" class="btn btn-primary">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 2a.75.75 0 0 1 .75.75v4.5h4.5a.75.75 0 0 1 0 1.5h-4.5v4.5a.75.75 0 0 1-1.5 0v-4.5h-4.5a.75.75 0 0 1 0-1.5h4.5v-4.5A.75.75 0 0 1 8 2"/></svg>
+  New entry
+</button>
+<button type="button" class="btn btn-outline-secondary">Last <span class="d-none d-sm-inline">seven</span> days</button>
+</example>
+
 <h2>Disabled state</h2>
 <p>Make buttons look inactive by adding the <code>disabled</code> boolean attribute to any <code>&lt;button&gt;</code> element. Disabled buttons have <code>pointer-events: none</code> applied to, preventing hover and active states from triggering.</p>
 <example>

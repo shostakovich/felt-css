@@ -9,7 +9,6 @@
   *, *::before, *::after { box-sizing: border-box; }
   body { margin: 0; }
   img, svg { max-width: 100%; vertical-align: middle; }
-  img { height: auto; }
   iframe { border: 0; }
   input, button, select, textarea { margin: 0; font: inherit; color: inherit; }
   button { cursor: pointer; }
@@ -622,22 +621,24 @@
   .card-footer { border-top: 1px solid var(--border); margin-top: auto; }
   .card-header:first-child { border-radius: calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px) 0 0; }
   .card-footer:last-child { border-radius: 0 0 calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px); }
-  .card-body { padding: var(--space-4); }
+  .card-body { flex: 1 1 auto; padding: var(--space-4); }
   .card-title { font-size: 1.125rem; margin-bottom: var(--space-2); }
   .card-text { color: var(--muted); }
   :is([class*="text-bg-"], .card-img-overlay) .card-text { color: inherit; opacity: .85; }
   .card-text:last-child { margin-bottom: 0; }
 
   /* stat / KPI */
-  .stat { margin: 0; display: flex; flex-direction: column; gap: .15rem; }
-  .stat-label { margin: 0; font-size: .8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; opacity: .75; }
-  .stat-value { margin: 0; font-size: 1.75rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  :where(.stat, .stat-label, .stat-value) { margin: 0; }   /* any element, and .col stat keeps the row gutter */
+  .stat { display: flex; flex-direction: column; gap: .15rem; }
+  .stat-label { font-size: .8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; opacity: .75; hyphens: auto; }
+  .stat-value { font-size: 1.75rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
 
   /* button */
   .btn {
     --tone: transparent;
     position: relative;
-    display: inline-flex; align-items: center; justify-content: center; gap: .4em;
+    display: inline-block; vertical-align: middle; text-align: center;
+    align-content: center; align-items: center; justify-content: center; gap: .4em;   /* label centred when stretched; the rest for flex */
     padding: .6rem 1.15rem;
     border: 1px solid transparent;
     border-radius: var(--radius);
@@ -650,8 +651,11 @@
     user-select: none;
     transition: transform .08s ease, box-shadow .12s ease, filter .12s ease, background-color .12s ease;
   }
+  /* plain labels stay inline text like Bootstrap's, so "Last <span>7</span> days" keeps its spaces; icons, badges,
+   * spinners and the dropdown caret sit in a centred row */
+  .btn:has(> svg, > img, > .icon, > .bi, > .badge, > .spinner-border, > .spinner-grow), .btn-icon, .btn.dropdown-toggle { display: inline-flex; }
   .btn:hover { background-color: color-mix(in oklab, var(--tone), var(--state-ink) var(--hover-mix)); }
-  .btn:active { transform: translateY(1px); background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
+  .btn:active { background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
   .btn:disabled, .btn.disabled { opacity: var(--disabled-opacity); pointer-events: none; }
 
   .btn-primary   { --tone: var(--primary);   color: var(--primary-ink);   border-color: transparent; }
@@ -671,7 +675,7 @@
   .btn-outline-success   { color: var(--success-emphasis); }
   .btn-outline-danger    { color: var(--danger-emphasis); }
   .btn-outline-warning   { color: var(--warning-emphasis); }
-  .btn.active { transform: translateY(1px); background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
+  .btn.active { background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
 
   .btn-sm { padding: .45rem .9rem; font-size: .875rem; }
   .btn-lg { padding: .8rem 1.5rem; font-size: 1.125rem; }
@@ -817,7 +821,7 @@
   .btn-check:checked:not(:focus-visible) + .btn-swatch { outline: 2px solid var(--text); outline-offset: 2px; }
 
   .btn-group, .btn-group-vertical { position: relative; display: inline-flex; vertical-align: middle; }
-  .btn-group > .btn, .btn-group-vertical > .btn { position: relative; flex: 1 1 auto; transform: none; }   /* pressed segments stay in line */
+  .btn-group > .btn, .btn-group-vertical > .btn { position: relative; flex: 1 1 auto; }
   .btn-group > .btn:is(:hover, :focus, .active), .btn-group-vertical > .btn:is(:hover, :focus, .active), :is(.btn-group, .btn-group-vertical) > .btn-check:checked + .btn { z-index: 1; }
   :is(.btn-group, .btn-group-vertical) > .btn-check:focus-visible + .btn { z-index: 2; }
   .btn-group > :not(.btn-check:first-child) + .btn, .btn-group > .btn-group:not(:first-child) { margin-left: -1px; }
@@ -998,12 +1002,12 @@
   .align-middle { vertical-align: middle !important; }
 
   /* progress */
-  .progress, .progress-stacked { display: flex; height: 1rem; overflow: hidden; border-radius: var(--radius-pill); background: var(--track); font-size: .75rem; }
+  .progress, .progress-stacked { display: flex; height: var(--progress-height, 1rem); overflow: hidden; border-radius: var(--radius-pill); background: var(--track); font-size: .75rem; }
   .progress-bar { display: flex; flex-direction: column; justify-content: center; overflow: hidden; background-color: var(--primary); color: var(--primary-ink); text-align: center; white-space: nowrap; transition: width .6s ease; }
   .progress > .progress-bar:only-child { border-radius: inherit; }
   .progress-bar.bg-warning { color: var(--warning-ink); }
   .progress-bar.bg-light { color: var(--light-ink); }
-  .progress-stacked > .progress { overflow: visible; border-radius: 0; }
+  .progress-stacked > .progress { height: 100%; overflow: visible; border-radius: 0; }
   .progress-stacked > .progress > .progress-bar { width: 100%; border-radius: 0; }
   .progress-stacked > .progress + .progress > .progress-bar { box-shadow: inset 1px 0 0 color-mix(in oklab, var(--surface) 70%, transparent); }
   .progress-bar-striped { background-image: linear-gradient(45deg, rgb(255 255 255 / .15) 25%, transparent 25%, transparent 50%, rgb(255 255 255 / .15) 50%, rgb(255 255 255 / .15) 75%, transparent 75%); background-size: 1rem 1rem; }
@@ -2431,6 +2435,9 @@
   .ratio-1x1 { --ratio: 1 / 1; } .ratio-4x3 { --ratio: 4 / 3; } .ratio-16x9 { --ratio: 16 / 9; } .ratio-21x9 { --ratio: 21 / 9; }
   .img-fluid { max-width: 100%; height: auto; }
   .img-thumbnail { max-width: 100%; height: auto; padding: .25rem; background-color: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+  .icon { width: var(--icon-size, 2.25rem); height: var(--icon-size, 2.25rem); flex-shrink: 0; object-fit: contain; }
+  .icon-sm { --icon-size: 1.75rem; }
+  .icon-lg { --icon-size: 3.5rem; }
   .visually-hidden, .visually-hidden-focusable:not(:focus, :focus-within) { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
   .icon-link { display: inline-flex; gap: .375rem; align-items: center; text-decoration-color: color-mix(in srgb, currentcolor 50%, transparent); text-underline-offset: .25em; backface-visibility: hidden; }
   .icon-link > :is(svg, .bi) { flex-shrink: 0; width: 1em; height: 1em; fill: currentcolor; transition: transform .2s ease-in-out; }
@@ -2690,7 +2697,7 @@
 
   /* --- buttons */
   :where([data-look="felt"]) :is(.btn:active, .btn.active, .btn-check:checked + .btn) { box-shadow: var(--shadow-patch-pressed); }
-  :where([data-look="felt"]) :is(.btn:active, .btn.active) { transform: translateY(1px); }
+  :where([data-look="felt"]) .btn:active { transform: translateY(1px); }   /* a press dents the felt; a chosen .active stays in line */
   /* felt is opaque: a disabled piece goes pale and flat instead of see-through */
   :where([data-look="felt"]) :is(.btn:disabled, .btn.disabled, .btn-check:disabled + .btn) {
     opacity: 1; filter: saturate(.6); box-shadow: var(--shadow-patch-pressed);
