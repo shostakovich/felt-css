@@ -2598,9 +2598,9 @@
   }
   :where([data-look="felt"]) :is(.btn-dark, .text-bg-dark) { box-shadow: var(--shadow-patch), 0 0 0 1px light-dark(transparent, rgb(255 240 220 / .14)); }
   /* neighbouring pieces are cut from different parts of the sheet, so their fibres don't repeat;
-   * only the felt moves, the dome (second layer) stays put on the piece */
-  :where([data-look="felt"]) :where(.card, .btn, .badge, .alert, [class*="text-bg-"]):where(:nth-child(2n)) { background-position: 97px 41px, 0 0; }
-  :where([data-look="felt"]) :where(.card, .btn, .badge, .alert, [class*="text-bg-"]):where(:nth-child(3n)) { background-position: 173px 118px, 0 0; }
+   * only the felt moves, the layers under it (a dome, a swatch's image) stay put on the piece */
+  :where([data-look="felt"]) :where(.card, .btn, .badge, .alert, [class*="text-bg-"]):where(:nth-child(2n)) { background-position: 97px 41px, 0 0, 0 0; }
+  :where([data-look="felt"]) :where(.card, .btn, .badge, .alert, [class*="text-bg-"]):where(:nth-child(3n)) { background-position: 173px 118px, 0 0, 0 0; }
 
   /* --- seams: a 9-slice image of thread, blended tone-on-tone into the felt.
    * Sewn: navbar, cards, list groups, accordions, modals, toasts, alerts and all filled/outline buttons;
