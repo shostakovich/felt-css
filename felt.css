@@ -626,7 +626,8 @@
   .btn {
     --tone: transparent;
     position: relative;
-    display: inline-flex; align-items: center; justify-content: center; gap: .4em;
+    display: inline-block; vertical-align: middle; text-align: center;
+    align-content: center; align-items: center; justify-content: center; gap: .4em;   /* label centred when stretched; the rest for flex */
     padding: .6rem 1.15rem;
     border: 1px solid transparent;
     border-radius: var(--radius);
@@ -639,6 +640,9 @@
     user-select: none;
     transition: transform .08s ease, box-shadow .12s ease, filter .12s ease, background-color .12s ease;
   }
+  /* plain labels stay inline text like Bootstrap's, so "Last <span>7</span> days" keeps its spaces; icons, badges,
+   * spinners and the dropdown caret sit in a centred row */
+  .btn:has(> svg, > img, > .icon, > .bi, > .badge, > .spinner-border, > .spinner-grow), .btn-icon, .btn.dropdown-toggle { display: inline-flex; }
   .btn:hover { background-color: color-mix(in oklab, var(--tone), var(--state-ink) var(--hover-mix)); }
   .btn:active { transform: translateY(1px); background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
   .btn:disabled, .btn.disabled { opacity: var(--disabled-opacity); pointer-events: none; }
