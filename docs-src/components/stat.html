@@ -150,8 +150,32 @@ description: Big-number KPI tiles for dashboards — a felt-css extra, not part 
 </div>
 </example>
 
+<h2>Long labels</h2>
+<p>Labels hyphenate instead of overflowing a narrow tile. Hyphenation needs the page's <code>lang</code>, and browsers without a dictionary for it (Chromium on Linux) or all-caps English words don't hyphenate, so add soft hyphens (<code>&amp;shy;</code>) to long compounds. <a href="../../utilities/text/#word-break"><code>.text-break</code></a> on the label breaks anywhere as a last resort.</p>
+
+<example>
+<div class="row row-cols-2 g-2" style="max-width: 20rem" lang="de">
+  <div class="col">
+    <div class="card">
+      <div class="card-body stat">
+        <span class="stat-label">Eigen&shy;verbrauchs&shy;quote</span>
+        <span class="stat-value fs-4">71 %</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-body stat">
+        <span class="stat-label">Batterie&shy;gesundheit</span>
+        <span class="stat-value fs-4">96 %</span>
+      </div>
+    </div>
+  </div>
+</div>
+</example>
+
 <h2>Semantic markup</h2>
-<p><code>.stat</code>, <code>.stat-label</code> and <code>.stat-value</code> reset their margins, so they work on any element. A description list ties each label to its value for assistive technologies, and extra lines like a trend fit underneath.</p>
+<p><code>.stat</code>, <code>.stat-label</code> and <code>.stat-value</code> reset their margins without specificity, so they work on any element and <code>.col.stat</code> keeps the row's gutter. A description list ties each label to its value for assistive technologies, and extra lines like a trend fit underneath.</p>
 
 <example>
 <div class="card text-bg-success" style="max-width: 16rem">
