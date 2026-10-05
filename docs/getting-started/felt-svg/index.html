@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Felt in SVG · felt-css</title>
+  <meta name="description" content="Sew your own SVG drawings — gauges, rings, chart bands — with the thread and felt of the components, taken from the same files.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" class="img-fluid" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../getting-started/felt-svg/">Felt in SVG</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Getting started</p>
+        <h1>Felt in SVG</h1>
+        <p class="lead">Sew your own SVG drawings — gauges, rings, chart bands — with the thread and felt of the components, taken from the same files.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/getting-started/felt-svg.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#example">Example</a></li><li><a href="#thread">Thread</a></li><li><a href="#felt">Felt</a></li><li><a href="#browsers">Browsers</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#example">Example</a></li><li><a href="#thread">Thread</a></li><li><a href="#felt">Felt</a></li><li><a href="#browsers">Browsers</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="example">Example<a class="bd-anchor" href="#example" aria-label="Link to this section">#</a></h2>
+<p>A gauge in a card. In the felt look its value is a felt patch sewn on with a seam down the middle and its track is pressed into the card; in the clean look both are plain strokes.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="card" style="max-width: 18rem">
+  <div class="card-header">CO₂</div>
+  <div class="card-body">
+    <div class="position-relative mx-auto" style="width: 200px">
+      <svg class="d-block" width="200" height="110" viewBox="0 0 200 110" aria-hidden="true">
+        <defs>
+          <pattern id="felt-gauge" width="256" height="256" patternUnits="userSpaceOnUse">
+            <image href="../../../img/felt.svg" width="256" height="256"/>
+          </pattern>
+          <filter id="gauge-blur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.5"/></filter>
+        </defs>
+        <g fill="none" stroke-width="16">
+          <path d="M24 96A76 76 0 0 1 176 96" style="stroke: var(--track)"/>
+          <path d="M24 96A76 76 0 0 1 138 30.2" class="felt-shadow" filter="url(#gauge-blur)"/>
+          <path d="M24 96A76 76 0 0 1 138 30.2" class="felt-edge" style="color: var(--primary)"/>
+          <path d="M24 96A76 76 0 0 1 138 30.2" style="stroke: var(--primary)"/>
+          <path d="M24 96A76 76 0 0 1 138 30.2" stroke="url(#felt-gauge)" class="felt-texture"/>
+        </g>
+      </svg>
+      <svg class="stitches stitches-patch" viewBox="0 0 200 110" aria-hidden="true">
+        <g transform="translate(100 96)">
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(-86.25) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(-78.75) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(-71.25) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(-63.75) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(-56.25) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(-48.75) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(-41.25) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(-33.75) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(-26.25) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(-18.75) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(-11.25) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(-3.75) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(3.75) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(11.25) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(18.75) translate(0 -76)"/>
+          <use href="../../../img/stitch.svg#stitch" transform="rotate(26.25) translate(0 -76)"/>
+        </g>
+      </svg>
+    </div>
+    <p class="text-center mb-0">812 ppm</p>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"max-width: 18rem"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-header"</span><span class="tok-punct">&gt;</span>CO₂<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-body"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"position-relative mx-auto"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 200px"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">svg</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"d-block"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"200"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"110"</span> <span class="tok-attr">viewBox</span><span class="tok-punct">=</span><span class="tok-val">"0 0 200 110"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">defs</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">pattern</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"felt-gauge"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"256"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"256"</span> <span class="tok-attr">patternUnits</span><span class="tok-punct">=</span><span class="tok-val">"userSpaceOnUse"</span><span class="tok-punct">&gt;</span>
+            <span class="tok-punct">&lt;</span><span class="tok-tag">image</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/felt.svg"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"256"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"256"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;/</span><span class="tok-tag">pattern</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">filter</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"gauge-blur"</span> <span class="tok-attr">x</span><span class="tok-punct">=</span><span class="tok-val">"-10%"</span> <span class="tok-attr">y</span><span class="tok-punct">=</span><span class="tok-val">"-10%"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"120%"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"120%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">feGaussianBlur</span> <span class="tok-attr">stdDeviation</span><span class="tok-punct">=</span><span class="tok-val">"1.5"</span><span class="tok-punct">/&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">filter</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">defs</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">g</span> <span class="tok-attr">fill</span><span class="tok-punct">=</span><span class="tok-val">"none"</span> <span class="tok-attr">stroke-width</span><span class="tok-punct">=</span><span class="tok-val">"16"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"M24 96A76 76 0 0 1 176 96"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"stroke: var(--track)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"M24 96A76 76 0 0 1 138 30.2"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"felt-shadow"</span> <span class="tok-attr">filter</span><span class="tok-punct">=</span><span class="tok-val">"url(#gauge-blur)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"M24 96A76 76 0 0 1 138 30.2"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"felt-edge"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"color: var(--primary)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"M24 96A76 76 0 0 1 138 30.2"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"stroke: var(--primary)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"M24 96A76 76 0 0 1 138 30.2"</span> <span class="tok-attr">stroke</span><span class="tok-punct">=</span><span class="tok-val">"url(#felt-gauge)"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"felt-texture"</span><span class="tok-punct">/&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">g</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">svg</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">svg</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"stitches stitches-patch"</span> <span class="tok-attr">viewBox</span><span class="tok-punct">=</span><span class="tok-val">"0 0 200 110"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">g</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"translate(100 96)"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(-86.25) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(-78.75) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(-71.25) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(-63.75) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(-56.25) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(-48.75) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(-41.25) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(-33.75) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(-26.25) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(-18.75) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(-11.25) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(-3.75) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(3.75) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(11.25) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(18.75) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">use</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"../../../img/stitch.svg#stitch"</span> <span class="tok-attr">transform</span><span class="tok-punct">=</span><span class="tok-val">"rotate(26.25) translate(0 -76)"</span><span class="tok-punct">/&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">g</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">svg</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"text-center mb-0"</span><span class="tok-punct">&gt;</span>812 ppm<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="thread">Thread<a class="bd-anchor" href="#thread" aria-label="Link to this section">#</a></h2>
+<p><code>img/stitch.svg#stitch</code> is one stitch of the seams, drawn along the x axis and centred on the origin. Place it with <code>&lt;use&gt;</code> and a transform; a seam is a row of them.</p>
+<div class="table-responsive">
+  <table class="table table-sm">
+    <thead><tr><th>Size</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Length</td><td><code>7px</code>, <code>--stitch-length</code></td></tr>
+      <tr><td>Pitch (stitch and gap)</td><td><code>10px</code>, <code>--stitch-pitch</code></td></tr>
+      <tr><td>Thickness</td><td><code>1.6px</code></td></tr>
+    </tbody>
+  </table>
+</div>
+<p>Sizes are in user units: keep one unit at one CSS pixel (<code>width</code> equal to the <code>viewBox</code> width) and the stitches match the seams around them. On an arc of radius <var>r</var> the pitch is an angle of <code>10 / r</code> radians; the gauge above has <code>r = 76</code> and a stitch every <code>7.5°</code>. Along any other path, measure it in script:</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> seam = <span class="tok-tag">document</span>.querySelector(<span class="tok-val">'#seam'</span>)   <span class="tok-com">// a path in the overlay: the line to sew along</span>
+<span class="tok-tag">const</span> pitch = 10                               <span class="tok-com">// --stitch-pitch</span>
+<span class="tok-tag">const</span> length = seam.getTotalLength()
+<span class="tok-tag">const</span> count = Math.round(length / pitch)
+<span class="tok-tag">for</span> (<span class="tok-tag">let</span> i = 0; i &lt; count; i++) {
+  <span class="tok-tag">const</span> at = (i + .5) * length / count
+  <span class="tok-tag">const</span> p = seam.getPointAtLength(at), a = seam.getPointAtLength(at - .5), b = seam.getPointAtLength(at + .5)
+  <span class="tok-tag">const</span> use = <span class="tok-tag">document</span>.createElementNS(<span class="tok-val">'http://www.w3.org/2000/svg'</span>, <span class="tok-val">'use'</span>)
+  use.setAttribute(<span class="tok-val">'href'</span>, <span class="tok-val">'img/stitch.svg#stitch'</span>)
+  use.setAttribute(<span class="tok-val">'transform'</span>, <span class="tok-val">`translate(${p.x} ${p.y}) rotate(${Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI})`</span>)
+  seam.before(use)
+}</code></pre></div>
+<p>The stitch is near-white thread, like the seam images. Put the stitches in an <code>&lt;svg class="stitches"&gt;</code> of their own, laid over the drawing with the same <code>viewBox</code> inside a <code>.position-relative</code> wrapper. In the felt look the overlay casts the seams' shadow down the page (<code>--stitch-shadow</code>) and is tinted with their <code>--seam-filter</code> and <code>--seam-strength</code>, so the thread is a tone of the felt underneath and follows the theme; add <code>.stitches-patch</code> when the stitches lie on a coloured patch, for the patches' lighter thread. In the clean look the overlay is hidden.</p>
+
+<h2 id="felt">Felt<a class="bd-anchor" href="#felt" aria-label="Link to this section">#</a></h2>
+<p>Coloured shapes are patches: the grey felt <code>img/felt.svg</code>, tiled at <code>--felt-size</code> (<code>256px</code>) and blended <code>soft-light</code> onto the colour. In SVG, define it as a pattern and lay a copy of the shape over the coloured one with <code>.felt-texture</code>, which blends it in the felt look and hides it in the clean look:</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">pattern</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"felt"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"256"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"256"</span> <span class="tok-attr">patternUnits</span><span class="tok-punct">=</span><span class="tok-val">"userSpaceOnUse"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">image</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"img/felt.svg"</span> <span class="tok-attr">width</span><span class="tok-punct">=</span><span class="tok-val">"256"</span> <span class="tok-attr">height</span><span class="tok-punct">=</span><span class="tok-val">"256"</span><span class="tok-punct">/&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">pattern</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"…"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"felt-shadow"</span> <span class="tok-attr">filter</span><span class="tok-punct">=</span><span class="tok-val">"url(#blur)"</span><span class="tok-punct">/&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"…"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"felt-edge"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"color: var(--primary)"</span><span class="tok-punct">/&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"…"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"stroke: var(--primary)"</span><span class="tok-punct">/&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"…"</span> <span class="tok-attr">stroke</span><span class="tok-punct">=</span><span class="tok-val">"url(#felt)"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"felt-texture"</span><span class="tok-punct">/&gt;</span></code></pre></div>
+<p>A patch lies on the felt with a cut edge and a soft shadow, as buttons and badges do: put copies of the shape under it, one with <code>.felt-shadow</code> (blurred by an SVG <code>&lt;filter&gt;</code> with <code>feGaussianBlur</code>) and one with <code>.felt-edge</code>, coloured with <code>color</code>. In the felt look they are drawn a little lower, the edge in a darker tone of that colour; in the clean look they are hidden.</p>
+<p>The cream and charcoal sheet that the page and cards are cut from is a photo per theme (<code>--sheet</code>, <code>--sheet-blend</code>). Rather than painting it, leave such shapes transparent or shade them with <code>--track</code>, like the gauge's track (the same groove as the empty part of progress bars and ranges), and the sheet underneath shows through. As a fill it is <code>img/felt-light.webp</code> blended <code>multiply</code> in light mode and <code>img/felt-dark.webp</code> blended <code>soft-light</code> in dark mode, both tiled at <code>256px</code>.</p>
+
+<h2 id="browsers">Browsers<a class="bd-anchor" href="#browsers" aria-label="Link to this section">#</a></h2>
+<ul>
+  <li><strong>Keep the pattern inline.</strong> Safari ignores paint servers from another file (<code>fill="url(file.svg#id)"</code>), and Chrome draws no images inside one.</li>
+  <li><strong>Thread in its own <code>&lt;svg&gt;</code>.</strong> Safari ignores CSS <code>filter</code> on elements inside an SVG, so the tint sits on the overlay's <code>&lt;svg&gt;</code> element.</li>
+  <li><strong>Same origin.</strong> <code>&lt;use&gt;</code> loads <code>stitch.svg</code> from the page's own origin only. The file has no internal references, which Safari doesn't resolve in a used file.</li>
+</ul>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../getting-started/looks/"><small>Previous</small>Felt and clean</a><a class="bd-pager-next" href="../../getting-started/color-modes/"><small>Next</small>Color modes</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" class="img-fluid" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. felt-css itself is public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted and trimmed from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by The Bootstrap Authors.
+            That text stays under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>, its example code
+            and icons under the <a href="../../LICENSE-bootstrap.txt">MIT License</a>.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>, © Robert Curth,
+            all rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>
