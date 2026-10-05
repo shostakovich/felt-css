@@ -92,7 +92,7 @@
     --hover-mix: 8%;   /* the most the success fill takes in dark mode before white ink drops below 4.5:1 */
     --active-mix: 14%;
     --select-mix: 18%;   /* a neutral button pressed or chosen: a clear step past its hover */
-    /* the empty part of progress bars */
+    /* the empty part of progress bars and ranges (Bootstrap: secondary-bg for both) */
     --track: light-dark(#e3e7ec, #3a4047);
     /* what floats above the page (menus, popovers, modals, offcanvas): never darker than what it lies on */
     --surface-overlay: light-dark(#fff, #343a40);
@@ -1222,7 +1222,7 @@
   /* forms: range. The filled part is --fill (default 0%): set it inline or from JS,
    * e.g. el.style.setProperty("--fill", (el.value - el.min) / (el.max - el.min) * 100 + "%").
    * The thumb and the fill are --range-thumb (default primary), e.g. a neutral one on a track that carries the meaning itself */
-  .form-range { --fill: 0%; --thumb-shadow: 0 0 0 1px var(--border-strong), var(--shadow); --range-track: light-dark(color-mix(in oklab, var(--text) 12%, var(--surface-sunk)), color-mix(in oklab, var(--text) 16%, var(--surface))); display: block; width: 100%; height: 1.5rem; padding: 0; background: none; appearance: none; }
+  .form-range { --fill: 0%; --thumb-shadow: 0 0 0 1px var(--border-strong), var(--shadow); --range-track: var(--track); display: block; width: 100%; height: 1.5rem; padding: 0; background: none; appearance: none; }
   .form-range:focus-visible { outline: 0; }
   .form-range::-webkit-slider-runnable-track {
     height: .5rem; border-radius: var(--radius-pill);
