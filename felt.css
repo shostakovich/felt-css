@@ -2422,6 +2422,10 @@
   .vr { display: inline-block; align-self: stretch; width: 1px; min-height: 1em; background-color: currentcolor; opacity: .25; }
   .focus-ring:focus { outline: 0 !important; box-shadow: var(--focus-ring-x, 0) var(--focus-ring-y, 0) var(--focus-ring-blur, 0) var(--focus-ring-width, .25rem) var(--focus-ring-color, var(--focus)) !important; }
   .stretched-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  /* felt in SVG: an <svg class="stitches"> laid over a drawing holds its thread (img/stitch.svg#stitch), shapes with
+   * .felt-texture carry the felt; both show only in the felt look. .stitches-patch: thread for a coloured patch */
+  .stitches { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .stitches, .felt-texture { visibility: hidden; }
 }
 
 /* ----------------------------------------------------------------- felt
@@ -2643,6 +2647,10 @@
   :where([data-look="felt"]) :where(.vr)::before { top: 0; bottom: 0; left: calc(.5px - var(--seam-margin)); width: calc(2 * var(--seam-margin)); }
   /* with border utilities an hr is a plain line again */
   :where([data-look="felt"]) :where(hr[class*="border"])::before { content: none; }
+  /* SVG drawings: thread tinted like the seams of the piece it lies on, felt blended like a patch */
+  :where([data-look="felt"]) .stitches { visibility: visible; mix-blend-mode: hard-light; filter: var(--stitch-shadow) var(--seam-filter); opacity: var(--seam-strength); }
+  :where([data-look="felt"]) .stitches-patch { --seam-filter: var(--patch-seam-filter); --seam-strength: var(--patch-seam-strength); }
+  :where([data-look="felt"]) .felt-texture { visibility: visible; mix-blend-mode: soft-light; }
   :where([data-look="felt"]) .toast { --seam-inset: 5px; }
   :where([data-look="felt"]) .toast-header::after { left: 11px; right: 11px; }
   /* a flush list on the page runs edge to edge; in a card its rows stop at the card's seam like the header's */
