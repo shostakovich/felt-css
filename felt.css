@@ -264,6 +264,8 @@
     --rule-strength: .4; --rule-blend: multiply; --rule-in-piece: .44;
     /* the lightest felt (cream pieces) takes a somewhat darker thread; in the dark it is the plain seam */
     --seam-filter-cream: brightness(.4) sepia(.45) var(--seam-relief);
+    /* thread in the ink's tone, for a mark sewn into any felt (a chosen swatch's ring): dark here, light in the dark */
+    --seam-filter-ink: brightness(.22) sepia(.35) drop-shadow(0 .5px 0 rgb(255 255 255 / .3));
     --disabled-tone: 50%; --disabled-ink: 68%;
     --tip-felt: var(--felt); --tip-blend: soft-light;
     --select-chevron: var(--chevron-felt);
@@ -278,6 +280,7 @@
       --sheet: var(--felt-dark); --sheet-blend: soft-light;
       --seam-relief: drop-shadow(0 1px 0 rgb(0 0 0 / .7)) drop-shadow(0 -.5px 0 rgb(255 240 220 / .12)); --seam-filter: brightness(.67) sepia(.22) var(--seam-relief); --seam-strength: .52; --seam-row-strength: .58; --rule-strength: .4; --rule-blend: hard-light; --rule-in-piece: .4; --seam-filter-cream: brightness(.4) sepia(.45) var(--seam-relief);
       --patch-seam-filter: brightness(.9); --patch-seam-strength: .38;
+      --seam-filter-ink: brightness(.92) sepia(.15) drop-shadow(0 1px 0 rgb(0 0 0 / .7)) drop-shadow(0 -.5px 0 rgb(255 240 220 / .12));
       --tip-felt: var(--felt-light); --tip-blend: multiply;
       --disabled-tone: 35%; --disabled-ink: 80%;
       --page-veil: color-mix(in srgb, var(--body-bg) 30%, transparent);
@@ -289,6 +292,7 @@
     --sheet: var(--felt-dark); --sheet-blend: soft-light;
     --seam-relief: drop-shadow(0 1px 0 rgb(0 0 0 / .7)) drop-shadow(0 -.5px 0 rgb(255 240 220 / .12)); --seam-filter: brightness(.67) sepia(.22) var(--seam-relief); --seam-strength: .52; --seam-row-strength: .58; --rule-strength: .4; --rule-blend: hard-light; --rule-in-piece: .4; --seam-filter-cream: brightness(.4) sepia(.45) var(--seam-relief);
     --patch-seam-filter: brightness(.9); --patch-seam-strength: .38;
+    --seam-filter-ink: brightness(.92) sepia(.15) drop-shadow(0 1px 0 rgb(0 0 0 / .7)) drop-shadow(0 -.5px 0 rgb(255 240 220 / .12));
     --tip-felt: var(--felt-light); --tip-blend: multiply;
     --disabled-tone: 35%; --disabled-ink: 80%;
     --page-veil: color-mix(in srgb, var(--body-bg) 30%, transparent);
@@ -299,6 +303,7 @@
     --sheet: var(--felt-light); --sheet-blend: multiply;
     --seam-relief: drop-shadow(0 .5px 0 rgb(255 255 255 / .3)); --seam-filter: brightness(.42) sepia(.3) var(--seam-relief); --seam-strength: .72; --seam-row-strength: .58; --rule-strength: .4; --rule-blend: multiply; --rule-in-piece: .44;
     --seam-filter-cream: brightness(.4) sepia(.45) var(--seam-relief);
+    --seam-filter-ink: brightness(.22) sepia(.35) drop-shadow(0 .5px 0 rgb(255 255 255 / .3));
     --tip-felt: var(--felt); --tip-blend: soft-light;
     --disabled-tone: 50%; --disabled-ink: 68%; --page-veil: transparent;
     --patch-seam-filter: brightness(1); --patch-seam-strength: .55;
@@ -801,6 +806,11 @@
   .btn-light:is(:active, .active, .btn-check:checked + *) { background-color: color-mix(in oklab, var(--tone), var(--state-ink) var(--select-mix)); }
   :is(.btn:not([class*="btn-"]), .btn-link):is(.active, .btn-check:checked + *) { background-color: var(--surface-pressed); }
   .btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, .show) { background-color: var(--fill); border-color: var(--fill); color: var(--ink); }
+  /* extra, not in Bootstrap: a colour swatch, filled with --swatch; chosen (a .btn-check before it), it keeps its colour
+   * and gets a ring in the text colour (the focus ring while focused) */
+  .btn-swatch { --tone: var(--swatch); border-color: color-mix(in oklab, var(--text) 15%, transparent); }
+  .btn-check:checked + .btn-swatch { background-color: var(--tone); }
+  .btn-check:checked:not(:focus-visible) + .btn-swatch { outline: 2px solid var(--text); outline-offset: 2px; }
 
   .btn-group, .btn-group-vertical { position: relative; display: inline-flex; vertical-align: middle; }
   .btn-group > .btn, .btn-group-vertical > .btn { position: relative; flex: 1 1 auto; transform: none; }   /* pressed segments stay in line */
@@ -1120,6 +1130,8 @@
   .badge.bg-info { --tone: var(--info); color: var(--info-ink); }
   .badge.bg-light { --tone: var(--light-fixed); color: var(--dark-fixed); }
   .badge.bg-dark { --tone: var(--dark-fixed); color: var(--light-fixed); }
+  /* extra, not in Bootstrap: a colour key (legend dot) in --dot-color, the text colour or a .text-bg-* fill */
+  .badge-dot { --tone: var(--dot-color, currentColor); width: .75rem; height: .75rem; padding: 0; border-radius: 50%; vertical-align: -.0625em; }
   .btn .badge { top: -1px; }
 
   /* card extras */
@@ -2576,7 +2588,7 @@
    * radius − inset. */
   :where([data-look="felt"]) :where(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link,
     .dropdown-menu, .offcanvas, .popover,
-    .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, [class*="btn-outline-"])::after {
+    .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-swatch, [class*="btn-outline-"])::after {
     content: "";
     position: absolute;
     z-index: 3;
@@ -2680,13 +2692,13 @@
     &::after { opacity: calc(var(--seam-strength) * .5); }
   }
   /* buttons without a piece of felt (plain, link) stay flat in every state */
-  :where([data-look="felt"]) :where(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-link, [class*="btn-outline-"]), .btn-link) { background: none; box-shadow: none; }
+  :where([data-look="felt"]) :where(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-swatch, .btn-link, [class*="btn-outline-"]), .btn-link) { background: none; box-shadow: none; }
   /* the felt layer outranks the components, so the chosen nav item is left out or it would lose its fill */
-  :where([data-look="felt"]) :is(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-link, [class*="btn-outline-"]), .btn-link, .nav-link:not(.active, [aria-current="page"]), .accordion-button) {
+  :where([data-look="felt"]) :is(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-swatch, .btn-link, [class*="btn-outline-"]), .btn-link, .nav-link:not(.active, [aria-current="page"]), .accordion-button) {
     &:hover { background-color: var(--surface-hover); }
     &:active { background-color: var(--surface-pressed); }
   }
-  :where([data-look="felt"]) :is(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-link, [class*="btn-outline-"]), .btn-link) {
+  :where([data-look="felt"]) :is(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-swatch, .btn-link, [class*="btn-outline-"]), .btn-link) {
     &:is(:active, .active, .btn-check:checked + *) { background-color: var(--surface-pressed); box-shadow: inset 0 1px 2px var(--felt-inset-field); }
     &:is(:disabled, .disabled, .btn-check:disabled:not(:checked) + *) { filter: none; background: none; box-shadow: none; color: var(--subtle-text); }
   }
@@ -2838,6 +2850,27 @@
     box-shadow: inset 0 -1px 2px rgb(0 0 0 / .14), 0 1px 0 var(--felt-edge), 0 2px 3px var(--felt-shadow-near);
   }
   :where([data-look="felt"]) .badge.border { background-color: var(--surface-raised); }
+  :where([data-look="felt"]) .badge-dot { background-image: var(--felt); background-size: var(--felt-size); background-blend-mode: soft-light; }
+  /* a swatch is a patch of felt dyed --swatch, sewn on tone on tone like the filled buttons; the chosen one keeps its
+   * height and is circled by a running stitch in the ink's tone, sewn through the felt around it */
+  :where([data-look="felt"]) .btn-swatch {
+    --seam-filter: var(--patch-seam-filter); --seam-strength: var(--patch-seam-strength);
+    border-color: transparent;
+    background-image: var(--felt), var(--patch-dome);
+    background-size: var(--felt-size), 100% 100%;
+    background-repeat: repeat, no-repeat;
+    background-blend-mode: soft-light, normal;
+    box-shadow: var(--shadow-patch);
+  }
+  :where([data-look="felt"]) .btn-check:checked + .btn-swatch {
+    box-shadow: var(--shadow-patch);
+    &::before {
+      content: ""; position: absolute; inset: -6px; pointer-events: none;
+      border: 0 solid transparent; border-image: var(--seam-img) var(--seam-slice) / var(--seam-width) round;
+      mix-blend-mode: hard-light; filter: var(--seam-filter-ink); opacity: .9;
+    }
+  }
+  :where([data-look="felt"]) .btn-check:checked:not(:focus-visible) + .btn-swatch { outline: 0; }
   :where([data-look="felt"]) .page-link:hover { box-shadow: var(--groove-inset), inset 0 0 0 99px var(--surface-hover); }
   :where([data-look="felt"]) .page-link:active { box-shadow: var(--groove-inset), inset 0 0 0 99px var(--surface-pressed); }
 

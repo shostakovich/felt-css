@@ -125,6 +125,29 @@ description: Use custom button styles for actions in forms, dialogs, and more wi
 </button>
 </example>
 
+<h2>Colour swatches</h2>
+<p>Another extra: <code>.btn-swatch</code> fills a button with the colour in <code>--swatch</code>. Round ones (<code>.btn-icon</code>) after <a href="../../forms/checks-radios/#toggle-buttons"><code>.btn-check</code></a> radios make a colour picker: the chosen swatch keeps its colour and gets a ring in the text colour (the focus ring takes its place while it has focus). Name each colour in the label, hidden with <code>.visually-hidden</code>.</p>
+<example>
+<div class="d-flex flex-wrap gap-2" role="radiogroup" aria-label="Lamp colour">
+  <input type="radio" class="btn-check" name="lamp-colour" id="lamp-warm" autocomplete="off" checked>
+  <label class="btn btn-icon btn-swatch" for="lamp-warm" style="--swatch: #f4d58d"><span class="visually-hidden">Warm white</span></label>
+  <input type="radio" class="btn-check" name="lamp-colour" id="lamp-cold" autocomplete="off">
+  <label class="btn btn-icon btn-swatch" for="lamp-cold" style="--swatch: #f4f6fb"><span class="visually-hidden">Cold white</span></label>
+  <input type="radio" class="btn-check" name="lamp-colour" id="lamp-red" autocomplete="off">
+  <label class="btn btn-icon btn-swatch" for="lamp-red" style="--swatch: #d9472b"><span class="visually-hidden">Red</span></label>
+  <input type="radio" class="btn-check" name="lamp-colour" id="lamp-green" autocomplete="off">
+  <label class="btn btn-icon btn-swatch" for="lamp-green" style="--swatch: #3c8f4a"><span class="visually-hidden">Green</span></label>
+  <input type="radio" class="btn-check" name="lamp-colour" id="lamp-blue" autocomplete="off">
+  <label class="btn btn-icon btn-swatch" for="lamp-blue" style="--swatch: #2f5fb3"><span class="visually-hidden">Blue</span></label>
+  <input type="radio" class="btn-check" name="lamp-colour" id="lamp-purple" autocomplete="off">
+  <label class="btn btn-icon btn-swatch" for="lamp-purple" style="--swatch: #7b3fa0"><span class="visually-hidden">Purple</span></label>
+</div>
+</example>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look a swatch is a patch of felt dyed in its colour and sewn on tone on tone, like the filled buttons. The chosen one is circled by a running stitch in the text's colour, sewn into the felt around it.</p>
+</div>
+
 <h2>Disabled state</h2>
 <p>Make buttons look inactive by adding the <code>disabled</code> boolean attribute to any <code>&lt;button&gt;</code> element. Disabled buttons have <code>pointer-events: none</code> applied to, preventing hover and active states from triggering.</p>
 <example>
