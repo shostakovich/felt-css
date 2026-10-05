@@ -2520,6 +2520,21 @@
   :where([data-look="felt"]) .alert-dark { background-color: light-dark(color-mix(in oklab, var(--tone) 26%, var(--surface)), color-mix(in oklab, var(--tone) 55%, var(--surface))); }
   :where([data-look="felt"]) .alert-light { background-color: light-dark(color-mix(in oklab, var(--tone) 6%, var(--surface)), color-mix(in oklab, var(--text) 6%, var(--surface-raised))); }
 
+  /* a well in a sewn piece (.bg-body-secondary/-tertiary in a card, a list, a modal, …) is a pocket: the felt pressed
+   * in along its edge, lit from above like the grooves, and held by a fine stitch as quiet as a divider (a bordered
+   * well has its own seam) */
+  :where([data-look="felt"]) :where(.card, .modal-content, .offcanvas, .accordion-item, .list-group-item, .toast, .popover, .dropdown-menu, .alert)
+    :where(.bg-body-secondary, .bg-body-tertiary):not(.card, .navbar, .list-group-item, .accordion-item, .alert, .toast, .btn, .badge,
+      .card-header, .card-footer, .modal-header, .modal-footer, input, select, textarea, .form-control, .form-select, table, tr, th, td) {
+    position: relative;
+    box-shadow: inset 0 1px 2px var(--felt-inset), inset 0 3px 6px -3px var(--felt-inset), inset 0 0 1px color-mix(in srgb, var(--felt-inset) 70%, transparent), inset 0 -1px 0 var(--felt-highlight);
+    &:not(.border, .border-top, .border-bottom, .border-start, .border-end)::after {
+      content: ""; position: absolute; inset: 1.5px; pointer-events: none;
+      border: 0 solid transparent; border-image: url("img/seam-md.svg") var(--seam-md-slice) / calc(var(--seam-md-width) * .7) round;
+      mix-blend-mode: hard-light; filter: var(--seam-filter); opacity: calc(var(--seam-strength) * var(--seam-row-strength));
+    }
+  }
+
   /* --- recipe 2: patch (saturated felt, sewn on); solid bg-* fills get the same felt */
   :where([data-look="felt"]) :where(.bg-primary, .bg-secondary, .bg-success, .bg-danger, .bg-warning, .bg-info, .bg-dark) {
     box-shadow: inset 0 1px 0 rgb(255 255 255 / .08), 0 1px 0 color-mix(in srgb, var(--felt-cut) 40%, transparent);
