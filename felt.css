@@ -196,11 +196,11 @@
     /* Two felt recipes:
      * light felt  — creams; fibres via multiply with a nearly white tile, flat, quiet
      * patch       — saturated colours; fibres via soft-light, slightly domed, sewn on */
-    --felt-light: url("img/felt-light.svg");
+    --felt-light: url("img/felt-light.webp");
     --felt-light-size: 256px;
     --felt: url("img/felt.svg");
     --felt-size: 256px;
-    --felt-dark: url("img/felt-dark.svg");
+    --felt-dark: url("img/felt-dark.webp");
     /* the sheet all light-felt pieces are cut from; charcoal in dark mode (see below) */
     --sheet: var(--felt-light);
     --sheet-size: var(--felt-light-size);

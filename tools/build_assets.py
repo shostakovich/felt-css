@@ -2,16 +2,19 @@
 """Draw the felt textures and seams in img/ as SVG and write the matching seam tokens into felt.css
 (between the stitches:start/end markers).
 
-Textures (felt.svg, felt-light.svg, felt-dark.svg): bands of feTurbulence summed on one 256 px tile.
-Fibre bands are bent by low noise (feDisplacementMap) to break up the noise's lattice and stretch its ridges
-into hairs; all noise is made on the tile and repeated with feTile, so the tile stays seamless.
+Texture felt.svg (the colours' felt): bands of feTurbulence summed on one 256 px tile. Fibre bands are bent
+by low noise (feDisplacementMap) to break up the noise's lattice and stretch its ridges into hairs; all noise
+is made on the tile and repeated with feTile, so the tile stays seamless.
+The cream and charcoal felt of the light and dark sheet (felt-light.webp, felt-dark.webp) stay photos: on phones,
+which render SVG at 3x, noise never read as calm as them. They were built from Codex photos by the photo
+pipeline in git history (tools/build_assets.py and raw/ before the SVG switch).
 
 Seams (seam-lg/md/pill/sq.svg, seam-row.svg, seam-col.svg): drawn stitches as 9-slice images for
 border-image, plus a straight row and column. The thread is near-white; felt.css tints it with
 mix-blend-mode: hard-light and filter: brightness(). thread.svg is the twist that dyed thread
 (.border-{colour} in the felt look) is multiplied with.
 
-Needs: python3. tools/calibrate_felt.py re-measures the textures' bases after a change to FELT.
+Needs: python3. tools/calibrate_felt.py re-measures the texture's base after a change to FELT.
 """
 import math
 import random
@@ -25,11 +28,10 @@ DPR = 2                          # seams are drawn for 2x screens: width/height 
 # --- felt
 # Felt for the web: fine, dense craft felt (like the sheets sold for crafts and the felt of Stilbag's bags), calm
 # at 1x, with single light fibres up close. Photos of real felt were the reference, not a template.
-# Band: [frequency, octaves, f(ractal)|t(urbulence)|s(treaks), amplitude (negative: bright ridges), mean, bend, blur,
-# gamma, (cut frequency, kept share)]. Streaks are fractal noise blurred along one axis ("3 .4") before they are bent,
-# so they lie in many directions. The nap's ridges brighten like fibre tips; a second noise cuts them into single
+# Band: [frequency, octaves, f(ractal)|t(urbulence), amplitude (negative: bright ridges), mean, bend, blur, gamma,
+# (cut frequency, kept share)]. The nap's ridges brighten like fibre tips; a second noise cuts them into single
 # fibres (no network of cells); a soft, blurred nap lies under the sharp one. Bases are calibrated so the tile
-# has the mean of the photo textures it replaced (calibrate_felt.py); contrast per scale matches them too
+# has the mean of the photo texture it replaced (calibrate_felt.py); contrast per scale matches them too
 # (sd at 3/8 px blur .013/.009).
 FELT = {
     # grey around 50 %, soft-light on saturated colours
@@ -40,27 +42,6 @@ FELT = {
                  ['.18', 2, 't', -0.08, 0.5, 10, 1.0, 2.5],
                  ['.7', 1, 'f', 0.15, 0.5, 0, 0.45],
                  ['.12', 2, 't', -0.1, 0.82, 18, 0.12, 6, ('.2', 0.3)]]),
-    # cream, multiply on light surfaces: the dark felt's recipe, quieter (fine light hairs over a slightly darker
-    # ground); a dense blurred nap or grain here reads as pores, like elephant skin
-    "felt-light": dict(base=0.9405, rgb=(1.0084, 1.0, 0.9772), warp=('.035', 12), bands=[['.012', 2, 'f', 0.034],
-                 ['.05', 2, 'f', 0.0255],
-                 ['.22 .32', 2, 't', -0.0647, 0.6, 5, 0.2, 3, ('.3', 0.5)],
-                 ['.32 .22', 2, 't', -0.0647, 0.6, 5, 0.2, 3, ('.3', 0.5)],
-                 ['.18', 2, 't', -0.0286, 0.5, 10, 1.0, 2.5],
-                 ['.7', 1, 'f', 0.0536, 0.5, 0, 0.45],
-                 ['.12', 2, 't', -0.17, 0.82, 14, 0.15, 6, ('.2', 0.25)]]),
-    # grey around 50 %, soft-light on charcoal. Phones render the tile at 3x, where single-pixel grain averages
-    # away on the dark: the nap is softer and stronger than the colours' felt, with long thin streaks in two
-    # directions on top, so it reads like the charcoal photo it replaced
-    "felt-dark": dict(base=0.5572, warp=('.035', 12), bands=[['.012', 2, 'f', 0.07],
-                 ['.05', 2, 'f', 0.06],
-                 ['.22 .32', 2, 't', -0.2, 0.6, 8, 0.45, 3, ('.3', 0.5)],
-                 ['.32 .22', 2, 't', -0.2, 0.6, 8, 0.45, 3, ('.3', 0.5)],
-                 ['.18', 2, 't', -0.12, 0.5, 10, 1.0, 2.5],
-                 ['.7', 1, 'f', 0.05, 0.5, 0, 0.45],
-                 ['.12', 2, 't', -0.15, 0.82, 14, 0.3, 6, ('.2', 0.25)],
-                 ['.5', 1, 's', 2.0, 0.03, 10, '4 .35', 8],
-                 ['.5', 1, 's', 1.4, 0.03, 10, '.35 4', 8]]),
 }
 TILE, PAD = 256, 32
 SUB = f'x="0" y="0" width="{TILE}" height="{TILE}"'
@@ -99,14 +80,14 @@ def felt(bands, base=.5, rgb=None, seed=1, warp=(".02", 10)):
         # negative amplitude: invert the noise instead (bright ridges); amplitudes stay positive so alpha stays 1
         grey = GREY if amp > 0 else '<feColorMatrix values="-1 0 0 0 1 -1 0 0 0 1 -1 0 0 0 1 0 0 0 0 1"/>'
         if amp < 0: amp, mean = -amp, 1 - mean
-        s.append(f'<feTurbulence {SUB} type="{"turbulence" if kind == "t" else "fractalNoise"}" baseFrequency="{freq}" '
+        s.append(f'<feTurbulence {SUB} type="{"fractalNoise" if kind == "f" else "turbulence"}" baseFrequency="{freq}" '
                  f'numOctaves="{oct}" seed="{seed + 7 * i}" stitchTiles="stitch"/>{grey}'
                  + (f'<feComponentTransfer><feFuncR type="gamma" exponent="{gamma}"/><feFuncG type="gamma" exponent="{gamma}"/><feFuncB type="gamma" exponent="{gamma}"/></feComponentTransfer>' if gamma else '')
                  + '<feTile result="n"/>')
-        steps = [f'<feDisplacementMap in2="w" scale="{bend}" xChannelSelector="R" yChannelSelector="G" in="n" result="n"/>' if bend else '',
-                 # soft fibres: a fuzz, not a hairline
-                 f'<feGaussianBlur in="n" stdDeviation="{blur}" result="n"/>' if blur else '']
-        s += steps[::-1] if kind == "s" else steps
+        if bend:
+            s.append(f'<feDisplacementMap in2="w" scale="{bend}" xChannelSelector="R" yChannelSelector="G" in="n" result="n"/>')
+        if blur:   # soft fibres: a fuzz, not a hairline
+            s.append(f'<feGaussianBlur in="n" stdDeviation="{blur}" result="n"/>')
         if cut:    # keep the band only where a second noise is high: n*m + mean*(1-m), m a soft threshold
             f_, keep = cut
             t = .5 + NormalDist().inv_cdf(1 - keep) * .12          # fractalNoise R: ~N(.5, .12)
