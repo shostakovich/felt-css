@@ -644,7 +644,7 @@
    * spinners and the dropdown caret sit in a centred row */
   .btn:has(> svg, > img, > .icon, > .bi, > .badge, > .spinner-border, > .spinner-grow), .btn-icon, .btn.dropdown-toggle { display: inline-flex; }
   .btn:hover { background-color: color-mix(in oklab, var(--tone), var(--state-ink) var(--hover-mix)); }
-  .btn:active { transform: translateY(1px); background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
+  .btn:active { background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
   .btn:disabled, .btn.disabled { opacity: var(--disabled-opacity); pointer-events: none; }
 
   .btn-primary   { --tone: var(--primary);   color: var(--primary-ink);   border-color: transparent; }
@@ -664,7 +664,7 @@
   .btn-outline-success   { color: var(--success-emphasis); }
   .btn-outline-danger    { color: var(--danger-emphasis); }
   .btn-outline-warning   { color: var(--warning-emphasis); }
-  .btn.active { transform: translateY(1px); background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
+  .btn.active { background-color: color-mix(in oklab, var(--tone), var(--press-ink) var(--active-mix)); }
 
   .btn-sm { padding: .45rem .9rem; font-size: .875rem; }
   .btn-lg { padding: .8rem 1.5rem; font-size: 1.125rem; }
@@ -805,7 +805,7 @@
   .btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, .show) { background-color: var(--fill); border-color: var(--fill); color: var(--ink); }
 
   .btn-group, .btn-group-vertical { position: relative; display: inline-flex; vertical-align: middle; }
-  .btn-group > .btn, .btn-group-vertical > .btn { position: relative; flex: 1 1 auto; transform: none; }   /* pressed segments stay in line */
+  .btn-group > .btn, .btn-group-vertical > .btn { position: relative; flex: 1 1 auto; }
   .btn-group > .btn:is(:hover, :focus, .active), .btn-group-vertical > .btn:is(:hover, :focus, .active), :is(.btn-group, .btn-group-vertical) > .btn-check:checked + .btn { z-index: 1; }
   :is(.btn-group, .btn-group-vertical) > .btn-check:focus-visible + .btn { z-index: 2; }
   .btn-group > :not(.btn-check:first-child) + .btn, .btn-group > .btn-group:not(:first-child) { margin-left: -1px; }
@@ -2661,7 +2661,7 @@
 
   /* --- buttons */
   :where([data-look="felt"]) :is(.btn:active, .btn.active, .btn-check:checked + .btn) { box-shadow: var(--shadow-patch-pressed); }
-  :where([data-look="felt"]) :is(.btn:active, .btn.active) { transform: translateY(1px); }
+  :where([data-look="felt"]) .btn:active { transform: translateY(1px); }   /* a press dents the felt; a chosen .active stays in line */
   /* felt is opaque: a disabled piece goes pale and flat instead of see-through */
   :where([data-look="felt"]) :is(.btn:disabled, .btn.disabled, .btn-check:disabled + .btn) {
     opacity: 1; filter: saturate(.6); box-shadow: var(--shadow-patch-pressed);
