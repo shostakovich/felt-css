@@ -2585,7 +2585,7 @@
     --seam-img: url("img/seam-pill.svg"); --seam-slice: var(--seam-pill-slice); --seam-width: var(--seam-pill-width);
   }
   :where([data-look="felt"]) :is(.btn-sm, .btn-group-sm > .btn) { --seam-inset: 3.5px; --seam-width: calc(var(--seam-md-width) * .7); }
-  :where([data-look="felt"]) :is(.btn-sm, .btn-group-sm > .btn):is(.btn-pill, .btn-icon, .rounded-pill) { --seam-width: calc(var(--seam-pill-width) * .7); }
+  :where([data-look="felt"]) :is(.btn-sm, .btn-group-sm > .btn):is(.btn-pill, .rounded-pill) { --seam-width: calc(var(--seam-pill-width) * .7); }
   /* a button in an input group is cut off where it meets the field: sewn along its free edges only */
   :where([data-look="felt"]) .input-group > .btn { overflow: hidden; }
   :where([data-look="felt"]) .input-group > .btn:not(:first-child)::after { left: -40px; }
@@ -3138,7 +3138,10 @@
   :where([data-look="felt"]) .btn:is(.btn-pill, .rounded-pill):not(.btn-sm, .btn-lg, .btn-group-sm > .btn, .btn-group-lg > .btn) { --seam-img: url("img/seam-pill.svg"); --seam-slice: var(--seam-pill-slice); --seam-width: 18.34px; --seam-margin: 2.75px; }
   :where([data-look="felt"]) :is(.btn-lg, .btn-group-lg > .btn):is(.btn-pill, .rounded-pill) { --seam-img: url("img/seam-pill.svg"); --seam-slice: var(--seam-pill-slice); --seam-width: 23.56px; --seam-margin: 3.53px; }
   /* round buttons are 44px at every size: the same seam as .btn-icon */
-  :where([data-look="felt"]) .btn-icon.btn-sm { --seam-img: url("img/seam-pill.svg"); --seam-slice: var(--seam-pill-slice); --seam-width: var(--seam-pill-width); --seam-margin: 3px; --seam-inset: 5px; }
+  :where([data-look="felt"]) .btn-icon.btn-sm { --seam-inset: 5px; }
+  /* a circle's seam follows it at any size: a 9-slice keeps its corners' size, so a large circle would get a rounded
+   * square. img/seam-circle.svg draws itself for the size of the box it fills (border-image's middle, no slices) */
+  :where([data-look="felt"]) :is(.btn-icon, .rounded-circle) { --seam-img: url("img/seam-circle.svg"); --seam-slice: 0 fill; --seam-width: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

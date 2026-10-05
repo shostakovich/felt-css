@@ -56,6 +56,7 @@ PERIOD = 10           # stitch + gap
 # seam radius, stitches per edge tile, groove and lip alpha (small pieces: a fainter groove, so stitch and gap read at 1x)
 SHAPES = {"lg": (9, 3, .1, 0), "md": (7, 1, .1, 0), "pill": (17, 1, .1, 0), "sq": (0, 1, .1, 0)}
 ROW = 3
+CIRCLE_PERIOD, CIRCLE_MIN, CIRCLE_MAX = 7.7, 24, 256   # round seams: stitch period on small circles; box sizes (CSS px)
 # a machine's small irregularities: per stitch length (±4 %), angle (±1°) and offset across the seam (±0.15 px);
 # every edge of a frame draws other stitches from the table, so even one-stitch tiles differ round the piece
 _r = random.Random(7)
@@ -193,6 +194,42 @@ def frame(radius, n, ga, la):
     return svg(w, w, groove, out, ga, la), c
 
 
+def circle():
+    """A seam that follows a circle of any size, for round pieces a 9-slice can't bend (its corners keep their size).
+    No viewBox: the image is drawn at the size of the box it fills, so thread and stitch keep their size, and media
+    queries on that size pick how many stitches go round. Each stitch is placed by a CSS transform relative to the
+    view box: its angle from its index, its radius half the box less the margin. Below CIRCLE_MIN straight stitches
+    would read as dots or a polygon: there a ring of bent stitches drawn for that size is scaled down instead."""
+    def period(r):   # a small circle takes the corners' shorter stitches, so it reads as a curve; a large one the edges'
+        return min(PERIOD, max(CIRCLE_PERIOD, CIRCLE_PERIOD + (r - 17) * (PERIOD - CIRCLE_PERIOD) / 34))
+    bands, w = [], CIRCLE_MIN
+    while w <= CIRCLE_MAX:
+        r = w / 2 - MARGIN
+        n = round(2 * math.pi * r / period(r))
+        if not bands or n > bands[-1][1]:
+            bands.append((w, n, min(1.0, 2 * math.pi * r / n / PERIOD)))
+        w += .25
+    rules = "".join(f"@media(min-width:{f(w)}px){{svg{{--n:{n};--k:{k:.2f}}}.s:nth-of-type(-n+{n}){{display:inline}}}}" for w, n, k in bands[1:])
+    style = ('<style>svg{--n:%d;--k:%.2f}.s{display:none;transform-box:view-box;transform:translate(50%%,50%%) '
+             'rotate(calc(var(--i)*360deg/var(--n))) translate(calc(50%% - %dpx + var(--o))) rotate(calc(90deg + var(--t))) '
+             'scale(calc(var(--k)*var(--f)),1)}.s:nth-of-type(-n+%d){display:inline}.g{r:calc(50%% - %dpx)}'
+             '.b{display:none}@media(min-width:%gpx){.b{display:inline}.m{display:none}}%s</style>'
+             % (bands[0][1], bands[0][2], MARGIN, bands[0][1], MARGIN, CIRCLE_MIN, rules))
+    st = []
+    for i in range(bands[-1][1]):
+        lf, da, dy = WOBBLE[i % len(WOBBLE)]
+        st.append(f'<use class="s" href="#s" style="--i:{i};--t:{f(da)}deg;--o:{dy:.2f}px;--f:{lf:.2f}"/>')
+    c = CIRCLE_MIN / 2
+    r0, n0 = c - MARGIN, bands[0][1]
+    arcs = "".join(arc_stitch(c, c, r0, 2 * math.pi * k / n0 - math.pi / 2, LEN * bands[0][2], k) for k in range(n0))
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">{style}{defs()}'
+            f'<svg class="m" viewBox="0 0 {f(2 * c)} {f(2 * c)}">'
+            f'<circle cx="{f(c)}" cy="{f(c)}" r="{f(r0)}" fill="none" stroke="#000" stroke-opacity=".1" stroke-width="2" filter="url(#g)"/>'
+            f'<g filter="url(#d)">{arcs}</g></svg>'
+            f'<g class="b"><circle class="g" cx="50%" cy="50%" fill="none" stroke="#000" stroke-opacity=".1" stroke-width="2" filter="url(#g)"/>'
+            f'<g filter="url(#d)">{"".join(st)}</g></g></svg>')
+
+
 def row(vertical=False):
     h, length = 2 * MARGIN, ROW * PERIOD
     if vertical:
@@ -225,6 +262,7 @@ if __name__ == "__main__":
         s, c = frame(r, n, ga, la)
         write(f"seam-{name}.svg", s)
         tokens.append(f"    --seam-{name}-slice: {c * DPR:g}; --seam-{name}-width: {c:g}px;")
+    write("seam-circle.svg", circle())
     write("seam-row.svg", row())
     write("seam-col.svg", row(True))
     write("thread.svg", THREAD)
