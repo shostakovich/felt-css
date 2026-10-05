@@ -11,7 +11,7 @@ description: Use custom range inputs for consistent cross-browser styling and bu
 </example>
 
 <div class="bd-callout bd-callout-felt">
-  <p>In the felt look, the track is a groove pressed into the felt and the thumb is a small primary felt patch with a cast shadow.</p>
+  <p>In the felt look, the track is a groove pressed into the felt and the thumb is a small felt patch with a cast shadow.</p>
 </div>
 
 <h2>Filled track</h2>
@@ -37,6 +37,16 @@ for (const range of document.querySelectorAll('.form-range')) {
 </codeblock>
 
 <p>The ranges below this point on this page use exactly that script.</p>
+
+<h2>Thumb colour</h2>
+<p>The thumb and the filled part take their colour from <code>--range-thumb</code> (default: primary), set on the input or on any parent. A neutral thumb suits a slider whose track already carries the meaning.</p>
+
+<example class="bd-example-range">
+<label for="rangeSuccess" class="form-label">Battery reserve</label>
+<input type="range" class="form-range" id="rangeSuccess" value="40" style="--range-thumb: var(--success)">
+<label for="rangeNeutral" class="form-label mt-3">Neutral thumb</label>
+<input type="range" class="form-range" id="rangeNeutral" value="60" style="--range-thumb: var(--secondary)">
+</example>
 
 <h2>Disabled</h2>
 <p>Add the <code>disabled</code> boolean attribute on an input to give it a grayed out appearance, remove pointer events, and prevent focusing.</p>

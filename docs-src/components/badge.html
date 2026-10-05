@@ -80,3 +80,18 @@ description: Documentation and examples for badges, our small count and labeling
 <span class="badge rounded-pill text-bg-light">Light</span>
 <span class="badge rounded-pill text-bg-dark">Dark</span>
 </example>
+
+<h2>Legend dots</h2>
+<p>An extra, not in Bootstrap: <code>.badge-dot</code> turns an empty badge into a small round colour key, e.g. for a chart's series. It takes a <code>.text-bg-{color}</code> fill, a colour of its own in <code>--dot-color</code>, or otherwise the text colour. A legend is a list of dots with their labels:</p>
+<example>
+<ul class="list-unstyled d-flex flex-wrap column-gap-3 row-gap-1 small mb-0">
+  <li><span class="badge badge-dot text-bg-primary"></span> House 52 %</li>
+  <li><span class="badge badge-dot text-bg-success"></span> Battery 17 %</li>
+  <li><span class="badge badge-dot text-bg-info"></span> Grid 31 %</li>
+  <li><span class="badge badge-dot" style="--dot-color: #b5651d"></span> Car 9 %</li>
+</ul>
+</example>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look a dot is a tiny patch of saturated felt, like the coloured badges. In both looks its rim leans towards the text colour, so light and dark dots stand apart from the surface.</p>
+</div>
