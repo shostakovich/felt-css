@@ -617,9 +617,10 @@
   .card-text:last-child { margin-bottom: 0; }
 
   /* stat / KPI */
-  .stat { margin: 0; display: flex; flex-direction: column; gap: .15rem; }
-  .stat-label { margin: 0; font-size: .8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; opacity: .75; }
-  .stat-value { margin: 0; font-size: 1.75rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  :where(.stat, .stat-label, .stat-value) { margin: 0; }   /* any element, and .col stat keeps the row gutter */
+  .stat { display: flex; flex-direction: column; gap: .15rem; }
+  .stat-label { font-size: .8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; opacity: .75; hyphens: auto; }
+  .stat-value { font-size: 1.75rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
 
   /* button */
   .btn {
