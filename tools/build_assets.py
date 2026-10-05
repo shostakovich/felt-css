@@ -49,14 +49,18 @@ FELT = {
                  ['.18', 2, 't', -0.0286, 0.5, 10, 1.0, 2.5],
                  ['.7', 1, 'f', 0.0536, 0.5, 0, 0.45],
                  ['.12', 2, 't', -0.17, 0.82, 14, 0.15, 6, ('.2', 0.25)]]),
-    # grey around 50 %, soft-light on charcoal: the colours' felt, a little quieter
-    "felt-dark": dict(base=0.4909, warp=('.035', 12), bands=[['.012', 2, 'f', 0.068],
-                 ['.05', 2, 'f', 0.051],
-                 ['.22 .32', 2, 't', -0.154, 0.6, 5, 0.25, 3, ('.3', 0.5)],
-                 ['.32 .22', 2, 't', -0.154, 0.6, 5, 0.25, 3, ('.3', 0.5)],
-                 ['.18', 2, 't', -0.068, 0.5, 10, 1.0, 2.5],
-                 ['.7', 1, 'f', 0.1275, 0.5, 0, 0.45],
-                 ['.12', 2, 't', -0.1, 0.82, 14, 0.15, 6, ('.2', 0.25)]]),
+    # grey around 50 %, soft-light on charcoal. Phones render the tile at 3x, where single-pixel grain averages
+    # away on the dark: the nap is softer and stronger than the colours' felt, with long thin streaks in two
+    # directions on top, so it reads like the charcoal photo it replaced
+    "felt-dark": dict(base=0.5572, warp=('.035', 12), bands=[['.012', 2, 'f', 0.07],
+                 ['.05', 2, 'f', 0.06],
+                 ['.22 .32', 2, 't', -0.2, 0.6, 8, 0.45, 3, ('.3', 0.5)],
+                 ['.32 .22', 2, 't', -0.2, 0.6, 8, 0.45, 3, ('.3', 0.5)],
+                 ['.18', 2, 't', -0.12, 0.5, 10, 1.0, 2.5],
+                 ['.7', 1, 'f', 0.05, 0.5, 0, 0.45],
+                 ['.12', 2, 't', -0.15, 0.82, 14, 0.3, 6, ('.2', 0.25)],
+                 ['.5', 1, 's', 2.0, 0.03, 10, '4 .35', 8],
+                 ['.5', 1, 's', 1.4, 0.03, 10, '.35 4', 8]]),
 }
 TILE, PAD = 256, 32
 SUB = f'x="0" y="0" width="{TILE}" height="{TILE}"'
