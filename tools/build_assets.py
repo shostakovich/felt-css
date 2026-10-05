@@ -255,7 +255,7 @@ def circle():
     No viewBox: the image is drawn at the size of the box it fills, so thread and stitch keep their size, and media
     queries on that size pick how many stitches go round. Each stitch is placed by a CSS transform relative to the
     view box: its angle from its index, its radius half the box less the margin. Below CIRCLE_MIN straight stitches
-    would read as dots or a polygon: there a ring of bent stitches drawn for that size is scaled down instead."""
+    would read as dots or a polygon: there the four corners of the pill seam are scaled down, as its 9-slice did."""
     def period(r):   # a small circle takes the corners' shorter stitches, so it reads as a curve; a large one the edges'
         return min(PERIOD, max(CIRCLE_PERIOD, CIRCLE_PERIOD + (r - 17) * (PERIOD - CIRCLE_PERIOD) / 34))
     bands, w = [], CIRCLE_MIN
@@ -275,9 +275,11 @@ def circle():
     for i in range(bands[-1][1]):
         lf, da, dy = WOBBLE[i % len(WOBBLE)]
         st.append(f'<use class="s" href="#s" style="--i:{i};--t:{f(da)}deg;--o:{dy:.2f}px;--f:{lf:.2f}"/>')
-    c = CIRCLE_MIN / 2
-    r0, n0 = c - MARGIN, bands[0][1]
-    arcs = "".join(arc_stitch(c, c, r0, 2 * math.pi * k / n0 - math.pi / 2, LEN * bands[0][2], k) for k in range(n0))
+    r0 = SHAPES["pill"][0]
+    c, arc = MARGIN + r0, math.pi / 2 * r0
+    na = max(1, round(arc / PERIOD * 1.3))   # as in frame()
+    arcs = "".join(arc_stitch(c, c, r0, math.radians(start + 90 * (k + .5) / na), LEN * min(1.0, arc / na / PERIOD), 20 + 3 * j + k)
+                   for j, start in enumerate((180, 270, 0, 90)) for k in range(na))
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">{style}{defs()}'
             f'<svg class="m" viewBox="0 0 {f(2 * c)} {f(2 * c)}">'
             f'<circle cx="{f(c)}" cy="{f(c)}" r="{f(r0)}" fill="none" stroke="#000" stroke-opacity=".1" stroke-width="2" filter="url(#g)"/>'

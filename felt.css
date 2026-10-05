@@ -3198,8 +3198,12 @@
   /* round buttons are 44px at every size: the same seam as .btn-icon */
   :where([data-look="felt"]) .btn-icon.btn-sm { --seam-inset: 5px; }
   /* a circle's seam follows it at any size: a 9-slice keeps its corners' size, so a large circle would get a rounded
-   * square. img/seam-circle.svg draws itself for the size of the box it fills (border-image's middle, no slices) */
-  :where([data-look="felt"]) :is(.btn-icon, .rounded-circle) { --seam-img: url("img/seam-circle.svg"); --seam-slice: 0 fill; --seam-width: 0; }
+   * square. img/seam-circle.svg draws itself for the size of the box it fills (border-image's middle, no slices), so
+   * no size rule may give it a border width */
+  :where([data-look="felt"]) :is(.btn-icon, .rounded-circle),
+  :where([data-look="felt"]) :is(.btn-icon, .rounded-circle):is(.btn-sm, .btn-lg, .btn-group-sm > .btn, .btn-group-lg > .btn) {
+    --seam-img: url("img/seam-circle.svg"); --seam-slice: 0 fill; --seam-width: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
