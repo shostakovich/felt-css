@@ -1140,13 +1140,16 @@
   .badge.bg-info { --tone: var(--info); color: var(--info-ink); }
   .badge.bg-light { --tone: var(--light-fixed); color: var(--dark-fixed); }
   .badge.bg-dark { --tone: var(--dark-fixed); color: var(--light-fixed); }
-  /* extra, not in Bootstrap: a colour key (legend dot) in --dot-color, the text colour or a .text-bg-* fill. Its rim
-   * leans towards the text colour, so light and dark fills stay apart from the surface (an outline: .text-bg-light
-   * owns the box-shadow) */
+  /* extra, not in Bootstrap: a colour key (legend dot) in --dot-color, the text colour or a .text-bg-* fill. A fill
+   * that may match the surface (light, dark, secondary, a colour of its own) gets a rim towards the text colour; the
+   * saturated fills only a shade of their own (an outline: .text-bg-light owns the box-shadow) */
   .badge-dot {
     --tone: var(--dot-color, currentColor);
     width: .75rem; height: .75rem; padding: 0; border-radius: 50%; vertical-align: -.0625em;
     outline: 1px solid color-mix(in oklab, var(--tone) 40%, var(--text)); outline-offset: -1px;
+  }
+  .badge-dot:is(.text-bg-primary, .text-bg-success, .text-bg-danger, .text-bg-warning, .text-bg-info) {
+    outline-color: color-mix(in oklab, var(--tone) 70%, light-dark(#000, #fff));
   }
   .btn .badge { top: -1px; }
 
