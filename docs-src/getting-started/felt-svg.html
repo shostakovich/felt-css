@@ -3,7 +3,7 @@ title: Felt in SVG
 description: Sew your own SVG drawings — gauges, rings, chart bands — with the thread and felt of the components, taken from the same files.
 -->
 <h2>Example</h2>
-<p>A gauge in a card. In the felt look its value is a felt patch with a seam down the middle and its track is pressed into the card; in the clean look both are plain strokes.</p>
+<p>A gauge in a card. In the felt look its value is a felt patch sewn on with a seam down the middle and its track is pressed into the card; in the clean look both are plain strokes.</p>
 <example>
 <div class="card" style="max-width: 18rem">
   <div class="card-header">CO₂</div>
@@ -16,7 +16,8 @@ description: Sew your own SVG drawings — gauges, rings, chart bands — with t
           </pattern>
         </defs>
         <g fill="none" stroke-width="16">
-          <path d="M24 96A76 76 0 0 1 176 96" style="stroke: var(--felt-groove, var(--track))"/>
+          <path d="M24 96A76 76 0 0 1 176 96" style="stroke: var(--track)"/>
+          <path d="M24 96A76 76 0 0 1 138 30.2" class="felt-edge" style="color: var(--primary)"/>
           <path d="M24 96A76 76 0 0 1 138 30.2" style="stroke: var(--primary)"/>
           <path d="M24 96A76 76 0 0 1 138 30.2" stroke="url(#felt-gauge)" class="felt-texture"/>
         </g>
@@ -82,10 +83,12 @@ for (let i = 0; i < count; i++) {
 <pattern id="felt" width="256" height="256" patternUnits="userSpaceOnUse">
   <image href="img/felt.svg" width="256" height="256"/>
 </pattern>
+<path d="…" class="felt-edge" style="color: var(--primary)"/>
 <path d="…" style="stroke: var(--primary)"/>
 <path d="…" stroke="url(#felt)" class="felt-texture"/>
 </codeblock>
-<p>The cream and charcoal sheet that the page and cards are cut from is a photo per theme (<code>--sheet</code>, <code>--sheet-blend</code>). Rather than painting it, leave such shapes transparent or shade them with <code>--felt-groove</code>, like the gauge's track, and the sheet underneath shows through. As a fill it is <code>img/felt-light.webp</code> blended <code>multiply</code> in light mode and <code>img/felt-dark.webp</code> blended <code>soft-light</code> in dark mode, both tiled at <code>256px</code>.</p>
+<p>A patch lies on the felt with a cut edge, as buttons and badges do: put a copy of the shape with <code>.felt-edge</code> under it, coloured with <code>color</code>. In the felt look it is drawn a little lower in a darker tone of that colour; in the clean look it is hidden.</p>
+<p>The cream and charcoal sheet that the page and cards are cut from is a photo per theme (<code>--sheet</code>, <code>--sheet-blend</code>). Rather than painting it, leave such shapes transparent or shade them with <code>--track</code>, like the gauge's track (the same groove as the empty part of progress bars and ranges), and the sheet underneath shows through. As a fill it is <code>img/felt-light.webp</code> blended <code>multiply</code> in light mode and <code>img/felt-dark.webp</code> blended <code>soft-light</code> in dark mode, both tiled at <code>256px</code>.</p>
 
 <h2>Browsers</h2>
 <ul>
