@@ -1157,6 +1157,8 @@
     outline: .75px solid var(--dot-rim); outline-offset: -.75px;
     &:not(.text-bg-primary, .text-bg-success, .text-bg-danger, .text-bg-warning, .text-bg-info, .text-bg-dark, .text-bg-secondary) { --dot-rim: var(--dot-rim-neutral); }
     &:is(.text-bg-dark, .text-bg-secondary) { --dot-rim: light-dark(color-mix(in oklab, var(--tone) 65%, #000), var(--dot-rim-neutral)); }
+    /* in the dark these fills sit under 3:1 on the surface: a light hairline of their own hue carries the edge */
+    &:is(.text-bg-primary, .text-bg-success, .text-bg-danger, .text-bg-info) { --dot-rim: light-dark(color-mix(in oklab, var(--tone) 65%, #000), color-mix(in oklab, var(--tone) 60%, #fff)); }
     &.text-bg-light { --light: light-dark(color-mix(in oklab, var(--surface) 95%, var(--muted)), color-mix(in oklab, var(--surface) 88%, var(--text))); }
   }
   .btn .badge { top: -1px; }
@@ -2892,7 +2894,10 @@
   }
   :where([data-look="felt"]) .badge.border { background-color: var(--surface-raised); }
   :where([data-look="felt"]) .badge-dot { background-image: var(--felt); background-size: var(--felt-size); background-blend-mode: soft-light; }
-  :where([data-look="felt"]) .badge-dot.text-bg-light { background-image: var(--felt-light); background-size: var(--felt-light-size); background-blend-mode: multiply; }
+  :where([data-look="felt"]) .badge-dot.text-bg-light {
+    --light: light-dark(color-mix(in oklab, var(--surface) 93%, var(--muted)), color-mix(in oklab, var(--surface) 88%, var(--text)));
+    background-image: var(--felt-light); background-size: var(--felt-light-size); background-blend-mode: multiply;
+  }
   /* a swatch is a patch of felt dyed --swatch (over --swatch-image, if any), sewn on tone on tone like the filled
    * buttons, with a short shadow so its neighbours and its ring stay clear; the chosen one keeps its height and is
    * circled a few millimetres off by a running stitch in the ink's tone. --swatch-face is its colour in the current
@@ -3134,8 +3139,8 @@
   }
   :where([data-look="felt"]) .form-range::-webkit-slider-runnable-track { box-shadow: var(--range-groove); }
   :where([data-look="felt"]) .form-range::-moz-range-track { box-shadow: var(--range-groove); }
-  :where([data-look="felt"]) .form-range::-webkit-slider-thumb { border-color: light-dark(rgb(60 40 15 / .12), rgb(0 0 0 / .2)); background: var(--felt) var(--range-thumb, var(--primary)); background-size: var(--felt-size); background-blend-mode: soft-light; }
-  :where([data-look="felt"]) .form-range::-moz-range-thumb { border-color: light-dark(rgb(60 40 15 / .12), rgb(0 0 0 / .2)); background: var(--felt) var(--range-thumb, var(--primary)); background-size: var(--felt-size); background-blend-mode: soft-light; }
+  :where([data-look="felt"]) .form-range::-webkit-slider-thumb { border-color: light-dark(rgb(60 40 15 / .12), rgb(0 0 0 / .45)); background: var(--felt) var(--range-thumb, var(--primary)); background-size: var(--felt-size); background-blend-mode: soft-light; }
+  :where([data-look="felt"]) .form-range::-moz-range-thumb { border-color: light-dark(rgb(60 40 15 / .12), rgb(0 0 0 / .45)); background: var(--felt) var(--range-thumb, var(--primary)); background-size: var(--felt-size); background-blend-mode: soft-light; }
   /* a light thumb (white, cream) is wool cut from the cream sheet, matte; a coloured one stays a patch. The thumb's own
    * colour, opaque up to oklch L .82 and clear from .88, covers the cream felt; the gloss fades out the same way */
   @supports (color: oklch(from red l c h / clamp(0, (.88 - l) * 16, 1))) {
