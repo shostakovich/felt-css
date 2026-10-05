@@ -244,6 +244,7 @@
      * Default thread is for light felt: a darker tone of the felt underneath. */
     /* stitches:start */
     --seam-margin: 3px;
+    --stitch-length: 7px; --stitch-pitch: 10px; --stitch-shadow: drop-shadow(0 .55px .5px rgb(0 0 0 / .25));
     --seam-lg-slice: 24; --seam-lg-width: 12px;
     --seam-md-slice: 20; --seam-md-width: 10px;
     --seam-pill-slice: 40; --seam-pill-width: 20px;
