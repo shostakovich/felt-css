@@ -12,7 +12,7 @@ pipeline in git history (tools/build_assets.py and raw/ before the SVG switch).
 Seams (seam-lg/md/pill/sq.svg, seam-row.svg, seam-col.svg): drawn stitches as 9-slice images for
 border-image, plus a straight row and column. The thread is near-white; felt.css tints it with
 mix-blend-mode: hard-light and filter: brightness(). thread.svg is the twist that dyed thread
-(.border-{colour} in the felt look) is multiplied with.
+(.border-{colour} in the felt look) is multiplied with. stitch.svg is one stitch (#stitch) for sewing SVG drawings.
 
 Needs: python3. tools/calibrate_felt.py re-measures the texture's base after a change to FELT.
 """
@@ -53,6 +53,7 @@ GREY = '<feColorMatrix values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1"/>'
 MARGIN = 3            # slice edge -> thread centre line
 LEN, THICK = 7, 1.6   # stitch: about 2/3 of the period
 PERIOD = 10           # stitch + gap
+SHADOW = (.55, .25, .25)   # light from above: the thread's shadow (offset down, blur, alpha)
 # seam radius, stitches per edge tile, groove and lip alpha (small pieces: a fainter groove, so stitch and gap read at 1x)
 SHAPES = {"lg": (9, 3, .1, 0), "md": (7, 1, .1, 0), "pill": (17, 1, .1, 0), "sq": (0, 1, .1, 0)}
 ROW = 3
@@ -109,12 +110,27 @@ def f(x):   # short numbers: one decimal, no trailing or leading zeros
     return "0" if v in ("", "-0") else v.replace("0.", ".", 1) if v.startswith(("0.", "-0.")) else v
 
 
+def stitch_body():
+    """One stitch along x, centred on the origin: a taut body that narrows where it enters the felt.
+    Returns its path and its four curves (rounded like the path) for stitch_svg()."""
+    h, l = THICK / 2, LEN / 2
+    path = (f'M{f(-l)} 0C{f(-l+.8)} {f(-h)} {f(-l+1.6)} {f(-h)} {f(-l+2.4)} {f(-h)}H{f(l-2.4)}'
+            f'C{f(l-1.6)} {f(-h)} {f(l-.8)} {f(-h)} {f(l)} 0C{f(l-.8)} {f(h)} {f(l-1.6)} {f(h)} {f(l-2.4)} {f(h)}'
+            f'H{f(-l+2.4)}C{f(-l+1.6)} {f(h)} {f(-l+.8)} {f(h)} {f(-l)} 0Z')
+    p = lambda x, y: (float(f(x)), float(f(y)))
+    curves = [(p(-l, 0), p(-l+.8, -h), p(-l+1.6, -h), p(-l+2.4, -h)), (p(l-2.4, -h), p(l-1.6, -h), p(l-.8, -h), p(l, 0)),
+              (p(l, 0), p(l-.8, h), p(l-1.6, h), p(l-2.4, h)), (p(-l+2.4, h), p(-l+1.6, h), p(-l+.8, h), p(-l, 0))]
+    return path, curves
+
+
+def g(x):   # two decimals, for sizes below a tenth
+    v = f"{x:.2f}".rstrip("0").rstrip(".")
+    return "0" if v in ("", "-0") else v.replace("0.", ".", 1)
+
+
 def defs():
     h, l = THICK / 2, LEN / 2
-    # one stitch along x: a taut body that narrows where it enters the felt
-    stitch = (f'M{f(-l)} 0C{f(-l+.8)} {f(-h)} {f(-l+1.6)} {f(-h)} {f(-l+2.4)} {f(-h)}H{f(l-2.4)}'
-              f'C{f(l-1.6)} {f(-h)} {f(l-.8)} {f(-h)} {f(l)} 0C{f(l-.8)} {f(h)} {f(l-1.6)} {f(h)} {f(l-2.4)} {f(h)}'
-              f'H{f(-l+2.4)}C{f(-l+1.6)} {f(h)} {f(-l+.8)} {f(h)} {f(-l)} 0Z')
+    stitch = stitch_body()[0]
     return ('<defs>'
             # twisted ply: soft diagonal ridges at ~32° to the thread
             '<pattern id="t" width="1.25" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-58)">'
@@ -128,8 +144,8 @@ def defs():
             # light from above: a soft shadow below; the light edge on top comes from felt.css's --seam-relief
             # (drawn in here, the seam filter darkens it on cream into a haze over the thread)
             '<filter id="d" x="-20%" y="-30%" width="140%" height="160%">'
-            '<feGaussianBlur in="SourceAlpha" stdDeviation=".25"/><feOffset dy=".55"/>'
-            '<feComponentTransfer result="s"><feFuncA type="linear" slope=".25"/></feComponentTransfer>'
+            f'<feGaussianBlur in="SourceAlpha" stdDeviation="{g(SHADOW[1])}"/><feOffset dy="{g(SHADOW[0])}"/>'
+            f'<feComponentTransfer result="s"><feFuncA type="linear" slope="{g(SHADOW[2])}"/></feComponentTransfer>'
             '<feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
             '<filter id="g"><feGaussianBlur stdDeviation=".7"/></filter>'
             '</defs>')
@@ -142,6 +158,46 @@ def stitch(x, y, angle, k=0, scale=1.0):
     x, y = x - dy * math.sin(rad), y + dy * math.cos(rad)
     t = f"translate({f(x)} {f(y)})" + (f" rotate({f(angle + da)})" if f(angle + da) != "0" else "") + (f" scale({f(s)} 1)" if f(s) != "1" else "")
     return f'<use href="#s" transform="{t}"/>'
+
+
+def stitch_svg():
+    """stitch.svg: the seams' stitch as <g id="stitch">, for <use href="img/stitch.svg#stitch"> in SVG drawings.
+    Safari resolves no url() inside a file used from another, so it is drawn without any: the ply's ridges are the
+    pattern's stripes clipped to the body, the needle holes stacked translucent circles. Its shadow falls down the page
+    whichever way the stitch turns, so it is not drawn here but cast by felt.css's .stitches (--stitch-shadow)."""
+    path, curves = stitch_body()
+    outline = []
+    for p0, p1, p2, p3 in curves:
+        for i in range(9):
+            t, u = i / 8, 1 - i / 8
+            outline.append(tuple(u**3 * a + 3 * u * u * t * b + 3 * u * t * t * c + t**3 * d for a, b, c, d in zip(p0, p1, p2, p3)))
+    # stripes of pattern #t: width .5 every 1.25 across u, the axis rotated by 58°
+    cs, sn = math.cos(math.radians(58)), math.sin(math.radians(58))
+    along = lambda pt: pt[0] * cs - pt[1] * sn
+
+    def clip(poly, k, a):   # keep the side where k * (u - a) >= 0
+        out = []
+        for i, p in enumerate(poly):
+            q = poly[i - 1]
+            dp, dq = k * (along(p) - a), k * (along(q) - a)
+            if (dp >= 0) != (dq >= 0):
+                s = dq / (dq - dp)
+                out.append((q[0] + (p[0] - q[0]) * s, q[1] + (p[1] - q[1]) * s))
+            if dp >= 0: out.append(p)
+        return out
+
+    lo = min(map(along, outline))
+    stripes = []
+    for n in range(math.floor(lo / 1.25), math.ceil(-lo / 1.25) + 1):
+        band = clip(clip(outline, 1, n * 1.25), -1, n * 1.25 + .5)
+        if len(band) > 2:
+            stripes.append("M" + "L".join(f"{g(x)} {g(y)}" for x, y in band) + "Z")
+    h, l = THICK / 2, LEN / 2
+    holes = "".join(f'<circle cx="{f(x)}" r="{f(r)}" opacity="{o}"/>' for x in (-l + .3, l - .3) for r, o in ((.9, ".03"), (.6, ".05"), (.3, ".05")))
+    return ('<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-5 -5 10 10"><g id="stitch">'
+            f'{holes}<path d="{path}" fill="#fafafa"/><path d="{"".join(stripes)}" fill="#e6e6e6"/>'
+            f'<rect x="{f(-l+1.8)}" y="{f(-h*.4)}" width="{f(LEN-3.6)}" height=".34" rx=".17" fill="#fff" opacity=".7"/>'
+            '</g></svg>')
 
 
 def svg(w, h, groove, stitches, ga=.14, la=.05):
@@ -266,6 +322,9 @@ if __name__ == "__main__":
     write("seam-row.svg", row())
     write("seam-col.svg", row(True))
     write("thread.svg", THREAD)
+    write("stitch.svg", stitch_svg())
+    dy, blur, alpha = SHADOW   # CSS blurs by twice the standard deviation
+    tokens.insert(1, f"    --stitch-length: {LEN}px; --stitch-pitch: {PERIOD}px; --stitch-shadow: drop-shadow(0 {g(dy)}px {g(2 * blur)}px rgb(0 0 0 / {g(alpha)}));")
     length = ROW * PERIOD
     tokens.append(f"    --seam-row-size: {length}px {2 * MARGIN}px;")
     # .vr: stitches 4/5 as long as the row's, so a rule only 1em tall still shows two whole ones
