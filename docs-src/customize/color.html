@@ -33,10 +33,11 @@ description: felt-css keeps Bootstrap's colour meanings and dyes them like wool:
     </tbody>
   </table>
 </div>
-<p>The same tokens exist for <code>secondary</code>, <code>success</code>, <code>danger</code>, <code>warning</code>, <code>info</code>, <code>light</code> and <code>dark</code> (light and dark have no <code>-text</code>).</p>
+<p>The same tokens exist for <code>secondary</code>, <code>success</code>, <code>danger</code>, <code>warning</code>, <code>info</code>, <code>light</code> and <code>dark</code> (light and dark have no <code>-text</code>). All of them, with their values in both looks:</p>
+<tokens group="theme"></tokens>
 
 <h2>Palette</h2>
-<p>The theme colours point at a small palette of wool dyes:</p>
+<p>The theme colours point at a small palette of wool dyes. Bootstrap's named colours have a felt counterpart each (blue is denim, red tomato …):</p>
 <example>
 <div class="row row-cols-2 row-cols-md-4 g-3 small">
   <div class="col"><div class="p-3 rounded text-white" style="background: var(--felt-denim)">--felt-denim</div></div>
@@ -46,8 +47,31 @@ description: felt-css keeps Bootstrap's colour meanings and dyes them like wool:
   <div class="col"><div class="p-3 rounded" style="background: var(--felt-mustard); color: #3a2a06">--felt-mustard</div></div>
   <div class="col"><div class="p-3 rounded text-white" style="background: var(--felt-petrol)">--felt-petrol</div></div>
   <div class="col"><div class="p-3 rounded text-white" style="background: var(--felt-navy)">--felt-navy</div></div>
+  <div class="col"><div class="p-3 rounded text-white" style="background: var(--felt-indigo)">--felt-indigo</div></div>
+  <div class="col"><div class="p-3 rounded text-white" style="background: var(--felt-plum)">--felt-plum</div></div>
+  <div class="col"><div class="p-3 rounded text-white" style="background: var(--felt-rose)">--felt-rose</div></div>
+  <div class="col"><div class="p-3 rounded text-white" style="background: var(--felt-pumpkin)">--felt-pumpkin</div></div>
+  <div class="col"><div class="p-3 rounded text-white" style="background: var(--felt-lagoon)">--felt-lagoon</div></div>
 </div>
 </example>
+<tokens group="palette"></tokens>
+
+<h3>Grays</h3>
+<p>A gray scale from 100 to 900 that, like Bootstrap's, doesn't follow the colour mode. In the clean look it is Bootstrap's grays; in the felt look warm grays from cream to charcoal, so a gray piece still looks like wool.</p>
+<example>
+<div class="d-flex flex-wrap gap-2 small">
+  <div class="p-3 rounded" style="background: var(--felt-gray-100)">100</div>
+  <div class="p-3 rounded" style="background: var(--felt-gray-200)">200</div>
+  <div class="p-3 rounded" style="background: var(--felt-gray-300)">300</div>
+  <div class="p-3 rounded" style="background: var(--felt-gray-400)">400</div>
+  <div class="p-3 rounded" style="background: var(--felt-gray-500)">500</div>
+  <div class="p-3 rounded text-white" style="background: var(--felt-gray-600)">600</div>
+  <div class="p-3 rounded text-white" style="background: var(--felt-gray-700)">700</div>
+  <div class="p-3 rounded text-white" style="background: var(--felt-gray-800)">800</div>
+  <div class="p-3 rounded text-white" style="background: var(--felt-gray-900)">900</div>
+</div>
+</example>
+<tokens group="gray"></tokens>
 
 <h2>Light and dark</h2>
 <p>Theme tokens are written as <code>light-dark(light, dark)</code>. Dark mode mutes the fills a little, so they glare less and white ink stays readable:</p>

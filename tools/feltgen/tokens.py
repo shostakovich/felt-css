@@ -158,7 +158,7 @@ T("secondary-color", "light-dark(#677084, #a2aab4)", "light-dark(#665f50, #b8ad9
 T("tertiary-color", "light-dark(#8a92a3, #7d858f)", "light-dark(#8d8574, #8f8676)",
   doc="Tertiary text: disabled links and items, placeholders' neighbours (.text-body-tertiary)")
 T("surface", "light-dark(#fff, #2b3035)", "light-dark(#faf5ee, #34312d)",
-  doc="Cards, list groups, accordions, toasts", bs=["--bs-card-bg", "--bs-list-group-bg"])
+  doc="Cards, list groups, accordions, toasts")
 T("surface-sunk", "light-dark(#f1f3f5, #1c1f23)", "light-dark(#ece4d4, #2d2a27)",
   doc="Wells, code blocks, readonly fields", bs=["--bs-secondary-bg"])
 T("surface-raised", "light-dark(#f8f9fa, #343a40)", "light-dark(#fffcf7, #413c37)",
@@ -179,14 +179,14 @@ T("field-invalid", "$field", "light-dark(#fdf3ee, #3a2823)", doc="Invalid fields
 T("border-width", "1px", doc="Hairlines")
 T("border-style", "solid", doc="Hairlines")
 T("border-color", "light-dark(#e2e5ea, #41474f)", "light-dark(#c9bba3, #48423b)",
-  doc="Hairlines (felt: hidden under the seams, but they keep their width)", bs=["--bs-border-color-translucent"])
+  doc="Hairlines (felt: hidden under the seams, but they keep their width)")
 T("border-color-strong", "light-dark(#858f9e, #737b84)", "light-dark(#847b6a, #857a6c)",
   doc="Control outlines that reach 3:1 (checkboxes, radios)")
 T("link-decoration", "underline", doc="Links")
 T("link-color", "light-dark($primary, #8fb2e8)", "light-dark(#34578c, #8fb2e8)", doc="Links; .link-* set it too")
 T("track", "light-dark(#e3e7ec, #3a4047)", "light-dark(rgb(90 70 40 / .16), rgb(0 0 0 / .36))",
   doc="The empty part of progress bars, ranges and the off switch; use it for tracks of your own. "
-      "Felt: one groove pressed into the felt, translucent", bs=["--bs-progress-bg"])
+      "Felt: one groove pressed into the felt, translucent")
 T("backdrop", "light-dark(rgb(16 24 40 / .45), rgb(0 0 0 / .6))", "light-dark(rgb(50 35 15 / .26), rgb(10 8 5 / .5))",
   doc="Modal and offcanvas backdrops", bs=["--bs-backdrop-bg", "--bs-modal-backdrop-bg", "--bs-offcanvas-backdrop-bg"])
 T("highlight-bg", "$warning-subtle", "light-dark(#f0d8a2, color-mix(in oklab, $warning 35%, $surface))",
@@ -203,8 +203,7 @@ T("press-ink", "#000", doc="What fills are mixed with when pressed")
 T("hover-mix", "8%", doc="How much of it a hovered fill takes")
 T("active-mix", "14%", doc="How much of it a pressed fill takes")
 T("select-mix", "18%", doc="A neutral button pressed or chosen: a clear step past its hover")
-T("disabled-opacity", ".55", dark=".45", doc="Disabled controls in the clean look (felt pieces fade into the page instead)",
-  bs=["--bs-btn-disabled-opacity", "--bs-nav-link-disabled-color"])
+T("disabled-opacity", ".55", dark=".45", doc="Disabled controls in the clean look (felt pieces fade into the page instead)")
 T("focus-ring-color", "light-dark(color-mix(in oklab, $primary 50%, transparent), color-mix(in oklab, $link-color 60%, transparent))",
   doc="Focus rings; .focus-ring-* set it too")
 T("focus-ring-width", ".25rem", doc="Focus rings of fields and .focus-ring")

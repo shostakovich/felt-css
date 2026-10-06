@@ -1,9 +1,19 @@
 <!--
 title: CSS variables
-description: felt-css is plain CSS: every colour, radius, space and shadow is a custom property on :root. Override them to make the toolkit yours — no Sass, no build.
+description: felt-css is plain CSS: every colour, radius, space and shadow is a custom property. Override them to make the toolkit yours — no Sass, no build.
 -->
+<h2>Naming</h2>
+<p>Like Bootstrap's <code>--bs-*</code>, every public variable of felt-css starts with <code>--felt-</code>, so it doesn't collide with your own <code>--primary</code> or <code>--border</code>:</p>
+<ul>
+  <li><strong>Global variables</strong> on <code>:root</code>: <code>--felt-primary</code>, <code>--felt-radius</code>, <code>--felt-body-bg</code> … (on this page).</li>
+  <li><strong>Component variables</strong> on the component, named after Bootstrap's: <code>.btn</code> has <code>--felt-btn-bg</code> where Bootstrap has <code>--bs-btn-bg</code>. Each component page lists them under “CSS”.</li>
+  <li><strong>Felt variables</strong> that only act in the felt look carry a material word: texture, sheet, nap, wool, patch, groove, seam, thread or stitch (<code>--felt-thread-strength</code>, <code>--felt-patch-shadow</code>). A plain word like <code>--felt-shadow</code> is always a variable of both looks. See <a href="../felt/">Felt</a>.</li>
+  <li><code>--_name</code> variables are internal: they may change in any release.</li>
+</ul>
+<p>The tables below are generated from the same source as <code>felt.css</code>; the Bootstrap column names the Bootstrap variable each one stands for.</p>
+
 <h2>Overriding</h2>
-<p>All tokens live on <code>:root</code> inside <code>@layer tokens</code>. Any unlayered rule of yours wins over them, so overriding is just redefining:</p>
+<p>All global variables live in <code>@layer tokens</code>. Any unlayered rule of yours wins over them, so overriding is just redefining:</p>
 <codeblock lang="css">
 :root {
   --felt-font: "Atkinson Hyperlegible", system-ui, sans-serif;
@@ -11,65 +21,29 @@ description: felt-css is plain CSS: every colour, radius, space and shadow is a 
   --felt-container-max: 1200px;
 }
 </codeblock>
-<p>Tokens can also be overridden on any element for that part of the page, like Bootstrap's component variables:</p>
+<p>Variables can also be overridden on any element for that part of the page, like Bootstrap's component variables:</p>
 <example>
 <div style="--felt-primary: var(--felt-moss); --felt-primary-ink: #fff">
   <button type="button" class="btn btn-primary">Moss instead of denim</button>
   <span class="badge text-bg-primary">Badge</span>
 </div>
 </example>
+<div class="bd-callout bd-callout-info">
+  <p>Variables that differ between the looks (most colours, the radii) are set on <code>:root</code> for clean and again on <code>[data-look="felt"]</code>. To change a value for one look only, override it there: <code>[data-look="felt"] { --felt-radius: 16px; }</code>.</p>
+</div>
 
 <h2>Colors</h2>
-<p>Theme colours and their families are described on <a href="../color/">Color</a>. The neutral tokens:</p>
-<div class="table-responsive">
-  <table class="table table-sm">
-    <thead><tr><th>Variable</th><th>Used for</th></tr></thead>
-    <tbody>
-      <tr><td><code>--felt-body-bg</code></td><td>Page background</td></tr>
-      <tr><td><code>--felt-surface</code></td><td>Cards, list groups, accordions, toasts</td></tr>
-      <tr><td><code>--felt-surface-sunk</code></td><td>Wells, code blocks, tracks</td></tr>
-      <tr><td><code>--felt-surface-raised</code></td><td>Slightly raised surfaces: light buttons, <code>.alert-light</code>, <code>.table-light</code></td></tr>
-      <tr><td><code>--felt-surface-overlay</code></td><td>Dropdowns, popovers, modals, offcanvas — never darker than what they lie on</td></tr>
-      <tr><td><code>--felt-surface-hover</code>, <code>--felt-surface-pressed</code></td><td>Interaction states of neutral surfaces</td></tr>
-      <tr><td><code>--felt-field</code>, <code>--felt-field-addon</code>, <code>--felt-field-disabled</code></td><td>Inputs, input-group addons, disabled inputs</td></tr>
-      <tr><td><code>--felt-border-color</code>, <code>--felt-border-color-strong</code></td><td>Hairlines; outlines that must reach 3:1 (checkboxes, radios)</td></tr>
-      <tr><td><code>--felt-body-color</code>, <code>--felt-emphasis-color</code></td><td>Body text; strongest text</td></tr>
-      <tr><td><code>--felt-secondary-color</code>, <code>--felt-tertiary-color</code></td><td>Secondary and tertiary text</td></tr>
-      <tr><td><code>--felt-link-color</code></td><td>Links</td></tr>
-      <tr><td><code>--felt-focus-ring-color</code></td><td>Focus rings</td></tr>
-      <tr><td><code>--felt-track</code></td><td>The empty part of progress bars and ranges; use it for tracks of your own (SVG rings, idle lines). A warm groove tone in the felt look</td></tr>
-      <tr><td><code>--felt-backdrop</code></td><td>Modal and offcanvas backdrops</td></tr>
-    </tbody>
-  </table>
-</div>
+<p>Theme colours and the palette are on <a href="../color/">Color</a>. Body, surfaces and text:</p>
+<tokens group="body"></tokens>
+
+<h2>Interaction</h2>
+<tokens group="interaction"></tokens>
 
 <h2>Type</h2>
-<div class="table-responsive">
-  <table class="table table-sm">
-    <thead><tr><th>Variable</th><th>Default</th></tr></thead>
-    <tbody>
-      <tr><td><code>--felt-font</code></td><td><code>system-ui, -apple-system, "Segoe UI", Roboto, sans-serif</code></td></tr>
-      <tr><td><code>--felt-font-heading</code></td><td><code>var(--felt-font)</code></td></tr>
-      <tr><td><code>--felt-font-mono</code></td><td><code>ui-monospace, SFMono-Regular, Menlo, Consolas, monospace</code></td></tr>
-    </tbody>
-  </table>
-</div>
+<tokens group="type"></tokens>
 
 <h2>Spacing, radius and shadows</h2>
-<div class="table-responsive">
-  <table class="table table-sm">
-    <thead><tr><th>Variable</th><th>Default</th></tr></thead>
-    <tbody>
-      <tr><td><code>--felt-space-1</code> … <code>--felt-space-5</code></td><td><code>.25rem</code>, <code>.5rem</code>, <code>1rem</code>, <code>1.5rem</code>, <code>3rem</code> — the same scale as the <a href="../../utilities/spacing/">spacing utilities</a></td></tr>
-      <tr><td><code>--felt-radius-sm</code>, <code>--felt-radius</code>, <code>--felt-radius-lg</code>, <code>--felt-radius-xl</code>, <code>--felt-radius-xxl</code>, <code>--felt-radius-pill</code></td><td><code>6px</code>, <code>10px</code>, <code>14px</code>, <code>20px</code>, <code>32px</code>, <code>999px</code></td></tr>
-      <tr><td><code>--felt-shadow-sm</code>, <code>--felt-shadow</code>, <code>--felt-shadow-lg</code></td><td>Clean-look shadows, darker in dark mode</td></tr>
-      <tr><td><code>--felt-container-max</code></td><td><code>1080px</code></td></tr>
-    </tbody>
-  </table>
-</div>
+<tokens group="layout"></tokens>
 
-<h2>Felt</h2>
-<p>The felt look has its own tokens on <code>:root[data-look="felt"]</code>: the felt textures (<code>--felt-texture</code>, <code>--felt-texture-light</code>, <code>--felt-texture-dark</code> and their <code>-size</code>), the sheet everything light is cut from (<code>--felt-texture-sheet</code>, <code>--felt-texture-sheet-blend</code>), edge and shadow tones (<code>--felt-patch-cut</code>, <code>--felt-patch-shadow-near</code>, <code>--felt-patch-shadow-far</code>, …) and the seams (<code>--_seam-img</code>, <code>--_seam-width</code>, <code>--felt-seam-inset</code>, <code>--felt-thread-filter</code>, <code>--felt-thread-strength</code>). They are tuned together with the images that <code>tools/build_assets.py</code> generates; change the script rather than single values if you want a different stitch.</p>
-<div class="bd-callout bd-callout-felt">
-  <p>A cheap tweak that works: <code>--felt-thread-strength</code> (0–1) controls how strongly the thread shows on light felt, <code>--felt-seam-inset</code> how far in from the edge it is sewn.</p>
-</div>
+<h2>Images</h2>
+<tokens group="images"></tokens>

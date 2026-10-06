@@ -6,11 +6,11 @@ description: Quickly and responsively toggle the display value of components and
 <p>Change the value of the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display"><code>display</code> property</a> with the responsive display utility classes. We purposely support only a subset of all possible values for <code>display</code>. Classes can be combined for various effects as you need.</p>
 
 <h2>Notation</h2>
-<p>Display utility classes that apply to all <a href="../../layout/breakpoints/">breakpoints</a>, from <code>xs</code> to <code>lg</code>, have no breakpoint abbreviation in them. This is because those classes are applied from <code>min-width: 0;</code> and up, and thus are not bound by a media query. The remaining breakpoints, however, do include a breakpoint abbreviation.</p>
+<p>Display utility classes that apply to all <a href="../../layout/breakpoints/">breakpoints</a>, from <code>xs</code> to <code>xxl</code>, have no breakpoint abbreviation in them. This is because those classes are applied from <code>min-width: 0;</code> and up, and thus are not bound by a media query. The remaining breakpoints, however, do include a breakpoint abbreviation.</p>
 <p>As such, the classes are named using the format:</p>
 <ul>
   <li><code>.d-{value}</code> for <code>xs</code></li>
-  <li><code>.d-{breakpoint}-{value}</code> for <code>sm</code>, <code>md</code> and <code>lg</code> (felt-css has no <code>xl</code>/<code>xxl</code> variants)</li>
+  <li><code>.d-{breakpoint}-{value}</code> for <code>sm</code>, <code>md</code>, <code>lg</code>, <code>xl</code> and <code>xxl</code></li>
 </ul>
 <p>Where <em>value</em> is one of:</p>
 <ul>
@@ -26,7 +26,7 @@ description: Quickly and responsively toggle the display value of components and
   <li><code>flex</code></li>
   <li><code>inline-flex</code></li>
 </ul>
-<p>The media queries affect screen widths with the given breakpoint <em>or larger</em>. For example, <code>.d-md-none</code> sets <code>display: none;</code> on <code>md</code> and <code>lg</code> screens.</p>
+<p>The media queries affect screen widths with the given breakpoint <em>or larger</em>. For example, <code>.d-md-none</code> sets <code>display: none;</code> on <code>md</code>, <code>lg</code>, <code>xl</code> and <code>xxl</code> screens.</p>
 
 <h2>Examples</h2>
 <example>
@@ -40,7 +40,7 @@ description: Quickly and responsively toggle the display value of components and
 
 <h2>Hiding elements</h2>
 <p>For faster mobile-friendly development, use responsive display classes for showing and hiding elements by device. Avoid creating entirely different versions of the same site, instead hide elements responsively for each screen size.</p>
-<p>To hide elements simply use the <code>.d-none</code> class or one of the <code>.d-{sm,md,lg}-none</code> classes for any responsive screen variation.</p>
+<p>To hide elements simply use the <code>.d-none</code> class or one of the <code>.d-{sm,md,lg,xl,xxl}-none</code> classes for any responsive screen variation.</p>
 <p>To show an element only on a given interval of screen sizes you can combine one <code>.d-*-none</code> class with a <code>.d-*-*</code> class, for example <code>.d-none .d-md-block .d-lg-none</code> will hide the element for all screen sizes except on medium devices.</p>
 <div class="table-responsive">
 <table class="table">

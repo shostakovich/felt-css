@@ -10,7 +10,7 @@ description: Breakpoints are the widths that determine how your responsive layou
 </ul>
 
 <h2>Available breakpoints</h2>
-<p>felt-css includes four breakpoints, sometimes referred to as <em>grid tiers</em>, for building responsively. They are the same as Bootstrap's first four; Bootstrap's <code>xl</code> (&ge;1200px) and <code>xxl</code> (&ge;1400px) tiers don't exist here, since felt-css is made for apps whose content rarely needs more than a large screen.</p>
+<p>felt-css includes six default breakpoints, sometimes referred to as <em>grid tiers</em>, for building responsively. They are the same as Bootstrap's.</p>
 
 <div class="table-responsive">
 <table class="table">
@@ -22,11 +22,13 @@ description: Breakpoints are the widths that determine how your responsive layou
     <tr><td>Small</td><td><code>sm</code></td><td>&ge;576px</td></tr>
     <tr><td>Medium</td><td><code>md</code></td><td>&ge;768px</td></tr>
     <tr><td>Large</td><td><code>lg</code></td><td>&ge;992px</td></tr>
+    <tr><td>Extra large</td><td><code>xl</code></td><td>&ge;1200px</td></tr>
+    <tr><td>Extra extra large</td><td><code>xxl</code></td><td>&ge;1400px</td></tr>
   </tbody>
 </table>
 </div>
 
-<p>The same breakpoints drive the <a href="../containers/">responsive containers</a>, the <a href="../grid/">grid</a>, <code>.navbar-expand-*</code> and the responsive utilities. Only some utility families come per breakpoint: grid, <a href="../../utilities/display/">display</a>, <a href="../../utilities/flex/">flex</a> (including order), <a href="../../utilities/spacing/">spacing and gap</a>, <a href="../../utilities/text/#text-alignment">text alignment</a>, <a href="../../utilities/float/">float</a>, <a href="../../utilities/object-fit/">object-fit</a> and <a href="../../helpers/position/#responsive-sticky-top">sticky</a>.</p>
+<p>The same breakpoints drive the <a href="../containers/">responsive containers</a>, the <a href="../grid/">grid</a>, the responsive component variants (<code>.navbar-expand-*</code>, <code>.offcanvas-*</code>, <code>.list-group-horizontal-*</code>, <code>.table-responsive-*</code>, <code>.modal-fullscreen-*-down</code>, <code>.dropdown-menu-*-end</code>) and the responsive utilities. They are also tokens (<code>--felt-breakpoint-sm</code> … <code>--felt-breakpoint-xxl</code>) for scripts; media queries can't read custom properties. Only some utility families come per breakpoint: grid, <a href="../../utilities/display/">display</a>, <a href="../../utilities/flex/">flex</a> (including order), <a href="../../utilities/spacing/">spacing and gap</a>, <a href="../../utilities/text/#text-alignment">text alignment</a>, <a href="../../utilities/float/">float</a>, <a href="../../utilities/object-fit/">object-fit</a> and <a href="../../helpers/position/#responsive-sticky-top">sticky</a>.</p>
 
 <h2>Media queries</h2>
 <p>Since felt-css is developed to be mobile first, it uses a handful of <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries">media queries</a> to create sensible breakpoints for layouts and interfaces. These breakpoints are based on minimum viewport widths and allow us to scale up elements as the viewport changes. felt-css is plain CSS without Sass mixins, so use the media queries directly in your own CSS.</p>
@@ -45,6 +47,12 @@ description: Breakpoints are the widths that determine how your responsive layou
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) { ... }
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { ... }
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { ... }
 </codeblock>
 <p>For example, to hide an element on the smallest screens and show it from the <code>sm</code> breakpoint up:</p>
 <codeblock lang="css">
@@ -69,6 +77,12 @@ description: Breakpoints are the widths that determine how your responsive layou
 
 /* Medium devices (tablets, less than 992px) */
 @media (max-width: 991.98px) { ... }
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) { ... }
+
+/* X-Large devices (large desktops, less than 1400px) */
+@media (max-width: 1399.98px) { ... }
 </codeblock>
 <div class="bd-callout bd-callout-warning">
   <p>Why subtract .02px? Browsers don't currently support <a href="https://www.w3.org/TR/mediaqueries-4/#range-context">range context queries</a> everywhere, so we work around the limitations of <a href="https://www.w3.org/TR/mediaqueries-4/#mq-min-max"><code>min-</code> and <code>max-</code> prefixes</a> and viewports with fractional widths (which can occur under certain conditions on high-dpi devices, for instance) by using values with higher precision.</p>

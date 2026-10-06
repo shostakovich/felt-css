@@ -49,6 +49,7 @@ NAV = [
     ("Customize", "customize", [
         ("color", "Color"),
         ("css-variables", "CSS variables"),
+        ("felt", "Felt"),
     ]),
     ("Layout", "layout", [
         ("breakpoints", "Breakpoints"),
@@ -236,6 +237,7 @@ def expand(body):
         markup = tidy(match.group(2))
         classes = " ".join(filter(None, ["bd-example", attrs.get("class")]))
         style = f' style="{attrs["style"]}"' if "style" in attrs else ""
+        style += "".join(f' {k}="{attrs[k]}"' for k in ("data-look", "data-bs-theme") if k in attrs)
         rendered = f'<div class="{classes}"{style}>\n{markup}\n</div>'
         code = "" if attrs.get("code") == "false" else code_box(markup, "html")
         return keep(f'<div class="bd-example-snippet">{rendered}{code}</div>')
@@ -260,6 +262,7 @@ def expand(body):
 # ------------------------------------------------------------------ tokens
 
 FELT_CSS = (ROOT / "felt.css").read_text()
+JS_CONTRACT = {"--bs-position"}   # Bootstrap's JS reads it
 SHOWN_BLOCKS = set()   # the docs:*-vars blocks some page shows
 _MAP = None
 
@@ -295,13 +298,15 @@ def token_tables(keys):
                 value += (f'{"<br>" if value else ""}<span class="bd-token-look">felt</span> {value_cell(felt)}')
                 if felt_dark != felt:
                     value += f' <span class="bd-token-mode">dark</span> {value_cell(felt_dark)}'
-            rows.append(f"<tr><td><code>{token_name(t.name)}</code></td><td>{value}</td><td>{bs_cell(token_name(t.name))}</td>"
-                        f"<td>{html.escape(t.doc)}</td></tr>")
+            rows.append((token_name(t.name), value, bs_cell(token_name(t.name)), html.escape(t.doc)))
+        with_bs = any(r[2] for r in rows)
+        body = "".join(f"<tr><td><code>{n}</code></td><td>{v}</td>{f'<td>{b}</td>' if with_bs else ''}<td>{d}</td></tr>"
+                       for n, v, b, d in rows)
         intro_html = f"<p>{html.escape(intro)}</p>" if intro and len(keys) > 1 else ""
         heading = f"<h3>{title}</h3>" if len(keys) > 1 else ""
         out.append(f'{heading}{intro_html}<div class="table-responsive bd-tokens"><table class="table table-sm">'
-                   "<thead><tr><th>Token</th><th>Value</th><th>Bootstrap</th><th>Used for</th></tr></thead>"
-                   f"<tbody>{''.join(rows)}</tbody></table></div>")
+                   f"<thead><tr><th>Token</th><th>Value</th>{'<th>Bootstrap</th>' if with_bs else ''}<th>Used for</th></tr></thead>"
+                   f"<tbody>{body}</tbody></table></div>")
     return "".join(out)
 
 
@@ -332,12 +337,12 @@ def token_problems(pages_text):
     css = re.sub(r"/\*.*?\*/", "", FELT_CSS, flags=re.S)
     declared = set(re.findall(r"(--[\w-]+)\s*:", css))
     for t in sorted(declared):
-        if not t.startswith(("--felt-", "--_")):
+        if not t.startswith(("--felt-", "--_")) and t not in JS_CONTRACT:
             problems.append(f"felt.css declares {t}: tokens are --felt-* (public) or --_* (internal)")
     documented = {token_name(t.name) for _, _, _, ts in GROUPS for t in ts if t.public and t.doc}
     for block in SHOWN_BLOCKS:
         documented |= set(re.findall(r"(--felt-[\w-]+)\s*:", css_block(block)))
-    named = set(re.findall(r"--felt-[\w-]*[\w]", pages_text))
+    named = set(re.findall(r"--felt-[\w-]*\w(?![\w*-])", pages_text))   # not a family like --felt-focus-ring-*
     public = set(re.findall(r"--felt-[\w-]*[\w]", css))   # declared, or read with a fallback (set by the page)
     for t in sorted(public - documented - named):
         problems.append(f"{t} is public but no page documents it")
