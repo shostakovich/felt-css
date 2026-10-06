@@ -818,22 +818,43 @@
 
   /* card */
   .card {
+    /* docs:card-vars:start */
+    --felt-card-spacer-y: var(--felt-space-4);
+    --felt-card-spacer-x: var(--felt-space-4);
+    --felt-card-title-spacer-y: var(--felt-space-2);
+    --felt-card-title-color: var(--felt-heading-color);
+    --felt-card-subtitle-color: var(--felt-secondary-color);
+    --felt-card-border-width: var(--felt-border-width);
+    --felt-card-border-color: var(--felt-border-color);
+    --felt-card-border-radius: var(--felt-radius-lg);
+    --felt-card-box-shadow: var(--felt-shadow);
+    --felt-card-inner-border-radius: calc(var(--felt-card-border-radius) - var(--felt-card-border-width));
+    --felt-card-cap-padding-y: var(--felt-space-3);
+    --felt-card-cap-padding-x: var(--felt-space-4);
+    --felt-card-cap-bg: color-mix(in srgb, var(--felt-body-color) 3%, transparent);   /* a breath of the text colour, like Bootstrap's */
+    --felt-card-cap-color: inherit;
+    --felt-card-height: auto;
+    --felt-card-color: inherit;
+    --felt-card-bg: var(--felt-surface);
+    --felt-card-img-overlay-padding: var(--felt-space-4);
+    --felt-card-group-margin: .75rem;
+    /* docs:card-vars:end */
     position: relative;
     display: flex; flex-direction: column;
-    background: var(--felt-surface);
-    border: 1px solid var(--felt-border-color);
-    border-radius: var(--felt-radius-lg);
-    box-shadow: var(--felt-shadow);
-    --felt-card-cap-bg: color-mix(in srgb, var(--felt-body-color) 3%, transparent);   /* header and footer: a breath of the text colour, like Bootstrap's */
+    height: var(--felt-card-height);
+    background-color: var(--felt-card-bg);
+    border: var(--felt-card-border-width) solid var(--felt-card-border-color);
+    border-radius: var(--felt-card-border-radius);
+    box-shadow: var(--felt-card-box-shadow);
   }
   .card:is([class*="text-bg-"], .bg-primary, .bg-secondary, .bg-success, .bg-danger, .bg-warning, .bg-info, .bg-light, .bg-dark, .bg-black, .bg-white) { --felt-card-cap-bg: transparent; }
-  .card-header, .card-footer { padding: var(--felt-space-3) var(--felt-space-4); background-color: var(--felt-card-cap-bg); }
-  .card-header { border-bottom: 1px solid var(--felt-border-color); }
-  .card-footer { border-top: 1px solid var(--felt-border-color); margin-top: auto; }
-  .card-header:first-child { border-radius: calc(var(--felt-radius-lg) - 1px) calc(var(--felt-radius-lg) - 1px) 0 0; }
-  .card-footer:last-child { border-radius: 0 0 calc(var(--felt-radius-lg) - 1px) calc(var(--felt-radius-lg) - 1px); }
-  .card-body { flex: 1 1 auto; padding: var(--felt-space-4); }
-  .card-title { font-size: 1.125rem; margin-bottom: var(--felt-space-2); }
+  .card-header, .card-footer { padding: var(--felt-card-cap-padding-y) var(--felt-card-cap-padding-x); color: var(--felt-card-cap-color); background-color: var(--felt-card-cap-bg); }
+  .card-header { border-bottom: var(--felt-card-border-width) solid var(--felt-card-border-color); }
+  .card-footer { border-top: var(--felt-card-border-width) solid var(--felt-card-border-color); margin-top: auto; }
+  .card-header:first-child { border-radius: var(--felt-card-inner-border-radius) var(--felt-card-inner-border-radius) 0 0; }
+  .card-footer:last-child { border-radius: 0 0 var(--felt-card-inner-border-radius) var(--felt-card-inner-border-radius); }
+  .card-body { flex: 1 1 auto; padding: var(--felt-card-spacer-y) var(--felt-card-spacer-x); color: var(--felt-card-color); }
+  .card-title { margin-bottom: var(--felt-card-title-spacer-y); color: var(--felt-card-title-color); font-size: 1.125rem; }
   .card-text { color: var(--felt-secondary-color); }
   :is([class*="text-bg-"], .card-img-overlay) .card-text { color: inherit; opacity: .85; }
   .card-text:last-child { margin-bottom: 0; }
@@ -1013,37 +1034,56 @@
 
   /* badge */
   .badge {
+    /* docs:badge-vars:start */
+    --felt-badge-padding-x: .6rem;
+    --felt-badge-padding-y: .2rem;
+    --felt-badge-font-size: .75rem;
+    --felt-badge-font-weight: 700;
+    --felt-badge-color: var(--felt-body-color);
+    --felt-badge-border-radius: var(--felt-radius-pill);
+    /* docs:badge-vars:end */
     --_tone: var(--felt-surface-sunk);
     position: relative;
     display: inline-flex; align-items: center;
-    padding: .2rem .6rem;
-    border-radius: var(--felt-radius-pill);
+    padding: var(--felt-badge-padding-y) var(--felt-badge-padding-x);
+    border-radius: var(--felt-badge-border-radius);
     background-color: var(--_tone);
-    color: var(--felt-body-color);
-    font-size: .75rem; font-weight: 700; line-height: 1.3;
+    color: var(--felt-badge-color);
+    font-size: var(--felt-badge-font-size); font-weight: var(--felt-badge-font-weight); line-height: 1.3;
   }
 
   /* alert */
   .alert {
-    --_tone: var(--felt-primary);
-    --_tone-emphasis: var(--felt-primary-emphasis);
+    /* docs:alert-vars:start */
+    --felt-alert-bg: color-mix(in oklab, var(--felt-primary) 12%, var(--felt-surface));
+    --felt-alert-padding-x: var(--felt-space-4);
+    --felt-alert-padding-y: var(--felt-space-3);
+    --felt-alert-margin-bottom: 0;
+    --felt-alert-color: var(--felt-primary-emphasis);
+    --felt-alert-border-color: color-mix(in oklab, var(--felt-primary) 30%, var(--felt-surface));
+    --felt-alert-border: var(--felt-border-width) solid var(--felt-alert-border-color);
+    --felt-alert-border-radius: var(--felt-radius-lg);
+    --felt-alert-link-color: var(--felt-alert-color);
+    /* docs:alert-vars:end */
+    --_tone: var(--felt-primary);   /* the felt look dyes and edges the piece in it */
     position: relative;
-    padding: var(--felt-space-3) var(--felt-space-4);
-    border: 1px solid color-mix(in oklab, var(--_tone) 30%, var(--felt-surface));
-    border-radius: var(--felt-radius-lg);
-    background-color: color-mix(in oklab, var(--_tone) 12%, var(--felt-surface));
-    color: var(--_tone-emphasis);
+    padding: var(--felt-alert-padding-y) var(--felt-alert-padding-x);
+    margin-bottom: var(--felt-alert-margin-bottom);
+    border: var(--felt-alert-border);
+    border-radius: var(--felt-alert-border-radius);
+    background-color: var(--felt-alert-bg);
+    color: var(--felt-alert-color);
   }
   /* alert-variants:start */
   /* written by tools/feltgen/variants.py; change it there, not these 8 lines */
-  .alert-primary { --_tone: var(--felt-primary); --_tone-emphasis: var(--felt-primary-emphasis); }
-  .alert-secondary { --_tone: var(--felt-secondary); --_tone-emphasis: var(--felt-secondary-emphasis); }
-  .alert-success { --_tone: var(--felt-success); --_tone-emphasis: var(--felt-success-emphasis); }
-  .alert-warning { --_tone: var(--felt-warning); --_tone-emphasis: var(--felt-warning-emphasis); }
-  .alert-danger { --_tone: var(--felt-danger); --_tone-emphasis: var(--felt-danger-emphasis); }
-  .alert-info { --_tone: var(--felt-info); --_tone-emphasis: var(--felt-info-emphasis); }
-  .alert-light { --_tone: var(--felt-secondary-color); --_tone-emphasis: var(--felt-light-emphasis); background-color: var(--felt-surface-raised); border-color: var(--felt-border-color); }
-  .alert-dark { --_tone: var(--felt-dark); --_tone-emphasis: var(--felt-dark-emphasis); background-color: light-dark(color-mix(in oklab, var(--felt-dark) 16%, var(--felt-surface)), color-mix(in oklab, var(--felt-dark) 60%, var(--felt-surface))); border-color: light-dark(color-mix(in oklab, var(--felt-dark) 26%, var(--felt-surface)), var(--felt-border-color)); }
+  .alert-primary { --_tone: var(--felt-primary); --felt-alert-color: var(--felt-primary-emphasis); --felt-alert-bg: color-mix(in oklab, var(--felt-primary) 12%, var(--felt-surface)); --felt-alert-border-color: color-mix(in oklab, var(--felt-primary) 30%, var(--felt-surface)); }
+  .alert-secondary { --_tone: var(--felt-secondary); --felt-alert-color: var(--felt-secondary-emphasis); --felt-alert-bg: color-mix(in oklab, var(--felt-secondary) 12%, var(--felt-surface)); --felt-alert-border-color: color-mix(in oklab, var(--felt-secondary) 30%, var(--felt-surface)); }
+  .alert-success { --_tone: var(--felt-success); --felt-alert-color: var(--felt-success-emphasis); --felt-alert-bg: color-mix(in oklab, var(--felt-success) 12%, var(--felt-surface)); --felt-alert-border-color: color-mix(in oklab, var(--felt-success) 30%, var(--felt-surface)); }
+  .alert-danger { --_tone: var(--felt-danger); --felt-alert-color: var(--felt-danger-emphasis); --felt-alert-bg: color-mix(in oklab, var(--felt-danger) 12%, var(--felt-surface)); --felt-alert-border-color: color-mix(in oklab, var(--felt-danger) 30%, var(--felt-surface)); }
+  .alert-warning { --_tone: var(--felt-warning); --felt-alert-color: var(--felt-warning-emphasis); --felt-alert-bg: color-mix(in oklab, var(--felt-warning) 12%, var(--felt-surface)); --felt-alert-border-color: color-mix(in oklab, var(--felt-warning) 30%, var(--felt-surface)); }
+  .alert-info { --_tone: var(--felt-info); --felt-alert-color: var(--felt-info-emphasis); --felt-alert-bg: color-mix(in oklab, var(--felt-info) 12%, var(--felt-surface)); --felt-alert-border-color: color-mix(in oklab, var(--felt-info) 30%, var(--felt-surface)); }
+  .alert-light { --_tone: var(--felt-secondary-color); --felt-alert-color: var(--felt-light-emphasis); --felt-alert-bg: var(--felt-surface-raised); --felt-alert-border-color: var(--felt-border-color); }
+  .alert-dark { --_tone: var(--felt-dark); --felt-alert-color: var(--felt-dark-emphasis); --felt-alert-bg: light-dark(color-mix(in oklab, var(--felt-dark) 16%, var(--felt-surface)), color-mix(in oklab, var(--felt-dark) 60%, var(--felt-surface))); --felt-alert-border-color: light-dark(color-mix(in oklab, var(--felt-dark) 26%, var(--felt-surface)), var(--felt-border-color)); }
   /* alert-variants:end */
   .alert-heading { font-weight: 700; margin-bottom: .15rem; }
 
@@ -1082,12 +1122,24 @@
   .btn-toolbar { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--felt-space-2); }
 
   /* close button */
-  .btn-close { position: relative; box-sizing: content-box; width: 1em; height: 1em; padding: .25em; border: 0; border-radius: var(--felt-radius-sm); background: none; color: inherit; opacity: .5; }
-  .btn-close::before { content: ""; position: absolute; inset: .25em; background: currentColor; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 3.5 9 9m0-9-9 9' stroke='%23000' stroke-width='1.8' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / contain no-repeat; }
-  .btn-close:hover { opacity: .75; background: var(--felt-surface-hover); }
-  .btn-close:focus-visible { opacity: 1; }
-  .btn-close:disabled, .btn-close.disabled { opacity: .25; pointer-events: none; }
-  .btn-close-white { color: #fff; }
+  .btn-close {
+    /* docs:btn-close-vars:start */
+    --felt-btn-close-color: currentColor;
+    --felt-btn-close-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 3.5 9 9m0-9-9 9' stroke='%23000' stroke-width='1.8' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+    --felt-btn-close-opacity: .5;
+    --felt-btn-close-hover-opacity: .75;
+    --felt-btn-close-focus-opacity: 1;
+    --felt-btn-close-disabled-opacity: .25;
+    /* docs:btn-close-vars:end */
+    position: relative; box-sizing: content-box; width: 1em; height: 1em; padding: .25em; border: 0; border-radius: var(--felt-radius-sm);
+    background: none; color: var(--felt-btn-close-color); opacity: var(--felt-btn-close-opacity);
+  }
+  /* the X is a mask in the text colour, so any colour works without a filter; --felt-btn-close-bg gives its shape */
+  .btn-close::before { content: ""; position: absolute; inset: .25em; background: currentColor; mask: var(--felt-btn-close-bg) center / contain no-repeat; }
+  .btn-close:hover { opacity: var(--felt-btn-close-hover-opacity); background: var(--felt-surface-hover); }
+  .btn-close:focus-visible { opacity: var(--felt-btn-close-focus-opacity); }
+  .btn-close:disabled, .btn-close.disabled { opacity: var(--felt-btn-close-disabled-opacity); pointer-events: none; }
+  .btn-close-white { --felt-btn-close-color: #fff; }
 
   /* nav */
   .nav { display: flex; flex-wrap: wrap; gap: var(--felt-space-1); padding: 0; margin: 0; list-style: none; }
@@ -1194,82 +1246,132 @@
   .pagination-sm .page-link { padding: .3rem .6rem; font-size: .875rem; }
 
   /* list group */
-  .list-group { display: flex; flex-direction: column; padding: 0; margin: 0; border-radius: var(--felt-radius-lg); box-shadow: var(--felt-shadow-sm); }
-  .list-group-item { --felt-list-group-bg: var(--felt-surface); position: relative; display: block; padding: .65rem 1rem; border: 1px solid var(--felt-border-color); background-color: var(--felt-list-group-bg); color: var(--felt-body-color); text-decoration: none; }
+  .list-group {
+    /* docs:list-group-vars:start */
+    --felt-list-group-color: var(--felt-body-color);
+    --felt-list-group-bg: var(--felt-surface);
+    --felt-list-group-border-color: var(--felt-border-color);
+    --felt-list-group-border-width: var(--felt-border-width);
+    --felt-list-group-border-radius: var(--felt-radius-lg);
+    --felt-list-group-item-padding-x: 1rem;
+    --felt-list-group-item-padding-y: .65rem;
+    --felt-list-group-action-color: var(--felt-list-group-color);
+    --felt-list-group-action-hover-color: var(--felt-list-group-action-color);
+    --felt-list-group-action-hover-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 6%);
+    --felt-list-group-action-active-color: var(--felt-list-group-action-color);
+    --felt-list-group-action-active-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 12%);
+    --felt-list-group-disabled-color: var(--felt-tertiary-color);
+    --felt-list-group-disabled-bg: var(--felt-list-group-bg);
+    --felt-list-group-active-color: var(--felt-primary-ink);
+    --felt-list-group-active-bg: var(--felt-primary);
+    --felt-list-group-active-border-color: var(--felt-primary);
+    /* docs:list-group-vars:end */
+    display: flex; flex-direction: column; padding: 0; margin: 0;
+    border-radius: var(--felt-list-group-border-radius); box-shadow: var(--felt-shadow-sm);
+  }
+  .list-group-item {
+    position: relative; display: block; padding: var(--felt-list-group-item-padding-y) var(--felt-list-group-item-padding-x);
+    border: var(--felt-list-group-border-width) solid var(--felt-list-group-border-color);
+    background-color: var(--felt-list-group-bg); color: var(--felt-list-group-color); text-decoration: none;
+  }
   .list-group-item + .list-group-item { border-top-width: 0; }
   .list-group-item:first-child { border-start-start-radius: inherit; border-start-end-radius: inherit; }
   .list-group-item:last-child { border-end-start-radius: inherit; border-end-end-radius: inherit; }
-  .list-group-item-action { width: 100%; text-align: inherit; }
+  .list-group-item-action { width: 100%; color: var(--felt-list-group-action-color); text-align: inherit; }
   .list-group-item-action:focus-visible { outline-offset: -3px; }
-  .list-group-item-action:is(:hover, :focus-visible) { z-index: 1; background-color: color-mix(in oklab, var(--felt-list-group-bg), currentColor 6%); }
-  .list-group-item-action:active { background-color: color-mix(in oklab, var(--felt-list-group-bg), currentColor 12%); }
-  .list-group-item:is(.disabled, :disabled) { --felt-list-group-bg: var(--felt-surface); color: var(--felt-tertiary-color); pointer-events: none; }
+  .list-group-item-action:not(.active):is(:hover, :focus-visible) { z-index: 1; color: var(--felt-list-group-action-hover-color); background-color: var(--felt-list-group-action-hover-bg); }
+  .list-group-item-action:not(.active):active { color: var(--felt-list-group-action-active-color); background-color: var(--felt-list-group-action-active-bg); }
+  .list-group-item:is(.disabled, :disabled) { color: var(--felt-list-group-disabled-color); background-color: var(--felt-list-group-disabled-bg); pointer-events: none; }
   /* list-group-variants:start */
   /* written by tools/feltgen/variants.py; change it there, not these 8 lines */
-  .list-group-item-primary { --felt-list-group-bg: var(--felt-primary-subtle); color: var(--felt-primary-emphasis); }
-  .list-group-item-secondary { --felt-list-group-bg: var(--felt-secondary-subtle); color: var(--felt-secondary-emphasis); }
-  .list-group-item-success { --felt-list-group-bg: var(--felt-success-subtle); color: var(--felt-success-emphasis); }
-  .list-group-item-danger { --felt-list-group-bg: var(--felt-danger-subtle); color: var(--felt-danger-emphasis); }
-  .list-group-item-warning { --felt-list-group-bg: var(--felt-warning-subtle); color: var(--felt-warning-emphasis); }
-  .list-group-item-info { --felt-list-group-bg: var(--felt-info-subtle); color: var(--felt-info-emphasis); }
-  .list-group-item-light { --felt-list-group-bg: var(--felt-light-subtle); color: var(--felt-light-emphasis); }
-  .list-group-item-dark { --felt-list-group-bg: var(--felt-dark-subtle); color: var(--felt-dark-emphasis); }
+  .list-group-item-primary { --felt-list-group-color: var(--felt-primary-emphasis); --felt-list-group-bg: var(--felt-primary-subtle); --felt-list-group-action-color: var(--felt-list-group-color); --felt-list-group-action-hover-color: var(--felt-list-group-action-color); --felt-list-group-action-hover-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 6%); --felt-list-group-action-active-color: var(--felt-list-group-action-color); --felt-list-group-action-active-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 12%); }
+  .list-group-item-secondary { --felt-list-group-color: var(--felt-secondary-emphasis); --felt-list-group-bg: var(--felt-secondary-subtle); --felt-list-group-action-color: var(--felt-list-group-color); --felt-list-group-action-hover-color: var(--felt-list-group-action-color); --felt-list-group-action-hover-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 6%); --felt-list-group-action-active-color: var(--felt-list-group-action-color); --felt-list-group-action-active-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 12%); }
+  .list-group-item-success { --felt-list-group-color: var(--felt-success-emphasis); --felt-list-group-bg: var(--felt-success-subtle); --felt-list-group-action-color: var(--felt-list-group-color); --felt-list-group-action-hover-color: var(--felt-list-group-action-color); --felt-list-group-action-hover-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 6%); --felt-list-group-action-active-color: var(--felt-list-group-action-color); --felt-list-group-action-active-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 12%); }
+  .list-group-item-danger { --felt-list-group-color: var(--felt-danger-emphasis); --felt-list-group-bg: var(--felt-danger-subtle); --felt-list-group-action-color: var(--felt-list-group-color); --felt-list-group-action-hover-color: var(--felt-list-group-action-color); --felt-list-group-action-hover-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 6%); --felt-list-group-action-active-color: var(--felt-list-group-action-color); --felt-list-group-action-active-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 12%); }
+  .list-group-item-warning { --felt-list-group-color: var(--felt-warning-emphasis); --felt-list-group-bg: var(--felt-warning-subtle); --felt-list-group-action-color: var(--felt-list-group-color); --felt-list-group-action-hover-color: var(--felt-list-group-action-color); --felt-list-group-action-hover-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 6%); --felt-list-group-action-active-color: var(--felt-list-group-action-color); --felt-list-group-action-active-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 12%); }
+  .list-group-item-info { --felt-list-group-color: var(--felt-info-emphasis); --felt-list-group-bg: var(--felt-info-subtle); --felt-list-group-action-color: var(--felt-list-group-color); --felt-list-group-action-hover-color: var(--felt-list-group-action-color); --felt-list-group-action-hover-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 6%); --felt-list-group-action-active-color: var(--felt-list-group-action-color); --felt-list-group-action-active-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 12%); }
+  .list-group-item-light { --felt-list-group-color: var(--felt-light-emphasis); --felt-list-group-bg: var(--felt-light-subtle); --felt-list-group-action-color: var(--felt-list-group-color); --felt-list-group-action-hover-color: var(--felt-list-group-action-color); --felt-list-group-action-hover-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 6%); --felt-list-group-action-active-color: var(--felt-list-group-action-color); --felt-list-group-action-active-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 12%); }
+  .list-group-item-dark { --felt-list-group-color: var(--felt-dark-emphasis); --felt-list-group-bg: var(--felt-dark-subtle); --felt-list-group-action-color: var(--felt-list-group-color); --felt-list-group-action-hover-color: var(--felt-list-group-action-color); --felt-list-group-action-hover-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 6%); --felt-list-group-action-active-color: var(--felt-list-group-action-color); --felt-list-group-action-active-bg: color-mix(in oklab, var(--felt-list-group-bg), currentColor 12%); }
   /* list-group-variants:end */
-  .list-group-item.active { --felt-list-group-bg: var(--felt-primary); z-index: 2; border-color: var(--felt-primary); color: var(--felt-primary-ink); }
-  .list-group-item + .list-group-item.active { margin-top: -1px; border-top-width: 1px; }
+  .list-group-item.active {
+    z-index: 2; color: var(--felt-list-group-active-color); background-color: var(--felt-list-group-active-bg); border-color: var(--felt-list-group-active-border-color);
+  }
+  .list-group-item + .list-group-item.active { margin-top: calc(-1 * var(--felt-list-group-border-width)); border-top-width: var(--felt-list-group-border-width); }
   .list-group-flush, .card .list-group { border-radius: 0; box-shadow: none; }
-  .list-group-flush > .list-group-item { border-width: 0 0 1px; border-radius: 0; }
+  .list-group-flush > .list-group-item { border-width: 0 0 var(--felt-list-group-border-width); border-radius: 0; }
   .list-group-flush > .list-group-item:last-child { border-bottom-width: 0; }
   .list-group-numbered { counter-reset: lg; }
   .list-group-numbered > .list-group-item::before { content: counters(lg, ".") ". "; counter-increment: lg; }
   /* list-group-horizontal:start */
   /* written by tools/feltgen/variants.py; change it there, not these 40 lines */
   .list-group-horizontal { flex-direction: row; width: fit-content; max-width: 100%; }
-  .list-group-horizontal > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-radius-lg); border-start-end-radius: 0; }
-  .list-group-horizontal > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-radius-lg); border-end-start-radius: 0; }
-  .list-group-horizontal > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
-  .list-group-horizontal > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
+  .list-group-horizontal > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-list-group-border-radius); border-start-end-radius: 0; }
+  .list-group-horizontal > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-list-group-border-radius); border-end-start-radius: 0; }
+  .list-group-horizontal > .list-group-item + .list-group-item { border-width: var(--felt-list-group-border-width) 0 var(--felt-list-group-border-width) var(--felt-list-group-border-width); }
+  .list-group-horizontal > .list-group-item + .list-group-item.active { margin: 0 0 0 calc(-1 * var(--felt-list-group-border-width)); }
   @media (min-width: 576px) {
     .list-group-horizontal-sm { flex-direction: row; width: fit-content; max-width: 100%; }
-    .list-group-horizontal-sm > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-radius-lg); border-start-end-radius: 0; }
-    .list-group-horizontal-sm > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-radius-lg); border-end-start-radius: 0; }
-    .list-group-horizontal-sm > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
-    .list-group-horizontal-sm > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
+    .list-group-horizontal-sm > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-list-group-border-radius); border-start-end-radius: 0; }
+    .list-group-horizontal-sm > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-list-group-border-radius); border-end-start-radius: 0; }
+    .list-group-horizontal-sm > .list-group-item + .list-group-item { border-width: var(--felt-list-group-border-width) 0 var(--felt-list-group-border-width) var(--felt-list-group-border-width); }
+    .list-group-horizontal-sm > .list-group-item + .list-group-item.active { margin: 0 0 0 calc(-1 * var(--felt-list-group-border-width)); }
   }
   @media (min-width: 768px) {
     .list-group-horizontal-md { flex-direction: row; width: fit-content; max-width: 100%; }
-    .list-group-horizontal-md > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-radius-lg); border-start-end-radius: 0; }
-    .list-group-horizontal-md > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-radius-lg); border-end-start-radius: 0; }
-    .list-group-horizontal-md > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
-    .list-group-horizontal-md > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
+    .list-group-horizontal-md > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-list-group-border-radius); border-start-end-radius: 0; }
+    .list-group-horizontal-md > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-list-group-border-radius); border-end-start-radius: 0; }
+    .list-group-horizontal-md > .list-group-item + .list-group-item { border-width: var(--felt-list-group-border-width) 0 var(--felt-list-group-border-width) var(--felt-list-group-border-width); }
+    .list-group-horizontal-md > .list-group-item + .list-group-item.active { margin: 0 0 0 calc(-1 * var(--felt-list-group-border-width)); }
   }
   @media (min-width: 992px) {
     .list-group-horizontal-lg { flex-direction: row; width: fit-content; max-width: 100%; }
-    .list-group-horizontal-lg > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-radius-lg); border-start-end-radius: 0; }
-    .list-group-horizontal-lg > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-radius-lg); border-end-start-radius: 0; }
-    .list-group-horizontal-lg > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
-    .list-group-horizontal-lg > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
+    .list-group-horizontal-lg > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-list-group-border-radius); border-start-end-radius: 0; }
+    .list-group-horizontal-lg > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-list-group-border-radius); border-end-start-radius: 0; }
+    .list-group-horizontal-lg > .list-group-item + .list-group-item { border-width: var(--felt-list-group-border-width) 0 var(--felt-list-group-border-width) var(--felt-list-group-border-width); }
+    .list-group-horizontal-lg > .list-group-item + .list-group-item.active { margin: 0 0 0 calc(-1 * var(--felt-list-group-border-width)); }
   }
   @media (min-width: 1200px) {
     .list-group-horizontal-xl { flex-direction: row; width: fit-content; max-width: 100%; }
-    .list-group-horizontal-xl > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-radius-lg); border-start-end-radius: 0; }
-    .list-group-horizontal-xl > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-radius-lg); border-end-start-radius: 0; }
-    .list-group-horizontal-xl > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
-    .list-group-horizontal-xl > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
+    .list-group-horizontal-xl > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-list-group-border-radius); border-start-end-radius: 0; }
+    .list-group-horizontal-xl > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-list-group-border-radius); border-end-start-radius: 0; }
+    .list-group-horizontal-xl > .list-group-item + .list-group-item { border-width: var(--felt-list-group-border-width) 0 var(--felt-list-group-border-width) var(--felt-list-group-border-width); }
+    .list-group-horizontal-xl > .list-group-item + .list-group-item.active { margin: 0 0 0 calc(-1 * var(--felt-list-group-border-width)); }
   }
   @media (min-width: 1400px) {
     .list-group-horizontal-xxl { flex-direction: row; width: fit-content; max-width: 100%; }
-    .list-group-horizontal-xxl > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-radius-lg); border-start-end-radius: 0; }
-    .list-group-horizontal-xxl > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-radius-lg); border-end-start-radius: 0; }
-    .list-group-horizontal-xxl > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
-    .list-group-horizontal-xxl > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
+    .list-group-horizontal-xxl > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-list-group-border-radius); border-start-end-radius: 0; }
+    .list-group-horizontal-xxl > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-list-group-border-radius); border-end-start-radius: 0; }
+    .list-group-horizontal-xxl > .list-group-item + .list-group-item { border-width: var(--felt-list-group-border-width) 0 var(--felt-list-group-border-width) var(--felt-list-group-border-width); }
+    .list-group-horizontal-xxl > .list-group-item + .list-group-item.active { margin: 0 0 0 calc(-1 * var(--felt-list-group-border-width)); }
   }
   /* list-group-horizontal:end */
 
   /* table */
-  .table { --felt-table-bg: transparent; --felt-table-color: var(--felt-body-color); --felt-table-border-color: var(--felt-border-color); width: 100%; margin-bottom: var(--felt-space-3); border-collapse: collapse; vertical-align: top; }
+  .table {
+    /* docs:table-vars:start */
+    --felt-table-color: var(--felt-body-color);
+    --felt-table-bg: transparent;
+    --felt-table-border-color: var(--felt-border-color);
+    --felt-table-accent-bg: transparent;
+    --felt-table-striped-color: var(--felt-table-color);
+    --felt-table-striped-bg: color-mix(in oklab, var(--felt-table-color) 5%, transparent);
+    --felt-table-active-color: var(--felt-table-color);
+    --felt-table-active-bg: color-mix(in oklab, var(--felt-table-color) 11%, transparent);
+    --felt-table-hover-color: var(--felt-table-color);
+    --felt-table-hover-bg: color-mix(in oklab, var(--felt-table-color) 8%, transparent);
+    /* docs:table-vars:end */
+    /* stripes (type) and hover/active (state) are layered over the cell's own colours, as in Bootstrap; a nested
+     * table starts clean */
+    --_table-color-type: initial; --_table-bg-type: initial; --_table-color-state: initial; --_table-bg-state: initial;
+    width: 100%; margin-bottom: var(--felt-space-3); border-collapse: collapse; vertical-align: top;
+  }
   :where(.table) :where(thead, tbody, tfoot, tr, td, th) { border: 0 solid var(--felt-table-border-color); }
-  .table > :not(caption) > * > * { padding: .5rem; border-bottom-width: 1px; background-color: var(--felt-table-bg); color: var(--felt-table-color); box-shadow: inset 0 0 0 9999px var(--felt-table-accent-bg, transparent); }
+  .table > :not(caption) > * > * {
+    --_table-accent: var(--_table-bg-state, var(--_table-bg-type, var(--felt-table-accent-bg)));
+    padding: .5rem; border-bottom-width: 1px;
+    background-color: var(--felt-table-bg); color: var(--_table-color-state, var(--_table-color-type, var(--felt-table-color)));
+    box-shadow: inset 0 0 0 9999px var(--_table-accent);
+  }
   .table th { text-align: inherit; }
   .table > tbody { vertical-align: inherit; }
   .table > thead { vertical-align: bottom; }
@@ -1280,19 +1382,19 @@
   .table-bordered > :not(caption) > * > * { border-width: 0 1px; }
   .table-borderless > :not(caption) > * > * { border-bottom-width: 0; }
   .table-group-divider { border-top: 2px solid currentColor; }
-  :where(.table-striped > tbody > tr:nth-of-type(odd)) > * { --felt-table-accent-bg: color-mix(in oklab, var(--felt-table-color) 5%, transparent); }
-  :where(.table-hover > tbody > tr:hover) > * { --felt-table-accent-bg: color-mix(in oklab, var(--felt-table-color) 8%, transparent); }
-  .table-active, .table-active > * { --felt-table-accent-bg: color-mix(in oklab, var(--felt-table-color) 11%, transparent); }
+  :where(.table-striped > tbody > tr:nth-of-type(odd)) > * { --_table-color-type: var(--felt-table-striped-color); --_table-bg-type: var(--felt-table-striped-bg); }
+  :where(.table-hover > tbody > tr:hover) > * { --_table-color-state: var(--felt-table-hover-color); --_table-bg-state: var(--felt-table-hover-bg); }
+  .table-active, .table-active > * { --_table-color-state: var(--felt-table-active-color); --_table-bg-state: var(--felt-table-active-bg); }
   /* table-variants:start */
   /* written by tools/feltgen/variants.py; change it there, not these 8 lines */
-  .table-primary { --felt-table-bg: var(--felt-primary-subtle); --felt-table-color: var(--felt-primary-emphasis); --felt-table-border-color: var(--felt-primary-border-subtle); }
-  .table-secondary { --felt-table-bg: var(--felt-secondary-subtle); --felt-table-color: var(--felt-secondary-emphasis); --felt-table-border-color: var(--felt-secondary-border-subtle); }
-  .table-success { --felt-table-bg: var(--felt-success-subtle); --felt-table-color: var(--felt-success-emphasis); --felt-table-border-color: var(--felt-success-border-subtle); }
-  .table-danger { --felt-table-bg: var(--felt-danger-subtle); --felt-table-color: var(--felt-danger-emphasis); --felt-table-border-color: var(--felt-danger-border-subtle); }
-  .table-warning { --felt-table-bg: var(--felt-warning-subtle); --felt-table-color: var(--felt-warning-emphasis); --felt-table-border-color: var(--felt-warning-border-subtle); }
-  .table-info { --felt-table-bg: var(--felt-info-subtle); --felt-table-color: var(--felt-info-emphasis); --felt-table-border-color: var(--felt-info-border-subtle); }
-  .table-light { --felt-table-bg: var(--felt-surface-raised); --felt-table-color: var(--felt-body-color); --felt-table-border-color: var(--felt-border-color); }
-  .table-dark { --felt-table-bg: var(--felt-dark); --felt-table-color: var(--felt-dark-ink); --felt-table-border-color: color-mix(in oklab, var(--felt-dark-ink) 20%, var(--felt-dark)); }
+  .table-primary { --felt-table-bg: var(--felt-primary-subtle); --felt-table-color: var(--felt-primary-emphasis); --felt-table-border-color: var(--felt-primary-border-subtle); --felt-table-striped-color: var(--felt-table-color); --felt-table-striped-bg: color-mix(in oklab, var(--felt-table-color) 5%, transparent); --felt-table-active-color: var(--felt-table-color); --felt-table-active-bg: color-mix(in oklab, var(--felt-table-color) 11%, transparent); --felt-table-hover-color: var(--felt-table-color); --felt-table-hover-bg: color-mix(in oklab, var(--felt-table-color) 8%, transparent); }
+  .table-secondary { --felt-table-bg: var(--felt-secondary-subtle); --felt-table-color: var(--felt-secondary-emphasis); --felt-table-border-color: var(--felt-secondary-border-subtle); --felt-table-striped-color: var(--felt-table-color); --felt-table-striped-bg: color-mix(in oklab, var(--felt-table-color) 5%, transparent); --felt-table-active-color: var(--felt-table-color); --felt-table-active-bg: color-mix(in oklab, var(--felt-table-color) 11%, transparent); --felt-table-hover-color: var(--felt-table-color); --felt-table-hover-bg: color-mix(in oklab, var(--felt-table-color) 8%, transparent); }
+  .table-success { --felt-table-bg: var(--felt-success-subtle); --felt-table-color: var(--felt-success-emphasis); --felt-table-border-color: var(--felt-success-border-subtle); --felt-table-striped-color: var(--felt-table-color); --felt-table-striped-bg: color-mix(in oklab, var(--felt-table-color) 5%, transparent); --felt-table-active-color: var(--felt-table-color); --felt-table-active-bg: color-mix(in oklab, var(--felt-table-color) 11%, transparent); --felt-table-hover-color: var(--felt-table-color); --felt-table-hover-bg: color-mix(in oklab, var(--felt-table-color) 8%, transparent); }
+  .table-danger { --felt-table-bg: var(--felt-danger-subtle); --felt-table-color: var(--felt-danger-emphasis); --felt-table-border-color: var(--felt-danger-border-subtle); --felt-table-striped-color: var(--felt-table-color); --felt-table-striped-bg: color-mix(in oklab, var(--felt-table-color) 5%, transparent); --felt-table-active-color: var(--felt-table-color); --felt-table-active-bg: color-mix(in oklab, var(--felt-table-color) 11%, transparent); --felt-table-hover-color: var(--felt-table-color); --felt-table-hover-bg: color-mix(in oklab, var(--felt-table-color) 8%, transparent); }
+  .table-warning { --felt-table-bg: var(--felt-warning-subtle); --felt-table-color: var(--felt-warning-emphasis); --felt-table-border-color: var(--felt-warning-border-subtle); --felt-table-striped-color: var(--felt-table-color); --felt-table-striped-bg: color-mix(in oklab, var(--felt-table-color) 5%, transparent); --felt-table-active-color: var(--felt-table-color); --felt-table-active-bg: color-mix(in oklab, var(--felt-table-color) 11%, transparent); --felt-table-hover-color: var(--felt-table-color); --felt-table-hover-bg: color-mix(in oklab, var(--felt-table-color) 8%, transparent); }
+  .table-info { --felt-table-bg: var(--felt-info-subtle); --felt-table-color: var(--felt-info-emphasis); --felt-table-border-color: var(--felt-info-border-subtle); --felt-table-striped-color: var(--felt-table-color); --felt-table-striped-bg: color-mix(in oklab, var(--felt-table-color) 5%, transparent); --felt-table-active-color: var(--felt-table-color); --felt-table-active-bg: color-mix(in oklab, var(--felt-table-color) 11%, transparent); --felt-table-hover-color: var(--felt-table-color); --felt-table-hover-bg: color-mix(in oklab, var(--felt-table-color) 8%, transparent); }
+  .table-light { --felt-table-bg: var(--felt-surface-raised); --felt-table-color: var(--felt-body-color); --felt-table-border-color: var(--felt-border-color); --felt-table-striped-color: var(--felt-table-color); --felt-table-striped-bg: color-mix(in oklab, var(--felt-table-color) 5%, transparent); --felt-table-active-color: var(--felt-table-color); --felt-table-active-bg: color-mix(in oklab, var(--felt-table-color) 11%, transparent); --felt-table-hover-color: var(--felt-table-color); --felt-table-hover-bg: color-mix(in oklab, var(--felt-table-color) 8%, transparent); }
+  .table-dark { --felt-table-bg: var(--felt-dark); --felt-table-color: var(--felt-dark-ink); --felt-table-border-color: color-mix(in oklab, var(--felt-dark-ink) 20%, var(--felt-dark)); --felt-table-striped-color: var(--felt-table-color); --felt-table-striped-bg: color-mix(in oklab, var(--felt-table-color) 5%, transparent); --felt-table-active-color: var(--felt-table-color); --felt-table-active-bg: color-mix(in oklab, var(--felt-table-color) 11%, transparent); --felt-table-hover-color: var(--felt-table-color); --felt-table-hover-bg: color-mix(in oklab, var(--felt-table-color) 8%, transparent); }
   /* table-variants:end */
   /* table-responsive:start */
   /* written by tools/feltgen/variants.py; change it there, not these 16 lines */
@@ -1316,11 +1418,29 @@
   .align-middle { vertical-align: middle !important; }
 
   /* progress */
-  .progress, .progress-stacked { display: flex; height: var(--felt-progress-height, 1rem); overflow: hidden; border-radius: var(--felt-radius-pill); background: var(--felt-track); font-size: .75rem; }
-  .progress-bar { display: flex; flex-direction: column; justify-content: center; overflow: hidden; background-color: var(--felt-primary); color: var(--felt-primary-ink); text-align: center; white-space: nowrap; transition: width .6s ease; }
+  .progress, .progress-stacked {
+    /* docs:progress-vars:start */
+    --felt-progress-height: 1rem;
+    --felt-progress-font-size: .75rem;
+    --felt-progress-bg: var(--felt-track);
+    --felt-progress-border-radius: var(--felt-radius-pill);
+    --felt-progress-box-shadow: none;
+    --felt-progress-bar-color: var(--felt-primary-ink);
+    --felt-progress-bar-bg: var(--felt-primary);
+    --felt-progress-bar-transition: width .6s ease;
+    /* docs:progress-vars:end */
+    display: flex; height: var(--felt-progress-height); overflow: hidden;
+    border-radius: var(--felt-progress-border-radius); background-color: var(--felt-progress-bg); box-shadow: var(--felt-progress-box-shadow);
+    font-size: var(--felt-progress-font-size);
+  }
+  .progress-bar {
+    display: flex; flex-direction: column; justify-content: center; overflow: hidden;
+    background-color: var(--felt-progress-bar-bg); color: var(--felt-progress-bar-color); text-align: center; white-space: nowrap;
+    transition: var(--felt-progress-bar-transition);
+  }
   .progress > .progress-bar:only-child { border-radius: inherit; }
-  .progress-bar.bg-warning { color: var(--felt-warning-ink); }
-  .progress-bar.bg-light { color: var(--felt-light-ink); }
+  .progress-bar.bg-warning { --felt-progress-bar-color: var(--felt-warning-ink); }
+  .progress-bar.bg-light { --felt-progress-bar-color: var(--felt-light-ink); }
   .progress-stacked > .progress { height: 100%; overflow: visible; border-radius: 0; }
   .progress-stacked > .progress > .progress-bar { width: 100%; border-radius: 0; }
   .progress-stacked > .progress + .progress > .progress-bar { box-shadow: inset 1px 0 0 color-mix(in oklab, var(--felt-surface) 70%, transparent); }
@@ -1329,11 +1449,23 @@
   @keyframes progress-stripes { 0% { background-position-x: 1rem; } }
 
   /* spinner */
-  .spinner-border, .spinner-grow { --felt-spinner-animation-speed: .75s; display: inline-block; width: 2rem; height: 2rem; vertical-align: -.125em; border-radius: 50%; }
-  .spinner-border { border: .25em solid currentColor; border-right-color: transparent; animation: spinner-border var(--felt-spinner-animation-speed) linear infinite; }
-  .spinner-grow { background-color: currentColor; opacity: 0; animation: spinner-grow var(--felt-spinner-animation-speed) linear infinite; }
-  .spinner-border-sm { width: 1rem; height: 1rem; border-width: .2em; }
-  .spinner-grow-sm { width: 1rem; height: 1rem; }
+  .spinner-border, .spinner-grow {
+    /* docs:spinner-vars:start */
+    --felt-spinner-width: 2rem;
+    --felt-spinner-height: 2rem;
+    --felt-spinner-vertical-align: -.125em;
+    --felt-spinner-border-width: .25em;
+    --felt-spinner-animation-speed: .75s;
+    --felt-spinner-animation-name: spinner-border;
+    /* docs:spinner-vars:end */
+    display: inline-block; width: var(--felt-spinner-width); height: var(--felt-spinner-height);
+    vertical-align: var(--felt-spinner-vertical-align); border-radius: 50%;
+    animation: var(--felt-spinner-animation-speed) linear infinite var(--felt-spinner-animation-name);
+  }
+  .spinner-border { border: var(--felt-spinner-border-width) solid currentColor; border-right-color: transparent; }
+  .spinner-grow { --felt-spinner-animation-name: spinner-grow; background-color: currentColor; opacity: 0; }
+  .spinner-border-sm { --felt-spinner-width: 1rem; --felt-spinner-height: 1rem; --felt-spinner-border-width: .2em; }
+  .spinner-grow-sm { --felt-spinner-width: 1rem; --felt-spinner-height: 1rem; }
   @keyframes spinner-border { to { transform: rotate(360deg); } }
   @keyframes spinner-grow { 0% { transform: scale(0); } 50% { opacity: 1; transform: none; } }
 
@@ -1455,19 +1587,19 @@
   /* alert extras */
   .alert-dismissible { padding-right: 3.5rem; }
   .alert-dismissible .btn-close { position: absolute; top: .75rem; right: .75rem; }
-  .alert-link { font-weight: 700; color: inherit; }
+  .alert-link { font-weight: 700; color: var(--felt-alert-link-color); }
 
   /* badge extras */
-  .badge.border { background-color: transparent; color: var(--felt-body-color); }
+  .badge.border { --felt-badge-color: var(--felt-body-color); background-color: transparent; }
   /* on a solid .bg-* fill a badge takes the fill's ink, like Bootstrap's white badge text */
-  .badge.bg-primary { --_tone: var(--felt-primary); color: var(--felt-primary-ink); }
-  .badge.bg-secondary { --_tone: var(--felt-secondary); color: var(--felt-secondary-ink); }
-  .badge.bg-success { --_tone: var(--felt-success); color: var(--felt-success-ink); }
-  .badge.bg-danger { --_tone: var(--felt-danger); color: var(--felt-danger-ink); }
-  .badge.bg-warning { --_tone: var(--felt-warning); color: var(--felt-warning-ink); }
-  .badge.bg-info { --_tone: var(--felt-info); color: var(--felt-info-ink); }
-  .badge.bg-light { --_tone: var(--felt-light-fixed); color: var(--felt-dark-fixed); }
-  .badge.bg-dark { --_tone: var(--felt-dark-fixed); color: var(--felt-light-fixed); }
+  .badge.bg-primary { --_tone: var(--felt-primary); --felt-badge-color: var(--felt-primary-ink); }
+  .badge.bg-secondary { --_tone: var(--felt-secondary); --felt-badge-color: var(--felt-secondary-ink); }
+  .badge.bg-success { --_tone: var(--felt-success); --felt-badge-color: var(--felt-success-ink); }
+  .badge.bg-danger { --_tone: var(--felt-danger); --felt-badge-color: var(--felt-danger-ink); }
+  .badge.bg-warning { --_tone: var(--felt-warning); --felt-badge-color: var(--felt-warning-ink); }
+  .badge.bg-info { --_tone: var(--felt-info); --felt-badge-color: var(--felt-info-ink); }
+  .badge.bg-light { --_tone: var(--felt-light-fixed); --felt-badge-color: var(--felt-dark-fixed); }
+  .badge.bg-dark { --_tone: var(--felt-dark-fixed); --felt-badge-color: var(--felt-light-fixed); }
   /* extra, not in Bootstrap: a colour key (legend dot) in --felt-badge-dot-color, the text colour or a .text-bg-* fill. Its rim is
    * its own colour a shade darker; a fill that may match the surface (light; dark and secondary in the dark; a colour of
    * its own) gets a neutral rim instead, and the light fill sits a step below the surface (an outline: .text-bg-light
@@ -1487,20 +1619,20 @@
   .btn .badge { top: -1px; }
 
   /* card extras */
-  .card-subtitle { margin: -.25rem 0 var(--felt-space-2); font-size: .9375rem; font-weight: 400; color: var(--felt-secondary-color); }
+  .card-subtitle { margin: calc(-.5 * var(--felt-card-title-spacer-y)) 0 var(--felt-space-2); font-size: .9375rem; font-weight: 400; color: var(--felt-card-subtitle-color); }
   .card-link + .card-link { margin-left: var(--felt-space-3); }
   .card-img, .card-img-top, .card-img-bottom { width: 100%; }
-  .card-img { border-radius: calc(var(--felt-radius-lg) - 1px); }
-  .card-img-top { border-radius: calc(var(--felt-radius-lg) - 1px) calc(var(--felt-radius-lg) - 1px) 0 0; }
-  .card-img-bottom { border-radius: 0 0 calc(var(--felt-radius-lg) - 1px) calc(var(--felt-radius-lg) - 1px); }
-  .card-img-overlay { position: absolute; inset: 0; padding: var(--felt-space-4); border-radius: calc(var(--felt-radius-lg) - 1px); }
+  .card-img { border-radius: var(--felt-card-inner-border-radius); }
+  .card-img-top { border-radius: var(--felt-card-inner-border-radius) var(--felt-card-inner-border-radius) 0 0; }
+  .card-img-bottom { border-radius: 0 0 var(--felt-card-inner-border-radius) var(--felt-card-inner-border-radius); }
+  .card-img-overlay { position: absolute; inset: 0; padding: var(--felt-card-img-overlay-padding); border-radius: var(--felt-card-inner-border-radius); }
   /* horizontal card: the row clips its images to the card's corners */
-  .card > .row { overflow: hidden; border-radius: calc(var(--felt-radius-lg) - 1px); }
-  .card-header-tabs, .card-header-pills { margin-inline: calc(-.5 * var(--felt-space-4)); }
-  .card-header-tabs { margin-bottom: calc(-1 * var(--felt-space-3)); border-bottom: 0; }
-  .card > .list-group-flush:first-child { border-radius: calc(var(--felt-radius-lg) - 1px) calc(var(--felt-radius-lg) - 1px) 0 0; }
-  .card > .list-group-flush:last-child { border-radius: 0 0 calc(var(--felt-radius-lg) - 1px) calc(var(--felt-radius-lg) - 1px); }
-  .card > .list-group-flush:only-child { border-radius: calc(var(--felt-radius-lg) - 1px); }
+  .card > .row { overflow: hidden; border-radius: var(--felt-card-inner-border-radius); }
+  .card-header-tabs, .card-header-pills { margin-inline: calc(-.5 * var(--felt-card-cap-padding-x)); }
+  .card-header-tabs { margin-bottom: calc(-1 * var(--felt-card-cap-padding-y)); border-bottom: 0; }
+  .card > .list-group-flush:first-child { border-radius: var(--felt-card-inner-border-radius) var(--felt-card-inner-border-radius) 0 0; }
+  .card > .list-group-flush:last-child { border-radius: 0 0 var(--felt-card-inner-border-radius) var(--felt-card-inner-border-radius); }
+  .card > .list-group-flush:only-child { border-radius: var(--felt-card-inner-border-radius); }
   .card > .list-group-flush > .list-group-item:first-child { border-top-left-radius: inherit; border-top-right-radius: inherit; }
   .card > .list-group-flush > .list-group-item:last-child { border-bottom-left-radius: inherit; border-bottom-right-radius: inherit; }
 
@@ -3237,7 +3369,7 @@
         background-size: auto, var(--felt-texture-sheet-size);
         background-blend-mode: normal, var(--felt-texture-sheet-blend);
       }
-      &:where(.card, .navbar, .list-group, .accordion, .modal-content) { box-shadow: var(--felt-patch-shadow); }
+      &:where(.navbar, .list-group, .accordion, .modal-content) { box-shadow: var(--felt-patch-shadow); }
       &:where(.list-group, .accordion) { position: relative; isolation: isolate; }
       &.list-group-flush { isolation: auto; }   /* its entries are see-through: the stitch rows blend into the felt below */
       &:where(.accordion:not(.accordion-flush)) { border-radius: var(--felt-radius-lg); }
@@ -3252,8 +3384,9 @@
         background-color: var(--felt-surface);
         background-image: var(--felt-texture-sheet); background-size: var(--felt-texture-sheet-size); background-blend-mode: var(--felt-texture-sheet-blend);
       }
+      &.list-group-flush { --felt-list-group-bg: transparent; }
       &:where(.list-group-flush > .list-group-item:not(.active, .list-group-item-primary, .list-group-item-secondary, .list-group-item-success,
-        .list-group-item-danger, .list-group-item-warning, .list-group-item-info, .list-group-item-light, .list-group-item-dark)) { --felt-list-group-bg: transparent; background-image: none; }
+        .list-group-item-danger, .list-group-item-warning, .list-group-item-info, .list-group-item-light, .list-group-item-dark)) { background-image: none; }
       /* light pieces that are sewn on as well: same depth as the coloured patches */
       &:where(.btn-light, [class*="btn-outline-"], .text-bg-light, .toast:not([class*="text-bg-"])) {
         --_patch-edge: var(--felt-patch-edge-light);
@@ -3272,9 +3405,12 @@
       /* alerts: a large tinted piece, so it lies flatter than the small patches (in light mode with a cut edge and a
        * contact shadow like the cards) */
       &:where(.alert) {
+        /* docs:alert-felt-vars:start */
+        --felt-alert-patch-mix: 20%;
+        /* docs:alert-felt-vars:end */
         --_patch-edge: color-mix(in oklab, var(--_tone) 35%, light-dark(#a8987c, #15130f));
         --felt-thread-strength: .8;
-        background-color: color-mix(in oklab, var(--_tone) var(--_alert-mix, 20%), var(--felt-surface));
+        --felt-alert-bg: color-mix(in oklab, var(--_tone) var(--felt-alert-patch-mix), var(--felt-surface));
         box-shadow:
           0 0 0 1px light-dark(rgb(80 60 40 / .2), transparent),
           0 1px 0 light-dark(rgb(80 60 40 / .24), transparent),
@@ -3288,10 +3424,10 @@
           0 10px 18px -8px light-dark(transparent, color-mix(in srgb, var(--felt-patch-shadow-far) 80%, transparent));
       }
 
-      &.alert-secondary { --_alert-mix: 14%; }
+      &.alert-secondary { --felt-alert-patch-mix: 14%; }
       /* in the dark the light alert is a raised piece and the dark one a deep navy piece, so neither reads as the page */
-      &.alert-dark { background-color: light-dark(color-mix(in oklab, var(--_tone) 26%, var(--felt-surface)), color-mix(in oklab, var(--_tone) 55%, var(--felt-surface))); }
-      &.alert-light { background-color: light-dark(color-mix(in oklab, var(--_tone) 6%, var(--felt-surface)), color-mix(in oklab, var(--felt-body-color) 6%, var(--felt-surface-raised))); }
+      &.alert-dark { --felt-alert-bg: light-dark(color-mix(in oklab, var(--_tone) 26%, var(--felt-surface)), color-mix(in oklab, var(--_tone) 55%, var(--felt-surface))); }
+      &.alert-light { --felt-alert-bg: light-dark(color-mix(in oklab, var(--_tone) 6%, var(--felt-surface)), color-mix(in oklab, var(--felt-body-color) 6%, var(--felt-surface-raised))); }
 
       /* a well in a sewn piece (.bg-body-secondary/-tertiary in a card, a list, a modal, …) is a pocket: the felt pressed
        * in along its edge, shaded at the top and lit at its lower lip like the grooves. Tertiary is the shallower one: a
@@ -3360,7 +3496,7 @@
       }
       &:where(.list-group-flush, .card .list-group, .accordion-flush)::after { content: none; }
       &:where(.btn, .page-link)::after { z-index: auto; }
-      &.card { --_patch-edge-y: 1px; --felt-card-cap-bg: transparent; }
+      &.card { --_patch-edge-y: 1px; --felt-card-cap-bg: transparent; --felt-card-box-shadow: var(--felt-patch-shadow); }
       &.btn { --_seam-img: url("img/seam-md.svg"); --_seam-slice: var(--_seam-md-slice); --_seam-width: var(--_seam-md-width); --felt-seam-inset: 5px; }
       /* photos lie on top of the felt: the seam runs underneath */
       &:is(.card-img, .card-img-top, .card-img-bottom, .card > .row img) { position: relative; z-index: 4; }
@@ -3705,13 +3841,12 @@
       &:is(.table > :not(caption) > tr > *)::before { left: 0; right: 0; opacity: var(--felt-thread-strength); }
       /* bordered: the columns are pressed folds, no outer frame; the table lies on its piece */
       &:is(.table-bordered > :not(caption) > * > *) { border-color: transparent; }
-      &:is(.table-bordered > :not(caption) > * > * + *) { box-shadow: var(--felt-groove-fold), inset 0 0 0 9999px var(--felt-table-accent-bg, transparent); }
+      &:is(.table-bordered > :not(caption) > * > * + *) { box-shadow: var(--felt-groove-fold), inset 0 0 0 9999px var(--_table-accent); }
       &:is(.table-borderless > :not(caption) > * > *)::before { content: none; }
 
       /* --- progress: a groove pressed into the felt, the bar a patch laid in it */
       &:is(.progress, .progress-stacked) {
-        background-color: var(--felt-track);
-        box-shadow: inset 0 1px 0 var(--felt-groove-shade), inset 0 1px 3px color-mix(in srgb, var(--felt-groove-shadow) 80%, transparent), inset 0 -1px 0 var(--felt-groove-lip);
+        --felt-progress-box-shadow: inset 0 1px 0 var(--felt-groove-shade), inset 0 1px 3px color-mix(in srgb, var(--felt-groove-shadow) 80%, transparent), inset 0 -1px 0 var(--felt-groove-lip);
       }
       &.progress-bar {
         background-image: var(--felt-texture), var(--felt-patch-dome);
@@ -3735,7 +3870,7 @@
       }
       &.spinner-border {
         border-color: transparent;
-        mask: conic-gradient(#000 0 75%, transparent 0), radial-gradient(farthest-side, transparent calc(100% - .25em), #000 calc(100% - .25em + .5px));
+        mask: conic-gradient(#000 0 75%, transparent 0), radial-gradient(farthest-side, transparent calc(100% - var(--felt-spinner-border-width)), #000 calc(100% - var(--felt-spinner-border-width) + .5px));
         mask-composite: intersect;
       }
       &.spinner-grow { box-shadow: inset 0 1px 0 rgb(255 255 255 / .25), inset 0 -2px 3px rgb(0 0 0 / .2); }

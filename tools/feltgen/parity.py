@@ -35,7 +35,13 @@ ALLOW_TOKENS = {
     "--bs-btn-focus-box-shadow": _FOCUS,
     "--bs-btn-focus-shadow-rgb": _FOCUS,
     # btn-close
+    "--bs-btn-close-filter": "the X is a mask in the text colour (--felt-btn-close-color), so dark mode and .btn-close-white "
+                             "recolour it without a filter",
+    "--bs-btn-close-focus-shadow": _FOCUS,
     # badge, alert, card, list-group, table, progress, spinner, placeholder
+    **{f"--bs-table-{p}-{layer}": "internal (--_table-*): .table-striped(-columns) set the type, .table-hover and "
+                                  ".table-active the state, from --felt-table-striped-*, -hover-* and -active-*"
+       for p in ["color", "bg"] for layer in ["type", "state"]},
     # nav, navbar, dropdown, breadcrumb, pagination, accordion, modal, offcanvas, toast, tooltip, popover
     # carousel, forms
 }
