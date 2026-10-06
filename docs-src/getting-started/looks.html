@@ -1,6 +1,6 @@
 <!--
 title: Felt and clean
-description: felt-css comes in two looks. One attribute on the html element switches between them, and nothing on the page moves when you do.
+description: felt-css comes in two looks. One attribute switches between them, on the whole page or on a single element, and nothing moves when you do.
 -->
 <h2>Switching looks</h2>
 <p>Without any attribute you get the <strong>clean</strong> look: flat surfaces, hairline borders, Bootstrap-like. Add <code>data-look="felt"</code> to the <code>&lt;html&gt;</code> element and the same page is cut from wool felt and sewn together.</p>
@@ -20,9 +20,37 @@ description: felt-css comes in two looks. One attribute on the html element swit
   </figure>
 </div>
 
-<div class="bd-callout bd-callout-warning">
-  <p>The look is a page-wide setting: the felt tokens hang off <code>:root[data-look="felt"]</code>, so put the attribute on <code>&lt;html&gt;</code>, not on a single section.</p>
+<h2>Looks on single elements</h2>
+<p><code>data-look</code> works on any element, like <code>data-bs-theme</code> does for colour modes. The nearest one wins, and the element with the attribute counts too. A felt card on a clean page:</p>
+<example data-look="clean">
+<div class="card" data-look="felt" style="max-width: 22rem">
+  <div class="card-header">Neue Ausgabe</div>
+  <div class="card-body">
+    <p class="card-text">Cut from felt and sewn on, on a clean page.</p>
+    <button type="button" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-outline-secondary">Cancel</button>
+  </div>
 </div>
+</example>
+<p>A single felt button among clean ones:</p>
+<example data-look="clean">
+<button type="button" class="btn btn-primary" data-look="felt">Felt</button>
+<button type="button" class="btn btn-primary">Clean</button>
+</example>
+<p>And the other way round, a clean island in a felt page, for a dense table, a code block or a chart:</p>
+<example data-look="felt">
+<div class="card">
+  <div class="card-body">
+    <div class="table-responsive" data-look="clean">
+      <table class="table table-sm table-striped mb-0">
+        <thead><tr><th>Item</th><th>Amount</th></tr></thead>
+        <tbody><tr><td>Wool</td><td>12,00 €</td></tr><tr><td>Thread</td><td>3,50 €</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</example>
+<p>Looks and colour modes combine freely: <code>data-look="felt" data-bs-theme="dark"</code> on one card gives a charcoal felt card on a light page. The page background stays whatever the page's own look is; a felt piece brings its own felt, and a see-through one (a flush list group or accordion) is cut from the sheet when it is the felt element itself.</p>
 
 <h3>Remembering the choice</h3>
 <p>felt-css doesn't store anything itself. If you offer a switch, set the attribute before the first paint so the page doesn't flash, for example with a tiny inline script in the <code>&lt;head&gt;</code> — this is what these docs do:</p>
@@ -44,15 +72,16 @@ description: felt-css comes in two looks. One attribute on the html element swit
 <h3>Never moves</h3>
 <p>The felt layer only changes colours, textures, shadows and seams — never padding, borders or fonts. Toggling the look doesn't shift a single pixel, so you can design in clean and switch to felt at the end, or let your users choose.</p>
 <h3>Opt-out friendly</h3>
-<p>All felt rules sit in <code>@layer felt</code> behind <code>:where([data-look="felt"])</code>, so they have zero specificity and your own CSS always wins. To keep one element flat, just style it.</p>
+<p>All felt rules sit in <code>@layer felt</code>, inside <code>@scope ([data-look="felt"]) to ([data-look="clean"])</code>, with the specificity of the component's own selector (<code>.card</code> stays one class). Unlayered CSS of yours always wins over the layer. To keep one element clean, give it <code>data-look="clean"</code>; to tune the felt, change its tokens (see <a href="../../customize/felt/">Felt tokens</a>).</p>
 
 <h2>Weight</h2>
 <p><code>felt.css</code> is about 38 KB gzipped. The felt textures and seams in <code>img/</code> add about 26 KB and are only downloaded when the felt look is on.</p>
 
 <h2>Rebuilding the assets</h2>
-<p><code>tools/build_assets.py</code> draws the grey felt and the seam frames in <code>img/</code> and writes the matching sizes into <code>felt.css</code>. Want longer stitches or rounder corners? Change <code>LEN</code>, <code>PERIOD</code> or <code>SHAPES</code> at the top of the script and run it again. After changing the grey felt's recipe (<code>FELT</code>), <code>tools/calibrate_felt.py</code> prints the base that keeps its brightness.</p>
+<p><code>tools/build_assets.py</code> draws the grey felt and the seam frames in <code>img/</code> and their sizes into <code>tools/feltgen/stitches.json</code>; <code>tools/build.py</code> writes them into <code>felt.css</code> as tokens. Want longer stitches or rounder corners? Change <code>LEN</code>, <code>PERIOD</code> or <code>SHAPES</code> at the top of the script and run it again. After changing the grey felt's recipe (<code>FELT</code>), <code>tools/calibrate_felt.py</code> prints the base that keeps its brightness.</p>
 <codeblock lang="sh">
 python3 tools/build_assets.py     # plain python3
+python3 tools/build.py            # the seam sizes into felt.css
 python3 tools/calibrate_felt.py   # needs Node with Playwright and ImageMagick
 </codeblock>
 <p><code>tools/combos.html</code> shows every surface with every button, badge, border colour and seam radius, to check a change in both themes (<code>?theme=dark</code>).</p>

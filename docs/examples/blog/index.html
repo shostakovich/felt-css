@@ -20,13 +20,13 @@
     img[src*="plush/"] { object-fit: contain; }
     .blog-title { font-size: clamp(2rem, 6vw, 3rem); font-weight: 800; letter-spacing: -.02em; }
     .blog-post { font-size: 1.0625rem; line-height: 1.7; }
-    .blog-post h2 { margin-top: var(--space-5); }
-    .blog-post h3 { margin-top: var(--space-4); }
-    .blog-meta { color: var(--muted); font-size: .9375rem; }
+    .blog-post h2 { margin-top: var(--felt-space-5); }
+    .blog-post h3 { margin-top: var(--felt-space-4); }
+    .blog-meta { color: var(--felt-secondary-color); font-size: .9375rem; }
     .blog-thumb { width: 6rem; height: 6rem; flex-shrink: 0; }
     .blog-avatar { width: 4rem; height: 4rem; }
     .blog-hero-img { min-height: 16rem; }
-    @media (min-width: 992px) { .blog-sidebar { top: var(--space-3); } }
+    @media (min-width: 992px) { .blog-sidebar { top: var(--felt-space-3); } }
   </style>
 </head>
 <body>
@@ -147,7 +147,7 @@
           <p>My one hard rule: switching between the felt look and the clean look must not move a single pixel. Felt only changes colours, textures, shadows and seams, never padding or fonts. In practice that means every felt rule lives in its own cascade layer:</p>
           <pre><code>@layer felt {
   :where([data-look="felt"]) .btn-primary {
-    background-image: var(--felt);
+    background-image: var(--felt-texture);
     background-blend-mode: soft-light;
   }
 }</code></pre>

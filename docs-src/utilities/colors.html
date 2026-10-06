@@ -9,7 +9,7 @@ description: Convey meaning through color with a handful of color utility classe
 <h2>Colors</h2>
 <p>Colorize text with color utilities. If you want to colorize links, you can use the <a href="../../helpers/colored-links/"><code>.link-*</code> helper classes</a> which have <code>:hover</code> and <code>:focus</code> states.</p>
 <div class="bd-callout bd-callout-info">
-  <p>All color utilities respond to color modes. The six tinted <code>.text-*</code> colors use a darker tone of their theme color (<code>--primary-text</code> and friends) that reads as text on the page, so <code>.text-warning</code> and <code>.text-info</code> need no dark background. <code>.text-light</code> and <code>.text-dark</code> are meant for text on a contrasting background and, like in Bootstrap, keep their tone in dark mode.</p>
+  <p>All color utilities respond to color modes. The six tinted <code>.text-*</code> colors use a darker tone of their theme color (<code>--felt-primary-text</code> and friends) that reads as text on the page, so <code>.text-warning</code> and <code>.text-info</code> need no dark background. <code>.text-light</code> and <code>.text-dark</code> are meant for text on a contrasting background and, like in Bootstrap, keep their tone in dark mode.</p>
 </div>
 <example>
 <p class="text-primary">.text-primary</p>
@@ -51,17 +51,17 @@ description: Convey meaning through color with a handful of color utility classe
 <p>Consider the default <code>.text-primary</code> utility.</p>
 <codeblock lang="css">
 .text-primary {
-  --text-opacity: 1;
-  color: color-mix(in srgb, var(--primary-text) calc(var(--text-opacity) * 100%), transparent) !important;
+  --felt-text-opacity: 1;
+  color: color-mix(in srgb, var(--felt-primary-text) calc(var(--felt-text-opacity) * 100%), transparent) !important;
 }
 </codeblock>
-<p>The color is faded with <code>color-mix()</code> by a second CSS variable, <code>--text-opacity</code>, for the alpha transparency (with a default value <code>1</code> thanks to a local CSS variable). The local CSS variable inside each <code>.text-*</code> class avoids inheritance issues so nested instances of the utilities don't automatically have a modified alpha transparency.</p>
+<p>The color is faded with <code>color-mix()</code> by a second CSS variable, <code>--felt-text-opacity</code>, for the alpha transparency (with a default value <code>1</code> thanks to a local CSS variable). The local CSS variable inside each <code>.text-*</code> class avoids inheritance issues so nested instances of the utilities don't automatically have a modified alpha transparency.</p>
 
 <h3>Example</h3>
-<p>To change that opacity, override <code>--text-opacity</code> via custom styles or inline styles.</p>
+<p>To change that opacity, override <code>--felt-text-opacity</code> via custom styles or inline styles.</p>
 <example>
 <div class="text-primary">This is default primary text</div>
-<div class="text-primary" style="--text-opacity: .5;">This is 50% opacity primary text</div>
+<div class="text-primary" style="--felt-text-opacity: .5;">This is 50% opacity primary text</div>
 </example>
 <p>Or, choose from any of the <code>.text-opacity</code> utilities:</p>
 <example>

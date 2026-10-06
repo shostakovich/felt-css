@@ -70,9 +70,9 @@ description: Use custom button styles for actions in forms, dialogs, and more wi
 <button type="button" class="btn btn-secondary btn-sm">Small button</button>
 </example>
 
-<p>felt-css has no <code>--bs-btn-*</code> variables. To roll your own size, use <a href="../../utilities/spacing/">spacing</a> and <a href="../../utilities/text/">font size</a> utilities:</p>
+<p>You can even roll your own custom sizing with CSS variables:</p>
 <example>
-<button type="button" class="btn btn-primary py-1 px-2 small">
+<button type="button" class="btn btn-primary" style="--felt-btn-padding-y: .25rem; --felt-btn-padding-x: .5rem; --felt-btn-font-size: .75rem;">
   Custom button
 </button>
 </example>
@@ -126,23 +126,23 @@ description: Use custom button styles for actions in forms, dialogs, and more wi
 </example>
 
 <h2>Colour swatches</h2>
-<p>Another extra: <code>.btn-swatch</code> fills a button with the colour in <code>--swatch</code>. Round ones (<code>.btn-icon</code>) after <a href="../../forms/checks-radios/#toggle-buttons"><code>.btn-check</code></a> radios make a colour picker: the chosen swatch keeps its colour and gets a ring in the text colour (the focus ring takes its place while it has focus). A gradient, such as a colour wheel, goes in <code>--swatch-image</code>, over the colour. Name each colour in the label, hidden with <code>.visually-hidden</code>, and keep at least <code>.gap-2</code> between swatches so the ring has room.</p>
+<p>Another extra: <code>.btn-swatch</code> fills a button with the colour in <code>--felt-swatch-color</code>. Round ones (<code>.btn-icon</code>) after <a href="../../forms/checks-radios/#toggle-buttons"><code>.btn-check</code></a> radios make a colour picker: the chosen swatch keeps its colour and gets a ring in the text colour (the focus ring takes its place while it has focus). A gradient, such as a colour wheel, goes in <code>--felt-swatch-image</code>, over the colour. Name each colour in the label, hidden with <code>.visually-hidden</code>, and keep at least <code>.gap-2</code> between swatches so the ring has room.</p>
 <example>
 <div class="d-flex flex-wrap gap-2" role="radiogroup" aria-label="Lamp colour">
   <input type="radio" class="btn-check" name="lamp-colour" id="lamp-warm" autocomplete="off" checked>
-  <label class="btn btn-icon btn-swatch" for="lamp-warm" style="--swatch: #f4d58d"><span class="visually-hidden">Warm white</span></label>
+  <label class="btn btn-icon btn-swatch" for="lamp-warm" style="--felt-swatch-color: #f4d58d"><span class="visually-hidden">Warm white</span></label>
   <input type="radio" class="btn-check" name="lamp-colour" id="lamp-cold" autocomplete="off">
-  <label class="btn btn-icon btn-swatch" for="lamp-cold" style="--swatch: #f4f6fb"><span class="visually-hidden">Cold white</span></label>
+  <label class="btn btn-icon btn-swatch" for="lamp-cold" style="--felt-swatch-color: #f4f6fb"><span class="visually-hidden">Cold white</span></label>
   <input type="radio" class="btn-check" name="lamp-colour" id="lamp-red" autocomplete="off">
-  <label class="btn btn-icon btn-swatch" for="lamp-red" style="--swatch: #d9472b"><span class="visually-hidden">Red</span></label>
+  <label class="btn btn-icon btn-swatch" for="lamp-red" style="--felt-swatch-color: #d9472b"><span class="visually-hidden">Red</span></label>
   <input type="radio" class="btn-check" name="lamp-colour" id="lamp-green" autocomplete="off">
-  <label class="btn btn-icon btn-swatch" for="lamp-green" style="--swatch: #3c8f4a"><span class="visually-hidden">Green</span></label>
+  <label class="btn btn-icon btn-swatch" for="lamp-green" style="--felt-swatch-color: #3c8f4a"><span class="visually-hidden">Green</span></label>
   <input type="radio" class="btn-check" name="lamp-colour" id="lamp-blue" autocomplete="off">
-  <label class="btn btn-icon btn-swatch" for="lamp-blue" style="--swatch: #2f5fb3"><span class="visually-hidden">Blue</span></label>
+  <label class="btn btn-icon btn-swatch" for="lamp-blue" style="--felt-swatch-color: #2f5fb3"><span class="visually-hidden">Blue</span></label>
   <input type="radio" class="btn-check" name="lamp-colour" id="lamp-purple" autocomplete="off">
-  <label class="btn btn-icon btn-swatch" for="lamp-purple" style="--swatch: #7b3fa0"><span class="visually-hidden">Purple</span></label>
+  <label class="btn btn-icon btn-swatch" for="lamp-purple" style="--felt-swatch-color: #7b3fa0"><span class="visually-hidden">Purple</span></label>
   <input type="radio" class="btn-check" name="lamp-colour" id="lamp-any" autocomplete="off">
-  <label class="btn btn-icon btn-swatch" for="lamp-any" style="--swatch: #8a6fbf; --swatch-image: conic-gradient(#e0483b, #e8c13a, #4fae4a, #3aa8c9, #4f62c9, #b04fc0, #e0483b)"><span class="visually-hidden">Any colour</span></label>
+  <label class="btn btn-icon btn-swatch" for="lamp-any" style="--felt-swatch-color: #8a6fbf; --felt-swatch-image: conic-gradient(#e0483b, #e8c13a, #4fae4a, #3aa8c9, #4f62c9, #b04fc0, #e0483b)"><span class="visually-hidden">Any colour</span></label>
 </div>
 </example>
 
@@ -261,4 +261,16 @@ description: Use custom button styles for actions in forms, dialogs, and more wi
 <codeblock lang="js">
 const bsButton = bootstrap.Button.getOrCreateInstance('#myButton')
 bsButton.toggle()
+</codeblock>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Buttons are built on local CSS variables, like Bootstrap's: <code>.btn</code> declares them, the colour variants and sizes set them, and you can set them yourself on any button.</p>
+<cssvars name="btn"></cssvars>
+<p>Each <code>.btn-*</code> variant sets the fill, the ink and the border; hover and pressed colours are mixed from the fill with <code>--felt-hover-ink</code>, <code>--felt-press-ink</code> and their mixes (see <a href="../../customize/css-variables/">CSS variables</a>). For example, a button of your own:</p>
+<codeblock lang="css">
+.btn-moss {
+  --felt-btn-bg: var(--felt-moss);
+  --felt-btn-color: #fff;
+}
 </codeblock>

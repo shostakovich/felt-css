@@ -415,3 +415,13 @@ description: Documentation and examples for how to use the included navigation c
 const triggerEl = document.querySelector('#myTab button[data-bs-target="#profile-tab-pane"]')
 bootstrap.Tab.getOrCreateInstance(triggerEl).show()
 </codeblock>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Navs are built on local CSS variables, like Bootstrap's. <code>.nav</code> (and <code>.nav-pills</code> and <code>.navbar-nav</code>) declares the link variables; since a felt-css nav draws its active link as a pill unless it is tabs or underline, the pill variables live there too.</p>
+<cssvars name="nav"></cssvars>
+<p>Tabs, on <code>.nav-tabs</code>:</p>
+<cssvars name="nav-tabs"></cssvars>
+<p>Underline, on <code>.nav-underline</code>:</p>
+<cssvars name="nav-underline"></cssvars>
+<p>Inside a <a href="../navbar/#css">navbar</a>, <code>.navbar-nav</code> sets the link padding and colors from the navbar's variables.</p>

@@ -27,7 +27,20 @@ description: Create consistent cross-browser and cross-device checkboxes and rad
   <p>In the felt look, an empty checkbox is a little square pressed into the felt; checked, it becomes a primary felt patch with a cream tick that casts a small shadow. Radios and switches follow the same recipe.</p>
 </div>
 
-<p>felt-css has no separate style for the <code>:indeterminate</code> state; an indeterminate checkbox looks unchecked.</p>
+<h3>Indeterminate</h3>
+<p>Checkboxes can utilize the <code>:indeterminate</code> pseudo class when manually set via JavaScript (there is no available HTML attribute for specifying it).</p>
+
+<example>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="checkIndeterminate">
+  <label class="form-check-label" for="checkIndeterminate">
+    Indeterminate checkbox
+  </label>
+</div>
+</example>
+<codeblock lang="js">
+document.querySelector('#checkIndeterminate').indeterminate = true
+</codeblock>
 
 <h3>Disabled</h3>
 <p>Add the <code>disabled</code> attribute and the associated <code>&lt;label&gt;</code>s are automatically styled to match with a lighter color to help indicate the input's state.</p>
@@ -191,12 +204,25 @@ description: Create consistent cross-browser and cross-device checkboxes and rad
 </example>
 
 <h2>Reverse</h2>
-<p>felt-css has no <code>.form-check-reverse</code>. Because <code>.form-check</code> is a flex row, putting the label before the input and adding <a href="../../utilities/flex/#justify-content"><code>.justify-content-end</code></a> gives the same result for checkboxes, radios, and switches. The label's disabled style then needs your own CSS, as it relies on the label following the input.</p>
+<p>Put your checkboxes, radios, and switches on the opposite side with the <code>.form-check-reverse</code> modifier class.</p>
 
 <example>
-<div class="form-check form-switch justify-content-end">
-  <label class="form-check-label" for="switchCheckReverse">Reverse switch checkbox input</label>
+<div class="form-check form-check-reverse">
+  <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+  <label class="form-check-label" for="reverseCheck1">
+    Reverse checkbox
+  </label>
+</div>
+<div class="form-check form-check-reverse">
+  <input class="form-check-input" type="checkbox" value="" id="reverseCheck2" disabled>
+  <label class="form-check-label" for="reverseCheck2">
+    Disabled reverse checkbox
+  </label>
+</div>
+
+<div class="form-check form-switch form-check-reverse">
   <input class="form-check-input" type="checkbox" role="switch" id="switchCheckReverse">
+  <label class="form-check-label" for="switchCheckReverse">Reverse switch checkbox input</label>
 </div>
 </example>
 
@@ -288,3 +314,14 @@ description: Create consistent cross-browser and cross-device checkboxes and rad
 <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
 <label class="btn btn-outline-danger" for="danger-outlined">Danger radio</label>
 </example>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Like Bootstrap's, a check reads its fill and its mark from local variables: <code>.form-check-input</code> declares them, and <code>:checked</code>, <code>:indeterminate</code> and radios set the mark. In the felt look the marks are cream, and the felt texture lies under them.</p>
+<cssvars name="form-check"></cssvars>
+<p>A switch draws its knob from its own variable, set on <code>.form-switch .form-check-input</code> (in the felt look, a disc of wool).</p>
+<cssvars name="form-switch"></cssvars>
+
+<script>
+document.querySelector('#checkIndeterminate').indeterminate = true
+</script>

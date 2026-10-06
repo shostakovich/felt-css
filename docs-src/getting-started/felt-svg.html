@@ -17,10 +17,10 @@ description: Sew your own SVG drawings — gauges, rings, chart bands — with t
           <filter id="gauge-blur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.5"/></filter>
         </defs>
         <g fill="none" stroke-width="16">
-          <path d="M24 96A76 76 0 0 1 176 96" style="stroke: var(--track)"/>
+          <path d="M24 96A76 76 0 0 1 176 96" style="stroke: var(--felt-track)"/>
           <path d="M24 96A76 76 0 0 1 138 30.2" class="felt-shadow" filter="url(#gauge-blur)"/>
-          <path d="M24 96A76 76 0 0 1 138 30.2" class="felt-edge" style="color: var(--primary)"/>
-          <path d="M24 96A76 76 0 0 1 138 30.2" style="stroke: var(--primary)"/>
+          <path d="M24 96A76 76 0 0 1 138 30.2" class="felt-edge" style="color: var(--felt-primary)"/>
+          <path d="M24 96A76 76 0 0 1 138 30.2" style="stroke: var(--felt-primary)"/>
           <path d="M24 96A76 76 0 0 1 138 30.2" stroke="url(#felt-gauge)" class="felt-texture"/>
         </g>
       </svg>
@@ -56,8 +56,8 @@ description: Sew your own SVG drawings — gauges, rings, chart bands — with t
   <table class="table table-sm">
     <thead><tr><th>Size</th><th>Value</th></tr></thead>
     <tbody>
-      <tr><td>Length</td><td><code>7px</code>, <code>--stitch-length</code></td></tr>
-      <tr><td>Pitch (stitch and gap)</td><td><code>10px</code>, <code>--stitch-pitch</code></td></tr>
+      <tr><td>Length</td><td><code>7px</code>, <code>--felt-stitch-length</code></td></tr>
+      <tr><td>Pitch (stitch and gap)</td><td><code>10px</code>, <code>--felt-stitch-pitch</code></td></tr>
       <tr><td>Thickness</td><td><code>1.6px</code></td></tr>
     </tbody>
   </table>
@@ -65,7 +65,7 @@ description: Sew your own SVG drawings — gauges, rings, chart bands — with t
 <p>Sizes are in user units: keep one unit at one CSS pixel (<code>width</code> equal to the <code>viewBox</code> width) and the stitches match the seams around them. On an arc of radius <var>r</var> the pitch is an angle of <code>10 / r</code> radians; the gauge above has <code>r = 76</code> and a stitch every <code>7.5°</code>. Along any other path, measure it in script:</p>
 <codeblock lang="js">
 const seam = document.querySelector('#seam')   // a path in the overlay: the line to sew along
-const pitch = 10                               // --stitch-pitch
+const pitch = 10                               // --felt-stitch-pitch
 const length = seam.getTotalLength()
 const count = Math.round(length / pitch)
 for (let i = 0; i < count; i++) {
@@ -77,21 +77,21 @@ for (let i = 0; i < count; i++) {
   seam.before(use)
 }
 </codeblock>
-<p>The stitch is near-white thread, like the seam images. Put the stitches in an <code>&lt;svg class="stitches"&gt;</code> of their own, laid over the drawing with the same <code>viewBox</code> inside a <code>.position-relative</code> wrapper. In the felt look the overlay casts the seams' shadow down the page (<code>--stitch-shadow</code>) and is tinted with their <code>--seam-filter</code> and <code>--seam-strength</code>, so the thread is a tone of the felt underneath and follows the theme; add <code>.stitches-patch</code> when the stitches lie on a coloured patch, for the patches' lighter thread. In the clean look the overlay is hidden.</p>
+<p>The stitch is near-white thread, like the seam images. Put the stitches in an <code>&lt;svg class="stitches"&gt;</code> of their own, laid over the drawing with the same <code>viewBox</code> inside a <code>.position-relative</code> wrapper. In the felt look the overlay casts the seams' shadow down the page (<code>--felt-stitch-shadow</code>) and is tinted with their <code>--felt-thread-filter</code> and <code>--felt-thread-strength</code>, so the thread is a tone of the felt underneath and follows the theme; add <code>.stitches-patch</code> when the stitches lie on a coloured patch, for the patches' lighter thread. In the clean look the overlay is hidden.</p>
 
 <h2>Felt</h2>
-<p>Coloured shapes are patches: the grey felt <code>img/felt.svg</code>, tiled at <code>--felt-size</code> (<code>256px</code>) and blended <code>soft-light</code> onto the colour. In SVG, define it as a pattern and lay a copy of the shape over the coloured one with <code>.felt-texture</code>, which blends it in the felt look and hides it in the clean look:</p>
+<p>Coloured shapes are patches: the grey felt <code>img/felt.svg</code>, tiled at <code>--felt-texture-size</code> (<code>256px</code>) and blended <code>soft-light</code> onto the colour. In SVG, define it as a pattern and lay a copy of the shape over the coloured one with <code>.felt-texture</code>, which blends it in the felt look and hides it in the clean look:</p>
 <codeblock lang="html">
 <pattern id="felt" width="256" height="256" patternUnits="userSpaceOnUse">
   <image href="img/felt.svg" width="256" height="256"/>
 </pattern>
 <path d="…" class="felt-shadow" filter="url(#blur)"/>
-<path d="…" class="felt-edge" style="color: var(--primary)"/>
-<path d="…" style="stroke: var(--primary)"/>
+<path d="…" class="felt-edge" style="color: var(--felt-primary)"/>
+<path d="…" style="stroke: var(--felt-primary)"/>
 <path d="…" stroke="url(#felt)" class="felt-texture"/>
 </codeblock>
 <p>A patch lies on the felt with a cut edge and a soft shadow, as buttons and badges do: put copies of the shape under it, one with <code>.felt-shadow</code> (blurred by an SVG <code>&lt;filter&gt;</code> with <code>feGaussianBlur</code>) and one with <code>.felt-edge</code>, coloured with <code>color</code>. In the felt look they are drawn a little lower, the edge in a darker tone of that colour; in the clean look they are hidden.</p>
-<p>The cream and charcoal sheet that the page and cards are cut from is a photo per theme (<code>--sheet</code>, <code>--sheet-blend</code>). Rather than painting it, leave such shapes transparent or shade them with <code>--track</code>, like the gauge's track (the same groove as the empty part of progress bars and ranges), and the sheet underneath shows through. As a fill it is <code>img/felt-light.webp</code> blended <code>multiply</code> in light mode and <code>img/felt-dark.webp</code> blended <code>soft-light</code> in dark mode, both tiled at <code>256px</code>.</p>
+<p>The cream and charcoal sheet that the page and cards are cut from is a photo per theme (<code>--felt-texture-sheet</code>, <code>--felt-texture-sheet-blend</code>). Rather than painting it, leave such shapes transparent or shade them with <code>--felt-track</code>, like the gauge's track (the same groove as the empty part of progress bars and ranges), and the sheet underneath shows through. As a fill it is <code>img/felt-light.webp</code> blended <code>multiply</code> in light mode and <code>img/felt-dark.webp</code> blended <code>soft-light</code> in dark mode, both tiled at <code>256px</code>.</p>
 
 <h2>Browsers</h2>
 <ul>

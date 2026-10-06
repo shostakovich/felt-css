@@ -1,43 +1,34 @@
-#!/usr/bin/env python3
-"""Write the repetitive part of felt.css between its markers; everything else stays hand-written.
+"""Bootstrap's grid and utilities, once plain and once per breakpoint (so `.mb-2 .mb-md-4` works like in Bootstrap).
 
-  grid:       Bootstrap's grid (.col-*, .row-cols-*, .offset-*, .g-*), once plain and once per breakpoint
-  families:   colour helpers that take an opacity (.text-*, .bg-*, .border-*, .link-*), their subtle and
-              emphasis tones, border widths, .rounded-*, overflow and position offsets
-  utilities:  display, flex, order, spacing, gap, text alignment, float, object-fit and sticky, once plain
-              and once per breakpoint (so `.mb-2 .mb-md-4` works like in Bootstrap), and .d-print-*
+  grid:       .col-*, .row-cols-*, .offset-*, .g-*
+  families:   colour helpers that take an opacity (.text-*, .bg-*, .border-*, .link-*), their subtle and emphasis tones,
+              border widths, .rounded-*, overflow and position offsets
+  utilities:  display, flex, order, spacing, gap, text alignment, float, object-fit and sticky, and .d-print-*
 
-Colours are light-dark() tokens, not RGB triplets as in Bootstrap, so the opacity helpers fade a colour
-with color-mix() instead of rgba(). Change the lists below and run it again.
-
-Needs: python3.
+Colours are light-dark() tokens, not RGB triplets as in Bootstrap, so the opacity helpers fade a colour with
+color-mix() instead of rgba().
 """
-from pathlib import Path
+from .config import BREAKPOINTS, COLOURS, TONED
+from .css import important, media, name, refs
 
-ROOT = Path(__file__).resolve().parent.parent
-CSS = ROOT / "felt.css"
-
-BREAKPOINTS = {"sm": 576, "md": 768, "lg": 992}   # the same as the containers and .navbar-expand-*
 SPACERS = {0: "0", 1: ".25rem", 2: ".5rem", 3: "1rem", 4: "1.5rem", 5: "3rem"}
 GUTTERS = {k: "0rem" if v == "0" else v for k, v in SPACERS.items()}   # unitless 0 breaks the row's calc()
 COLUMNS = 12
 ROW_COLS = 6
 
-COLOURS = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"]
-TONED = COLOURS[:6]
 # light and dark keep their tone in dark mode, like Bootstrap's: .bg-light .text-dark stays dark on light
-FIXED = {"light": "var(--light-fixed)", "dark": "var(--dark-fixed)"}
-LINK = {**{c: f"var(--{c}-text)" for c in TONED}, **FIXED}   # --*-text: the tone that reads as text on the page
-TEXT = {**LINK, "black": "#000", "white": "#fff", "body": "var(--text)"}
-FILL = {**{c: f"var(--{c})" for c in TONED}, **FIXED}
-BG = {**FILL, "black": "#000", "white": "#fff", "body": "var(--body-bg)",
-      "body-secondary": "light-dark(var(--surface-sunk), var(--surface-raised))", "body-tertiary": "var(--surface-raised)"}
-BORDER = {**FILL, "black": "#000", "white": "#fff"}
-HOVER_INK = {"light": "#fff", "dark": "#000"}   # links hover towards --state-ink; these two always go lighter and darker
+FIXED = {"light": "$light-fixed", "dark": "$dark-fixed"}
+LINK = {**{c: f"${c}-text" for c in TONED}, **FIXED}   # *-text: the tone that reads as text on the page
+TEXT = {**LINK, "black": "$black", "white": "$white", "body": "$body-color"}
+FILL = {**{c: f"${c}" for c in TONED}, **FIXED}
+BG = {**FILL, "black": "$black", "white": "$white", "body": "$body-bg",
+      "body-secondary": "light-dark($surface-sunk, $surface-raised)", "body-tertiary": "$surface-raised"}
+BORDER = {**FILL, "black": "$black", "white": "$white"}
+HOVER_INK = {"light": "#fff", "dark": "#000"}   # links hover towards --felt-hover-ink; these two always go lighter and darker
 OPACITY = {"10": ".1", "25": ".25", "50": ".5", "75": ".75", "100": "1"}
 OFFSETS = {1: ".125em", 2: ".25em", 3: ".375em"}
-RADII = {0: "0", 1: "var(--radius-sm)", 2: "var(--radius)", 3: "var(--radius-lg)", 4: "var(--radius-xl)",
-         5: "var(--radius-xxl)", "circle": "50%", "pill": "var(--radius-pill)"}
+RADII = {0: "0", 1: "$radius-sm", 2: "$radius", 3: "$radius-lg", 4: "$radius-xl", 5: "$radius-xxl",
+         "circle": "50%", "pill": "$radius-pill"}
 CORNERS = {"top": ("top-left", "top-right"), "end": ("top-right", "bottom-right"),
            "bottom": ("bottom-right", "bottom-left"), "start": ("bottom-left", "top-left")}
 OVERFLOW = ["auto", "hidden", "visible", "scroll"]
@@ -73,22 +64,19 @@ def pct(n, of):
 
 
 def fade(colour, opacity, default=""):
-    """colour at the opacity held in a custom property, as rgba() with an RGB triplet would do it"""
-    return f"color-mix(in srgb, {colour} calc(var(--{opacity}{', ' + default if default else ''}) * 100%), transparent)"
-
-
-def important(rules):
-    return [f".{name} {{ {decl} !important; }}" for name, decl in rules]
+    """colour at the opacity held in a token, as rgba() with an RGB triplet would do it"""
+    return f"color-mix(in srgb, {colour} calc(var({name(opacity)}{', ' + default if default else ''}) * 100%), transparent)"
 
 
 def grid(i):
     """The grid in one breakpoint; i is the class infix ("" or "-md")."""
+    gx, gy = name("gutter-x"), name("gutter-y")
     out = [f".col{i} {{ flex: 1 0 0%; }}", f".row-cols{i}-auto > * {{ flex: 0 0 auto; width: auto; }}"]
     out += [f".row-cols{i}-{n} > * {{ flex: 0 0 auto; width: {pct(1, n)}; }}" for n in range(1, ROW_COLS + 1)]
     out.append(f".col{i}-auto {{ flex: 0 0 auto; width: auto; }}")
     out += [f".col{i}-{n} {{ flex: 0 0 auto; width: {pct(n, COLUMNS)}; }}" for n in range(1, COLUMNS + 1)]
     out += [f".offset{i}-{n} {{ margin-left: {pct(n, COLUMNS) if n else 0}; }}" for n in range(0 if i else 1, COLUMNS)]
-    out += [f".g{i}-{k} {{ --gutter-x: {v}; --gutter-y: {v}; }} .gx{i}-{k} {{ --gutter-x: {v}; }} .gy{i}-{k} {{ --gutter-y: {v}; }}"
+    out += [f".g{i}-{k} {{ {gx}: {v}; {gy}: {v}; }} .gx{i}-{k} {{ {gx}: {v}; }} .gy{i}-{k} {{ {gy}: {v}; }}"
             for k, v in GUTTERS.items()]
     return out
 
@@ -96,50 +84,52 @@ def grid(i):
 def colour_family(cls, prop, colours, opacities):
     """.text-primary and friends: each resets its opacity, so .text-opacity-50 on the same element fades it"""
     var = f"{cls}-opacity"
-    out = [f".{cls}-{c} {{ --{var}: 1; {prop}: {fade(v, var)} !important; }}" for c, v in colours.items()]
-    return out + [f".{var}-{k} {{ --{var}: {OPACITY[k]}; }}" for k in opacities]
+    out = [f".{cls}-{c} {{ {name(var)}: 1; {prop}: {refs(fade(v, var))} !important; }}" for c, v in colours.items()]
+    return out + [f".{var}-{k} {{ {name(var)}: {OPACITY[k]}; }}" for k in opacities]
 
 
 def links():
     names = [f"link-{c}" for c in LINK] + ["link-body-emphasis"]
-    out = [f".link-{c} {{ --link-color: {v}; --link-hover-color: color-mix(in oklab, {v} 80%, {HOVER_INK.get(c, 'var(--state-ink)')}); }}"
+    colour, hover = name("link-color"), name("link-hover-color")
+    out = [f".link-{c} {{ {colour}: {refs(v)}; {hover}: color-mix(in oklab, {refs(v)} 80%, {refs(HOVER_INK.get(c, '$hover-ink'))}); }}"
            for c, v in LINK.items()]
-    out.append(".link-body-emphasis { --link-color: var(--emphasis); --link-hover-color: color-mix(in srgb, var(--emphasis) 75%, transparent); }")
+    out.append(refs(f".link-body-emphasis {{ {colour}: $emphasis-color; {hover}: color-mix(in srgb, $emphasis-color 75%, transparent); }}"))
     every = ", ".join(f".{n}" for n in names)
-    out.append(f":is({every}) {{ color: {fade('var(--link-color)', 'link-opacity', '1')} !important; "
-               f"text-decoration-color: {fade('var(--link-color)', 'link-underline-opacity', '1')} !important; }}")
-    out.append(f":is({every}):is(:hover, :focus) {{ --link-color: var(--link-hover-color); }}")
-    out += [f".link-opacity-{k} {{ --link-opacity: {v}; }} .link-opacity-{k}-hover:hover {{ --link-opacity: {v}; }}"
+    out.append(f":is({every}) {{ color: {refs(fade('$link-color', 'link-opacity', '1'))} !important; "
+               f"text-decoration-color: {refs(fade('$link-color', 'link-underline-opacity', '1'))} !important; }}")
+    out.append(f":is({every}):is(:hover, :focus) {{ {colour}: var({hover}); }}")
+    out += [f".link-opacity-{k} {{ {name('link-opacity')}: {v}; }} .link-opacity-{k}-hover:hover {{ {name('link-opacity')}: {v}; }}"
             for k, v in OPACITY.items()]
     out += [f".link-offset-{k} {{ text-underline-offset: {v} !important; }} .link-offset-{k}-hover:hover {{ text-underline-offset: {v} !important; }}"
             for k, v in OFFSETS.items()]
     # an underline of its own, in the link's colour or another; also on a plain <a>
     out.append(':is(.link-underline, [class*="link-underline-"]) { text-decoration-color: '
-               f"{fade('var(--link-underline, var(--link-color, var(--link)))', 'link-underline-opacity', '1')} !important; }}")
-    out.append(".link-underline { --link-underline-opacity: 1; }")
-    out += [f".link-underline-{c} {{ --link-underline: {v}; --link-underline-opacity: 1; }}" for c, v in LINK.items()]
-    out += [f".link-underline-opacity-{k} {{ --link-underline-opacity: {v}; }} .link-underline-opacity-{k}-hover:hover {{ --link-underline-opacity: {v}; }}"
+               f"{refs(fade('var(--felt-link-underline-color, $link-color)', 'link-underline-opacity', '1'))} !important; }}")
+    out.append(f".link-underline {{ {name('link-underline-opacity')}: 1; }}")
+    out += [f".link-underline-{c} {{ {name('link-underline-color')}: {refs(v)}; {name('link-underline-opacity')}: 1; }}"
+            for c, v in LINK.items()]
+    out += [f".link-underline-opacity-{k} {{ {name('link-underline-opacity')}: {v}; }} .link-underline-opacity-{k}-hover:hover {{ {name('link-underline-opacity')}: {v}; }}"
             for k, v in {"0": "0", **OPACITY}.items()]
     return out
 
 
 def families():
     out = colour_family("text", "color", TEXT, ["25", "50", "75", "100"])
-    out += important((f"text-{c}-emphasis", f"color: var(--{c}-emphasis)") for c in COLOURS)
+    out += important((f"text-{c}-emphasis", f"color: ${c}-emphasis") for c in COLOURS)
     out += colour_family("bg", "background-color", BG, OPACITY)
-    out += important((f"bg-{c}-subtle", f"background-color: var(--{c}-subtle)") for c in COLOURS)
+    out += important((f"bg-{c}-subtle", f"background-color: ${c}-subtle") for c in COLOURS)
     out += colour_family("border", "border-color", BORDER, OPACITY)
-    out += important((f"border-{c}-subtle", f"border-color: var(--{c}-border-subtle)") for c in COLOURS)
+    out += important((f"border-{c}-subtle", f"border-color: ${c}-border-subtle") for c in COLOURS)
     out += important((f"border-{n}", f"border-width: {n}px") for n in range(1, 6))
-    out += important([("rounded", "border-radius: var(--radius)")] + [(f"rounded-{k}", f"border-radius: {v}") for k, v in RADII.items()])
+    out += important([("rounded", "border-radius: $radius")] + [(f"rounded-{k}", f"border-radius: {v}") for k, v in RADII.items()])
     for side, (a, b) in CORNERS.items():
-        for k, v in {"": "var(--radius)", **{f"-{k}": v for k, v in RADII.items()}}.items():
-            out.append(f".rounded-{side}{k} {{ border-{a}-radius: {v} !important; border-{b}-radius: {v} !important; }}")
+        for k, v in {"": "$radius", **{f"-{k}": v for k, v in RADII.items()}}.items():
+            out.append(refs(f".rounded-{side}{k} {{ border-{a}-radius: {v} !important; border-{b}-radius: {v} !important; }}"))
     out += links()
-    out += [f".focus-ring-{c} {{ --focus-ring-color: color-mix(in oklab, {v} 50%, transparent); }}" for c, v in FILL.items()]
+    out += [f".focus-ring-{c} {{ {name('focus-ring-color')}: color-mix(in oklab, {refs(v)} 50%, transparent); }}" for c, v in FILL.items()]
     out += important((f"{p}-{v}", f"{p}: {v}") for p in ("overflow", "overflow-x", "overflow-y") for v in OVERFLOW)
     out += important((f"{side}-{n}", f"{prop}: {n}{'%' if n else ''}") for side, prop in INSET.items() for n in (0, 50, 100))
-    return ["  " + rule for rule in out]
+    return out
 
 
 def display(i):
@@ -148,7 +138,7 @@ def display(i):
 
 def utilities(i):
     """All responsive utilities in one breakpoint, with Bootstrap's !important."""
-    rules = [(name.replace("flex-", f"flex{i}-", 1), decl) for name, decl in FLEX.items()]
+    rules = [(cls.replace("flex-", f"flex{i}-", 1), decl) for cls, decl in FLEX.items()]
     rules += [(f"{prop}{i}-{k}", f"{prop}: {v}") for prop, values in ALIGN.items() for k, v in values.items()]
     rules += [(f"order{i}-{k}", f"order: {v}") for k, v in ORDER.items()]
     for letter, prop in (("m", "margin"), ("p", "padding")):
@@ -164,27 +154,16 @@ def utilities(i):
     return display(i) + important(rules) + sticky
 
 
-def per_breakpoint(family):
-    lines = ["  " + rule for rule in family("")]
-    for bp, width in BREAKPOINTS.items():
-        lines.append(f"  @media (min-width: {width}px) {{")
-        lines += ["    " + rule for rule in family(f"-{bp}")]
-        lines.append("  }")
+def per_breakpoint(family, breakpoints=BREAKPOINTS):
+    lines = family("")
+    for bp, width in breakpoints.items():
+        lines += media(f"(min-width: {width}px)", family(f"-{bp}"))
     return lines
 
 
-def write_between(text, name, lines):
-    start, end = f"/* {name}:start */", f"/* {name}:end */"
-    head, rest = text.split(start, 1)
-    _, tail = rest.split(end, 1)
-    note = f"  /* written by tools/build_utilities.py; change the script, not these {len(lines)} lines */"
-    return head + start + "\n" + note + "\n" + "\n".join(lines) + "\n  " + end + tail
-
-
-text = CSS.read_text()
-text = write_between(text, "grid", per_breakpoint(grid))
-text = write_between(text, "families", families())
-text = write_between(text, "utilities", per_breakpoint(utilities)
-                     + ["  @media print {"] + ["    " + rule for rule in display("-print")] + ["  }"])
-CSS.write_text(text)
-print(f"{CSS.name}: {len(text.splitlines())} lines")
+def blocks():
+    return {
+        "grid": per_breakpoint(grid),
+        "families": families(),
+        "utilities": per_breakpoint(utilities) + media("print", display("-print")),
+    }

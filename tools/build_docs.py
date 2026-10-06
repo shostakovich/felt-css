@@ -6,10 +6,17 @@
     python3 tools/build_docs.py --site _site   # the published layout: home page at the root, docs under docs/
 
 Each fragment starts with a front-matter comment (title, description, optional layout) and holds the
-page body. Two tags are expanded:
+page body. These tags are expanded:
 
     <example class="extra classes">…</example>   rendered markup followed by its highlighted source
     <codeblock lang="html|css|js|sh">…</codeblock>   highlighted source only (raw text, no escaping needed)
+    <tokens group="palette theme"></tokens>      the global tokens of those groups (tools/feltgen/tokens.py)
+    <cssvars name="btn"></cssvars>               a component's tokens, read from felt.css between
+                                                 /* docs:btn-vars:start */ and /* docs:btn-vars:end */
+
+--strict also fails on tokens: felt.css may only declare --felt-* and --_* tokens, every public one must be
+documented (tokens.py, a <cssvars> block shown on a page, or named on a page), and every --felt-* token a page
+names must exist.
 
 Generated pages go to docs/<section>/<page>/index.html; the hand-written examples in docs/examples/*/
 are left alone.
@@ -21,6 +28,10 @@ import re
 import sys
 import textwrap
 from pathlib import Path
+
+from feltgen import parity
+from feltgen.css import name as token_name, refs
+from feltgen.tokens import GROUPS
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "docs-src"
@@ -38,6 +49,7 @@ NAV = [
     ("Customize", "customize", [
         ("color", "Color"),
         ("css-variables", "CSS variables"),
+        ("felt", "Felt"),
     ]),
     ("Layout", "layout", [
         ("breakpoints", "Breakpoints"),
@@ -45,6 +57,8 @@ NAV = [
         ("grid", "Grid"),
         ("columns", "Columns"),
         ("gutters", "Gutters"),
+        ("utilities", "Utilities"),
+        ("z-index", "Z-index"),
     ]),
     ("Content", "content", [
         ("reboot", "Reboot"),
@@ -61,6 +75,7 @@ NAV = [
         ("range", "Range"),
         ("input-group", "Input group"),
         ("floating-labels", "Floating labels"),
+        ("layout", "Layout"),
         ("validation", "Validation"),
     ]),
     ("Components", "components", [
@@ -71,6 +86,7 @@ NAV = [
         ("buttons", "Buttons"),
         ("button-group", "Button group"),
         ("card", "Card"),
+        ("carousel", "Carousel"),
         ("close-button", "Close button"),
         ("collapse", "Collapse"),
         ("dropdowns", "Dropdowns"),
@@ -83,6 +99,7 @@ NAV = [
         ("placeholders", "Placeholders"),
         ("popovers", "Popovers"),
         ("progress", "Progress"),
+        ("scrollspy", "Scrollspy"),
         ("spinners", "Spinners"),
         ("stat", "Stat tiles"),
         ("toasts", "Toasts"),
@@ -225,6 +242,7 @@ def expand(body):
         markup = tidy(match.group(2))
         classes = " ".join(filter(None, ["bd-example", attrs.get("class")]))
         style = f' style="{attrs["style"]}"' if "style" in attrs else ""
+        style += "".join(f' {k}="{attrs[k]}"' for k in ("data-look", "data-bs-theme") if k in attrs)
         rendered = f'<div class="{classes}"{style}>\n{markup}\n</div>'
         code = "" if attrs.get("code") == "false" else code_box(markup, "html")
         return keep(f'<div class="bd-example-snippet">{rendered}{code}</div>')
@@ -233,9 +251,109 @@ def expand(body):
         attrs = parse_attrs(match.group(1))
         return keep(code_box(tidy(match.group(2)), attrs.get("lang", "html")))
 
+    def tokens(match):
+        return keep(token_tables(parse_attrs(match.group(1)).get("group", "").split()))
+
+    def cssvars(match):
+        return keep(cssvars_table(parse_attrs(match.group(1))["name"]))
+
+    body = re.sub(r"<tokens\b([^>]*)>\s*</tokens>", tokens, body)
+    body = re.sub(r"<cssvars\b([^>]*)>\s*</cssvars>", cssvars, body)
     body = re.sub(r"<codeblock\b([^>]*)>(.*?)</codeblock>", codeblock, body, flags=re.S)
     body = re.sub(r"<example\b([^>]*)>(.*?)</example>", example, body, flags=re.S)
     return body, blocks
+
+
+# ------------------------------------------------------------------ tokens
+
+FELT_CSS = (ROOT / "felt.css").read_text()
+JS_CONTRACT = {"--bs-position"}   # Bootstrap's JS reads it
+SHOWN_BLOCKS = set()   # the docs:*-vars blocks some page shows
+_MAP = None
+
+
+def bs_map():
+    global _MAP
+    if _MAP is None:
+        _MAP = parity.token_map()
+    return _MAP
+
+
+def bs_cell(token):
+    names = parity.bootstrap_names(token, bs_map())
+    return "<br>".join(f"<code>{n}</code>" for n in names)
+
+
+def value_cell(value):
+    return f"<code>{html.escape(refs(value))}</code>"
+
+
+def token_tables(keys):
+    out = []
+    for key, title, intro, tokens in GROUPS:
+        if key not in keys:
+            continue
+        rows = []
+        for t in (t for t in tokens if t.public):
+            clean, dark, felt, felt_dark = t.values()
+            value = "" if t.felt_only else value_cell(clean)
+            if dark != clean and not t.felt_only:
+                value += f' <span class="bd-token-mode">dark</span> {value_cell(dark)}'
+            if felt != clean or t.felt_only:
+                value += (f'{"<br>" if value else ""}<span class="bd-token-look">felt</span> {value_cell(felt)}')
+                if felt_dark != felt:
+                    value += f' <span class="bd-token-mode">dark</span> {value_cell(felt_dark)}'
+            rows.append((token_name(t.name), value, bs_cell(token_name(t.name)), html.escape(t.doc)))
+        with_bs = any(r[2] for r in rows)
+        body = "".join(f"<tr><td><code>{n}</code></td><td>{v}</td>{f'<td>{b}</td>' if with_bs else ''}<td>{d}</td></tr>"
+                       for n, v, b, d in rows)
+        intro_html = f"<p>{html.escape(intro)}</p>" if intro and len(keys) > 1 else ""
+        heading = f"<h3>{title}</h3>" if len(keys) > 1 else ""
+        out.append(f'{heading}{intro_html}<div class="table-responsive bd-tokens"><table class="table table-sm">'
+                   f"<thead><tr><th>Token</th><th>Value</th>{'<th>Bootstrap</th>' if with_bs else ''}<th>Used for</th></tr></thead>"
+                   f"<tbody>{body}</tbody></table></div>")
+    return "".join(out)
+
+
+def css_block(name):
+    m = re.search(rf"/\* docs:{re.escape(name)}-vars:start \*/(.*?)/\* docs:{re.escape(name)}-vars:end \*/", FELT_CSS, re.S)
+    if not m:
+        raise SystemExit(f"felt.css has no /* docs:{name}-vars:start */ block")
+    return m.group(1)
+
+
+def cssvars_table(name):
+    SHOWN_BLOCKS.add(name)
+    block = re.sub(r"/\*.*?\*/", "", css_block(name), flags=re.S)
+    rows = []
+    for m in re.finditer(r"(--[\w-]+)\s*:\s*([^;]*);", block):
+        token, value = m.group(1), " ".join(m.group(2).split())
+        if token.startswith("--_"):
+            continue
+        rows.append(f"<tr><td><code>{token}</code></td><td><code>{html.escape(value)}</code></td><td>{bs_cell(token)}</td></tr>")
+    return ('<div class="table-responsive bd-tokens"><table class="table table-sm">'
+            "<thead><tr><th>Token</th><th>Default</th><th>Bootstrap</th></tr></thead>"
+            f"<tbody>{''.join(rows)}</tbody></table></div>")
+
+
+def token_problems(pages_text):
+    """--strict: names, documentation and existence of tokens"""
+    problems = []
+    css = re.sub(r"/\*.*?\*/", "", FELT_CSS, flags=re.S)
+    declared = set(re.findall(r"(--[\w-]+)\s*:", css))
+    for t in sorted(declared):
+        if not t.startswith(("--felt-", "--_")) and t not in JS_CONTRACT:
+            problems.append(f"felt.css declares {t}: tokens are --felt-* (public) or --_* (internal)")
+    documented = {token_name(t.name) for _, _, _, ts in GROUPS for t in ts if t.public and t.doc}
+    for block in SHOWN_BLOCKS:
+        documented |= set(re.findall(r"(--felt-[\w-]+)\s*:", css_block(block)))
+    named = set(re.findall(r"--felt-[\w-]*\w(?![\w*-])", pages_text))   # not a family like --felt-focus-ring-*
+    public = set(re.findall(r"--felt-[\w-]*[\w]", css))   # declared, or read with a fallback (set by the page)
+    for t in sorted(public - documented - named):
+        problems.append(f"{t} is public but no page documents it")
+    for t in sorted(named - public):
+        problems.append(f"the docs name {t}, which felt.css doesn't declare")
+    return problems
 
 
 def restore(body, blocks):
@@ -392,7 +510,8 @@ def write(path, text):
 
 
 # Bootstrap's JS sets these at runtime; they are styled by felt.css under the same names
-RUNTIME_CLASSES = {"show", "showing", "hiding", "collapsed", "collapsing", "fade", "active", "disabled"}
+RUNTIME_CLASSES = {"show", "showing", "hiding", "collapsed", "collapsing", "fade", "active", "disabled",
+                   "needs-validation"}   # the hook Bootstrap's validation example script looks for
 
 
 def main():
@@ -424,6 +543,10 @@ def main():
         if site and name == "index":
             write(site / "index.html", render(layout, meta, body, "docs/", "", current))
 
+    if strict:
+        pages_text = "".join(p.read_text() for p in SRC.rglob("*.html")) + (ROOT / "README.md").read_text()
+        for problem in token_problems(pages_text):
+            warn(problem, problems)
     print(f"built {len(jobs)} pages into {out}")
     if strict and problems:
         sys.exit(1)

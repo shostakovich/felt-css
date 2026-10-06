@@ -107,7 +107,7 @@ myModal.addEventListener('shown.bs.modal', () => {
 </codeblock>
 
 <h3>Static backdrop</h3>
-<p>When backdrop is set to static, the modal will not close when clicking outside of it. Click the button below to try it.</p>
+<p>When backdrop is set to static, the modal will not close when clicking outside of it: the dialog bounces instead (Bootstrap's JavaScript adds <code>.modal-static</code> to the modal for a moment). Click the button below to try it.</p>
 
 <div class="modal fade" id="staticBackdropLive" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -655,15 +655,21 @@ document.getElementById('newExpense').showModal()
     <tbody>
       <tr><td><code>.modal-fullscreen</code></td><td>Always</td></tr>
       <tr><td><code>.modal-fullscreen-sm-down</code></td><td>Below <code>576px</code></td></tr>
+      <tr><td><code>.modal-fullscreen-md-down</code></td><td>Below <code>768px</code></td></tr>
+      <tr><td><code>.modal-fullscreen-lg-down</code></td><td>Below <code>992px</code></td></tr>
+      <tr><td><code>.modal-fullscreen-xl-down</code></td><td>Below <code>1200px</code></td></tr>
+      <tr><td><code>.modal-fullscreen-xxl-down</code></td><td>Below <code>1400px</code></td></tr>
     </tbody>
   </table>
 </div>
 
-<p>felt-css has no <code>-md-down</code>, <code>-lg-down</code>, <code>-xl-down</code> or <code>-xxl-down</code> variants.</p>
-
 <example code="false">
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen">Full screen</button>
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreenSm">Full screen below sm</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreenMd">Full screen below md</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreenLg">Full screen below lg</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreenXl">Full screen below xl</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreenXxl">Full screen below xxl</button>
 </example>
 
 <codeblock lang="html">
@@ -707,6 +713,74 @@ document.getElementById('newExpense').showModal()
   </div>
 </div>
 
+<div class="modal fade" id="exampleModalFullscreenMd" tabindex="-1" aria-labelledby="exampleModalFullscreenMdLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen-md-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4" id="exampleModalFullscreenMdLabel">Full screen below md</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalFullscreenLg" tabindex="-1" aria-labelledby="exampleModalFullscreenLgLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen-lg-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4" id="exampleModalFullscreenLgLabel">Full screen below lg</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalFullscreenXl" tabindex="-1" aria-labelledby="exampleModalFullscreenXlLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen-xl-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4" id="exampleModalFullscreenXlLabel">Full screen below xl</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalFullscreenXxl" tabindex="-1" aria-labelledby="exampleModalFullscreenXxlLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen-xxl-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4" id="exampleModalFullscreenXxlLabel">Full screen below xxl</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <h2>JavaScript behavior</h2>
 <p>felt-css is CSS only; opening, closing, focus handling and the backdrop come from Bootstrap's modal plugin. Activate a modal without writing JavaScript by setting <code>data-bs-toggle="modal"</code> on a controller element, like a button, along with a <code>data-bs-target="#foo"</code> or <code>href="#foo"</code> to target a specific modal. Dismiss it with <code>data-bs-dismiss="modal"</code> on a button inside it.</p>
 <p>Options (<code>backdrop</code>, <code>focus</code>, <code>keyboard</code>), methods (<code>show</code>, <code>hide</code>, <code>toggle</code>, <code>handleUpdate</code>, <code>dispose</code>, <code>getInstance</code>, <code>getOrCreateInstance</code>) and events (<code>show.bs.modal</code>, <code>shown.bs.modal</code>, <code>hide.bs.modal</code>, <code>hidden.bs.modal</code>, <code>hidePrevented.bs.modal</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/modal/#usage">Bootstrap's modal documentation</a>.</p>
@@ -717,3 +791,10 @@ const myModal = new bootstrap.Modal('#myModal', {
 })
 myModal.show()
 </codeblock>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Modals are built on local CSS variables, like Bootstrap's: <code>.modal</code> declares them and you can set them on any modal; the sizes set <code>--felt-modal-width</code> on the <code>.modal-dialog</code>. The margin is the space above and below the dialog; on narrow screens it keeps <code>.5rem</code> at the sides.</p>
+<cssvars name="modal"></cssvars>
+<p>The backdrop, of modals and offcanvases alike, is colored with the global <code>--felt-backdrop</code>, which is translucent itself, and declares two variables of its own:</p>
+<cssvars name="backdrop"></cssvars>

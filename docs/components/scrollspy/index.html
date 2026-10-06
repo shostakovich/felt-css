@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scrollspy · felt-css</title>
+  <meta name="description" content="Automatically update navigation or list group components based on scroll position to indicate which link is currently active in the viewport.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" class="img-fluid" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/felt-svg/">Felt in SVG</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li><li class="nav-item"><a class="nav-link" href="../../customize/felt/">Felt</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li><li class="nav-item"><a class="nav-link" href="../../layout/utilities/">Utilities</a></li><li class="nav-item"><a class="nav-link" href="../../layout/z-index/">Z-index</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/layout/">Layout</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/carousel/">Carousel</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../components/scrollspy/">Scrollspy</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Components</p>
+        <h1>Scrollspy</h1>
+        <p class="lead">Automatically update navigation or list group components based on scroll position to indicate which link is currently active in the viewport.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/components/scrollspy.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#how-it-works">How it works</a></li><li><a href="#examples">Examples</a><ul><li><a href="#navbar">Navbar</a></li><li><a href="#nested-nav">Nested nav</a></li><li><a href="#list-group">List group</a></li><li><a href="#simple-anchors">Simple anchors</a></li></ul></li><li><a href="#non-visible-elements">Non-visible elements</a></li><li><a href="#usage">Usage</a><ul><li><a href="#via-data-attributes">Via data attributes</a></li><li><a href="#via-javascript">Via JavaScript</a></li></ul></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#how-it-works">How it works</a></li><li><a href="#examples">Examples</a><ul><li><a href="#navbar">Navbar</a></li><li><a href="#nested-nav">Nested nav</a></li><li><a href="#list-group">List group</a></li><li><a href="#simple-anchors">Simple anchors</a></li></ul></li><li><a href="#non-visible-elements">Non-visible elements</a></li><li><a href="#usage">Usage</a><ul><li><a href="#via-data-attributes">Via data attributes</a></li><li><a href="#via-javascript">Via JavaScript</a></li></ul></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="how-it-works">How it works<a class="bd-anchor" href="#how-it-works" aria-label="Link to this section">#</a></h2>
+<p>Scrollspy is Bootstrap's JavaScript plugin; felt-css adds nothing to it but the styles of the states it sets. It toggles the <code>.active</code> class on anchor (<code>&lt;a&gt;</code>) elements when the element with the <code>id</code> referenced by the anchor's <code>href</code> is scrolled into view. Scrollspy is best used in conjunction with a <a href="../navs-tabs/">nav component</a> or <a href="../list-group/">list group</a>, whose active links felt-css styles (a pill, a chosen list item, a highlighted dropdown item), but it will also work with any anchor elements in the current page.</p>
+<ul>
+  <li>To start, scrollspy requires two things: a navigation, list group, or a simple set of links, plus a scrollable container. The scrollable container can be the <code>&lt;body&gt;</code> or a custom element with a set <code>height</code> and <code>overflow-y: scroll</code> (here <a href="../../utilities/overflow/"><code>.overflow-auto</code></a> and a height).</li>
+  <li>On the scrollable container, add <code>data-bs-spy="scroll"</code> and <code>data-bs-target="#navId"</code> where <code>navId</code> is the unique <code>id</code> of the associated navigation. If there is no focusable element inside the element, be sure to also include a <code>tabindex="0"</code> to ensure keyboard access.</li>
+  <li>As you scroll the "spied" container, an <code>.active</code> class is added and removed from anchor links within the associated navigation. Links must have resolvable <code>id</code> targets, otherwise they're ignored. For example, a <code>&lt;a href="#home"&gt;home&lt;/a&gt;</code> must correspond to something in the DOM like <code>&lt;div id="home"&gt;&lt;/div&gt;</code>.</li>
+  <li>Target elements that are not visible will be ignored. See the <a href="#non-visible-elements">Non-visible elements</a> section below.</li>
+</ul>
+
+<h2 id="examples">Examples<a class="bd-anchor" href="#examples" aria-label="Link to this section">#</a></h2>
+<h3 id="navbar">Navbar<a class="bd-anchor" href="#navbar" aria-label="Link to this section">#</a></h3>
+<p>Scroll the area below the navbar and watch the active class change. Open the dropdown menu and watch the dropdown items be highlighted as well.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3 rounded-2">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link" href="#scrollspyHeading1">First</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#scrollspyHeading2">Second</a>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#scrollspyHeading3">Third</a></li>
+        <li><a class="dropdown-item" href="#scrollspyHeading4">Fourth</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#scrollspyHeading5">Fifth</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<div class="bg-body-tertiary p-3 rounded-2 overflow-auto" style="height: 200px" data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
+  <h4 id="scrollspyHeading1">First heading</h4>
+  <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+  <h4 id="scrollspyHeading2">Second heading</h4>
+  <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+  <h4 id="scrollspyHeading3">Third heading</h4>
+  <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+  <h4 id="scrollspyHeading4">Fourth heading</h4>
+  <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+  <h4 id="scrollspyHeading5">Fifth heading</h4>
+  <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"navbar-example2"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar bg-body-tertiary px-3 mb-3 rounded-2"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"navbar-brand"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Navbar<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav nav-pills"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#scrollspyHeading1"</span><span class="tok-punct">&gt;</span>First<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#scrollspyHeading2"</span><span class="tok-punct">&gt;</span>Second<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-item dropdown"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link dropdown-toggle"</span> <span class="tok-attr">data-bs-toggle</span><span class="tok-punct">=</span><span class="tok-val">"dropdown"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">aria-expanded</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span>Dropdown<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-menu"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#scrollspyHeading3"</span><span class="tok-punct">&gt;</span>Third<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#scrollspyHeading4"</span><span class="tok-punct">&gt;</span>Fourth<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">hr</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-divider"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"dropdown-item"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#scrollspyHeading5"</span><span class="tok-punct">&gt;</span>Fifth<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"bg-body-tertiary p-3 rounded-2 overflow-auto"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"height: 200px"</span> <span class="tok-attr">data-bs-spy</span><span class="tok-punct">=</span><span class="tok-val">"scroll"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#navbar-example2"</span> <span class="tok-attr">data-bs-root-margin</span><span class="tok-punct">=</span><span class="tok-val">"0px 0px -40%"</span> <span class="tok-attr">data-bs-smooth-scroll</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"0"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">h4</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"scrollspyHeading1"</span><span class="tok-punct">&gt;</span>First heading<span class="tok-punct">&lt;/</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">h4</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"scrollspyHeading2"</span><span class="tok-punct">&gt;</span>Second heading<span class="tok-punct">&lt;/</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">h4</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"scrollspyHeading3"</span><span class="tok-punct">&gt;</span>Third heading<span class="tok-punct">&lt;/</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">h4</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"scrollspyHeading4"</span><span class="tok-punct">&gt;</span>Fourth heading<span class="tok-punct">&lt;/</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">h4</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"scrollspyHeading5"</span><span class="tok-punct">&gt;</span>Fifth heading<span class="tok-punct">&lt;/</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="nested-nav">Nested nav<a class="bd-anchor" href="#nested-nav" aria-label="Link to this section">#</a></h3>
+<p>Scrollspy also works with nested <code>.nav</code>s. If a nested <code>.nav</code> is <code>.active</code>, its parents will also be <code>.active</code>. Scroll the area next to the navbar and watch the active class change.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="row">
+  <div class="col-4">
+    <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end">
+      <nav class="nav nav-pills flex-column">
+        <a class="nav-link" href="#item-1">Item 1</a>
+        <nav class="nav nav-pills flex-column">
+          <a class="nav-link ms-3 my-1" href="#item-1-1">Item 1-1</a>
+          <a class="nav-link ms-3 my-1" href="#item-1-2">Item 1-2</a>
+        </nav>
+        <a class="nav-link" href="#item-2">Item 2</a>
+        <a class="nav-link" href="#item-3">Item 3</a>
+        <nav class="nav nav-pills flex-column">
+          <a class="nav-link ms-3 my-1" href="#item-3-1">Item 3-1</a>
+          <a class="nav-link ms-3 my-1" href="#item-3-2">Item 3-2</a>
+        </nav>
+      </nav>
+    </nav>
+  </div>
+  <div class="col-8">
+    <div class="overflow-auto" style="height: 300px" data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" tabindex="0">
+      <div id="item-1">
+        <h4>Item 1</h4>
+        <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+        <p>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.</p>
+      </div>
+      <div id="item-1-1">
+        <h5>Item 1-1</h5>
+        <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+        <p>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.</p>
+      </div>
+      <div id="item-1-2">
+        <h5>Item 1-2</h5>
+        <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+        <p>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.</p>
+      </div>
+      <div id="item-2">
+        <h4>Item 2</h4>
+        <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+        <p>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.</p>
+      </div>
+      <div id="item-3">
+        <h4>Item 3</h4>
+        <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+        <p>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.</p>
+      </div>
+      <div id="item-3-1">
+        <h5>Item 3-1</h5>
+        <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+        <p>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.</p>
+      </div>
+      <div id="item-3-2">
+        <h5>Item 3-2</h5>
+        <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+        <p>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"navbar-example3"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"h-100 flex-column align-items-stretch pe-4 border-end"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav nav-pills flex-column"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#item-1"</span><span class="tok-punct">&gt;</span>Item 1<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav nav-pills flex-column"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link ms-3 my-1"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#item-1-1"</span><span class="tok-punct">&gt;</span>Item 1-1<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link ms-3 my-1"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#item-1-2"</span><span class="tok-punct">&gt;</span>Item 1-2<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#item-2"</span><span class="tok-punct">&gt;</span>Item 2<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#item-3"</span><span class="tok-punct">&gt;</span>Item 3<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav nav-pills flex-column"</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link ms-3 my-1"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#item-3-1"</span><span class="tok-punct">&gt;</span>Item 3-1<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+          <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav-link ms-3 my-1"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#item-3-2"</span><span class="tok-punct">&gt;</span>Item 3-2<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-8"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-auto"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"height: 300px"</span> <span class="tok-attr">data-bs-spy</span><span class="tok-punct">=</span><span class="tok-val">"scroll"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#navbar-example3"</span> <span class="tok-attr">data-bs-smooth-scroll</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"0"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"item-1"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>Item 1<span class="tok-punct">&lt;/</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"item-1-1"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>Item 1-1<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"item-1-2"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>Item 1-2<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"item-2"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>Item 2<span class="tok-punct">&lt;/</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"item-3"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>Item 3<span class="tok-punct">&lt;/</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"item-3-1"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>Item 3-1<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"item-3-2"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>Item 3-2<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Keep in mind that the JavaScript plugin tries to pick the right element among all that may be visible. Multiple visible scrollspy targets at the same time may cause some issues.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="list-group">List group<a class="bd-anchor" href="#list-group" aria-label="Link to this section">#</a></h3>
+<p>Scrollspy also works with <code>.list-group</code>s. Scroll the area next to the list group and watch the active class change.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="row">
+  <div class="col-4">
+    <div id="list-example" class="list-group">
+      <a class="list-group-item list-group-item-action" href="#list-item-1">Item 1</a>
+      <a class="list-group-item list-group-item-action" href="#list-item-2">Item 2</a>
+      <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
+      <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="overflow-auto" style="height: 200px" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" tabindex="0">
+      <h4 id="list-item-1">Item 1</h4>
+      <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+      <h4 id="list-item-2">Item 2</h4>
+      <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+      <h4 id="list-item-3">Item 3</h4>
+      <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+      <h4 id="list-item-4">Item 4</h4>
+      <p>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.</p>
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-4"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-example"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#list-item-1"</span><span class="tok-punct">&gt;</span>Item 1<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#list-item-2"</span><span class="tok-punct">&gt;</span>Item 2<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#list-item-3"</span><span class="tok-punct">&gt;</span>Item 3<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item list-group-item-action"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#list-item-4"</span><span class="tok-punct">&gt;</span>Item 4<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-8"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"overflow-auto"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"height: 200px"</span> <span class="tok-attr">data-bs-spy</span><span class="tok-punct">=</span><span class="tok-val">"scroll"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#list-example"</span> <span class="tok-attr">data-bs-smooth-scroll</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">tabindex</span><span class="tok-punct">=</span><span class="tok-val">"0"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">h4</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-item-1"</span><span class="tok-punct">&gt;</span>Item 1<span class="tok-punct">&lt;/</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">h4</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-item-2"</span><span class="tok-punct">&gt;</span>Item 2<span class="tok-punct">&lt;/</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">h4</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-item-3"</span><span class="tok-punct">&gt;</span>Item 3<span class="tok-punct">&lt;/</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">h4</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"list-item-4"</span><span class="tok-punct">&gt;</span>Item 4<span class="tok-punct">&lt;/</span><span class="tok-tag">h4</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="simple-anchors">Simple anchors<a class="bd-anchor" href="#simple-anchors" aria-label="Link to this section">#</a></h3>
+<p>Scrollspy is not limited to nav components and list groups, so it will work on any <code>&lt;a&gt;</code> anchor elements in the current document. felt-css gives a plain link no <code>.active</code> style of its own; style it yourself, for example:</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-css"><span class="tok-tag">#simple-list-example</span> &gt; <span class="tok-tag">.active</span> {
+  <span class="tok-attr">background-color</span>: var(<span class="tok-attr">--felt-primary-subtle</span>);
+  <span class="tok-attr">color</span>: var(<span class="tok-attr">--felt-primary-emphasis</span>);
+}</code></pre></div>
+
+<h2 id="non-visible-elements">Non-visible elements<a class="bd-anchor" href="#non-visible-elements" aria-label="Link to this section">#</a></h2>
+<p>Target elements that aren't visible will be ignored and their corresponding nav items won't receive an <code>.active</code> class. Scrollspy instances initialized in a non-visible wrapper will ignore all target elements. Use the <code>refresh</code> method to check for observable elements once the wrapper becomes visible.</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">document</span>.querySelectorAll(<span class="tok-val">'#nav-tab&gt;[data-bs-toggle="tab"]'</span>).forEach(el =&gt; {
+  el.addEventListener(<span class="tok-val">'shown.bs.tab'</span>, () =&gt; {
+    <span class="tok-tag">const</span> target = el.getAttribute(<span class="tok-val">'data-bs-target'</span>)
+    <span class="tok-tag">const</span> scrollElem = <span class="tok-tag">document</span>.querySelector(<span class="tok-val">`${target} [data-bs-spy="scroll"]`</span>)
+    bootstrap.ScrollSpy.getOrCreateInstance(scrollElem).refresh()
+  })
+})</code></pre></div>
+
+<h2 id="usage">Usage<a class="bd-anchor" href="#usage" aria-label="Link to this section">#</a></h2>
+<h3 id="via-data-attributes">Via data attributes<a class="bd-anchor" href="#via-data-attributes" aria-label="Link to this section">#</a></h3>
+<p>To easily add scrollspy behavior to your topbar navigation, add <code>data-bs-spy="scroll"</code> to the element you want to spy on (most typically this would be the <code>&lt;body&gt;</code>). Then add the <code>data-bs-target</code> attribute with the <code>id</code> or class name of the parent element of any <code>.nav</code> component.</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">body</span> <span class="tok-attr">data-bs-spy</span><span class="tok-punct">=</span><span class="tok-val">"scroll"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#navbar-example"</span><span class="tok-punct">&gt;</span>
+  ...
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"navbar-example"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"nav nav-tabs"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"tablist"</span><span class="tok-punct">&gt;</span>
+      ...
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  ...
+<span class="tok-punct">&lt;/</span><span class="tok-tag">body</span><span class="tok-punct">&gt;</span></code></pre></div>
+<h3 id="via-javascript">Via JavaScript<a class="bd-anchor" href="#via-javascript" aria-label="Link to this section">#</a></h3>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> scrollSpy = <span class="tok-tag">new</span> bootstrap.ScrollSpy(<span class="tok-tag">document</span>.body, {
+  target: <span class="tok-val">'#navbar-example'</span>
+})</code></pre></div>
+<p>Options (<code>rootMargin</code>, <code>smoothScroll</code>, <code>target</code>, <code>threshold</code>), methods (<code>refresh</code>, <code>dispose</code>, <code>getInstance</code>, <code>getOrCreateInstance</code>) and the <code>activate.bs.scrollspy</code> event work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/scrollspy/#usage">Bootstrap's scrollspy documentation</a>.</p>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/progress/"><small>Previous</small>Progress</a><a class="bd-pager-next" href="../../components/spinners/"><small>Next</small>Spinners</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" class="img-fluid" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. felt-css itself is public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted and trimmed from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by The Bootstrap Authors.
+            That text stays under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>, its example code
+            and icons under the <a href="../../LICENSE-bootstrap.txt">MIT License</a>.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>, © Robert Curth,
+            all rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

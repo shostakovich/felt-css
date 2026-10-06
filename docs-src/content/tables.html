@@ -176,9 +176,77 @@ description: Documentation and examples for opt-in styling of tables (given thei
   </tbody>
 </table>
 </example>
+
+<h3>Striped columns</h3>
+<p>Use <code>.table-striped-columns</code> to add zebra-striping to any table column.</p>
+<example>
+<table class="table table-striped-columns">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>John</td>
+      <td>Doe</td>
+      <td>@social</td>
+    </tr>
+  </tbody>
+</table>
+</example>
+
 <p>These classes can also be added to table variants:</p>
 <example>
 <table class="table table-dark table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>John</td>
+      <td>Doe</td>
+      <td>@social</td>
+    </tr>
+  </tbody>
+</table>
+</example>
+<example>
+<table class="table table-dark table-striped-columns">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -241,7 +309,38 @@ description: Documentation and examples for opt-in styling of tables (given thei
   </tbody>
 </table>
 </example>
-<p>felt-css has no <code>.table-striped-columns</code>.</p>
+<example>
+<table class="table table-success table-striped-columns">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>John</td>
+      <td>Doe</td>
+      <td>@social</td>
+    </tr>
+  </tbody>
+</table>
+</example>
 
 <h3>Hoverable rows</h3>
 <p>Add <code>.table-hover</code> to enable a hover state on table rows within a <code>&lt;tbody&gt;</code>.</p>
@@ -411,8 +510,9 @@ description: Documentation and examples for opt-in styling of tables (given thei
 <h2>How do the variants and accented tables work?</h2>
 <p>Like Bootstrap's, felt-css tables layer their states with an inset <code>box-shadow</code> on top of each cell's background, so stripes, hover and active states combine with any variant:</p>
 <ul>
-  <li><code>.table</code> and the variants set <code>--t-bg</code> (cell background), <code>--t-color</code> (text) and <code>--t-border</code> (borders). Variants use the subtle colour of their tone with emphasis text, like the alerts.</li>
-  <li><code>.table-striped</code>, <code>.table-hover</code> and <code>.table-active</code> set <code>--a</code> on the cells: a translucent mix of the table's text colour, painted over the background.</li>
+  <li><code>.table</code> and the variants set <code>--felt-table-bg</code> (cell background), <code>--felt-table-color</code> (text) and <code>--felt-table-border-color</code> (borders). Variants use the subtle colour of their tone with emphasis text, like the alerts.</li>
+  <li>Each cell paints <code>box-shadow: inset 0 0 0 9999px …</code> over its background: the hover or active shade if its row or the cell has one, else its stripe, else <code>--felt-table-accent-bg</code> (transparent by default). <code>.table-striped</code> and <code>.table-striped-columns</code> take <code>--felt-table-striped-bg</code>, <code>.table-hover</code> <code>--felt-table-hover-bg</code> and <code>.table-active</code> <code>--felt-table-active-bg</code>, with the matching <code>-color</code> tokens for the text.</li>
+  <li>These shades are translucent mixes of the table's text colour, and every variant mixes them again from its own, so they suit any variant.</li>
 </ul>
 
 <h2>Table borders</h2>
@@ -451,7 +551,7 @@ description: Documentation and examples for opt-in styling of tables (given thei
   </tbody>
 </table>
 </example>
-<p>felt-css's cells take their border colour from <code>--t-border</code>, so <a href="../../utilities/borders/#color">border color utilities</a> on the table don't recolour them; use a <a href="#variants">variant</a> instead.</p>
+<p>felt-css's cells take their border colour from <code>--felt-table-border-color</code>, so <a href="../../utilities/borders/#color">border color utilities</a> on the table don't recolour them; use a <a href="#variants">variant</a> instead.</p>
 
 <h3>Tables without borders</h3>
 <p>Add <code>.table-borderless</code> for a table without borders.</p>
@@ -964,7 +1064,20 @@ description: Documentation and examples for opt-in styling of tables (given thei
 </div>
 </example>
 <h3>Breakpoint specific</h3>
-<p>Use <code>.table-responsive-md</code> to create a table that is responsive up to the <code>md</code> breakpoint: below 768px it scrolls horizontally, from 768px on it behaves like a normal table. felt-css has no <code>-sm</code>, <code>-lg</code>, <code>-xl</code> or <code>-xxl</code> variants of <code>.table-responsive</code>.</p>
+<p>Use <code>.table-responsive{-sm|-md|-lg|-xl|-xxl}</code> as needed to create responsive tables up to a particular breakpoint. From that breakpoint and up, the table will behave normally and not scroll horizontally.</p>
+<div class="table-responsive">
+  <table class="table table-sm">
+    <thead><tr><th scope="col">Class</th><th scope="col">Scrolls horizontally below</th></tr></thead>
+    <tbody>
+      <tr><td><code>.table-responsive-sm</code></td><td>576px</td></tr>
+      <tr><td><code>.table-responsive-md</code></td><td>768px</td></tr>
+      <tr><td><code>.table-responsive-lg</code></td><td>992px</td></tr>
+      <tr><td><code>.table-responsive-xl</code></td><td>1200px</td></tr>
+      <tr><td><code>.table-responsive-xxl</code></td><td>1400px</td></tr>
+    </tbody>
+  </table>
+</div>
+<p>For example, <code>.table-responsive-md</code>: below 768px the table scrolls horizontally, from 768px on it behaves like a normal table.</p>
 <example>
 <div class="table-responsive-md">
   <table class="table">
@@ -1007,3 +1120,8 @@ description: Documentation and examples for opt-in styling of tables (given thei
   </table>
 </div>
 </example>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Tables are built on local CSS variables, like Bootstrap's: <code>.table</code> declares them, the variants and accents set them, and you can set them on a table, a row or a cell.</p>
+<cssvars name="table"></cssvars>

@@ -102,3 +102,10 @@ description: Provide contextual feedback messages for typical user actions with 
 const alert = bootstrap.Alert.getOrCreateInstance('#myAlert')
 alert.close()
 </codeblock>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Alerts are built on local CSS variables, like Bootstrap's: <code>.alert</code> declares them (the defaults are the primary alert's), the <code>.alert-*</code> variants set the colours, and you can set them on any alert. Links (<code>.alert-link</code>) take the alert's text colour.</p>
+<cssvars name="alert"></cssvars>
+<p>In the felt look an alert is a piece of felt dyed in its variant's colour, and <code>--felt-alert-bg</code> is that dye mixed into the light felt (the light and dark alerts have tones of their own). How much dye goes in is a felt-look token, set on the alert:</p>
+<cssvars name="alert-felt"></cssvars>

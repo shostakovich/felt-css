@@ -28,7 +28,7 @@ description: Use the mobile-first flexbox grid to build layouts of all shapes an
 <h2>How it works</h2>
 <p>Breaking it down, here's how the grid system comes together:</p>
 <ul>
-  <li><strong>The grid supports <a href="../breakpoints/">four responsive breakpoints</a>.</strong> Breakpoints are based on <code>min-width</code> media queries, meaning they affect that breakpoint and all those above it (e.g., <code>.col-sm-4</code> applies to <code>sm</code>, <code>md</code> and <code>lg</code>). This means you can control container and column sizing and behavior by each breakpoint.</li>
+  <li><strong>The grid supports <a href="../breakpoints/">six responsive breakpoints</a>.</strong> Breakpoints are based on <code>min-width</code> media queries, meaning they affect that breakpoint and all those above it (e.g., <code>.col-sm-4</code> applies to <code>sm</code>, <code>md</code>, <code>lg</code>, <code>xl</code> and <code>xxl</code>). This means you can control container and column sizing and behavior by each breakpoint.</li>
   <li><strong>Containers center and horizontally pad your content.</strong> Use <code>.container</code> for a width that stops at 1080px, <code>.container-fluid</code> for <code>width: 100%</code> across all viewports and devices, or a responsive container (e.g., <code>.container-md</code>) for a combination of both.</li>
   <li><strong>Rows are wrappers for columns.</strong> Each column has horizontal <code>padding</code> (called a gutter) for controlling the space between them. This <code>padding</code> is then counteracted on the rows with negative margins to ensure the content in your columns is visually aligned down the left side. Rows also support modifier classes to <a href="#row-columns">uniformly apply column sizing</a> and <a href="../gutters/">gutter classes</a> to change the spacing of your content.</li>
   <li><strong>Columns are incredibly flexible.</strong> There are 12 template columns available per row, allowing you to create different combinations of elements that span any number of columns. Column classes indicate the number of template columns to span (e.g., <code>col-4</code> spans four). <code>width</code>s are set in percentages so you always have the same relative sizing.</li>
@@ -37,14 +37,16 @@ description: Use the mobile-first flexbox grid to build layouts of all shapes an
 <p>Be aware of the limitations and <a href="https://github.com/philipwalton/flexbugs">bugs around flexbox</a>, like the <a href="https://github.com/philipwalton/flexbugs#flexbug-9">inability to use some HTML elements as flex containers</a>.</p>
 
 <h2>Grid options</h2>
-<p>The grid adapts across four breakpoints:</p>
+<p>The grid adapts across all six breakpoints:</p>
 <ul>
   <li>Extra small (xs)</li>
   <li>Small (sm)</li>
   <li>Medium (md)</li>
   <li>Large (lg)</li>
+  <li>Extra large (xl)</li>
+  <li>Extra extra large (xxl)</li>
 </ul>
-<p>felt-css has no <code>xl</code> or <code>xxl</code> tier. Here's how the grid changes across these breakpoints:</p>
+<p>Here's how the grid changes across these breakpoints:</p>
 <div class="table-responsive">
   <table class="table mb-4">
     <thead>
@@ -54,12 +56,14 @@ description: Use the mobile-first flexbox grid to build layouts of all shapes an
         <th scope="col">sm<br><span class="fw-normal">&ge;576px</span></th>
         <th scope="col">md<br><span class="fw-normal">&ge;768px</span></th>
         <th scope="col">lg<br><span class="fw-normal">&ge;992px</span></th>
+        <th scope="col">xl<br><span class="fw-normal">&ge;1200px</span></th>
+        <th scope="col">xxl<br><span class="fw-normal">&ge;1400px</span></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <th class="text-nowrap" scope="row">Container <code class="fw-normal">max-width</code></th>
-        <td colspan="4">1080px (<code>--container-max</code>)</td>
+        <td colspan="6">1080px (<code>--felt-container-max</code>)</td>
       </tr>
       <tr>
         <th class="text-nowrap" scope="row">Class prefix</th>
@@ -67,26 +71,28 @@ description: Use the mobile-first flexbox grid to build layouts of all shapes an
         <td><code>.col-sm-</code></td>
         <td><code>.col-md-</code></td>
         <td><code>.col-lg-</code></td>
+        <td><code>.col-xl-</code></td>
+        <td><code>.col-xxl-</code></td>
       </tr>
       <tr>
         <th class="text-nowrap" scope="row"># of columns</th>
-        <td colspan="4">12</td>
+        <td colspan="6">12</td>
       </tr>
       <tr>
         <th class="text-nowrap" scope="row">Gutter width</th>
-        <td colspan="4">1.5rem (.75rem on left and right)</td>
+        <td colspan="6">1.5rem (.75rem on left and right)</td>
       </tr>
       <tr>
         <th class="text-nowrap" scope="row">Custom gutters</th>
-        <td colspan="4"><a href="../gutters/">Yes</a></td>
+        <td colspan="6"><a href="../gutters/">Yes</a></td>
       </tr>
       <tr>
         <th class="text-nowrap" scope="row">Nestable</th>
-        <td colspan="4"><a href="#nesting">Yes</a></td>
+        <td colspan="6"><a href="#nesting">Yes</a></td>
       </tr>
       <tr>
         <th class="text-nowrap" scope="row">Column ordering</th>
-        <td colspan="4"><a href="../columns/#reordering">Yes</a></td>
+        <td colspan="6"><a href="../columns/#reordering">Yes</a></td>
       </tr>
     </tbody>
   </table>
@@ -96,7 +102,7 @@ description: Use the mobile-first flexbox grid to build layouts of all shapes an
 <p>Utilize breakpoint-specific column classes for easy column sizing without an explicit numbered class like <code>.col-sm-6</code>.</p>
 
 <h3>Equal-width</h3>
-<p>For example, here are two grid layouts that apply to every device and viewport, from <code>xs</code> to <code>lg</code>. Add any number of unit-less classes for each breakpoint you need and every column will be the same width.</p>
+<p>For example, here are two grid layouts that apply to every device and viewport, from <code>xs</code> to <code>xxl</code>. Add any number of unit-less classes for each breakpoint you need and every column will be the same width.</p>
 <example class="bd-example-row">
 <div class="container text-center">
   <div class="row">
@@ -327,7 +333,7 @@ description: Use the mobile-first flexbox grid to build layouts of all shapes an
 </example>
 
 <h2>Customizing the grid</h2>
-<p>felt-css has no Sass. The grid classes are generated by <code>tools/build_utilities.py</code>: change <code>BREAKPOINTS</code>, <code>COLUMNS</code>, <code>ROW_COLS</code> or <code>GUTTERS</code> at the top of the script and run it again to write a new set of column, offset, row column and gutter classes into <code>felt.css</code>.</p>
+<p>felt-css has no Sass. The grid classes are generated by <code>tools/build.py</code>: change <code>BREAKPOINTS</code> in <code>tools/feltgen/config.py</code> or <code>COLUMNS</code>, <code>ROW_COLS</code> and <code>GUTTERS</code> in <code>tools/feltgen/utilities.py</code> and run it again to write a new set of column, offset, row column and gutter classes into <code>felt.css</code>. The breakpoints also drive the containers, the utilities and every responsive component variant.</p>
 <codeblock lang="sh">
-python3 tools/build_utilities.py
+python3 tools/build.py
 </codeblock>

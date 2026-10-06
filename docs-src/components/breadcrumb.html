@@ -28,14 +28,14 @@ description: Indicate the current page’s location within a navigational hierar
 </example>
 
 <h2>Dividers</h2>
-<p>Dividers are automatically added in CSS through <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::before"><code>::before</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/content"><code>content</code></a>. Change them with the custom property <code>--breadcrumb-divider</code>, set on the breadcrumb or any parent.</p>
+<p>Dividers are automatically added in CSS through <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::before"><code>::before</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/content"><code>content</code></a>. Change them with the custom property <code>--felt-breadcrumb-divider</code>, set on the breadcrumb or any parent.</p>
 
 <div class="bd-callout bd-callout-info">
-  <p>Bootstrap calls this property <code>--bs-breadcrumb-divider</code>; felt-css uses <code>--breadcrumb-divider</code> without the prefix.</p>
+  <p>Bootstrap calls this property <code>--bs-breadcrumb-divider</code>; felt-css uses <code>--felt-breadcrumb-divider</code> without the prefix.</p>
 </div>
 
 <example>
-<nav style="--breadcrumb-divider: '>';" aria-label="breadcrumb">
+<nav style="--felt-breadcrumb-divider: '>';" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Library</li>
@@ -50,7 +50,7 @@ description: Indicate the current page’s location within a navigational hierar
 </div>
 
 <example>
-<nav style="--breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+<nav style="--felt-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Library</li>
@@ -58,9 +58,9 @@ description: Indicate the current page’s location within a navigational hierar
 </nav>
 </example>
 
-<p>You can also remove the divider by setting <code>--breadcrumb-divider: '';</code> (empty strings in CSS custom properties count as a value).</p>
+<p>You can also remove the divider by setting <code>--felt-breadcrumb-divider: '';</code> (empty strings in CSS custom properties count as a value).</p>
 <example>
-<nav style="--breadcrumb-divider: '';" aria-label="breadcrumb">
+<nav style="--felt-breadcrumb-divider: '';" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Library</li>
@@ -71,3 +71,8 @@ description: Indicate the current page’s location within a navigational hierar
 <h2>Accessibility</h2>
 <p>Since breadcrumbs provide a navigation, it’s a good idea to add a meaningful label such as <code>aria-label="breadcrumb"</code> to describe the type of navigation provided in the <code>&lt;nav&gt;</code> element, as well as applying an <code>aria-current="page"</code> to the last item of the set to indicate that it represents the current page.</p>
 <p>For more information, see the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/">ARIA Authoring Practices Guide breadcrumb pattern</a>.</p>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Breadcrumbs are built on local CSS variables, like Bootstrap's: <code>.breadcrumb</code> declares them and you can set them on any breadcrumb. The divider, <code>--felt-breadcrumb-divider</code>, isn't declared: set it on the breadcrumb or any parent (see <a href="#dividers">dividers</a>).</p>
+<cssvars name="breadcrumb"></cssvars>

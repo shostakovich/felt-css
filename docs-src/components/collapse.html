@@ -34,7 +34,25 @@ description: Toggle the visibility of content across your project with a few cla
 </div>
 </example>
 
-<p>felt-css has no horizontal collapse (<code>.collapse-horizontal</code>); collapsing always animates the height. For a disclosure that needs no JavaScript at all, see the <a href="../accordion/#without-javascript"><code>&lt;details&gt;</code> accordion</a>.</p>
+<p>For a disclosure that needs no JavaScript at all, see the <a href="../accordion/#without-javascript"><code>&lt;details&gt;</code> accordion</a>.</p>
+
+<h3>Horizontal</h3>
+<p>The collapse plugin supports horizontal collapsing. Add the <code>.collapse-horizontal</code> modifier class to transition the <code>width</code> instead of <code>height</code> and set a <code>width</code> on the immediate child element. Feel free to write your own custom CSS or use our width utilities.</p>
+
+<example>
+<p>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+    Toggle width collapse
+  </button>
+</p>
+<div style="min-height: 120px;">
+  <div class="collapse collapse-horizontal" id="collapseWidthExample">
+    <div class="card card-body" style="width: 300px;">
+      This is some placeholder content for a horizontal collapse. It's hidden by default and shown when triggered.
+    </div>
+  </div>
+</div>
+</example>
 
 <h2>Multiple toggles and targets</h2>
 <p>A <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> element can show and hide multiple elements by referencing them with a selector in its <code>data-bs-target</code> or <code>href</code> attribute. Conversely, multiple <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> elements can show and hide the same element if they each reference it with their <code>data-bs-target</code> or <code>href</code> attribute.</p>

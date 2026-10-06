@@ -69,9 +69,9 @@ description: felt-css supports light and dark color modes just like Bootstrap 5.
 <p>Every colour in felt-css is a custom property written with <code>light-dark(light, dark)</code>. The browser picks one side from <code>color-scheme</code>, which is <code>light dark</code> (follow the system) by default and pinned to one value by <code>data-bs-theme</code>. That's why a single attribute re-themes everything below it, including your own CSS if it uses the same tokens:</p>
 <codeblock lang="css">
 .my-panel {
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--border);
+  background: var(--felt-surface);
+  color: var(--felt-body-color);
+  border: 1px solid var(--felt-border-color);
 }
 </codeblock>
 <p>The handful of things <code>light-dark()</code> can't express — felt textures, blend modes, image filters — are switched with <code>[data-bs-theme]</code> selectors inside felt.css; you don't have to do anything for them.</p>

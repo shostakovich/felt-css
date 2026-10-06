@@ -117,7 +117,7 @@ description: List groups are a flexible and powerful component for displaying a 
 </example>
 
 <h2>Horizontal</h2>
-<p>Add <code>.list-group-horizontal</code> to change the layout of list group items from vertical to horizontal across all breakpoints. Alternatively, use the responsive variant <code>.list-group-horizontal-md</code> to make a list group horizontal starting at the <code>md</code> breakpoint's <code>min-width</code> (768px). felt-css has no <code>-sm</code>, <code>-lg</code>, <code>-xl</code> or <code>-xxl</code> variants here. Currently <strong>horizontal list groups cannot be combined with flush list groups.</strong></p>
+<p>Add <code>.list-group-horizontal</code> to change the layout of list group items from vertical to horizontal across all breakpoints. Alternatively, choose a responsive variant <code>.list-group-horizontal-{sm|md|lg|xl|xxl}</code> to make a list group horizontal starting at that breakpoint's <code>min-width</code>. Currently <strong>horizontal list groups cannot be combined with flush list groups.</strong></p>
 <p><strong>ProTip:</strong> Want equal-width list group items when horizontal? Add <code>.flex-fill</code> to each list group item.</p>
 
 <example>
@@ -126,7 +126,27 @@ description: List groups are a flexible and powerful component for displaying a 
   <li class="list-group-item">A second item</li>
   <li class="list-group-item">A third item</li>
 </ul>
+<ul class="list-group list-group-horizontal-sm">
+  <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+</ul>
 <ul class="list-group list-group-horizontal-md">
+  <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+</ul>
+<ul class="list-group list-group-horizontal-lg">
+  <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+</ul>
+<ul class="list-group list-group-horizontal-xl">
+  <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+</ul>
+<ul class="list-group list-group-horizontal-xxl">
   <li class="list-group-item">An item</li>
   <li class="list-group-item">A second item</li>
   <li class="list-group-item">A third item</li>
@@ -309,3 +329,9 @@ description: List groups are a flexible and powerful component for displaying a 
 const triggerEl = document.querySelector('#list-tab a[href="#list-profile"]')
 bootstrap.Tab.getOrCreateInstance(triggerEl).show()
 </codeblock>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>List groups are built on local CSS variables, like Bootstrap's: <code>.list-group</code> declares them and its items read them, so you can set them on a whole list. The contextual classes set the colours, background and link and button states on their item; the hover and pressed backgrounds of links and buttons are mixed from the item's own background and text colour.</p>
+<cssvars name="list-group"></cssvars>
+<p>In the felt look a flush list is see-through: <code>--felt-list-group-bg</code> is <code>transparent</code>, so the felt it lies on shows.</p>

@@ -1,0 +1,16 @@
+{
+  "_seam-margin": "3px",
+  "stitch-length": "7px",
+  "stitch-pitch": "10px",
+  "stitch-shadow": "drop-shadow(0 .55px .5px rgb(0 0 0 / .25))",
+  "_seam-lg-slice": "24",
+  "_seam-lg-width": "12px",
+  "_seam-md-slice": "20",
+  "_seam-md-width": "10px",
+  "_seam-pill-slice": "40",
+  "_seam-pill-width": "20px",
+  "_seam-sq-slice": "6",
+  "_seam-sq-width": "3px",
+  "_seam-row-size": "30px 6px",
+  "_seam-col-size": "6px 24px"
+}

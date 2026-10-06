@@ -1,0 +1,41 @@
+<!--
+title: Felt
+description: The felt look has variables of its own: the textures, how deep the pieces lie, the grooves pressed into them and the thread they're sewn with. Tune the felt for your app.
+-->
+<h2>Tuning the felt</h2>
+<p>Everything you see in the felt look — the fibres, the thickness of a piece, the thread — comes from the variables on this page. They only act in the felt look (their names carry a material word: texture, sheet, nap, wool, patch, groove, seam, thread or stitch), and like all variables they can be set for the whole page or for one part of it:</p>
+<codeblock lang="css">
+[data-look="felt"] {
+  --felt-thread-strength: .9;        /* bolder seams */
+  --felt-seam-inset: 7px;            /* sewn further in from the edge */
+}
+.card.quiet { --felt-patch-shadow: none; }   /* a card that lies flat */
+</codeblock>
+<example>
+<div class="d-flex flex-wrap gap-3">
+  <button type="button" class="btn btn-primary">Default</button>
+  <button type="button" class="btn btn-primary" style="--felt-thread-strength-patch: .95">Bold thread</button>
+  <button type="button" class="btn btn-primary" style="--felt-thread-strength-patch: .2">Faint thread</button>
+  <button type="button" class="btn btn-light border-danger">Dyed thread</button>
+</div>
+</example>
+<p>Switch to the felt look at the top of the page to see them; in the clean look they do nothing. Many values differ in dark mode, where the felt is charcoal.</p>
+<div class="bd-callout bd-callout-felt">
+  <p>The seam images are generated: <code>tools/build_assets.py</code> draws the stitches and grooves. For a different stitch length or rounder corners change the script rather than the sizes here.</p>
+</div>
+
+<h2>Textures</h2>
+<tokens group="texture"></tokens>
+
+<h2>Patches and depth</h2>
+<tokens group="patch"></tokens>
+
+<h2>Grooves and nap</h2>
+<tokens group="groove"></tokens>
+
+<h2>Seams and thread</h2>
+<p>The thread's colour is a filter on the drawn stitches, blended into the felt with <code>hard-light</code>: on light felt a darker tone of the felt, on coloured patches a lighter one. Border utilities dye it (<code>.border-primary</code> in the felt look is thread in the primary colour); for a colour of your own, use <code>--felt-thread-filter</code> and its variants.</p>
+<tokens group="thread"></tokens>
+
+<h2>Per component</h2>
+<p>Components with a felt treatment of their own list their felt variables on their page, under “CSS”, next to their Bootstrap variables.</p>

@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carousel · felt-css</title>
+  <meta name="description" content="A slideshow component for cycling through elements—images or slides of text—like a carousel.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" class="img-fluid" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/felt-svg/">Felt in SVG</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li><li class="nav-item"><a class="nav-link" href="../../customize/felt/">Felt</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li><li class="nav-item"><a class="nav-link" href="../../layout/utilities/">Utilities</a></li><li class="nav-item"><a class="nav-link" href="../../layout/z-index/">Z-index</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link" href="../../forms/layout/">Layout</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../components/carousel/">Carousel</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/scrollspy/">Scrollspy</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Components</p>
+        <h1>Carousel</h1>
+        <p class="lead">A slideshow component for cycling through elements—images or slides of text—like a carousel.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/components/carousel.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#how-it-works">How it works</a></li><li><a href="#basic-examples">Basic examples</a><ul><li><a href="#indicators">Indicators</a></li><li><a href="#captions">Captions</a></li><li><a href="#crossfade">Crossfade</a></li></ul></li><li><a href="#autoplaying-carousels">Autoplaying carousels</a><ul><li><a href="#individual-carousel-item-interval">Individual .carousel-item interval</a></li><li><a href="#autoplaying-carousels-without-controls">Autoplaying carousels without controls</a></li></ul></li><li><a href="#disable-touch-swiping">Disable touch swiping</a></li><li><a href="#dark-variant">Dark variant</a></li><li><a href="#custom-transition">Custom transition</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li><li><a href="#usage">Usage</a><ul><li><a href="#via-data-attributes">Via data attributes</a></li><li><a href="#via-javascript">Via JavaScript</a></li></ul></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#how-it-works">How it works</a></li><li><a href="#basic-examples">Basic examples</a><ul><li><a href="#indicators">Indicators</a></li><li><a href="#captions">Captions</a></li><li><a href="#crossfade">Crossfade</a></li></ul></li><li><a href="#autoplaying-carousels">Autoplaying carousels</a><ul><li><a href="#individual-carousel-item-interval">Individual .carousel-item interval</a></li><li><a href="#autoplaying-carousels-without-controls">Autoplaying carousels without controls</a></li></ul></li><li><a href="#disable-touch-swiping">Disable touch swiping</a></li><li><a href="#dark-variant">Dark variant</a></li><li><a href="#custom-transition">Custom transition</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li><li><a href="#usage">Usage</a><ul><li><a href="#via-data-attributes">Via data attributes</a></li><li><a href="#via-javascript">Via JavaScript</a></li></ul></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="how-it-works">How it works<a class="bd-anchor" href="#how-it-works" aria-label="Link to this section">#</a></h2>
+<ul>
+  <li>The carousel is a slideshow for cycling through a series of content, built with CSS transforms and Bootstrap's JavaScript. It works with a series of images, text, or custom markup. It also includes support for previous/next controls and indicators.</li>
+  <li>For performance reasons, <strong>carousels must be manually initialized</strong> using the <a href="#usage">carousel constructor method</a>. Without initialization, some of the event listeners (specifically, the events needed for touch/swipe support) will not be registered until a user has explicitly activated a control or indicator. The only exception are <a href="#autoplaying-carousels">autoplaying carousels</a> with the <code>data-bs-ride="carousel"</code> attribute, which are initialized automatically on page load. Don't initialize those again with the constructor.</li>
+  <li>Nested carousels are not supported. You should also be aware that carousels in general can often cause usability and accessibility challenges.</li>
+  <li>The slides move with a transition that felt-css turns off for visitors who ask for reduced motion (<code>prefers-reduced-motion: reduce</code>), like Bootstrap does.</li>
+</ul>
+
+<h2 id="basic-examples">Basic examples<a class="bd-anchor" href="#basic-examples" aria-label="Link to this section">#</a></h2>
+<p>Here is a basic example of a carousel with three slides. Note the previous/next controls. We recommend using <code>&lt;button&gt;</code> elements, but you can also use <code>&lt;a&gt;</code> elements with <code>role="button"</code>.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="ratio ratio-21x9"><img src="../../../docs/sample-photo.webp" class="object-fit-cover" alt="A felt sun on a sunny windowsill"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/banner.webp" class="object-fit-cover" alt="felt-css in blue felt letters, with patches around"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/felt.webp" class="object-fit-cover" alt="Forms in the felt look"></div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"carouselExample"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel slide"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-inner"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item active"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/sample-photo.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"A felt sun on a sunny windowsill"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/banner.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"felt-css in blue felt letters, with patches around"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/felt.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Forms in the felt look"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExample"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"prev"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Previous<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExample"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"next"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Next<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>Carousels don't automatically normalize slide dimensions. As such, you may need to use additional utilities or custom styles to appropriately size content; the examples here put each image in a <a href="../../helpers/ratio/"><code>.ratio</code></a> and crop it with <a href="../../utilities/object-fit/"><code>.object-fit-cover</code></a>. While carousels support previous/next controls and indicators, they're not explicitly required. Add and customize as you see fit.</p>
+<p><strong>You must add the <code>.active</code> class to one of the slides</strong>, otherwise the carousel will not be visible. Also be sure to set a unique <code>id</code> on the <code>.carousel</code> for optional controls, especially if you're using multiple carousels on a single page. Control and indicator elements must have a <code>data-bs-target</code> attribute (or <code>href</code> for links) that matches the <code>id</code> of the <code>.carousel</code> element. Keep the <code>.slide</code> class: Bootstrap's JavaScript only animates a carousel that has it.</p>
+
+<div class="bd-callout bd-callout-felt">
+  <p>In the felt look the slides are a photo lying on the felt, held by four little felt corners. The previous/next controls are small round patches of undyed wool, sewn on with a ring of stitches, and the indicators are a row of stitches across the photo; the current slide's is a patch. In dark mode, or with <code>.carousel-dark</code>, the patches are charcoal felt.</p>
+</div>
+
+<h3 id="indicators">Indicators<a class="bd-anchor" href="#indicators" aria-label="Link to this section">#</a></h3>
+<p>You can add indicators to the carousel, alongside the previous/next controls. The indicators let users jump directly to a particular slide.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div id="carouselExampleIndicators" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="ratio ratio-21x9"><img src="../../../docs/sample-photo.webp" class="object-fit-cover" alt="A felt sun on a sunny windowsill"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/banner.webp" class="object-fit-cover" alt="felt-css in blue felt letters, with patches around"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/felt.webp" class="object-fit-cover" alt="Forms in the felt look"></div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"carouselExampleIndicators"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel slide"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-indicators"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleIndicators"</span> <span class="tok-attr">data-bs-slide-to</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Slide 1"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleIndicators"</span> <span class="tok-attr">data-bs-slide-to</span><span class="tok-punct">=</span><span class="tok-val">"1"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Slide 2"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleIndicators"</span> <span class="tok-attr">data-bs-slide-to</span><span class="tok-punct">=</span><span class="tok-val">"2"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Slide 3"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-inner"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item active"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/sample-photo.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"A felt sun on a sunny windowsill"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/banner.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"felt-css in blue felt letters, with patches around"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/felt.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Forms in the felt look"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleIndicators"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"prev"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Previous<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleIndicators"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"next"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Next<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="captions">Captions<a class="bd-anchor" href="#captions" aria-label="Link to this section">#</a></h3>
+<p>You can add captions to your slides with the <code>.carousel-caption</code> element within any <code>.carousel-item</code>. They can be easily hidden on smaller viewports, as shown below, with optional <a href="../../utilities/display/">display utilities</a>. We hide them initially with <code>.d-none</code> and bring them back on medium-sized devices with <code>.d-md-block</code>.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div id="carouselExampleCaptions" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="ratio ratio-21x9 bg-black"><img src="../../../docs/sample-photo.webp" class="object-fit-cover opacity-50" alt="A felt sun on a sunny windowsill"></div>
+      <div class="carousel-caption d-none d-md-block text-white">
+        <h5>First slide label</h5>
+        <p>Some representative placeholder content for the first slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9 bg-black"><img src="../../../docs/banner.webp" class="object-fit-cover opacity-50" alt="felt-css in blue felt letters, with patches around"></div>
+      <div class="carousel-caption d-none d-md-block text-white">
+        <h5>Second slide label</h5>
+        <p>Some representative placeholder content for the second slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9 bg-black"><img src="../../../docs/felt.webp" class="object-fit-cover opacity-50" alt="Forms in the felt look"></div>
+      <div class="carousel-caption d-none d-md-block text-white">
+        <h5>Third slide label</h5>
+        <p>Some representative placeholder content for the third slide.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"carouselExampleCaptions"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel slide"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-indicators"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleCaptions"</span> <span class="tok-attr">data-bs-slide-to</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Slide 1"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleCaptions"</span> <span class="tok-attr">data-bs-slide-to</span><span class="tok-punct">=</span><span class="tok-val">"1"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Slide 2"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleCaptions"</span> <span class="tok-attr">data-bs-slide-to</span><span class="tok-punct">=</span><span class="tok-val">"2"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Slide 3"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-inner"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item active"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9 bg-black"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/sample-photo.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover opacity-50"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"A felt sun on a sunny windowsill"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-caption d-none d-md-block text-white"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>First slide label<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Some representative placeholder content for the first slide.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9 bg-black"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/banner.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover opacity-50"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"felt-css in blue felt letters, with patches around"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-caption d-none d-md-block text-white"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>Second slide label<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Some representative placeholder content for the second slide.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9 bg-black"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/felt.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover opacity-50"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Forms in the felt look"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-caption d-none d-md-block text-white"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>Third slide label<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Some representative placeholder content for the third slide.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleCaptions"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"prev"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Previous<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleCaptions"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"next"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Next<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>Captions lie on the photo, so they need contrast with it. Here the photos are dimmed (an <code>.opacity-50</code> image on <code>.bg-black</code>) and the captions stay white with <code>.text-white</code>; by default they follow <code>--felt-carousel-caption-color</code>, which turns black in dark mode, like Bootstrap's.</p>
+
+<h3 id="crossfade">Crossfade<a class="bd-anchor" href="#crossfade" aria-label="Link to this section">#</a></h3>
+<p>Add <code>.carousel-fade</code> to your carousel to animate slides with a fade transition instead of a slide. Depending on your carousel content (e.g., text only slides), you may want to add <code>.bg-body</code> or some custom CSS to the <code>.carousel-item</code>s for proper crossfading.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div id="carouselExampleFade" class="carousel slide carousel-fade">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="ratio ratio-21x9"><img src="../../../docs/sample-photo.webp" class="object-fit-cover" alt="A felt sun on a sunny windowsill"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/banner.webp" class="object-fit-cover" alt="felt-css in blue felt letters, with patches around"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/felt.webp" class="object-fit-cover" alt="Forms in the felt look"></div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"carouselExampleFade"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel slide carousel-fade"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-inner"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item active"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/sample-photo.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"A felt sun on a sunny windowsill"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/banner.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"felt-css in blue felt letters, with patches around"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/felt.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Forms in the felt look"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleFade"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"prev"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Previous<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleFade"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"next"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Next<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="autoplaying-carousels">Autoplaying carousels<a class="bd-anchor" href="#autoplaying-carousels" aria-label="Link to this section">#</a></h2>
+<p>You can make your carousels autoplay on page load by setting the <code>ride</code> option to <code>carousel</code>. Autoplaying carousels automatically pause while hovered with the mouse. This behavior can be controlled with the <code>pause</code> option. In browsers that support the Page Visibility API, the carousel will stop cycling when the webpage is not visible to the user (such as when the browser tab is inactive, or when the browser window is minimized).</p>
+<div class="bd-callout bd-callout-info">
+  <p>For accessibility reasons, we recommend avoiding the use of autoplaying carousels. If your page does include an autoplaying carousel, we recommend providing an additional button or control to explicitly pause/stop the carousel. See <a href="https://www.w3.org/TR/WCAG/#pause-stop-hide">WCAG 2.2 Success Criterion 2.2.2 Pause, Stop, Hide</a>.</p>
+</div>
+<div class="bd-example-snippet"><div class="bd-example">
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="ratio ratio-21x9"><img src="../../../docs/sample-photo.webp" class="object-fit-cover" alt="A felt sun on a sunny windowsill"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/banner.webp" class="object-fit-cover" alt="felt-css in blue felt letters, with patches around"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/felt.webp" class="object-fit-cover" alt="Forms in the felt look"></div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"carouselExampleAutoplaying"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel slide"</span> <span class="tok-attr">data-bs-ride</span><span class="tok-punct">=</span><span class="tok-val">"carousel"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-inner"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item active"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/sample-photo.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"A felt sun on a sunny windowsill"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/banner.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"felt-css in blue felt letters, with patches around"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/felt.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Forms in the felt look"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleAutoplaying"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"prev"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Previous<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleAutoplaying"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"next"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Next<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>When the <code>ride</code> option is set to <code>true</code>, rather than <code>carousel</code>, the carousel won't automatically start to cycle on page load. Instead, it will only start after the first user interaction.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="ratio ratio-21x9"><img src="../../../docs/sample-photo.webp" class="object-fit-cover" alt="A felt sun on a sunny windowsill"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/banner.webp" class="object-fit-cover" alt="felt-css in blue felt letters, with patches around"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/felt.webp" class="object-fit-cover" alt="Forms in the felt look"></div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"carouselExampleRide"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel slide"</span> <span class="tok-attr">data-bs-ride</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-inner"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item active"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/sample-photo.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"A felt sun on a sunny windowsill"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/banner.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"felt-css in blue felt letters, with patches around"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/felt.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Forms in the felt look"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleRide"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"prev"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Previous<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleRide"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"next"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Next<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="individual-carousel-item-interval">Individual <code>.carousel-item</code> interval<a class="bd-anchor" href="#individual-carousel-item-interval" aria-label="Link to this section">#</a></h3>
+<p>Add <code>data-bs-interval=""</code> to a <code>.carousel-item</code> to change the amount of time to delay between automatically cycling to the next item.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="10000">
+      <div class="ratio ratio-21x9"><img src="../../../docs/sample-photo.webp" class="object-fit-cover" alt="A felt sun on a sunny windowsill"></div>
+    </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <div class="ratio ratio-21x9"><img src="../../../docs/banner.webp" class="object-fit-cover" alt="felt-css in blue felt letters, with patches around"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/felt.webp" class="object-fit-cover" alt="Forms in the felt look"></div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"carouselExampleInterval"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel slide"</span> <span class="tok-attr">data-bs-ride</span><span class="tok-punct">=</span><span class="tok-val">"carousel"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-inner"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item active"</span> <span class="tok-attr">data-bs-interval</span><span class="tok-punct">=</span><span class="tok-val">"10000"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/sample-photo.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"A felt sun on a sunny windowsill"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span> <span class="tok-attr">data-bs-interval</span><span class="tok-punct">=</span><span class="tok-val">"2000"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/banner.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"felt-css in blue felt letters, with patches around"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/felt.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Forms in the felt look"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleInterval"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"prev"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Previous<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleInterval"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"next"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Next<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="autoplaying-carousels-without-controls">Autoplaying carousels without controls<a class="bd-anchor" href="#autoplaying-carousels-without-controls" aria-label="Link to this section">#</a></h3>
+<p>Here's a carousel with slides only. Note the presence of <code>.d-block</code> and <code>.w-100</code> on carousel images when they aren't wrapped in a <code>.ratio</code>, to prevent browser default image alignment.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="ratio ratio-21x9"><img src="../../../docs/sample-photo.webp" class="object-fit-cover" alt="A felt sun on a sunny windowsill"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/banner.webp" class="object-fit-cover" alt="felt-css in blue felt letters, with patches around"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/felt.webp" class="object-fit-cover" alt="Forms in the felt look"></div>
+    </div>
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"carouselExampleSlidesOnly"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel slide"</span> <span class="tok-attr">data-bs-ride</span><span class="tok-punct">=</span><span class="tok-val">"carousel"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-inner"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item active"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/sample-photo.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"A felt sun on a sunny windowsill"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/banner.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"felt-css in blue felt letters, with patches around"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/felt.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Forms in the felt look"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="disable-touch-swiping">Disable touch swiping<a class="bd-anchor" href="#disable-touch-swiping" aria-label="Link to this section">#</a></h2>
+<p>Carousels support swiping left/right on touchscreen devices to move between slides. This can be disabled by setting the <code>touch</code> option to <code>false</code>.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="ratio ratio-21x9"><img src="../../../docs/sample-photo.webp" class="object-fit-cover" alt="A felt sun on a sunny windowsill"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/banner.webp" class="object-fit-cover" alt="felt-css in blue felt letters, with patches around"></div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/felt.webp" class="object-fit-cover" alt="Forms in the felt look"></div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"carouselExampleControlsNoTouching"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel slide"</span> <span class="tok-attr">data-bs-touch</span><span class="tok-punct">=</span><span class="tok-val">"false"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-inner"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item active"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/sample-photo.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"A felt sun on a sunny windowsill"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/banner.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"felt-css in blue felt letters, with patches around"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/felt.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Forms in the felt look"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleControlsNoTouching"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"prev"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Previous<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleControlsNoTouching"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"next"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Next<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="dark-variant">Dark variant<a class="bd-anchor" href="#dark-variant" aria-label="Link to this section">#</a></h2>
+<p>Add <code>.carousel-dark</code> to the <code>.carousel</code> for darker controls, indicators, and captions, for slides with light content. Bootstrap deprecated the class in 5.3 in favour of <code>data-bs-theme="dark"</code> on the <code>.carousel</code>, which works in felt-css too, but darkens everything inside the carousel along with them.</p>
+<div class="bd-example-snippet"><div class="bd-example">
+<div id="carouselExampleDark" class="carousel carousel-dark slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="10000">
+      <div class="ratio ratio-21x9"><img src="../../../docs/clean.webp" class="object-fit-cover" alt="A page in the clean look"></div>
+      <div class="carousel-caption d-none d-md-block">
+        <h5>First slide label</h5>
+        <p>Some representative placeholder content for the first slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <div class="ratio ratio-21x9"><img src="../../../docs/felt.webp" class="object-fit-cover" alt="Forms in the felt look"></div>
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Second slide label</h5>
+        <p>Some representative placeholder content for the second slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="ratio ratio-21x9"><img src="../../../docs/buttons.webp" class="object-fit-cover" alt="Buttons and tiles in the felt look"></div>
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Third slide label</h5>
+        <p>Some representative placeholder content for the third slide.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"carouselExampleDark"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel carousel-dark slide"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-indicators"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleDark"</span> <span class="tok-attr">data-bs-slide-to</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"true"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Slide 1"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleDark"</span> <span class="tok-attr">data-bs-slide-to</span><span class="tok-punct">=</span><span class="tok-val">"1"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Slide 2"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleDark"</span> <span class="tok-attr">data-bs-slide-to</span><span class="tok-punct">=</span><span class="tok-val">"2"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Slide 3"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-inner"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item active"</span> <span class="tok-attr">data-bs-interval</span><span class="tok-punct">=</span><span class="tok-val">"10000"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/clean.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"A page in the clean look"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-caption d-none d-md-block"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>First slide label<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Some representative placeholder content for the first slide.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span> <span class="tok-attr">data-bs-interval</span><span class="tok-punct">=</span><span class="tok-val">"2000"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/felt.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Forms in the felt look"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-caption d-none d-md-block"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>Second slide label<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Some representative placeholder content for the second slide.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-item"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio ratio-21x9"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">img</span> <span class="tok-attr">src</span><span class="tok-punct">=</span><span class="tok-val">"../../../docs/buttons.webp"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"object-fit-cover"</span> <span class="tok-attr">alt</span><span class="tok-punct">=</span><span class="tok-val">"Buttons and tiles in the felt look"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-caption d-none d-md-block"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>Third slide label<span class="tok-punct">&lt;/</span><span class="tok-tag">h5</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>Some representative placeholder content for the third slide.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleDark"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"prev"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-prev-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Previous<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">data-bs-target</span><span class="tok-punct">=</span><span class="tok-val">"#carouselExampleDark"</span> <span class="tok-attr">data-bs-slide</span><span class="tok-punct">=</span><span class="tok-val">"next"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"carousel-control-next-icon"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span><span class="tok-punct">&gt;</span>Next<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<p>Like Bootstrap's, the controls, indicators and captions also turn dark in dark mode: they follow the colour mode of the page (or of <code>data-bs-theme</code> on the carousel).</p>
+
+<h2 id="custom-transition">Custom transition<a class="bd-anchor" href="#custom-transition" aria-label="Link to this section">#</a></h2>
+<p>The transition duration of <code>.carousel-item</code> can be changed with custom styles; Bootstrap's JavaScript waits for whatever duration the CSS sets. If multiple transitions are applied, make sure the transform transition is defined first (e.g. <code>transition: transform 2s ease, opacity .5s ease-out</code>).</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-css"><span class="tok-tag">.carousel-item</span> {
+  <span class="tok-attr">transition-duration</span>: 1<span class="tok-tag">.2s</span>;
+}</code></pre></div>
+
+<h2 id="css">CSS<a class="bd-anchor" href="#css" aria-label="Link to this section">#</a></h2>
+<h3 id="variables">Variables<a class="bd-anchor" href="#variables" aria-label="Link to this section">#</a></h3>
+<p>The carousel declares these on <code>.carousel</code>; <code>.carousel-dark</code> sets them to black. Bootstrap draws white icons and darkens them with <code>--bs-carousel-control-icon-filter</code> in dark mode; felt-css draws the icons in <code>--felt-carousel-indicator-active-bg</code> instead, so the filter is <code>none</code> and free for your own use.</p>
+<div class="table-responsive bd-tokens"><table class="table table-sm"><thead><tr><th>Token</th><th>Default</th><th>Bootstrap</th></tr></thead><tbody><tr><td><code>--felt-carousel-indicator-active-bg</code></td><td><code>light-dark(#fff, #000)</code></td><td><code>--bs-carousel-indicator-active-bg</code></td></tr><tr><td><code>--felt-carousel-caption-color</code></td><td><code>light-dark(#fff, #000)</code></td><td><code>--bs-carousel-caption-color</code></td></tr><tr><td><code>--felt-carousel-control-icon-filter</code></td><td><code>none</code></td><td><code>--bs-carousel-control-icon-filter</code></td></tr></tbody></table></div>
+<p>In the felt look the same variables colour the felt: <code>--felt-carousel-indicator-active-bg</code> is the colour of the control patches, the stitches and the current slide's patch (undyed wool, or charcoal felt in dark mode and with <code>.carousel-dark</code>), and <code>--felt-carousel-caption-color</code> the captions' ink.</p>
+
+<h2 id="usage">Usage<a class="bd-anchor" href="#usage" aria-label="Link to this section">#</a></h2>
+<h3 id="via-data-attributes">Via data attributes<a class="bd-anchor" href="#via-data-attributes" aria-label="Link to this section">#</a></h3>
+<p>Use data attributes to easily control the position of the carousel. <code>data-bs-slide</code> accepts the keywords <code>prev</code> or <code>next</code>, which alters the slide position relative to its current position. Alternatively, use <code>data-bs-slide-to</code> to pass a raw slide index to the carousel <code>data-bs-slide-to="2"</code>, which shifts the slide position to a particular index beginning with <code>0</code>.</p>
+<h3 id="via-javascript">Via JavaScript<a class="bd-anchor" href="#via-javascript" aria-label="Link to this section">#</a></h3>
+<p>felt-css is CSS only; the sliding comes from Bootstrap's carousel plugin. Call it manually with:</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> carousel = <span class="tok-tag">new</span> bootstrap.Carousel(<span class="tok-val">'#myCarousel'</span>, {
+  interval: 2000,
+  touch: false
+})</code></pre></div>
+<p>Options (<code>interval</code>, <code>keyboard</code>, <code>pause</code>, <code>ride</code>, <code>touch</code>, <code>wrap</code>), methods (<code>cycle</code>, <code>pause</code>, <code>prev</code>, <code>next</code>, <code>nextWhenVisible</code>, <code>to</code>, <code>dispose</code>, <code>getInstance</code>, <code>getOrCreateInstance</code>) and events (<code>slide.bs.carousel</code>, <code>slid.bs.carousel</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/carousel/#usage">Bootstrap's carousel documentation</a>.</p>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/card/"><small>Previous</small>Card</a><a class="bd-pager-next" href="../../components/close-button/"><small>Next</small>Close button</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" class="img-fluid" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. felt-css itself is public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted and trimmed from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by The Bootstrap Authors.
+            That text stays under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>, its example code
+            and icons under the <a href="../../LICENSE-bootstrap.txt">MIT License</a>.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>, © Robert Curth,
+            all rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@ title: Badges
 description: Documentation and examples for badges, our small count and labeling component.
 -->
 <h2>Examples</h2>
-<p>Badges are small pill-shaped labels and counters. Unlike Bootstrap's, felt-css badges have a fixed size (<code>.75rem</code>) and don't scale with the parent element. Like in Bootstrap 5, badges have no focus or hover styles for links.</p>
+<p>Badges are small pill-shaped labels and counters. Unlike Bootstrap's, felt-css badges have a fixed size (<code>.75rem</code>) and don't scale with the parent element; set <code>--felt-badge-font-size: .75em</code> to have them scale like Bootstrap's. Like in Bootstrap 5, badges have no focus or hover styles for links.</p>
 
 <h3>Headings</h3>
 <example>
@@ -69,7 +69,7 @@ description: Documentation and examples for badges, our small count and labeling
 </div>
 
 <h2>Pill badges</h2>
-<p>felt-css badges are always pills, so <code>.rounded-pill</code> changes nothing on them; it's kept here so Bootstrap markup works unchanged. For a squarer badge, use a <a href="../../utilities/borders/"><code>.rounded-*</code></a> utility such as <code>.rounded-2</code>.</p>
+<p>felt-css badges are pills by default (<code>--felt-badge-border-radius</code>), so <code>.rounded-pill</code> changes nothing on them; it's kept here so Bootstrap markup works unchanged. For a squarer badge, use a <a href="../../utilities/borders/"><code>.rounded-*</code></a> utility such as <code>.rounded-2</code>.</p>
 <example>
 <span class="badge rounded-pill text-bg-primary">Primary</span>
 <span class="badge rounded-pill text-bg-secondary">Secondary</span>
@@ -82,16 +82,21 @@ description: Documentation and examples for badges, our small count and labeling
 </example>
 
 <h2>Legend dots</h2>
-<p>An extra, not in Bootstrap: <code>.badge-dot</code> turns an empty badge into a small round colour key, e.g. for a chart's series. It takes a <code>.text-bg-{color}</code> fill, a colour of its own in <code>--dot-color</code>, or otherwise the text colour. A legend is a list of dots with their labels:</p>
+<p>An extra, not in Bootstrap: <code>.badge-dot</code> turns an empty badge into a small round colour key, e.g. for a chart's series. It takes a <code>.text-bg-{color}</code> fill, a colour of its own in <code>--felt-badge-dot-color</code>, or otherwise the text colour. A legend is a list of dots with their labels:</p>
 <example>
 <ul class="list-unstyled d-flex flex-wrap column-gap-3 row-gap-1 small mb-0">
   <li><span class="badge badge-dot text-bg-primary"></span> House 52 %</li>
   <li><span class="badge badge-dot text-bg-success"></span> Battery 17 %</li>
   <li><span class="badge badge-dot text-bg-info"></span> Grid 31 %</li>
-  <li><span class="badge badge-dot" style="--dot-color: #b5651d"></span> Car 9 %</li>
+  <li><span class="badge badge-dot" style="--felt-badge-dot-color: #b5651d"></span> Car 9 %</li>
 </ul>
 </example>
 
 <div class="bd-callout bd-callout-felt">
   <p>In the felt look a dot is a tiny patch of saturated felt, like the coloured badges. In both looks its rim leans towards the text colour, so light and dark dots stand apart from the surface.</p>
 </div>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Badges are built on local CSS variables, like Bootstrap's: <code>.badge</code> declares them, and you can set them on any badge. On a solid <code>.bg-*</code> fill a badge sets <code>--felt-badge-color</code> to the fill's ink.</p>
+<cssvars name="badge"></cssvars>

@@ -15,16 +15,16 @@
     })();
   </script>
   <style>
-    .demo-section { margin-top: var(--space-5); scroll-margin-top: var(--space-3); }
-    .demo-section > h2 { margin-bottom: var(--space-3); }
-    .demo-label { margin: var(--space-4) 0 var(--space-2); font-size: .8125rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
-    .demo-stage { padding: var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-lg); }
-    .demo-dim { border-color: transparent; background-color: var(--backdrop); }
+    .demo-section { margin-top: var(--felt-space-5); scroll-margin-top: var(--felt-space-3); }
+    .demo-section > h2 { margin-bottom: var(--felt-space-3); }
+    .demo-label { margin: var(--felt-space-4) 0 var(--felt-space-2); font-size: .8125rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--felt-secondary-color); }
+    .demo-stage { padding: var(--felt-space-3); border: 1px solid var(--felt-border-color); border-radius: var(--felt-radius-lg); }
+    .demo-dim { border-color: transparent; background-color: var(--felt-backdrop); }
     .icon { width: 1.375rem; height: 1.375rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .demo-saldo .progress { position: relative; }
-    .demo-saldo .progress::after { content: ""; position: absolute; inset: 0 auto 0 50%; width: 2px; margin-left: -1px; background: var(--text); opacity: .55; z-index: 1; }
+    .demo-saldo .progress::after { content: ""; position: absolute; inset: 0 auto 0 50%; width: 2px; margin-left: -1px; background: var(--felt-body-color); opacity: .55; z-index: 1; }
     .demo-bs-modal .modal { position: relative; display: block; overflow: visible; }
-    .demo-phone { width: 375px; max-width: 100%; height: 720px; border: 1px solid var(--border); border-radius: 2.25rem; background-color: var(--body-bg); background-image: var(--sheet, none); background-size: var(--sheet-size, auto); background-blend-mode: var(--sheet-blend, normal); box-shadow: var(--shadow-lg); overflow: hidden; transform: translateZ(0); }
+    .demo-phone { width: 375px; max-width: 100%; height: 720px; border: 1px solid var(--felt-border-color); border-radius: 2.25rem; background-color: var(--felt-body-bg); background-image: var(--felt-texture-sheet, none); background-size: var(--felt-texture-sheet-size, auto); background-blend-mode: var(--felt-texture-sheet-blend, normal); box-shadow: var(--felt-shadow-lg); overflow: hidden; transform: translateZ(0); }
     .demo-phone-screen { height: 100%; overflow: auto; padding-bottom: 9.5rem; }
   </style>
 </head>
@@ -619,7 +619,7 @@
           </div>
 
           <h3 class="demo-label">Gestapelt: Steckdosen-Verbrauch</h3>
-          <div class="progress-stacked" style="--progress-height: 1.5rem">
+          <div class="progress-stacked" style="--felt-progress-height: 1.5rem">
             <div class="progress" role="progressbar" aria-label="Kaffeemaschine" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%"><div class="progress-bar bg-primary">30 %</div></div>
             <div class="progress" role="progressbar" aria-label="Waschmaschine" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%"><div class="progress-bar bg-success">25 %</div></div>
             <div class="progress" role="progressbar" aria-label="Trockner" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"><div class="progress-bar bg-warning">20 %</div></div>
@@ -930,7 +930,7 @@
           <h3 class="demo-label mt-0">Offcanvas, statisch</h3>
           <!-- .showing instead of .show: Bootstrap's JS opens every .offcanvas.show on page load -->
           <div class="demo-stage demo-dim p-0 overflow-hidden" style="height: 320px">
-            <div class="offcanvas offcanvas-start showing position-relative z-0 h-100" style="--w: 290px" tabindex="-1" aria-labelledby="oc-static-title">
+            <div class="offcanvas offcanvas-start showing position-relative z-0 h-100" style="--felt-offcanvas-width: 290px" tabindex="-1" aria-labelledby="oc-static-title">
               <div class="offcanvas-header">
                 <h3 class="offcanvas-title" id="oc-static-title">Filter</h3>
                 <button type="button" class="btn-close" aria-label="Schließen"></button>

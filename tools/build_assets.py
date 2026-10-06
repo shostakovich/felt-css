@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Draw the felt textures and seams in img/ as SVG and write the matching seam tokens into felt.css
-(between the stitches:start/end markers).
+"""Draw the felt textures and seams in img/ as SVG, and their sizes into feltgen/stitches.json (tools/build.py writes
+them into felt.css as tokens).
 
 Texture felt.svg (the colours' felt): bands of feTurbulence summed on one 256 px tile. Fibre bands are bent
 by low noise (feDisplacementMap) to break up the noise's lattice and stretch its ridges into hairs; all noise
@@ -16,6 +16,7 @@ mix-blend-mode: hard-light and filter: brightness(). thread.svg is the twist tha
 
 Needs: python3. tools/calibrate_felt.py re-measures the texture's base after a change to FELT.
 """
+import json
 import math
 import random
 from pathlib import Path
@@ -141,7 +142,7 @@ def defs():
             f'<path d="{stitch}" fill="url(#t)"/>'
             f'<rect x="{f(-l+1.8)}" y="{f(-h*.4)}" width="{f(LEN-3.6)}" height=".34" rx=".17" fill="#fff" opacity=".7"/>'
             '</g>'
-            # light from above: a soft shadow below; the light edge on top comes from felt.css's --seam-relief
+            # light from above: a soft shadow below; the light edge on top comes from felt.css's --felt-thread-relief
             # (drawn in here, the seam filter darkens it on cream into a haze over the thread)
             '<filter id="d" x="-20%" y="-30%" width="140%" height="160%">'
             f'<feGaussianBlur in="SourceAlpha" stdDeviation="{g(SHADOW[1])}"/><feOffset dy="{g(SHADOW[0])}"/>'
@@ -164,7 +165,7 @@ def stitch_svg():
     """stitch.svg: the seams' stitch as <g id="stitch">, for <use href="img/stitch.svg#stitch"> in SVG drawings.
     Safari resolves no url() inside a file used from another, so it is drawn without any: the ply's ridges are the
     pattern's stripes clipped to the body, the needle holes stacked translucent circles. Its shadow falls down the page
-    whichever way the stitch turns, so it is not drawn here but cast by felt.css's .stitches (--stitch-shadow)."""
+    whichever way the stitch turns, so it is not drawn here but cast by felt.css's .stitches (--felt-stitch-shadow)."""
     path, curves = stitch_body()
     outline = []
     for p0, p1, p2, p3 in curves:
@@ -297,13 +298,11 @@ def row(vertical=False):
     return svg(length, h, f"M-10 {MARGIN}H{length + 10}", st)
 
 
-def write_tokens(lines):
-    css = ROOT / "felt.css"
-    text = css.read_text()
-    start, end = "/* stitches:start */", "/* stitches:end */"
-    head, rest = text.split(start, 1)
-    _, tail = rest.split(end, 1)
-    css.write_text(head + start + "\n" + "\n".join(lines) + "\n    " + end + tail)
+def write_tokens(tokens):
+    """the seams' sizes, for the tokens: tools/build.py writes them into felt.css"""
+    path = Path(__file__).parent / "feltgen" / "stitches.json"
+    path.write_text(json.dumps(tokens, indent=2) + "\n")
+    print(f"{path.name}: {len(tokens)} tokens")
 
 
 def write(name, text):
@@ -315,20 +314,21 @@ if __name__ == "__main__":
     OUT.mkdir(exist_ok=True)
     for name, kw in FELT.items():
         write(f"{name}.svg", felt(**kw))
-    tokens = [f"    --seam-margin: {MARGIN}px;"]
+    tokens = {"_seam-margin": f"{MARGIN}px"}
+    dy, blur, alpha = SHADOW   # CSS blurs by twice the standard deviation
+    tokens |= {"stitch-length": f"{LEN}px", "stitch-pitch": f"{PERIOD}px",
+               "stitch-shadow": f"drop-shadow(0 {g(dy)}px {g(2 * blur)}px rgb(0 0 0 / {g(alpha)}))"}
     for name, (r, n, ga, la) in SHAPES.items():
         s, c = frame(r, n, ga, la)
         write(f"seam-{name}.svg", s)
-        tokens.append(f"    --seam-{name}-slice: {c * DPR:g}; --seam-{name}-width: {c:g}px;")
+        tokens |= {f"_seam-{name}-slice": f"{c * DPR:g}", f"_seam-{name}-width": f"{c:g}px"}
     write("seam-circle.svg", circle())
     write("seam-row.svg", row())
     write("seam-col.svg", row(True))
     write("thread.svg", THREAD)
     write("stitch.svg", stitch_svg())
-    dy, blur, alpha = SHADOW   # CSS blurs by twice the standard deviation
-    tokens.insert(1, f"    --stitch-length: {LEN}px; --stitch-pitch: {PERIOD}px; --stitch-shadow: drop-shadow(0 {g(dy)}px {g(2 * blur)}px rgb(0 0 0 / {g(alpha)}));")
     length = ROW * PERIOD
-    tokens.append(f"    --seam-row-size: {length}px {2 * MARGIN}px;")
+    tokens["_seam-row-size"] = f"{length}px {2 * MARGIN}px"
     # .vr: stitches 4/5 as long as the row's, so a rule only 1em tall still shows two whole ones
-    tokens.append(f"    --seam-col-size: {2 * MARGIN}px {length * .8:g}px;")
+    tokens["_seam-col-size"] = f"{2 * MARGIN}px {length * .8:g}px"
     write_tokens(tokens)

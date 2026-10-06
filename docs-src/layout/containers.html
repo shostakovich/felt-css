@@ -4,9 +4,9 @@ description: Containers are a fundamental building block of felt-css that contai
 -->
 <h2>How they work</h2>
 <p>Containers are the most basic layout element and are <strong>required when using the grid</strong>. Containers are used to contain, pad, and (sometimes) center the content within them. While containers <em>can</em> be nested, most layouts do not require a nested container.</p>
-<p>felt-css comes with three different containers:</p>
+<p>felt-css comes with three kinds of containers:</p>
 <ul>
-  <li><code>.container</code>, which is <code>width: 100%</code> up to a maximum width of <code>--container-max</code> (1080px)</li>
+  <li><code>.container</code>, which is <code>width: 100%</code> up to a maximum width of <code>--felt-container-max</code> (1080px)</li>
   <li><code>.container-{breakpoint}</code>, which is <code>width: 100%</code> until the specified breakpoint</li>
   <li><code>.container-fluid</code>, which is <code>width: 100%</code> at all breakpoints</li>
 </ul>
@@ -17,22 +17,21 @@ description: Containers are a fundamental building block of felt-css that contai
   <thead>
     <tr>
       <th></th>
-      <th>Extra small<div class="fw-normal">&lt;576px</div></th>
-      <th>Small<div class="fw-normal">&ge;576px</div></th>
-      <th>Medium<div class="fw-normal">&ge;768px</div></th>
-      <th>Large<div class="fw-normal">&ge;992px</div></th>
+      <th>Extra small<div class="fw-normal">&lt;576px</div></th><th>Small<div class="fw-normal">&ge;576px</div></th><th>Medium<div class="fw-normal">&ge;768px</div></th><th>Large<div class="fw-normal">&ge;992px</div></th><th>X-Large<div class="fw-normal">&ge;1200px</div></th><th>XX-Large<div class="fw-normal">&ge;1400px</div></th>
     </tr>
   </thead>
   <tbody>
-    <tr><td class="text-nowrap"><code>.container</code></td><td>1080px</td><td>1080px</td><td>1080px</td><td>1080px</td></tr>
-    <tr><td class="text-nowrap"><code>.container-sm</code></td><td class="text-body-secondary">100%</td><td>1080px</td><td>1080px</td><td>1080px</td></tr>
-    <tr><td class="text-nowrap"><code>.container-md</code></td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td>1080px</td><td>1080px</td></tr>
-    <tr><td class="text-nowrap"><code>.container-lg</code></td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td>1080px</td></tr>
-    <tr><td class="text-nowrap"><code>.container-fluid</code></td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td></tr>
+    <tr><td class="text-nowrap"><code>.container</code></td><td>1080px</td><td>1080px</td><td>1080px</td><td>1080px</td><td>1080px</td><td>1080px</td></tr>
+    <tr><td class="text-nowrap"><code>.container-sm</code></td><td class="text-body-secondary">100%</td><td>1080px</td><td>1080px</td><td>1080px</td><td>1080px</td><td>1080px</td></tr>
+    <tr><td class="text-nowrap"><code>.container-md</code></td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td>1080px</td><td>1080px</td><td>1080px</td><td>1080px</td></tr>
+    <tr><td class="text-nowrap"><code>.container-lg</code></td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td>1080px</td><td>1080px</td><td>1080px</td></tr>
+    <tr><td class="text-nowrap"><code>.container-xl</code></td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td>1080px</td><td>1080px</td></tr>
+    <tr><td class="text-nowrap"><code>.container-xxl</code></td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td>1080px</td></tr>
+    <tr><td class="text-nowrap"><code>.container-fluid</code></td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td><td class="text-body-secondary">100%</td></tr>
   </tbody>
 </table>
 </div>
-<p>Since every viewport below 1080px is narrower than the maximum, <code>.container-sm</code>, <code>-md</code> and <code>-lg</code> only differ from <code>.container</code> on screens wider than 1080px. There is no <code>.container-xl</code> or <code>.container-xxl</code>.</p>
+<p>Since every viewport below 1080px is narrower than the maximum, <code>.container-sm</code>, <code>-md</code> and <code>-lg</code> only differ from <code>.container</code> on screens wider than 1080px; <code>.container-xl</code> and <code>-xxl</code> stay fluid up to their breakpoint, past 1080px.</p>
 
 <h2>Default container</h2>
 <p>The default <code>.container</code> class is a responsive container: full width on small screens, centered with a <code>max-width</code> of 1080px on larger ones.</p>
@@ -48,6 +47,8 @@ description: Containers are a fundamental building block of felt-css that contai
 <div class="container-sm">100% wide until small breakpoint</div>
 <div class="container-md">100% wide until medium breakpoint</div>
 <div class="container-lg">100% wide until large breakpoint</div>
+<div class="container-xl">100% wide until extra large breakpoint</div>
+<div class="container-xxl">100% wide until extra extra large breakpoint</div>
 </codeblock>
 
 <h2>Fluid containers</h2>
@@ -62,6 +63,6 @@ description: Containers are a fundamental building block of felt-css that contai
 <p>The maximum width is a custom property on <code>:root</code>. Override it to make every container wider or narrower:</p>
 <codeblock lang="css">
 :root {
-  --container-max: 1280px;
+  --felt-container-max: 1280px;
 }
 </codeblock>
