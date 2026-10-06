@@ -1,0 +1,28 @@
+<!--
+title: Utilities for layout
+description: For faster mobile-friendly and responsive development, felt-css includes dozens of utility classes for showing, hiding, aligning, and spacing content.
+-->
+<h2>Changing <code>display</code></h2>
+<p>Use the <a href="../../utilities/display/">display utilities</a> for responsively toggling common values of the <code>display</code> property. Mix them with the grid system, content, or components to show or hide them across specific viewports.</p>
+
+<example>
+<div class="d-lg-none p-2 bg-body-tertiary">Shown below the <code>lg</code> breakpoint</div>
+<div class="d-none d-lg-block p-2 bg-body-tertiary">Shown from the <code>lg</code> breakpoint up</div>
+</example>
+
+<h2>Flexbox options</h2>
+<p>felt-css is built with flexbox, but not every element's <code>display</code> has been changed to <code>display: flex</code> as this would add many unnecessary overrides and unexpectedly change key browser behaviors. Most of the <a href="../../components/alerts/">components</a> are built with flexbox enabled.</p>
+<p>Should you need to add <code>display: flex</code> to an element, do so with <code>.d-flex</code> or one of the responsive variants (e.g., <code>.d-sm-flex</code>). You'll need this class or <code>display</code> value to allow the use of the extra <a href="../../utilities/flex/">flexbox utilities</a> for sizing, alignment, spacing, and more.</p>
+
+<example>
+<div class="d-flex flex-column flex-sm-row gap-2">
+  <div class="p-2 bg-body-tertiary flex-sm-fill">A column on phones</div>
+  <div class="p-2 bg-body-tertiary flex-sm-fill">a row from <code>sm</code> up</div>
+</div>
+</example>
+
+<h2>Margin and padding</h2>
+<p>Use the <code>margin</code> and <code>padding</code> <a href="../../utilities/spacing/">spacing utilities</a> to control how elements and components are spaced and sized. felt-css includes a six-level scale for spacing utilities (<code>0</code> to <code>5</code>), the same as Bootstrap's: <code>.25rem</code>, <code>.5rem</code>, <code>1rem</code>, <code>1.5rem</code> and <code>3rem</code>, also available as <code>--felt-space-1</code> to <code>--felt-space-5</code>. Choose values for all viewports (e.g., <code>.me-3</code> for <code>margin-right: 1rem</code> in LTR), or pick responsive variants to target specific viewports (e.g., <code>.me-md-3</code> for <code>margin-right: 1rem</code> —in LTR— starting at the <code>md</code> breakpoint).</p>
+
+<h2>Toggle <code>visibility</code></h2>
+<p>When toggling <code>display</code> isn't needed, you can toggle the <code>visibility</code> of an element with the <a href="../../utilities/visibility/">visibility utilities</a>. Invisible elements will still affect the layout of the page, but are visually hidden from visitors.</p>

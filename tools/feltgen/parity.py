@@ -51,6 +51,8 @@ ALLOW_TOKENS = {
     "--bs-pagination-focus-box-shadow": _FOCUS,
     "--bs-accordion-transition": "the button changes state without a transition; the icon turns with --felt-accordion-btn-icon-transition",
     # carousel, forms
+    "--bs-form-select-bg-icon": "felt-css draws no validation icon in fields: the border, the felt tint and the feedback "
+                                "carry the state",
 }
 
 # Bootstrap classes felt.css leaves out, and why
