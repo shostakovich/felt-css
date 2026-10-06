@@ -15,21 +15,21 @@ description: Use custom range inputs for consistent cross-browser styling and bu
 </div>
 
 <h2>Filled track</h2>
-<p>Unlike Bootstrap, felt-css can fill the track from the left up to the thumb. CSS can't read an input's value, so the filled part comes from the <code>--fill</code> custom property (default <code>0%</code>, i.e. no fill). Set it inline for a static value:</p>
+<p>Unlike Bootstrap, felt-css can fill the track from the left up to the thumb. CSS can't read an input's value, so the filled part comes from the <code>--felt-form-range-fill</code> custom property (default <code>0%</code>, i.e. no fill). Set it inline for a static value:</p>
 
 <example>
 <label for="rangeFill" class="form-label">Volume</label>
-<input type="range" class="form-range" id="rangeFill" value="70" style="--fill: 70%">
+<input type="range" class="form-range" id="rangeFill" value="70" style="--felt-form-range-fill: 70%">
 </example>
 
-<p>To follow the thumb while it's dragged, update <code>--fill</code> from JavaScript. This works for any <code>min</code>, <code>max</code> and <code>step</code>:</p>
+<p>To follow the thumb while it's dragged, update <code>--felt-form-range-fill</code> from JavaScript. This works for any <code>min</code>, <code>max</code> and <code>step</code>:</p>
 
 <codeblock lang="js">
 for (const range of document.querySelectorAll('.form-range')) {
   const update = () => {
     const min = +range.min || 0
     const max = range.max === '' ? 100 : +range.max
-    range.style.setProperty('--fill', `${(range.value - min) / (max - min) * 100}%`)
+    range.style.setProperty('--felt-form-range-fill', `${(range.value - min) / (max - min) * 100}%`)
   }
   range.addEventListener('input', update)
   update()
@@ -39,13 +39,13 @@ for (const range of document.querySelectorAll('.form-range')) {
 <p>The ranges below this point on this page use exactly that script.</p>
 
 <h2>Thumb colour</h2>
-<p>The thumb and the filled part take their colour from <code>--range-thumb</code> (default: primary), set on the input or on any parent. A neutral thumb suits a slider whose track already carries the meaning.</p>
+<p>The thumb and the filled part take their colour from <code>--felt-form-range-thumb-bg</code> (default: primary), set on the input or on any parent. A neutral thumb suits a slider whose track already carries the meaning.</p>
 
 <example class="bd-example-range">
 <label for="rangeSuccess" class="form-label">Battery reserve</label>
-<input type="range" class="form-range" id="rangeSuccess" value="40" style="--range-thumb: var(--success)">
+<input type="range" class="form-range" id="rangeSuccess" value="40" style="--felt-form-range-thumb-bg: var(--felt-success)">
 <label for="rangeNeutral" class="form-label mt-3">Neutral thumb</label>
-<input type="range" class="form-range" id="rangeNeutral" value="60" style="--range-thumb: var(--secondary)">
+<input type="range" class="form-range" id="rangeNeutral" value="60" style="--felt-form-range-thumb-bg: var(--felt-secondary)">
 </example>
 
 <h2>Disabled</h2>
@@ -96,7 +96,7 @@ for (const range of document.querySelectorAll('.bd-example-range .form-range')) 
   const update = () => {
     const min = +range.min || 0
     const max = range.max === '' ? 100 : +range.max
-    range.style.setProperty('--fill', `${(range.value - min) / (max - min) * 100}%`)
+    range.style.setProperty('--felt-form-range-fill', `${(range.value - min) / (max - min) * 100}%`)
   }
   range.addEventListener('input', update)
   update()

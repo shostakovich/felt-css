@@ -806,8 +806,8 @@
 <h2 id="how-do-the-variants-and-accented-tables-work">How do the variants and accented tables work?<a class="bd-anchor" href="#how-do-the-variants-and-accented-tables-work" aria-label="Link to this section">#</a></h2>
 <p>Like Bootstrap's, felt-css tables layer their states with an inset <code>box-shadow</code> on top of each cell's background, so stripes, hover and active states combine with any variant:</p>
 <ul>
-  <li><code>.table</code> and the variants set <code>--t-bg</code> (cell background), <code>--t-color</code> (text) and <code>--t-border</code> (borders). Variants use the subtle colour of their tone with emphasis text, like the alerts.</li>
-  <li><code>.table-striped</code>, <code>.table-hover</code> and <code>.table-active</code> set <code>--a</code> on the cells: a translucent mix of the table's text colour, painted over the background.</li>
+  <li><code>.table</code> and the variants set <code>--felt-table-bg</code> (cell background), <code>--felt-table-color</code> (text) and <code>--felt-table-border-color</code> (borders). Variants use the subtle colour of their tone with emphasis text, like the alerts.</li>
+  <li><code>.table-striped</code>, <code>.table-hover</code> and <code>.table-active</code> set <code>--felt-table-accent-bg</code> on the cells: a translucent mix of the table's text colour, painted over the background.</li>
 </ul>
 
 <h2 id="table-borders">Table borders<a class="bd-anchor" href="#table-borders" aria-label="Link to this section">#</a></h2>
@@ -875,7 +875,7 @@
     <span class="tok-punct">&lt;/</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;/</span><span class="tok-tag">tbody</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">table</span><span class="tok-punct">&gt;</span></code></pre></div></div>
-<p>felt-css's cells take their border colour from <code>--t-border</code>, so <a href="../../utilities/borders/#color">border color utilities</a> on the table don't recolour them; use a <a href="#variants">variant</a> instead.</p>
+<p>felt-css's cells take their border colour from <code>--felt-table-border-color</code>, so <a href="../../utilities/borders/#color">border color utilities</a> on the table don't recolour them; use a <a href="#variants">variant</a> instead.</p>
 
 <h3 id="tables-without-borders">Tables without borders<a class="bd-anchor" href="#tables-without-borders" aria-label="Link to this section">#</a></h3>
 <p>Add <code>.table-borderless</code> for a table without borders.</p>

@@ -55,7 +55,7 @@ description: Convey meaning through background-color and add decoration with gra
 
 <h2>Background gradient</h2>
 <p>By adding a <code>.bg-gradient</code> class, a linear gradient is added as background image to the backgrounds. This gradient starts with a semi-transparent white which fades out to the bottom. In the felt look it keeps the felt texture and swells like a patch instead.</p>
-<p>Do you need a gradient in your custom CSS? Just add <code>background-image: var(--gradient);</code>.</p>
+<p>Do you need a gradient in your custom CSS? Just add <code>background-image: var(--felt-gradient);</code>.</p>
 <example code="false">
 <div class="p-3 mb-2 bg-primary bg-gradient text-white">.bg-primary.bg-gradient</div>
 <div class="p-3 mb-2 bg-secondary bg-gradient text-white">.bg-secondary.bg-gradient</div>
@@ -75,17 +75,17 @@ description: Convey meaning through background-color and add decoration with gra
 <p>Consider the default <code>.bg-success</code> utility.</p>
 <codeblock lang="css">
 .bg-success {
-  --bg-opacity: 1;
-  background-color: color-mix(in srgb, var(--success) calc(var(--bg-opacity) * 100%), transparent) !important;
+  --felt-bg-opacity: 1;
+  background-color: color-mix(in srgb, var(--felt-success) calc(var(--felt-bg-opacity) * 100%), transparent) !important;
 }
 </codeblock>
-<p>The theme colors are <code>light-dark()</code> values rather than RGB triplets, so instead of Bootstrap's <code>rgba()</code> the utility fades the color with <code>color-mix()</code>, using a second CSS variable, <code>--bg-opacity</code>, for the alpha transparency (with a default value <code>1</code> thanks to a local CSS variable). The local CSS variable inside each <code>.bg-*</code> class avoids inheritance issues so nested instances of the utilities don't automatically have a modified alpha transparency.</p>
+<p>The theme colors are <code>light-dark()</code> values rather than RGB triplets, so instead of Bootstrap's <code>rgba()</code> the utility fades the color with <code>color-mix()</code>, using a second CSS variable, <code>--felt-bg-opacity</code>, for the alpha transparency (with a default value <code>1</code> thanks to a local CSS variable). The local CSS variable inside each <code>.bg-*</code> class avoids inheritance issues so nested instances of the utilities don't automatically have a modified alpha transparency.</p>
 
 <h3>Example</h3>
-<p>To change that opacity, override <code>--bg-opacity</code> via custom styles or inline styles.</p>
+<p>To change that opacity, override <code>--felt-bg-opacity</code> via custom styles or inline styles.</p>
 <example>
 <div class="bg-success p-2 text-white">This is default success background</div>
-<div class="bg-success p-2" style="--bg-opacity: .5;">This is 50% opacity success background</div>
+<div class="bg-success p-2" style="--felt-bg-opacity: .5;">This is 50% opacity success background</div>
 </example>
 <p>Or, choose from any of the <code>.bg-opacity</code> utilities (<code>10</code>, <code>25</code>, <code>50</code>, <code>75</code>, <code>100</code>):</p>
 <example>

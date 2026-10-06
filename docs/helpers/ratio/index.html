@@ -85,7 +85,7 @@
         
 <h2 id="about">About<a class="bd-anchor" href="#about" aria-label="Link to this section">#</a></h2>
 <p>Use the ratio helper to manage the aspect ratios of external content like <code>&lt;iframe&gt;</code>s, <code>&lt;embed&gt;</code>s, <code>&lt;video&gt;</code>s, and <code>&lt;object&gt;</code>s. These helpers also can be used on any standard HTML child element (e.g., a <code>&lt;div&gt;</code> or <code>&lt;img&gt;</code>). Styles are applied from the parent <code>.ratio</code> class directly to the child.</p>
-<p>The ratio is held in a CSS variable, <code>--ratio</code>, and applied with the CSS <code>aspect-ratio</code> property, which also allows <a href="#custom-ratios">custom aspect ratios</a>.</p>
+<p>The ratio is held in a CSS variable, <code>--felt-aspect-ratio</code>, and applied with the CSS <code>aspect-ratio</code> property, which also allows <a href="#custom-ratios">custom aspect ratios</a>.</p>
 
 <h2 id="example">Example<a class="bd-anchor" href="#example" aria-label="Link to this section">#</a></h2>
 <p>Wrap any embed, like an <code>&lt;iframe&gt;</code>, in a parent element with <code>.ratio</code> and an aspect ratio class. The immediate child element is automatically sized thanks to the universal selector <code>.ratio &gt; *</code>.</p>
@@ -126,19 +126,19 @@
 <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 
 <h2 id="custom-ratios">Custom ratios<a class="bd-anchor" href="#custom-ratios" aria-label="Link to this section">#</a></h2>
-<p>Each <code>.ratio-*</code> class sets the <code>--ratio</code> custom property. You can set it yourself to create custom aspect ratios on the fly, written like the <code>aspect-ratio</code> property: width, slash, height.</p>
-<p>For example, to create a 2x1 aspect ratio, set <code>--ratio: 2 / 1</code> on the <code>.ratio</code>.</p>
+<p>Each <code>.ratio-*</code> class sets the <code>--felt-aspect-ratio</code> custom property. You can set it yourself to create custom aspect ratios on the fly, written like the <code>aspect-ratio</code> property: width, slash, height.</p>
+<p>For example, to create a 2x1 aspect ratio, set <code>--felt-aspect-ratio: 2 / 1</code> on the <code>.ratio</code>.</p>
 <div class="bd-example-snippet"><div class="bd-example bd-example-ratios">
-<div class="ratio" style="--ratio: 2 / 1;">
+<div class="ratio" style="--felt-aspect-ratio: 2 / 1;">
   <div>2x1</div>
 </div>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--ratio: 2 / 1;"</span><span class="tok-punct">&gt;</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"ratio"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--felt-aspect-ratio: 2 / 1;"</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>2x1<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 <p>This CSS variable makes it easy to modify the aspect ratio across breakpoints. The following is 4x3 to start, but changes to a custom 2x1 at the medium breakpoint.</p>
 <div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-css"><span class="tok-tag">@media</span> (<span class="tok-attr">min-width</span>: 768px) {
   <span class="tok-tag">.ratio-4x3</span> {
-    <span class="tok-attr">--ratio</span>: 2 / 1;
+    <span class="tok-attr">--felt-aspect-ratio</span>: 2 / 1;
   }
 }</code></pre></div>
 <div class="bd-example-snippet"><div class="bd-example bd-example-ratios bd-example-ratios-breakpoint">
@@ -149,7 +149,7 @@
   <span class="tok-punct">&lt;</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>4x3, then 2x1<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 <div class="bd-callout bd-callout-info">
-  <p>Bootstrap's <code>--bs-aspect-ratio</code> takes a padding percentage (<code>50%</code> for 2x1); felt-css's <code>--ratio</code> takes a ratio (<code>2 / 1</code>).</p>
+  <p>Bootstrap's <code>--bs-aspect-ratio</code> takes a padding percentage (<code>50%</code> for 2x1); felt-css's <code>--felt-aspect-ratio</code> takes a ratio (<code>2 / 1</code>).</p>
 </div>
 
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../helpers/position/"><small>Previous</small>Position</a><a class="bd-pager-next" href="../../helpers/stacks/"><small>Next</small>Stacks</a></nav>

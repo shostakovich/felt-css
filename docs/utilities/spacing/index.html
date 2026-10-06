@@ -117,7 +117,7 @@
   <li><code>5</code> - for classes that set the <code>margin</code> or <code>padding</code> to <code>3rem</code></li>
   <li><code>auto</code> - for classes that set the <code>margin</code> to auto</li>
 </ul>
-<p>The same steps are available as custom properties, <code>--space-1</code> to <code>--space-5</code>, for your own CSS.</p>
+<p>The same steps are available as custom properties, <code>--felt-space-1</code> to <code>--felt-space-5</code>, for your own CSS.</p>
 
 <h3 id="examples">Examples<a class="bd-anchor" href="#examples" aria-label="Link to this section">#</a></h3>
 <p>Here are some representative examples of these classes:</p>
@@ -137,7 +137,7 @@
 <h3 id="horizontal-centering">Horizontal centering<a class="bd-anchor" href="#horizontal-centering" aria-label="Link to this section">#</a></h3>
 <p>Additionally, felt-css also includes an <code>.mx-auto</code> class for horizontally centering fixed-width block level content—that is, content that has <code>display: block</code> and a <code>width</code> set—by setting the horizontal margins to <code>auto</code>.</p>
 <div class="bd-example-snippet"><div class="bd-example">
-<div class="mx-auto p-2" style="width: 200px; background-color: color-mix(in oklab, var(--primary) 15%, transparent); border: 1px solid color-mix(in oklab, var(--primary) 30%, transparent);">
+<div class="mx-auto p-2" style="width: 200px; background-color: color-mix(in oklab, var(--felt-primary) 15%, transparent); border: 1px solid color-mix(in oklab, var(--felt-primary) 30%, transparent);">
   Centered element
 </div>
 </div></div>
@@ -149,7 +149,7 @@
 <p>A felt-css extra: <code>.pb-safe</code> sets <code>padding-bottom</code> to at least <code>.5rem</code>, or to the device's bottom safe-area inset where that is larger, so a <a href="../../helpers/position/#fixed-bottom">bar fixed to the bottom</a> stays clear of a phone's home indicator.</p>
 
 <h2 id="negative-margin">Negative margin<a class="bd-anchor" href="#negative-margin" aria-label="Link to this section">#</a></h2>
-<p>felt-css has no negative margin utilities (Bootstrap's <code>.mt-n1</code> and friends, which are disabled by default there too). Use custom CSS, e.g. <code>margin-top: calc(-1 * var(--space-1))</code>.</p>
+<p>felt-css has no negative margin utilities (Bootstrap's <code>.mt-n1</code> and friends, which are disabled by default there too). Use custom CSS, e.g. <code>margin-top: calc(-1 * var(--felt-space-1))</code>.</p>
 
 <h2 id="gap">Gap<a class="bd-anchor" href="#gap" aria-label="Link to this section">#</a></h2>
 <p>When using <code>display: grid</code> or <code>display: flex</code>, you can make use of <code>gap</code> utilities on the parent element. This can save on having to add margin utilities to individual children of a grid or flex container. Gap utilities are responsive by default.</p>

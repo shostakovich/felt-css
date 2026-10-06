@@ -10,7 +10,7 @@ description: Reboot, a small set of element-specific CSS changes at the top of f
   <li>Avoid <code>margin-top</code>. Vertical margins can collapse, yielding unexpected results.</li>
   <li>Block elements use <code>rem</code>s for their <code>margin</code>s, for easier scaling.</li>
   <li>Keep declarations of <code>font</code>-related properties to a minimum, using <code>inherit</code> whenever possible.</li>
-  <li>Colours come from custom properties on <code>:root</code> (<code>--text</code>, <code>--body-bg</code>, <code>--link</code>…), so everything follows the look and the color mode.</li>
+  <li>Colours come from custom properties on <code>:root</code> (<code>--felt-body-color</code>, <code>--felt-body-bg</code>, <code>--felt-link-color</code>…), so everything follows the look and the color mode.</li>
 </ul>
 
 <h2>Page defaults</h2>
@@ -19,25 +19,25 @@ description: Reboot, a small set of element-specific CSS changes at the top of f
   <li>The <code>box-sizing</code> is globally set on every element—including <code>*::before</code> and <code>*::after</code>, to <code>border-box</code>.</li>
   <li>The <code>&lt;body&gt;</code> loses its default margin.</li>
   <li>No base <code>font-size</code> is declared on the <code>&lt;html&gt;</code> or the <code>&lt;body&gt;</code>; the browser's default (typically <code>16px</code>) applies, so visitors can change it.</li>
-  <li>The <code>&lt;body&gt;</code> sets a global <code>font-family</code> (<code>--font</code>), <code>line-height: 1.5</code>, <code>color</code> (<code>--text</code>) and font smoothing.</li>
-  <li>The <code>&lt;body&gt;</code> also has a declared <code>background</code>: <code>--body-bg</code>, a very light grey in the clean look and cream felt in the felt look (charcoal in dark mode). Cards and other surfaces sit on it in <code>--surface</code>.</li>
+  <li>The <code>&lt;body&gt;</code> sets a global <code>font-family</code> (<code>--felt-font</code>), <code>line-height: 1.5</code>, <code>color</code> (<code>--felt-body-color</code>) and font smoothing.</li>
+  <li>The <code>&lt;body&gt;</code> also has a declared <code>background</code>: <code>--felt-body-bg</code>, a very light grey in the clean look and cream felt in the felt look (charcoal in dark mode). Cards and other surfaces sit on it in <code>--felt-surface</code>.</li>
   <li><code>&lt;img&gt;</code> and <code>&lt;svg&gt;</code> get <code>max-width: 100%</code> and <code>vertical-align: middle</code>. As in Bootstrap, an image keeps the size of its <code>width</code> and <code>height</code> attributes; add <a href="../images/"><code>.img-fluid</code></a> to let it scale with its container.</li>
-  <li>Every focusable element gets a visible focus ring on <code>:focus-visible</code>: a 3px outline in <code>--focus</code> (a translucent primary), 2px away from the element.</li>
+  <li>Every focusable element gets a visible focus ring on <code>:focus-visible</code>: a 3px outline in <code>--felt-focus-ring-color</code> (a translucent primary), 2px away from the element.</li>
 </ul>
 
 <h2>Native font stack</h2>
 <p>felt-css uses a "native font stack" or "system font stack" for optimum text rendering on every device and OS:</p>
 
 <codeblock lang="css">
---font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
---font-heading: var(--font);
---font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+--felt-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+--felt-font-heading: var(--felt-font);
+--felt-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 </codeblock>
 
 <p>Override these custom properties on <code>:root</code> to change the typeface of the body, the headings or the code, everywhere at once.</p>
 
 <h2>Headings</h2>
-<p>All heading elements—<code>&lt;h1&gt;</code>—<code>&lt;h6&gt;</code> have their <code>margin-top</code> removed, <code>margin-bottom: .5rem</code> set, <code>line-height</code> tightened to <code>1.2</code> and a bold weight. They use <code>--font-heading</code> and inherit their <code>color</code>. See <a href="../typography/#headings">Typography</a> for the sizes.</p>
+<p>All heading elements—<code>&lt;h1&gt;</code>—<code>&lt;h6&gt;</code> have their <code>margin-top</code> removed, <code>margin-bottom: .5rem</code> set, <code>line-height</code> tightened to <code>1.2</code> and a bold weight. They use <code>--felt-font-heading</code> and inherit their <code>color</code>. See <a href="../typography/#headings">Typography</a> for the sizes.</p>
 
 <h2>Paragraphs</h2>
 <p>All <code>&lt;p&gt;</code> elements have their <code>margin-top</code> removed and <code>margin-bottom: 1rem</code> set for easy spacing.</p>
@@ -47,16 +47,16 @@ description: Reboot, a small set of element-specific CSS changes at the top of f
 </example>
 
 <h2>Links</h2>
-<p>Links have a default <code>color</code> (<code>--link</code>) and the browser's underline. They don't change based on whether someone <code>:visited</code> the link. On keyboard focus they show the global focus ring.</p>
+<p>Links have a default <code>color</code> (<code>--felt-link-color</code>) and the browser's underline. They don't change based on whether someone <code>:visited</code> the link. On keyboard focus they show the global focus ring.</p>
 
 <example>
 <a href="#">This is an example link</a>
 </example>
 
-<p>Link <code>color</code> is mixed with transparency through the <code>--link-opacity</code> custom property (Bootstrap's <code>--bs-link-opacity</code>), so you can change the opacity of a link's colour:</p>
+<p>Link <code>color</code> is mixed with transparency through the <code>--felt-link-opacity</code> custom property (Bootstrap's <code>--bs-link-opacity</code>), so you can change the opacity of a link's colour:</p>
 
 <example>
-<a href="#" style="--link-opacity: .5">This is an example link</a>
+<a href="#" style="--felt-link-opacity: .5">This is an example link</a>
 </example>
 
 <p>Placeholder links—those without an <code>href</code>—keep the link colour but, as in every browser, lose the underline and the pointer cursor. felt-css doesn't reset their colour.</p>
@@ -122,7 +122,7 @@ description: Reboot, a small set of element-specific CSS changes at the top of f
 </example>
 
 <h2>Inline code</h2>
-<p>Wrap inline snippets of code with <code>&lt;code&gt;</code>. Be sure to escape HTML angle brackets. Inline code is set in <code>--font-mono</code> at <code>.875em</code> and coloured with <code>--danger-emphasis</code>.</p>
+<p>Wrap inline snippets of code with <code>&lt;code&gt;</code>. Be sure to escape HTML angle brackets. Inline code is set in <code>--felt-font-mono</code> at <code>.875em</code> and coloured with <code>--felt-danger-emphasis</code>.</p>
 
 <example>
 For example, <code>&lt;section&gt;</code> should be wrapped as inline.

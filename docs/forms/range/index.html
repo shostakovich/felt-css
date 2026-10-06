@@ -97,21 +97,21 @@
 </div>
 
 <h2 id="filled-track">Filled track<a class="bd-anchor" href="#filled-track" aria-label="Link to this section">#</a></h2>
-<p>Unlike Bootstrap, felt-css can fill the track from the left up to the thumb. CSS can't read an input's value, so the filled part comes from the <code>--fill</code> custom property (default <code>0%</code>, i.e. no fill). Set it inline for a static value:</p>
+<p>Unlike Bootstrap, felt-css can fill the track from the left up to the thumb. CSS can't read an input's value, so the filled part comes from the <code>--felt-form-range-fill</code> custom property (default <code>0%</code>, i.e. no fill). Set it inline for a static value:</p>
 
 <div class="bd-example-snippet"><div class="bd-example">
 <label for="rangeFill" class="form-label">Volume</label>
-<input type="range" class="form-range" id="rangeFill" value="70" style="--fill: 70%">
+<input type="range" class="form-range" id="rangeFill" value="70" style="--felt-form-range-fill: 70%">
 </div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"rangeFill"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Volume<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
-<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"range"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-range"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rangeFill"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"70"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--fill: 70%"</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"range"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-range"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rangeFill"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"70"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--felt-form-range-fill: 70%"</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 
-<p>To follow the thumb while it's dragged, update <code>--fill</code> from JavaScript. This works for any <code>min</code>, <code>max</code> and <code>step</code>:</p>
+<p>To follow the thumb while it's dragged, update <code>--felt-form-range-fill</code> from JavaScript. This works for any <code>min</code>, <code>max</code> and <code>step</code>:</p>
 
 <div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">for</span> (<span class="tok-tag">const</span> range <span class="tok-tag">of</span> <span class="tok-tag">document</span>.querySelectorAll(<span class="tok-val">'.form-range'</span>)) {
   <span class="tok-tag">const</span> update = () =&gt; {
     <span class="tok-tag">const</span> min = +range.min || 0
     <span class="tok-tag">const</span> max = range.max === <span class="tok-val">''</span> ? 100 : +range.max
-    range.style.setProperty(<span class="tok-val">'--fill'</span>, <span class="tok-val">`${(range.value - min) / (max - min) * 100}%`</span>)
+    range.style.setProperty(<span class="tok-val">'--felt-form-range-fill'</span>, <span class="tok-val">`${(range.value - min) / (max - min) * 100}%`</span>)
   }
   range.addEventListener(<span class="tok-val">'input'</span>, update)
   update()
@@ -120,17 +120,17 @@
 <p>The ranges below this point on this page use exactly that script.</p>
 
 <h2 id="thumb-colour">Thumb colour<a class="bd-anchor" href="#thumb-colour" aria-label="Link to this section">#</a></h2>
-<p>The thumb and the filled part take their colour from <code>--range-thumb</code> (default: primary), set on the input or on any parent. A neutral thumb suits a slider whose track already carries the meaning.</p>
+<p>The thumb and the filled part take their colour from <code>--felt-form-range-thumb-bg</code> (default: primary), set on the input or on any parent. A neutral thumb suits a slider whose track already carries the meaning.</p>
 
 <div class="bd-example-snippet"><div class="bd-example bd-example-range">
 <label for="rangeSuccess" class="form-label">Battery reserve</label>
-<input type="range" class="form-range" id="rangeSuccess" value="40" style="--range-thumb: var(--success)">
+<input type="range" class="form-range" id="rangeSuccess" value="40" style="--felt-form-range-thumb-bg: var(--felt-success)">
 <label for="rangeNeutral" class="form-label mt-3">Neutral thumb</label>
-<input type="range" class="form-range" id="rangeNeutral" value="60" style="--range-thumb: var(--secondary)">
+<input type="range" class="form-range" id="rangeNeutral" value="60" style="--felt-form-range-thumb-bg: var(--felt-secondary)">
 </div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"rangeSuccess"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Battery reserve<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
-<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"range"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-range"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rangeSuccess"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"40"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--range-thumb: var(--success)"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"range"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-range"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rangeSuccess"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"40"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--felt-form-range-thumb-bg: var(--felt-success)"</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"rangeNeutral"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label mt-3"</span><span class="tok-punct">&gt;</span>Neutral thumb<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
-<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"range"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-range"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rangeNeutral"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"60"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--range-thumb: var(--secondary)"</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+<span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"range"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-range"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"rangeNeutral"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"60"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--felt-form-range-thumb-bg: var(--felt-secondary)"</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 
 <h2 id="disabled">Disabled<a class="bd-anchor" href="#disabled" aria-label="Link to this section">#</a></h2>
 <p>Add the <code>disabled</code> boolean attribute on an input to give it a grayed out appearance, remove pointer events, and prevent focusing.</p>
@@ -183,7 +183,7 @@ for (const range of document.querySelectorAll('.bd-example-range .form-range')) 
   const update = () => {
     const min = +range.min || 0
     const max = range.max === '' ? 100 : +range.max
-    range.style.setProperty('--fill', `${(range.value - min) / (max - min) * 100}%`)
+    range.style.setProperty('--felt-form-range-fill', `${(range.value - min) / (max - min) * 100}%`)
   }
   range.addEventListener('input', update)
   update()

@@ -180,9 +180,9 @@
 <h2 id="how-it-works">How it works<a class="bd-anchor" href="#how-it-works" aria-label="Link to this section">#</a></h2>
 <p>Every colour in felt-css is a custom property written with <code>light-dark(light, dark)</code>. The browser picks one side from <code>color-scheme</code>, which is <code>light dark</code> (follow the system) by default and pinned to one value by <code>data-bs-theme</code>. That's why a single attribute re-themes everything below it, including your own CSS if it uses the same tokens:</p>
 <div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-css"><span class="tok-tag">.my-panel</span> {
-  <span class="tok-attr">background</span>: var(<span class="tok-attr">--surface</span>);
-  <span class="tok-attr">color</span>: var(<span class="tok-attr">--text</span>);
-  <span class="tok-attr">border</span>: 1px solid var(<span class="tok-attr">--border</span>);
+  <span class="tok-attr">background</span>: var(<span class="tok-attr">--felt-surface</span>);
+  <span class="tok-attr">color</span>: var(<span class="tok-attr">--felt-body-color</span>);
+  <span class="tok-attr">border</span>: 1px solid var(<span class="tok-attr">--felt-border-color</span>);
 }</code></pre></div>
 <p>The handful of things <code>light-dark()</code> can't express — felt textures, blend modes, image filters — are switched with <code>[data-bs-theme]</code> selectors inside felt.css; you don't have to do anything for them.</p>
 

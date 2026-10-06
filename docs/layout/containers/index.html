@@ -87,7 +87,7 @@
 <p>Containers are the most basic layout element and are <strong>required when using the grid</strong>. Containers are used to contain, pad, and (sometimes) center the content within them. While containers <em>can</em> be nested, most layouts do not require a nested container.</p>
 <p>felt-css comes with three different containers:</p>
 <ul>
-  <li><code>.container</code>, which is <code>width: 100%</code> up to a maximum width of <code>--container-max</code> (1080px)</li>
+  <li><code>.container</code>, which is <code>width: 100%</code> up to a maximum width of <code>--felt-container-max</code> (1080px)</li>
   <li><code>.container-{breakpoint}</code>, which is <code>width: 100%</code> until the specified breakpoint</li>
   <li><code>.container-fluid</code>, which is <code>width: 100%</code> at all breakpoints</li>
 </ul>
@@ -136,7 +136,7 @@
 <h2 id="custom-width">Custom width<a class="bd-anchor" href="#custom-width" aria-label="Link to this section">#</a></h2>
 <p>The maximum width is a custom property on <code>:root</code>. Override it to make every container wider or narrower:</p>
 <div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-css">:root {
-  <span class="tok-attr">--container-max</span>: 1280px;
+  <span class="tok-attr">--felt-container-max</span>: 1280px;
 }</code></pre></div>
 
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../layout/breakpoints/"><small>Previous</small>Breakpoints</a><a class="bd-pager-next" href="../../layout/grid/"><small>Next</small>Grid</a></nav>

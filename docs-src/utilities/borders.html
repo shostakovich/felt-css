@@ -68,17 +68,17 @@ description: Use border utilities to quickly style the border and border-radius 
 <p>Consider the default <code>.border-success</code> utility.</p>
 <codeblock lang="css">
 .border-success {
-  --border-opacity: 1;
-  border-color: color-mix(in srgb, var(--success) calc(var(--border-opacity) * 100%), transparent) !important;
+  --felt-border-opacity: 1;
+  border-color: color-mix(in srgb, var(--felt-success) calc(var(--felt-border-opacity) * 100%), transparent) !important;
 }
 </codeblock>
-<p>The color is faded with <code>color-mix()</code> by a second CSS variable, <code>--border-opacity</code>, for the alpha transparency (with a default value <code>1</code> thanks to a local CSS variable). The local CSS variable inside each <code>.border-*</code> class avoids inheritance issues so nested instances of the utilities don't automatically have a modified alpha transparency.</p>
+<p>The color is faded with <code>color-mix()</code> by a second CSS variable, <code>--felt-border-opacity</code>, for the alpha transparency (with a default value <code>1</code> thanks to a local CSS variable). The local CSS variable inside each <code>.border-*</code> class avoids inheritance issues so nested instances of the utilities don't automatically have a modified alpha transparency.</p>
 
 <h3>Example</h3>
-<p>To change that opacity, override <code>--border-opacity</code> via custom styles or inline styles.</p>
+<p>To change that opacity, override <code>--felt-border-opacity</code> via custom styles or inline styles.</p>
 <example>
 <div class="border border-success p-2 mb-2">This is default success border</div>
-<div class="border border-success p-2" style="--border-opacity: .5;">This is 50% opacity success border</div>
+<div class="border border-success p-2" style="--felt-border-opacity: .5;">This is 50% opacity success border</div>
 </example>
 <p>Or, choose from any of the <code>.border-opacity</code> utilities:</p>
 <example>
@@ -109,7 +109,7 @@ description: Use border utilities to quickly style the border and border-radius 
 </example>
 
 <h3>Sizes</h3>
-<p>Use the scaling classes for larger or smaller rounded corners. Sizes range from <code>0</code> to <code>5</code> including <code>circle</code> and <code>pill</code>. They use the radius tokens <code>--radius-sm</code>, <code>--radius</code>, <code>--radius-lg</code>, <code>--radius-xl</code> and <code>--radius-xxl</code>, which are a little rounder in the felt look.</p>
+<p>Use the scaling classes for larger or smaller rounded corners. Sizes range from <code>0</code> to <code>5</code> including <code>circle</code> and <code>pill</code>. They use the radius tokens <code>--felt-radius-sm</code>, <code>--felt-radius</code>, <code>--felt-radius-lg</code>, <code>--felt-radius-xl</code> and <code>--felt-radius-xxl</code>, which are a little rounder in the felt look.</p>
 <example class="bd-example-rounded-utils">
 <svg class="bd-placeholder-img rounded-0" width="75" height="75" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Example non-rounded image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Example non-rounded image</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">75x75</text></svg>
 <svg class="bd-placeholder-img rounded-1" width="75" height="75" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Example small rounded image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Example small rounded image</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">75x75</text></svg>

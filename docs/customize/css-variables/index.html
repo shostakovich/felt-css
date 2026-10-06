@@ -86,17 +86,17 @@
 <h2 id="overriding">Overriding<a class="bd-anchor" href="#overriding" aria-label="Link to this section">#</a></h2>
 <p>All tokens live on <code>:root</code> inside <code>@layer tokens</code>. Any unlayered rule of yours wins over them, so overriding is just redefining:</p>
 <div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-css">:root {
-  <span class="tok-attr">--font</span>: <span class="tok-val">"Atkinson Hyperlegible"</span>, system-ui, sans-serif;
-  <span class="tok-attr">--radius</span>: 6px;
-  <span class="tok-attr">--container-max</span>: 1200px;
+  <span class="tok-attr">--felt-font</span>: <span class="tok-val">"Atkinson Hyperlegible"</span>, system-ui, sans-serif;
+  <span class="tok-attr">--felt-radius</span>: 6px;
+  <span class="tok-attr">--felt-container-max</span>: 1200px;
 }</code></pre></div>
 <p>Tokens can also be overridden on any element for that part of the page, like Bootstrap's component variables:</p>
 <div class="bd-example-snippet"><div class="bd-example">
-<div style="--primary: var(--moss); --primary-ink: #fff">
+<div style="--felt-primary: var(--felt-moss); --felt-primary-ink: #fff">
   <button type="button" class="btn btn-primary">Moss instead of denim</button>
   <span class="badge text-bg-primary">Badge</span>
 </div>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--primary: var(--moss); --primary-ink: #fff"</span><span class="tok-punct">&gt;</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--felt-primary: var(--felt-moss); --felt-primary-ink: #fff"</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Moss instead of denim<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"badge text-bg-primary"</span><span class="tok-punct">&gt;</span>Badge<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
@@ -107,20 +107,20 @@
   <table class="table table-sm">
     <thead><tr><th>Variable</th><th>Used for</th></tr></thead>
     <tbody>
-      <tr><td><code>--body-bg</code></td><td>Page background</td></tr>
-      <tr><td><code>--surface</code></td><td>Cards, list groups, accordions, toasts</td></tr>
-      <tr><td><code>--surface-sunk</code></td><td>Wells, code blocks, tracks</td></tr>
-      <tr><td><code>--surface-raised</code></td><td>Slightly raised surfaces: light buttons, <code>.alert-light</code>, <code>.table-light</code></td></tr>
-      <tr><td><code>--surface-overlay</code></td><td>Dropdowns, popovers, modals, offcanvas — never darker than what they lie on</td></tr>
-      <tr><td><code>--surface-hover</code>, <code>--surface-pressed</code></td><td>Interaction states of neutral surfaces</td></tr>
-      <tr><td><code>--field</code>, <code>--field-addon</code>, <code>--field-disabled</code></td><td>Inputs, input-group addons, disabled inputs</td></tr>
-      <tr><td><code>--border</code>, <code>--border-strong</code></td><td>Hairlines; outlines that must reach 3:1 (checkboxes, radios)</td></tr>
-      <tr><td><code>--text</code>, <code>--emphasis</code></td><td>Body text; strongest text</td></tr>
-      <tr><td><code>--muted</code>, <code>--subtle-text</code></td><td>Secondary and tertiary text</td></tr>
-      <tr><td><code>--link</code></td><td>Links</td></tr>
-      <tr><td><code>--focus</code></td><td>Focus rings</td></tr>
-      <tr><td><code>--track</code></td><td>The empty part of progress bars and ranges; use it for tracks of your own (SVG rings, idle lines). A warm groove tone in the felt look</td></tr>
-      <tr><td><code>--backdrop</code></td><td>Modal and offcanvas backdrops</td></tr>
+      <tr><td><code>--felt-body-bg</code></td><td>Page background</td></tr>
+      <tr><td><code>--felt-surface</code></td><td>Cards, list groups, accordions, toasts</td></tr>
+      <tr><td><code>--felt-surface-sunk</code></td><td>Wells, code blocks, tracks</td></tr>
+      <tr><td><code>--felt-surface-raised</code></td><td>Slightly raised surfaces: light buttons, <code>.alert-light</code>, <code>.table-light</code></td></tr>
+      <tr><td><code>--felt-surface-overlay</code></td><td>Dropdowns, popovers, modals, offcanvas — never darker than what they lie on</td></tr>
+      <tr><td><code>--felt-surface-hover</code>, <code>--felt-surface-pressed</code></td><td>Interaction states of neutral surfaces</td></tr>
+      <tr><td><code>--felt-field</code>, <code>--felt-field-addon</code>, <code>--felt-field-disabled</code></td><td>Inputs, input-group addons, disabled inputs</td></tr>
+      <tr><td><code>--felt-border-color</code>, <code>--felt-border-color-strong</code></td><td>Hairlines; outlines that must reach 3:1 (checkboxes, radios)</td></tr>
+      <tr><td><code>--felt-body-color</code>, <code>--felt-emphasis-color</code></td><td>Body text; strongest text</td></tr>
+      <tr><td><code>--felt-secondary-color</code>, <code>--felt-tertiary-color</code></td><td>Secondary and tertiary text</td></tr>
+      <tr><td><code>--felt-link-color</code></td><td>Links</td></tr>
+      <tr><td><code>--felt-focus-ring-color</code></td><td>Focus rings</td></tr>
+      <tr><td><code>--felt-track</code></td><td>The empty part of progress bars and ranges; use it for tracks of your own (SVG rings, idle lines). A warm groove tone in the felt look</td></tr>
+      <tr><td><code>--felt-backdrop</code></td><td>Modal and offcanvas backdrops</td></tr>
     </tbody>
   </table>
 </div>
@@ -130,9 +130,9 @@
   <table class="table table-sm">
     <thead><tr><th>Variable</th><th>Default</th></tr></thead>
     <tbody>
-      <tr><td><code>--font</code></td><td><code>system-ui, -apple-system, "Segoe UI", Roboto, sans-serif</code></td></tr>
-      <tr><td><code>--font-heading</code></td><td><code>var(--font)</code></td></tr>
-      <tr><td><code>--font-mono</code></td><td><code>ui-monospace, SFMono-Regular, Menlo, Consolas, monospace</code></td></tr>
+      <tr><td><code>--felt-font</code></td><td><code>system-ui, -apple-system, "Segoe UI", Roboto, sans-serif</code></td></tr>
+      <tr><td><code>--felt-font-heading</code></td><td><code>var(--felt-font)</code></td></tr>
+      <tr><td><code>--felt-font-mono</code></td><td><code>ui-monospace, SFMono-Regular, Menlo, Consolas, monospace</code></td></tr>
     </tbody>
   </table>
 </div>
@@ -142,18 +142,18 @@
   <table class="table table-sm">
     <thead><tr><th>Variable</th><th>Default</th></tr></thead>
     <tbody>
-      <tr><td><code>--space-1</code> … <code>--space-5</code></td><td><code>.25rem</code>, <code>.5rem</code>, <code>1rem</code>, <code>1.5rem</code>, <code>3rem</code> — the same scale as the <a href="../../utilities/spacing/">spacing utilities</a></td></tr>
-      <tr><td><code>--radius-sm</code>, <code>--radius</code>, <code>--radius-lg</code>, <code>--radius-xl</code>, <code>--radius-xxl</code>, <code>--radius-pill</code></td><td><code>6px</code>, <code>10px</code>, <code>14px</code>, <code>20px</code>, <code>32px</code>, <code>999px</code></td></tr>
-      <tr><td><code>--shadow-sm</code>, <code>--shadow</code>, <code>--shadow-lg</code></td><td>Clean-look shadows, darker in dark mode</td></tr>
-      <tr><td><code>--container-max</code></td><td><code>1080px</code></td></tr>
+      <tr><td><code>--felt-space-1</code> … <code>--felt-space-5</code></td><td><code>.25rem</code>, <code>.5rem</code>, <code>1rem</code>, <code>1.5rem</code>, <code>3rem</code> — the same scale as the <a href="../../utilities/spacing/">spacing utilities</a></td></tr>
+      <tr><td><code>--felt-radius-sm</code>, <code>--felt-radius</code>, <code>--felt-radius-lg</code>, <code>--felt-radius-xl</code>, <code>--felt-radius-xxl</code>, <code>--felt-radius-pill</code></td><td><code>6px</code>, <code>10px</code>, <code>14px</code>, <code>20px</code>, <code>32px</code>, <code>999px</code></td></tr>
+      <tr><td><code>--felt-shadow-sm</code>, <code>--felt-shadow</code>, <code>--felt-shadow-lg</code></td><td>Clean-look shadows, darker in dark mode</td></tr>
+      <tr><td><code>--felt-container-max</code></td><td><code>1080px</code></td></tr>
     </tbody>
   </table>
 </div>
 
 <h2 id="felt">Felt<a class="bd-anchor" href="#felt" aria-label="Link to this section">#</a></h2>
-<p>The felt look has its own tokens on <code>:root[data-look="felt"]</code>: the felt textures (<code>--felt</code>, <code>--felt-light</code>, <code>--felt-dark</code> and their <code>-size</code>), the sheet everything light is cut from (<code>--sheet</code>, <code>--sheet-blend</code>), edge and shadow tones (<code>--felt-cut</code>, <code>--felt-shadow-near</code>, <code>--felt-shadow-far</code>, …) and the seams (<code>--seam-img</code>, <code>--seam-width</code>, <code>--seam-inset</code>, <code>--seam-filter</code>, <code>--seam-strength</code>). They are tuned together with the images that <code>tools/build_assets.py</code> generates; change the script rather than single values if you want a different stitch.</p>
+<p>The felt look has its own tokens on <code>:root[data-look="felt"]</code>: the felt textures (<code>--felt-texture</code>, <code>--felt-texture-light</code>, <code>--felt-texture-dark</code> and their <code>-size</code>), the sheet everything light is cut from (<code>--felt-texture-sheet</code>, <code>--felt-texture-sheet-blend</code>), edge and shadow tones (<code>--felt-patch-cut</code>, <code>--felt-patch-shadow-near</code>, <code>--felt-patch-shadow-far</code>, …) and the seams (<code>--_seam-img</code>, <code>--_seam-width</code>, <code>--felt-seam-inset</code>, <code>--felt-thread-filter</code>, <code>--felt-thread-strength</code>). They are tuned together with the images that <code>tools/build_assets.py</code> generates; change the script rather than single values if you want a different stitch.</p>
 <div class="bd-callout bd-callout-felt">
-  <p>A cheap tweak that works: <code>--seam-strength</code> (0–1) controls how strongly the thread shows on light felt, <code>--seam-inset</code> how far in from the edge it is sewn.</p>
+  <p>A cheap tweak that works: <code>--felt-thread-strength</code> (0–1) controls how strongly the thread shows on light felt, <code>--felt-seam-inset</code> how far in from the edge it is sewn.</p>
 </div>
 
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../customize/color/"><small>Previous</small>Color</a><a class="bd-pager-next" href="../../layout/breakpoints/"><small>Next</small>Breakpoints</a></nav>

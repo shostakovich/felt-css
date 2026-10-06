@@ -138,31 +138,31 @@
 <p>Modify the styling of an icon link with CSS variables, utilities, or custom styles.</p>
 
 <h3 id="css-variables">CSS variables<a class="bd-anchor" href="#css-variables" aria-label="Link to this section">#</a></h3>
-<p>Customize the hover <code>transform</code> by overriding the <code>--icon-link-transform</code> CSS variable:</p>
+<p>Customize the hover <code>transform</code> by overriding the <code>--felt-icon-link-transform</code> CSS variable:</p>
 <div class="bd-example-snippet"><div class="bd-example">
-<a class="icon-link icon-link-hover" style="--icon-link-transform: translate3d(0, -.125rem, 0);" href="#">
+<a class="icon-link icon-link-hover" style="--felt-icon-link-transform: translate3d(0, -.125rem, 0);" href="#">
   <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
     <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
     <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
   </svg>
   Icon link
 </a>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"icon-link icon-link-hover"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--icon-link-transform: translate3d(0, -.125rem, 0);"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"icon-link icon-link-hover"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--felt-icon-link-transform: translate3d(0, -.125rem, 0);"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">svg</span> <span class="tok-attr">xmlns</span><span class="tok-punct">=</span><span class="tok-val">"http://www.w3.org/2000/svg"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"bi"</span> <span class="tok-attr">viewBox</span><span class="tok-punct">=</span><span class="tok-val">"0 0 16 16"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"</span><span class="tok-punct">/&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"</span><span class="tok-punct">/&gt;</span>
   <span class="tok-punct">&lt;/</span><span class="tok-tag">svg</span><span class="tok-punct">&gt;</span>
   Icon link
 <span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span></code></pre></div></div>
-<p>Customize the color by overriding the <code>--link</code> CSS variable, the color every plain link uses:</p>
+<p>Customize the color by overriding the <code>--felt-link-color</code> CSS variable, the color every plain link uses:</p>
 <div class="bd-example-snippet"><div class="bd-example">
-<a class="icon-link icon-link-hover" style="--link: var(--success-text);" href="#">
+<a class="icon-link icon-link-hover" style="--felt-link-color: var(--felt-success-text);" href="#">
   Icon link
   <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
     <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
   </svg>
 </a>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"icon-link icon-link-hover"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--link: var(--success-text);"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"icon-link icon-link-hover"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--felt-link-color: var(--felt-success-text);"</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>
   Icon link
   <span class="tok-punct">&lt;</span><span class="tok-tag">svg</span> <span class="tok-attr">xmlns</span><span class="tok-punct">=</span><span class="tok-val">"http://www.w3.org/2000/svg"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"bi"</span> <span class="tok-attr">viewBox</span><span class="tok-punct">=</span><span class="tok-val">"0 0 16 16"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">path</span> <span class="tok-attr">d</span><span class="tok-punct">=</span><span class="tok-val">"M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"</span><span class="tok-punct">/&gt;</span>

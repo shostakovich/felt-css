@@ -6,7 +6,7 @@ description: Containers are a fundamental building block of felt-css that contai
 <p>Containers are the most basic layout element and are <strong>required when using the grid</strong>. Containers are used to contain, pad, and (sometimes) center the content within them. While containers <em>can</em> be nested, most layouts do not require a nested container.</p>
 <p>felt-css comes with three different containers:</p>
 <ul>
-  <li><code>.container</code>, which is <code>width: 100%</code> up to a maximum width of <code>--container-max</code> (1080px)</li>
+  <li><code>.container</code>, which is <code>width: 100%</code> up to a maximum width of <code>--felt-container-max</code> (1080px)</li>
   <li><code>.container-{breakpoint}</code>, which is <code>width: 100%</code> until the specified breakpoint</li>
   <li><code>.container-fluid</code>, which is <code>width: 100%</code> at all breakpoints</li>
 </ul>
@@ -62,6 +62,6 @@ description: Containers are a fundamental building block of felt-css that contai
 <p>The maximum width is a custom property on <code>:root</code>. Override it to make every container wider or narrower:</p>
 <codeblock lang="css">
 :root {
-  --container-max: 1280px;
+  --felt-container-max: 1280px;
 }
 </codeblock>

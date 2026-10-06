@@ -128,20 +128,20 @@
 <span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 
 <h2 id="dividers">Dividers<a class="bd-anchor" href="#dividers" aria-label="Link to this section">#</a></h2>
-<p>Dividers are automatically added in CSS through <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::before"><code>::before</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/content"><code>content</code></a>. Change them with the custom property <code>--breadcrumb-divider</code>, set on the breadcrumb or any parent.</p>
+<p>Dividers are automatically added in CSS through <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::before"><code>::before</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/content"><code>content</code></a>. Change them with the custom property <code>--felt-breadcrumb-divider</code>, set on the breadcrumb or any parent.</p>
 
 <div class="bd-callout bd-callout-info">
-  <p>Bootstrap calls this property <code>--bs-breadcrumb-divider</code>; felt-css uses <code>--breadcrumb-divider</code> without the prefix.</p>
+  <p>Bootstrap calls this property <code>--bs-breadcrumb-divider</code>; felt-css uses <code>--felt-breadcrumb-divider</code> without the prefix.</p>
 </div>
 
 <div class="bd-example-snippet"><div class="bd-example">
-<nav style="--breadcrumb-divider: '>';" aria-label="breadcrumb">
+<nav style="--felt-breadcrumb-divider: '>';" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Library</li>
   </ol>
 </nav>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--breadcrumb-divider:</span> <span class="tok-attr">'</span><span class="tok-punct">&gt;</span>';" aria-label="breadcrumb"&gt;
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--felt-breadcrumb-divider:</span> <span class="tok-attr">'</span><span class="tok-punct">&gt;</span>';" aria-label="breadcrumb"&gt;
   <span class="tok-punct">&lt;</span><span class="tok-tag">ol</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"breadcrumb"</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"breadcrumb-item"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"breadcrumb-item active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span><span class="tok-punct">&gt;</span>Library<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
@@ -155,28 +155,28 @@
 </div>
 
 <div class="bd-example-snippet"><div class="bd-example">
-<nav style="--breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+<nav style="--felt-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Library</li>
   </ol>
 </nav>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--breadcrumb-divider: url(&amp;#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&amp;#34;);"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"breadcrumb"</span><span class="tok-punct">&gt;</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--felt-breadcrumb-divider: url(&amp;#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&amp;#34;);"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"breadcrumb"</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">ol</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"breadcrumb"</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"breadcrumb-item"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"breadcrumb-item active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span><span class="tok-punct">&gt;</span>Library<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;/</span><span class="tok-tag">ol</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">nav</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 
-<p>You can also remove the divider by setting <code>--breadcrumb-divider: '';</code> (empty strings in CSS custom properties count as a value).</p>
+<p>You can also remove the divider by setting <code>--felt-breadcrumb-divider: '';</code> (empty strings in CSS custom properties count as a value).</p>
 <div class="bd-example-snippet"><div class="bd-example">
-<nav style="--breadcrumb-divider: '';" aria-label="breadcrumb">
+<nav style="--felt-breadcrumb-divider: '';" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Library</li>
   </ol>
 </nav>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--breadcrumb-divider: '';"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"breadcrumb"</span><span class="tok-punct">&gt;</span>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">nav</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"--felt-breadcrumb-divider: '';"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"breadcrumb"</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">ol</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"breadcrumb"</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"breadcrumb-item"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span><span class="tok-punct">&gt;</span>Home<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
     <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"breadcrumb-item active"</span> <span class="tok-attr">aria-current</span><span class="tok-punct">=</span><span class="tok-val">"page"</span><span class="tok-punct">&gt;</span>Library<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
