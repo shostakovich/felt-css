@@ -16,6 +16,7 @@ from .tokens import TOKENS
 VERSION = "5.3.8"
 SNAPSHOT = Path(__file__).parent / f"bootstrap-{VERSION}.json"
 
+_FOCUS = "focus shows as the global :focus-visible outline in --felt-focus-ring-color, not a box-shadow"
 _RGB = "felt colours are light-dark() values, not RGB triplets; opacity utilities fade with color-mix() instead"
 
 # Bootstrap tokens whose felt counterpart has another name (tokens.py lists the global ones itself)
@@ -29,6 +30,14 @@ ALLOW_TOKENS = {
     **{f"--bs-{t}-rgb": _RGB for t in ["body-color", "body-bg", "emphasis-color", "secondary-color", "secondary-bg",
                                         "tertiary-color", "tertiary-bg", "link-color", "link-hover-color"]},
     "--bs-focus-ring-opacity": "the focus ring colour carries its own transparency (--felt-focus-ring-color)",
+    # btn
+    "--bs-btn-font-family": "buttons inherit the font; set font-family on .btn",
+    "--bs-btn-focus-box-shadow": _FOCUS,
+    "--bs-btn-focus-shadow-rgb": _FOCUS,
+    # btn-close
+    # badge, alert, card, list-group, table, progress, spinner, placeholder
+    # nav, navbar, dropdown, breadcrumb, pagination, accordion, modal, offcanvas, toast, tooltip, popover
+    # carousel, forms
 }
 
 # Bootstrap classes felt.css leaves out, and why
