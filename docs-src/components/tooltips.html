@@ -63,7 +63,18 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 </div>
 
 <h3>Custom tooltips</h3>
-<p>felt-css has no <code>--bs-tooltip-*</code> variables. To restyle single tooltips, add a class with <code>data-bs-custom-class="custom-tooltip"</code> and target <code>.custom-tooltip .tooltip-inner</code> in your own CSS.</p>
+<p>You can customize the appearance of tooltips using <a href="#css">CSS variables</a>. We set a custom class with <code>data-bs-custom-class="custom-tooltip"</code> to scope our custom appearance and use it to override a local CSS variable.</p>
+<codeblock lang="css">
+.custom-tooltip {
+  --felt-tooltip-bg: var(--felt-primary);
+  --felt-tooltip-color: var(--felt-primary-ink);
+}
+</codeblock>
+<example>
+<button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="This top tooltip is themed via CSS variables.">
+  Custom tooltip
+</button>
+</example>
 
 <h3>Directions</h3>
 <p>Hover over the buttons below to see the four tooltips directions: top, right, bottom, and left.</p>
@@ -154,3 +165,8 @@ const tooltip = new bootstrap.Tooltip(exampleEl, options)
 const tooltip = bootstrap.Tooltip.getOrCreateInstance('#example')
 tooltip.setContent({ '.tooltip-inner': 'another title' })
 </codeblock>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Tooltips are built on local CSS variables, like Bootstrap's: <code>.tooltip</code> declares them and you can set them on a tooltip, through a custom class (<code>data-bs-custom-class</code>) or on a parent of its container.</p>
+<cssvars name="tooltip"></cssvars>

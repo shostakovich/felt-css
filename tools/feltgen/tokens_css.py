@@ -15,6 +15,8 @@ from .tokens import BY_NAME, GROUPS, TOKENS
 
 LOOK_SWITCHES = {"felt": "--_felt: ; --_clean: initial;", "clean": "--_felt: initial; --_clean: ;"}
 THEME_SWITCHES = {"dark": "--_dark: ; --_light: initial;", "light": "--_dark: initial; --_light: ;"}
+# Bootstrap's deprecated dark classes (5.3 keeps them): the same as data-bs-theme="dark" on that element
+DARK_ALIASES = ".navbar-dark, .dropdown-menu-dark"
 REF = re.compile(r"\$(_?[a-z0-9]+(?:-[a-z0-9]+)*)")
 
 
@@ -107,9 +109,9 @@ def token_css():
         *("  " + line for line in block(":root", [THEME_SWITCHES["dark"]])),
         "}",
         *block('[data-bs-theme="light"]', ["color-scheme: light;", THEME_SWITCHES["light"]]),
-        *block('[data-bs-theme="dark"]', ["color-scheme: dark;", THEME_SWITCHES["dark"]]),
+        *block(f'[data-bs-theme="dark"], {DARK_ALIASES}', ["color-scheme: dark;", THEME_SWITCHES["dark"]]),
         *block('[data-look="felt"]', [LOOK_SWITCHES["felt"], *felt], "the felt look, on any element"),
         *block('[data-look="clean"]', [LOOK_SWITCHES["clean"], *clean], "and back to clean inside it"),
-        *block(':root, [data-look], [data-bs-theme]', themed,
+        *block(f':root, [data-look], [data-bs-theme], {DARK_ALIASES}', themed,
                "what differs by colour mode but isn't a colour: recomputed wherever the look or the theme changes"),
     ]
