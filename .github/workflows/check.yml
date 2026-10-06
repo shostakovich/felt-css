@@ -1,0 +1,25 @@
+name: Check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: The generated parts of felt.css are up to date
+        run: python3 tools/build.py --check
+      - name: Parity with Bootstrap
+        run: python3 tools/check_parity.py
+      - name: Docs build without warnings and are up to date
+        run: |
+          python3 tools/build_docs.py --strict
+          git diff --exit-code -- docs
