@@ -3,7 +3,7 @@
 Each block goes between /* name:start */ and /* name:end */ in felt.css. Colour variants set the component's tokens
 (like Bootstrap's .btn-primary sets --bs-btn-bg …); the component's own rules read them.
 """
-from .config import BREAKPOINTS, COLOURS
+from .config import BREAKPOINTS, COLOURS, TONED
 from .css import media, name, refs
 
 OPTIONAL = set()   # blocks felt.css may leave out
@@ -67,27 +67,47 @@ def buttons():
 
 # ------------------------------------------------------------------ alerts, list groups, tables, text-bg
 
+# the tone's emphasis on a tint of it; --_tone is what the felt look dyes the piece in and cuts its edge from
+ALERT = {c: {"_tone": f"${c}", "alert-color": f"${c}-emphasis", "alert-bg": f"color-mix(in oklab, ${c} 12%, $surface)",
+             "alert-border-color": f"color-mix(in oklab, ${c} 30%, $surface)"} for c in TONED}
+ALERT["light"] = {"_tone": "$secondary-color", "alert-color": "$light-emphasis", "alert-bg": "$surface-raised",
+                  "alert-border-color": "$border-color"}
+ALERT["dark"] = {"_tone": "$dark", "alert-color": "$dark-emphasis",
+                 "alert-bg": "light-dark(color-mix(in oklab, $dark 16%, $surface), color-mix(in oklab, $dark 60%, $surface))",
+                 "alert-border-color": "light-dark(color-mix(in oklab, $dark 26%, $surface), $border-color)"}
+
+
 def alerts():
-    out = [f".alert-{c} {{ {name('_tone')}: {refs(f'${c}')}; {name('_tone-emphasis')}: {refs(f'${c}-emphasis')}; }}"
-           for c in ["primary", "secondary", "success", "warning", "danger", "info"]]
-    out.append(refs(".alert-light { --_tone: $secondary-color; --_tone-emphasis: $light-emphasis; background-color: $surface-raised; "
-                    "border-color: $border-color; }"))
-    out.append(refs(".alert-dark { --_tone: $dark; --_tone-emphasis: $dark-emphasis; background-color: light-dark(color-mix(in oklab, $dark 16%, $surface), "
-                    "color-mix(in oklab, $dark 60%, $surface)); border-color: light-dark(color-mix(in oklab, $dark 26%, $surface), $border-color); }"))
-    return out
+    return [tokens(f"alert-{c}", spec) for c, spec in ALERT.items()]
+
+
+# .list-group's defaults for links and buttons, mixed from the entry's own colours: a variant sets them again on the
+# entry, so they follow its tint (custom properties resolve where they are declared)
+LIST_GROUP_ACTION = {
+    "list-group-action-color": "$list-group-color",
+    "list-group-action-hover-color": "$list-group-action-color",
+    "list-group-action-hover-bg": "color-mix(in oklab, $list-group-bg, currentColor 6%)",
+    "list-group-action-active-color": "$list-group-action-color",
+    "list-group-action-active-bg": "color-mix(in oklab, $list-group-bg, currentColor 12%)",
+}
 
 
 def list_group_items():
-    return [refs(f".list-group-item-{c} {{ --felt-list-group-bg: ${c}-subtle; color: ${c}-emphasis; }}") for c in COLOURS]
+    return [tokens(f"list-group-item-{c}", {"list-group-color": f"${c}-emphasis", "list-group-bg": f"${c}-subtle"} | LIST_GROUP_ACTION)
+            for c in COLOURS]
+
+
+# .table's stripes, hover and active shades, mixed from the text colour: a variant sets them again, so they follow its
+# colour (custom properties resolve where they are declared)
+TABLE_ACCENTS = {f"table-{state}-{prop}": value for state, mix in [("striped", 5), ("active", 11), ("hover", 8)]
+                 for prop, value in [("color", "$table-color"), ("bg", f"color-mix(in oklab, $table-color {mix}%, transparent)")]}
+TABLE = {c: {"table-bg": f"${c}-subtle", "table-color": f"${c}-emphasis", "table-border-color": f"${c}-border-subtle"} for c in TONED}
+TABLE["light"] = {"table-bg": "$surface-raised", "table-color": "$body-color", "table-border-color": "$border-color"}
+TABLE["dark"] = {"table-bg": "$dark", "table-color": "$dark-ink", "table-border-color": "color-mix(in oklab, $dark-ink 20%, $dark)"}
 
 
 def tables():
-    out = [tokens(f"table-{c}", {"table-bg": f"${c}-subtle", "table-color": f"${c}-emphasis", "table-border-color": f"${c}-border-subtle"})
-           for c in COLOURS[:6]]
-    out.append(tokens("table-light", {"table-bg": "$surface-raised", "table-color": "$body-color", "table-border-color": "$border-color"}))
-    out.append(tokens("table-dark", {"table-bg": "$dark", "table-color": "$dark-ink",
-                                     "table-border-color": "color-mix(in oklab, $dark-ink 20%, $dark)"}))
-    return out
+    return [tokens(f"table-{c}", spec | TABLE_ACCENTS) for c, spec in TABLE.items()]
 
 
 TEXT_BG_BORDER = {"light": "transparent; box-shadow: inset 0 0 0 1px $border-color",
@@ -111,10 +131,10 @@ def navbar_expand(i):
 def list_group_horizontal(i):
     n = f".list-group-horizontal{i}"
     return [f"{n} {{ flex-direction: row; width: fit-content; max-width: 100%; }}",
-            refs(f"{n} > .list-group-item:first-child:not(:last-child) {{ border-end-start-radius: $radius-lg; border-start-end-radius: 0; }}"),
-            refs(f"{n} > .list-group-item:last-child:not(:first-child) {{ border-start-end-radius: $radius-lg; border-end-start-radius: 0; }}"),
-            f"{n} > .list-group-item + .list-group-item {{ border-width: 1px 0 1px 1px; }}",
-            f"{n} > .list-group-item + .list-group-item.active {{ margin: 0 0 0 -1px; }}"]
+            refs(f"{n} > .list-group-item:first-child:not(:last-child) {{ border-end-start-radius: $list-group-border-radius; border-start-end-radius: 0; }}"),
+            refs(f"{n} > .list-group-item:last-child:not(:first-child) {{ border-start-end-radius: $list-group-border-radius; border-end-start-radius: 0; }}"),
+            refs(f"{n} > .list-group-item + .list-group-item {{ border-width: $list-group-border-width 0 $list-group-border-width $list-group-border-width; }}"),
+            refs(f"{n} > .list-group-item + .list-group-item.active {{ margin: 0 0 0 calc(-1 * $list-group-border-width); }}")]
 
 
 def dropdown_align(i):
