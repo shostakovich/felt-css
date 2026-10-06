@@ -135,8 +135,16 @@ def modal_fullscreen(i):
             f"{n} .modal-content {{ height: 100%; border: 0; border-radius: 0; }}"]
 
 
+def containers():
+    every = ", ".join([".container", ".container-fluid"] + [f".container-{bp}" for bp in BREAKPOINTS])
+    lines = [refs(f"{every} {{ width: 100%; margin-inline: auto; padding-inline: $space-3; }}"),
+             refs(".container { max-width: $container-max; }")]
+    return lines + [refs(f"@media (min-width: {w}px) {{ .container-{bp} {{ max-width: $container-max; }} }}") for bp, w in BREAKPOINTS.items()]
+
+
 def blocks():
     return {
+        "containers": containers(),
         "btn-variants": buttons(),
         "alert-variants": alerts(),
         "list-group-variants": list_group_items(),
