@@ -20,7 +20,7 @@
 /* --------------------------------------------------------------- tokens */
 @layer tokens {
   /* tokens:start */
-  /* written by tools/feltgen/tokens.py; change it there, not these 403 lines */
+  /* written by tools/feltgen/tokens.py; change it there, not these 408 lines */
   /* the clean look; colours are light-dark(light, dark) and follow color-scheme: the system's, or data-bs-theme's */
   :root {
     color-scheme: light dark;
@@ -120,6 +120,7 @@
     --felt-border-style: solid;
     --felt-border-color: light-dark(#e2e5ea, #41474f);
     --felt-border-color-strong: light-dark(#858f9e, #737b84);
+    --felt-link-decoration: underline;
     --felt-link-color: light-dark(var(--felt-primary), #8fb2e8);
     --felt-track: light-dark(#e3e7ec, #3a4047);
     --felt-backdrop: light-dark(rgb(16 24 40 / .45), rgb(0 0 0 / .6));
@@ -134,6 +135,9 @@
     --felt-select-mix: 18%;
     --felt-focus-ring-color: light-dark(color-mix(in oklab, var(--felt-primary) 50%, transparent), color-mix(in oklab, var(--felt-link-color) 60%, transparent));
     --felt-focus-ring-width: .25rem;
+    --felt-focus-ring-x: 0;
+    --felt-focus-ring-y: 0;
+    --felt-focus-ring-blur: 0;
     /* type */
     --felt-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --felt-font-heading: var(--felt-font);
@@ -142,6 +146,7 @@
     --felt-body-font-weight: 400;
     --felt-body-line-height: 1.5;
     --felt-heading-color: inherit;
+    --felt-body-text-align: start;
     /* spacing, radius and shadows */
     --felt-space-1: .25rem;
     --felt-space-2: .5rem;
@@ -437,6 +442,7 @@
     font-size: var(--felt-body-font-size);
     font-weight: var(--felt-body-font-weight);
     line-height: var(--felt-body-line-height);
+    text-align: var(--felt-body-text-align);
     -webkit-font-smoothing: antialiased;
   }
   /* colour is inherited as a resolved value, so a re-themed subtree re-reads it */
@@ -498,6 +504,7 @@
   .list-inline-item:not(:last-child) { margin-right: .5rem; }
   .initialism { font-size: .875em; text-transform: uppercase; }
   a { color: color-mix(in srgb, var(--felt-link-color) calc(var(--felt-link-opacity, 1) * 100%), transparent); }
+  a:where(:any-link) { text-decoration: var(--felt-link-decoration); }
   :focus-visible { outline: 3px solid var(--felt-focus-ring-color); outline-offset: 2px; }
   /* felt: a border is thread (see the end of the felt layer), so the line itself turns transparent; it keeps its
    * width, so nothing moves when the look changes. !important here beats the utilities' !important. Browsers without
@@ -834,52 +841,92 @@
 
   /* button */
   .btn {
-    --_tone: transparent;
+    /* docs:btn-vars:start */
+    --felt-btn-padding-x: 1.15rem;
+    --felt-btn-padding-y: .6rem;
+    --felt-btn-font-size: 1em;
+    --felt-btn-font-weight: 650;
+    --felt-btn-line-height: 1.25;
+    --felt-btn-color: var(--felt-body-color);
+    --felt-btn-bg: transparent;
+    --felt-btn-border-width: var(--felt-border-width);
+    --felt-btn-border-color: transparent;
+    --felt-btn-border-radius: var(--felt-radius);
+    --felt-btn-box-shadow: none;
+    --felt-btn-hover-color: var(--felt-btn-color);
+    --felt-btn-hover-bg: color-mix(in oklab, var(--felt-btn-bg), var(--felt-hover-ink) var(--felt-hover-mix));
+    --felt-btn-hover-border-color: var(--felt-btn-border-color);
+    --felt-btn-active-color: var(--felt-btn-color);
+    --felt-btn-active-bg: color-mix(in oklab, var(--felt-btn-bg), var(--felt-press-ink) var(--felt-active-mix));
+    --felt-btn-active-border-color: var(--felt-btn-border-color);
+    --felt-btn-active-shadow: none;
+    --felt-btn-disabled-color: var(--felt-btn-color);
+    --felt-btn-disabled-bg: var(--felt-btn-bg);
+    --felt-btn-disabled-border-color: var(--felt-btn-border-color);
+    --felt-btn-disabled-opacity: var(--felt-disabled-opacity);
+    /* docs:btn-vars:end */
+    --_tone: var(--felt-btn-bg);
     position: relative;
     display: inline-block; vertical-align: middle; text-align: center;
     align-content: center; align-items: center; justify-content: center; gap: .4em;   /* label centred when stretched; the rest for flex */
-    padding: .6rem 1.15rem;
-    border: 1px solid transparent;
-    border-radius: var(--felt-radius);
+    padding: var(--felt-btn-padding-y) var(--felt-btn-padding-x);
+    border: var(--felt-btn-border-width) solid var(--felt-btn-border-color);
+    border-radius: var(--felt-btn-border-radius);
     background-color: var(--_tone);
-    color: var(--felt-body-color);
-    font-weight: 650;
-    line-height: 1.25;
+    color: var(--felt-btn-color);
+    font-size: var(--felt-btn-font-size);
+    font-weight: var(--felt-btn-font-weight);
+    line-height: var(--felt-btn-line-height);
     text-decoration: none;
     white-space: nowrap;
     user-select: none;
+    box-shadow: var(--felt-btn-box-shadow);
     transition: transform .08s ease, box-shadow .12s ease, filter .12s ease, background-color .12s ease;
   }
   /* plain labels stay inline text like Bootstrap's, so "Last <span>7</span> days" keeps its spaces; icons, badges,
    * spinners and the dropdown caret sit in a centred row */
   .btn:has(> svg, > img, > .icon, > .bi, > .badge, > .spinner-border, > .spinner-grow), .btn-icon, .btn.dropdown-toggle { display: inline-flex; }
-  .btn:hover { background-color: color-mix(in oklab, var(--_tone), var(--felt-hover-ink) var(--felt-hover-mix)); }
-  .btn:active { background-color: color-mix(in oklab, var(--_tone), var(--felt-press-ink) var(--felt-active-mix)); }
-  .btn:disabled, .btn.disabled { opacity: var(--felt-disabled-opacity); pointer-events: none; }
+  .btn:hover { color: var(--felt-btn-hover-color); background-color: var(--felt-btn-hover-bg); border-color: var(--felt-btn-hover-border-color); }
 
-  .btn-primary   { --_tone: var(--felt-primary);   color: var(--felt-primary-ink);   border-color: transparent; }
-  .btn-secondary { --_tone: var(--felt-secondary); color: var(--felt-secondary-ink); border-color: transparent; }
-  .btn-success   { --_tone: var(--felt-success);   color: var(--felt-success-ink);   border-color: transparent; }
-  .btn-danger    { --_tone: var(--felt-danger);    color: var(--felt-danger-ink);    border-color: transparent; }
-  .btn-warning   { --_tone: var(--felt-warning);   color: var(--felt-warning-ink);   border-color: transparent; --felt-hover-ink: #fff; --felt-press-ink: #fff; }   /* dark ink: states lighten, as in Bootstrap */
-  .btn-light     { --_tone: var(--felt-surface-raised); border-color: var(--felt-border-color); }
-  .btn-link      { color: light-dark(var(--felt-primary), var(--felt-link-color)); text-decoration: underline; text-underline-offset: .2em; }
-  .btn:not([class*="btn-"]):hover, .btn-link:hover { background-color: var(--felt-surface-hover); }
-  .btn:not([class*="btn-"]):active, .btn-link:active { background-color: var(--felt-surface-pressed); }
-  [class*="btn-outline-"] { border-color: currentColor; }
-  [class*="btn-outline-"]:hover { background-color: color-mix(in oklab, currentColor 10%, transparent); }
-  [class*="btn-outline-"]:active { background-color: var(--felt-btn-active-bg); border-color: var(--felt-btn-active-bg); color: var(--felt-btn-active-color); }
-  .btn-outline-primary   { color: light-dark(var(--felt-primary), var(--felt-primary-text)); }
-  .btn-outline-secondary { color: light-dark(var(--felt-secondary), var(--felt-secondary-text)); }
-  .btn-outline-success   { color: var(--felt-success-emphasis); }
-  .btn-outline-danger    { color: var(--felt-danger-emphasis); }
-  .btn-outline-warning   { color: var(--felt-warning-emphasis); }
-  .btn.active { background-color: color-mix(in oklab, var(--_tone), var(--felt-press-ink) var(--felt-active-mix)); }
+  /* btn-variants:start */
+  /* written by tools/feltgen/variants.py; change it there, not these 16 lines */
+  .btn-primary { --felt-btn-bg: var(--felt-primary); --felt-btn-color: var(--felt-primary-ink); --felt-btn-border-color: transparent; }
+  .btn-secondary { --felt-btn-bg: var(--felt-secondary); --felt-btn-color: var(--felt-secondary-ink); --felt-btn-border-color: transparent; }
+  .btn-success { --felt-btn-bg: var(--felt-success); --felt-btn-color: var(--felt-success-ink); --felt-btn-border-color: transparent; }
+  .btn-danger { --felt-btn-bg: var(--felt-danger); --felt-btn-color: var(--felt-danger-ink); --felt-btn-border-color: transparent; }
+  .btn-warning { --felt-btn-bg: var(--felt-warning); --felt-btn-color: var(--felt-warning-ink); --felt-btn-border-color: transparent; --felt-hover-ink: #fff; --felt-press-ink: #fff; }
+  .btn-info { --felt-btn-bg: var(--felt-info); --felt-btn-color: var(--felt-info-ink); --felt-btn-border-color: transparent; }
+  .btn-light { --felt-btn-bg: var(--felt-surface-raised); --felt-btn-border-color: var(--felt-border-color); --felt-btn-active-bg: color-mix(in oklab, var(--felt-btn-bg), var(--felt-hover-ink) var(--felt-select-mix)); --felt-btn-active-shadow: inset 0 1px 3px rgb(0 0 0 / .15); }
+  .btn-dark { --felt-btn-bg: var(--felt-dark); --felt-btn-color: var(--felt-dark-ink); --felt-btn-border-color: light-dark(transparent, var(--felt-border-color)); }
+  .btn-outline-primary { --felt-btn-color: light-dark(var(--felt-primary), var(--felt-primary-text)); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-primary); --felt-btn-active-color: var(--felt-primary-ink); --felt-btn-active-border-color: var(--felt-primary); }
+  .btn-outline-secondary { --felt-btn-color: light-dark(var(--felt-secondary), var(--felt-secondary-text)); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-secondary); --felt-btn-active-color: var(--felt-secondary-ink); --felt-btn-active-border-color: var(--felt-secondary); }
+  .btn-outline-success { --felt-btn-color: var(--felt-success-emphasis); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-success); --felt-btn-active-color: var(--felt-success-ink); --felt-btn-active-border-color: var(--felt-success); }
+  .btn-outline-danger { --felt-btn-color: var(--felt-danger-emphasis); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-danger); --felt-btn-active-color: var(--felt-danger-ink); --felt-btn-active-border-color: var(--felt-danger); }
+  .btn-outline-warning { --felt-btn-color: var(--felt-warning-emphasis); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-warning); --felt-btn-active-color: var(--felt-warning-ink); --felt-btn-active-border-color: var(--felt-warning); }
+  .btn-outline-info { --felt-btn-color: var(--felt-info-text); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-info); --felt-btn-active-color: var(--felt-info-ink); --felt-btn-active-border-color: var(--felt-info); }
+  .btn-outline-light { --felt-btn-color: var(--felt-light-emphasis); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-light-emphasis); --felt-btn-active-color: var(--felt-surface); --felt-btn-active-border-color: var(--felt-light-emphasis); }
+  .btn-outline-dark { --felt-btn-color: var(--felt-dark-emphasis); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-dark-emphasis); --felt-btn-active-color: var(--felt-surface); --felt-btn-active-border-color: var(--felt-dark-emphasis); }
+  /* btn-variants:end */
+  /* without a colour (and .btn-link) a button is a surface: hover and press shade it, pressed or chosen it sinks */
+  .btn:not([class*="btn-"]), .btn-link {
+    --felt-btn-hover-bg: var(--felt-surface-hover); --felt-btn-active-bg: var(--felt-surface-pressed);
+    --felt-btn-active-shadow: inset 0 1px 3px rgb(0 0 0 / .15);
+  }
+  .btn-link { --felt-btn-color: light-dark(var(--felt-primary), var(--felt-link-color)); text-decoration: underline; text-underline-offset: .2em; }
+  .btn:active, .btn.active, .btn-check:checked + .btn, [class*="btn-outline-"].show {
+    color: var(--felt-btn-active-color); background-color: var(--felt-btn-active-bg); border-color: var(--felt-btn-active-border-color);
+    box-shadow: var(--felt-btn-active-shadow);
+  }
+  .btn:disabled, .btn.disabled {
+    color: var(--felt-btn-disabled-color); background-color: var(--felt-btn-disabled-bg); border-color: var(--felt-btn-disabled-border-color);
+    opacity: var(--felt-btn-disabled-opacity); pointer-events: none;
+  }
+  .btn-check:disabled + .btn, .btn-check[disabled] + .btn { opacity: var(--felt-btn-disabled-opacity); pointer-events: none; }
 
-  .btn-sm { padding: .45rem .9rem; font-size: .875rem; }
-  .btn-lg { padding: .8rem 1.5rem; font-size: 1.125rem; }
-  .btn-pill { border-radius: var(--felt-radius-pill); }
-  .btn-icon { padding: 0; width: 2.75rem; height: 2.75rem; border-radius: var(--felt-radius-pill); }
+  .btn-sm, .btn-group-sm > .btn { --felt-btn-padding-y: .45rem; --felt-btn-padding-x: .9rem; --felt-btn-font-size: .875rem; }
+  .btn-lg, .btn-group-lg > .btn { --felt-btn-padding-y: .8rem; --felt-btn-padding-x: 1.5rem; --felt-btn-font-size: 1.125rem; }
+  .btn-pill { --felt-btn-border-radius: var(--felt-radius-pill); }
+  .btn-icon { --felt-btn-padding-x: 0; --felt-btn-padding-y: 0; --felt-btn-border-radius: var(--felt-radius-pill); width: 2.75rem; height: 2.75rem; }
 
   /* forms */
   .form-label { display: block; margin-bottom: var(--felt-space-1); font-weight: 600; font-size: .9375rem; }
@@ -982,41 +1029,30 @@
     background-color: color-mix(in oklab, var(--_tone) 12%, var(--felt-surface));
     color: var(--_tone-emphasis);
   }
-  .alert-primary   { --_tone: var(--felt-primary);   --_tone-emphasis: var(--felt-primary-emphasis); }
+  /* alert-variants:start */
+  /* written by tools/feltgen/variants.py; change it there, not these 8 lines */
+  .alert-primary { --_tone: var(--felt-primary); --_tone-emphasis: var(--felt-primary-emphasis); }
   .alert-secondary { --_tone: var(--felt-secondary); --_tone-emphasis: var(--felt-secondary-emphasis); }
   .alert-success { --_tone: var(--felt-success); --_tone-emphasis: var(--felt-success-emphasis); }
   .alert-warning { --_tone: var(--felt-warning); --_tone-emphasis: var(--felt-warning-emphasis); }
-  .alert-danger  { --_tone: var(--felt-danger);  --_tone-emphasis: var(--felt-danger-emphasis); }
+  .alert-danger { --_tone: var(--felt-danger); --_tone-emphasis: var(--felt-danger-emphasis); }
+  .alert-info { --_tone: var(--felt-info); --_tone-emphasis: var(--felt-info-emphasis); }
+  .alert-light { --_tone: var(--felt-secondary-color); --_tone-emphasis: var(--felt-light-emphasis); background-color: var(--felt-surface-raised); border-color: var(--felt-border-color); }
+  .alert-dark { --_tone: var(--felt-dark); --_tone-emphasis: var(--felt-dark-emphasis); background-color: light-dark(color-mix(in oklab, var(--felt-dark) 16%, var(--felt-surface)), color-mix(in oklab, var(--felt-dark) 60%, var(--felt-surface))); border-color: light-dark(color-mix(in oklab, var(--felt-dark) 26%, var(--felt-surface)), var(--felt-border-color)); }
+  /* alert-variants:end */
   .alert-heading { font-weight: 700; margin-bottom: .15rem; }
 
   /* buttons: more variants, toggle buttons, groups */
-  .btn-info { --_tone: var(--felt-info); color: var(--felt-info-ink); }
-  .btn-dark { --_tone: var(--felt-dark); color: var(--felt-dark-ink); border-color: light-dark(transparent, var(--felt-border-color)); }
-  .btn-outline-info { color: var(--felt-info-text); }
-  .btn-outline-light { color: var(--felt-light-emphasis); }
-  .btn-outline-dark { color: var(--felt-dark-emphasis); }
-  .btn-outline-primary { --felt-btn-active-bg: var(--felt-primary); --felt-btn-active-color: var(--felt-primary-ink); }
-  .btn-outline-secondary { --felt-btn-active-bg: var(--felt-secondary); --felt-btn-active-color: var(--felt-secondary-ink); }
-  .btn-outline-success { --felt-btn-active-bg: var(--felt-success); --felt-btn-active-color: var(--felt-success-ink); }
-  .btn-outline-danger { --felt-btn-active-bg: var(--felt-danger); --felt-btn-active-color: var(--felt-danger-ink); }
-  .btn-outline-warning { --felt-btn-active-bg: var(--felt-warning); --felt-btn-active-color: var(--felt-warning-ink); }
-  .btn-outline-info { --felt-btn-active-bg: var(--felt-info); --felt-btn-active-color: var(--felt-info-ink); }
-  .btn-outline-light { --felt-btn-active-bg: var(--felt-light-emphasis); --felt-btn-active-color: var(--felt-surface); }
-  .btn-outline-dark { --felt-btn-active-bg: var(--felt-dark-emphasis); --felt-btn-active-color: var(--felt-surface); }
 
   .btn-check { position: absolute; clip: rect(0, 0, 0, 0); pointer-events: none; }
   .btn-check:focus-visible + .btn { outline: 3px solid var(--felt-focus-ring-color); outline-offset: 2px; }
-  .btn-check:disabled + .btn, .btn-check[disabled] + .btn { opacity: var(--felt-disabled-opacity); pointer-events: none; }
-  .btn-check:checked + .btn { background-color: color-mix(in oklab, var(--_tone), var(--felt-press-ink) var(--felt-active-mix)); }
-  /* neutral buttons are surfaces: pressed or chosen, they take their hover a clear step further the same way */
-  :is(.btn-light, .btn:not([class*="btn-"]), .btn-link):is(:active, .active, .btn-check:checked + *) { box-shadow: inset 0 1px 3px rgb(0 0 0 / .15); }
-  .btn-light:is(:active, .active, .btn-check:checked + *) { background-color: color-mix(in oklab, var(--_tone), var(--felt-hover-ink) var(--felt-select-mix)); }
-  :is(.btn:not([class*="btn-"]), .btn-link):is(.active, .btn-check:checked + *) { background-color: var(--felt-surface-pressed); }
-  .btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, .show) { background-color: var(--felt-btn-active-bg); border-color: var(--felt-btn-active-bg); color: var(--felt-btn-active-color); }
   /* extra, not in Bootstrap: a colour swatch, filled with --felt-swatch-color; chosen (a .btn-check before it), it keeps its colour
    * and gets a ring in the text colour (the focus ring while focused) */
-  .btn-swatch { --_tone: var(--felt-swatch-color); border-color: color-mix(in oklab, var(--felt-body-color) 15%, transparent); background-image: var(--felt-swatch-image, none); background-origin: border-box; }
-  .btn-check:checked + .btn-swatch { background-color: var(--_tone); }
+  .btn-swatch {
+    --felt-btn-bg: var(--felt-swatch-color); --felt-btn-active-bg: var(--felt-btn-bg);   /* chosen, it keeps its colour */
+    --felt-btn-border-color: color-mix(in oklab, var(--felt-body-color) 15%, transparent);
+    background-image: var(--felt-swatch-image, none); background-origin: border-box;
+  }
   .btn-check:checked + .btn-swatch::before { content: ""; position: absolute; inset: -6px; border: 2px solid var(--felt-body-color); border-radius: inherit; pointer-events: none; }
   .btn-check:checked:focus-visible + .btn-swatch { outline-offset: 7px; }
 
@@ -1028,8 +1064,6 @@
   /* a toggle followed only by its menu is still the end of the group */
   .btn-group > .btn:not(:last-child, :has(+ .dropdown-menu:last-child)), .btn-group > .btn-group:not(:last-child) > .btn { border-start-end-radius: 0; border-end-end-radius: 0; }
   .btn-group > .btn:nth-child(n+3), .btn-group > :not(.btn-check) + .btn, .btn-group > .btn-group:not(:first-child) > .btn { border-start-start-radius: 0; border-end-start-radius: 0; }
-  .btn-group-sm > .btn { padding: .45rem .9rem; font-size: .875rem; }
-  .btn-group-lg > .btn { padding: .8rem 1.5rem; font-size: 1.125rem; }
   .btn-group-vertical { flex-direction: column; align-items: flex-start; justify-content: center; }
   .btn-group-vertical > .btn, .btn-group-vertical > .btn-group { width: 100%; }
   .btn-group-vertical > :not(.btn-check:first-child) + .btn, .btn-group-vertical > .btn-group:not(:first-child) { margin-top: -1px; }
@@ -1090,28 +1124,49 @@
   .navbar:is(.fixed-top, .fixed-bottom) { border-radius: 0; border-inline-width: 0; }
   .navbar.fixed-top { border-top-width: 0; }
   .navbar.fixed-bottom { padding: var(--felt-space-2) var(--felt-space-2) var(--felt-space-1); border-bottom-width: 0; }
+  /* navbar-expand:start */
+  /* written by tools/feltgen/variants.py; change it there, not these 40 lines */
   .navbar-expand { flex-wrap: nowrap; }
   .navbar-expand .navbar-nav { flex-direction: row; }
+  .navbar-expand .navbar-nav .dropdown-menu { position: absolute; }
   .navbar-expand .navbar-toggler { display: none; }
   .navbar-expand .navbar-collapse { display: flex !important; flex-basis: auto; }
   @media (min-width: 576px) {
     .navbar-expand-sm { flex-wrap: nowrap; }
     .navbar-expand-sm .navbar-nav { flex-direction: row; }
+    .navbar-expand-sm .navbar-nav .dropdown-menu { position: absolute; }
     .navbar-expand-sm .navbar-toggler { display: none; }
     .navbar-expand-sm .navbar-collapse { display: flex !important; flex-basis: auto; }
   }
   @media (min-width: 768px) {
     .navbar-expand-md { flex-wrap: nowrap; }
     .navbar-expand-md .navbar-nav { flex-direction: row; }
+    .navbar-expand-md .navbar-nav .dropdown-menu { position: absolute; }
     .navbar-expand-md .navbar-toggler { display: none; }
     .navbar-expand-md .navbar-collapse { display: flex !important; flex-basis: auto; }
   }
   @media (min-width: 992px) {
     .navbar-expand-lg { flex-wrap: nowrap; }
     .navbar-expand-lg .navbar-nav { flex-direction: row; }
+    .navbar-expand-lg .navbar-nav .dropdown-menu { position: absolute; }
     .navbar-expand-lg .navbar-toggler { display: none; }
     .navbar-expand-lg .navbar-collapse { display: flex !important; flex-basis: auto; }
   }
+  @media (min-width: 1200px) {
+    .navbar-expand-xl { flex-wrap: nowrap; }
+    .navbar-expand-xl .navbar-nav { flex-direction: row; }
+    .navbar-expand-xl .navbar-nav .dropdown-menu { position: absolute; }
+    .navbar-expand-xl .navbar-toggler { display: none; }
+    .navbar-expand-xl .navbar-collapse { display: flex !important; flex-basis: auto; }
+  }
+  @media (min-width: 1400px) {
+    .navbar-expand-xxl { flex-wrap: nowrap; }
+    .navbar-expand-xxl .navbar-nav { flex-direction: row; }
+    .navbar-expand-xxl .navbar-nav .dropdown-menu { position: absolute; }
+    .navbar-expand-xxl .navbar-toggler { display: none; }
+    .navbar-expand-xxl .navbar-collapse { display: flex !important; flex-basis: auto; }
+  }
+  /* navbar-expand:end */
 
   /* breadcrumb, pagination */
   .breadcrumb { display: flex; flex-wrap: wrap; padding: 0; margin: 0 0 var(--felt-space-3); list-style: none; color: var(--felt-secondary-color); font-size: .9375rem; }
@@ -1144,6 +1199,8 @@
   .list-group-item-action:is(:hover, :focus-visible) { z-index: 1; background-color: color-mix(in oklab, var(--felt-list-group-bg), currentColor 6%); }
   .list-group-item-action:active { background-color: color-mix(in oklab, var(--felt-list-group-bg), currentColor 12%); }
   .list-group-item:is(.disabled, :disabled) { --felt-list-group-bg: var(--felt-surface); color: var(--felt-tertiary-color); pointer-events: none; }
+  /* list-group-variants:start */
+  /* written by tools/feltgen/variants.py; change it there, not these 8 lines */
   .list-group-item-primary { --felt-list-group-bg: var(--felt-primary-subtle); color: var(--felt-primary-emphasis); }
   .list-group-item-secondary { --felt-list-group-bg: var(--felt-secondary-subtle); color: var(--felt-secondary-emphasis); }
   .list-group-item-success { --felt-list-group-bg: var(--felt-success-subtle); color: var(--felt-success-emphasis); }
@@ -1152,6 +1209,7 @@
   .list-group-item-info { --felt-list-group-bg: var(--felt-info-subtle); color: var(--felt-info-emphasis); }
   .list-group-item-light { --felt-list-group-bg: var(--felt-light-subtle); color: var(--felt-light-emphasis); }
   .list-group-item-dark { --felt-list-group-bg: var(--felt-dark-subtle); color: var(--felt-dark-emphasis); }
+  /* list-group-variants:end */
   .list-group-item.active { --felt-list-group-bg: var(--felt-primary); z-index: 2; border-color: var(--felt-primary); color: var(--felt-primary-ink); }
   .list-group-item + .list-group-item.active { margin-top: -1px; border-top-width: 1px; }
   .list-group-flush, .card .list-group { border-radius: 0; box-shadow: none; }
@@ -1159,11 +1217,20 @@
   .list-group-flush > .list-group-item:last-child { border-bottom-width: 0; }
   .list-group-numbered { counter-reset: lg; }
   .list-group-numbered > .list-group-item::before { content: counters(lg, ".") ". "; counter-increment: lg; }
+  /* list-group-horizontal:start */
+  /* written by tools/feltgen/variants.py; change it there, not these 40 lines */
   .list-group-horizontal { flex-direction: row; width: fit-content; max-width: 100%; }
   .list-group-horizontal > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-radius-lg); border-start-end-radius: 0; }
   .list-group-horizontal > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-radius-lg); border-end-start-radius: 0; }
   .list-group-horizontal > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
   .list-group-horizontal > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
+  @media (min-width: 576px) {
+    .list-group-horizontal-sm { flex-direction: row; width: fit-content; max-width: 100%; }
+    .list-group-horizontal-sm > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-radius-lg); border-start-end-radius: 0; }
+    .list-group-horizontal-sm > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-radius-lg); border-end-start-radius: 0; }
+    .list-group-horizontal-sm > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
+    .list-group-horizontal-sm > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
+  }
   @media (min-width: 768px) {
     .list-group-horizontal-md { flex-direction: row; width: fit-content; max-width: 100%; }
     .list-group-horizontal-md > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-radius-lg); border-start-end-radius: 0; }
@@ -1171,6 +1238,28 @@
     .list-group-horizontal-md > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
     .list-group-horizontal-md > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
   }
+  @media (min-width: 992px) {
+    .list-group-horizontal-lg { flex-direction: row; width: fit-content; max-width: 100%; }
+    .list-group-horizontal-lg > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-radius-lg); border-start-end-radius: 0; }
+    .list-group-horizontal-lg > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-radius-lg); border-end-start-radius: 0; }
+    .list-group-horizontal-lg > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
+    .list-group-horizontal-lg > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
+  }
+  @media (min-width: 1200px) {
+    .list-group-horizontal-xl { flex-direction: row; width: fit-content; max-width: 100%; }
+    .list-group-horizontal-xl > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-radius-lg); border-start-end-radius: 0; }
+    .list-group-horizontal-xl > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-radius-lg); border-end-start-radius: 0; }
+    .list-group-horizontal-xl > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
+    .list-group-horizontal-xl > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
+  }
+  @media (min-width: 1400px) {
+    .list-group-horizontal-xxl { flex-direction: row; width: fit-content; max-width: 100%; }
+    .list-group-horizontal-xxl > .list-group-item:first-child:not(:last-child) { border-end-start-radius: var(--felt-radius-lg); border-start-end-radius: 0; }
+    .list-group-horizontal-xxl > .list-group-item:last-child:not(:first-child) { border-start-end-radius: var(--felt-radius-lg); border-end-start-radius: 0; }
+    .list-group-horizontal-xxl > .list-group-item + .list-group-item { border-width: 1px 0 1px 1px; }
+    .list-group-horizontal-xxl > .list-group-item + .list-group-item.active { margin: 0 0 0 -1px; }
+  }
+  /* list-group-horizontal:end */
 
   /* table */
   .table { --felt-table-bg: transparent; --felt-table-color: var(--felt-body-color); --felt-table-border-color: var(--felt-border-color); width: 100%; margin-bottom: var(--felt-space-3); border-collapse: collapse; vertical-align: top; }
@@ -1189,6 +1278,8 @@
   :where(.table-striped > tbody > tr:nth-of-type(odd)) > * { --felt-table-accent-bg: color-mix(in oklab, var(--felt-table-color) 5%, transparent); }
   :where(.table-hover > tbody > tr:hover) > * { --felt-table-accent-bg: color-mix(in oklab, var(--felt-table-color) 8%, transparent); }
   .table-active, .table-active > * { --felt-table-accent-bg: color-mix(in oklab, var(--felt-table-color) 11%, transparent); }
+  /* table-variants:start */
+  /* written by tools/feltgen/variants.py; change it there, not these 8 lines */
   .table-primary { --felt-table-bg: var(--felt-primary-subtle); --felt-table-color: var(--felt-primary-emphasis); --felt-table-border-color: var(--felt-primary-border-subtle); }
   .table-secondary { --felt-table-bg: var(--felt-secondary-subtle); --felt-table-color: var(--felt-secondary-emphasis); --felt-table-border-color: var(--felt-secondary-border-subtle); }
   .table-success { --felt-table-bg: var(--felt-success-subtle); --felt-table-color: var(--felt-success-emphasis); --felt-table-border-color: var(--felt-success-border-subtle); }
@@ -1197,8 +1288,26 @@
   .table-info { --felt-table-bg: var(--felt-info-subtle); --felt-table-color: var(--felt-info-emphasis); --felt-table-border-color: var(--felt-info-border-subtle); }
   .table-light { --felt-table-bg: var(--felt-surface-raised); --felt-table-color: var(--felt-body-color); --felt-table-border-color: var(--felt-border-color); }
   .table-dark { --felt-table-bg: var(--felt-dark); --felt-table-color: var(--felt-dark-ink); --felt-table-border-color: color-mix(in oklab, var(--felt-dark-ink) 20%, var(--felt-dark)); }
+  /* table-variants:end */
+  /* table-responsive:start */
+  /* written by tools/feltgen/variants.py; change it there, not these 16 lines */
   .table-responsive { overflow-x: auto; }
-  @media (max-width: 767.98px) { .table-responsive-md { overflow-x: auto; } }
+  @media (max-width: 575.98px) {
+    .table-responsive-sm { overflow-x: auto; }
+  }
+  @media (max-width: 767.98px) {
+    .table-responsive-md { overflow-x: auto; }
+  }
+  @media (max-width: 991.98px) {
+    .table-responsive-lg { overflow-x: auto; }
+  }
+  @media (max-width: 1199.98px) {
+    .table-responsive-xl { overflow-x: auto; }
+  }
+  @media (max-width: 1399.98px) {
+    .table-responsive-xxl { overflow-x: auto; }
+  }
+  /* table-responsive:end */
   .align-middle { vertical-align: middle !important; }
 
   /* progress */
@@ -1282,12 +1391,31 @@
   .modal-dialog-scrollable { height: calc(100% - 3.5rem); }
   .modal-dialog-scrollable .modal-content { max-height: 100%; overflow: hidden; }
   .modal-dialog-scrollable .modal-body { overflow-y: auto; }
+  /* modal-fullscreen:start */
+  /* written by tools/feltgen/variants.py; change it there, not these 22 lines */
   .modal-fullscreen { width: 100%; max-width: none; height: 100%; margin: 0; }
   .modal-fullscreen .modal-content { height: 100%; border: 0; border-radius: 0; }
   @media (max-width: 575.98px) {
     .modal-fullscreen-sm-down { width: 100%; max-width: none; height: 100%; margin: 0; }
     .modal-fullscreen-sm-down .modal-content { height: 100%; border: 0; border-radius: 0; }
   }
+  @media (max-width: 767.98px) {
+    .modal-fullscreen-md-down { width: 100%; max-width: none; height: 100%; margin: 0; }
+    .modal-fullscreen-md-down .modal-content { height: 100%; border: 0; border-radius: 0; }
+  }
+  @media (max-width: 991.98px) {
+    .modal-fullscreen-lg-down { width: 100%; max-width: none; height: 100%; margin: 0; }
+    .modal-fullscreen-lg-down .modal-content { height: 100%; border: 0; border-radius: 0; }
+  }
+  @media (max-width: 1199.98px) {
+    .modal-fullscreen-xl-down { width: 100%; max-width: none; height: 100%; margin: 0; }
+    .modal-fullscreen-xl-down .modal-content { height: 100%; border: 0; border-radius: 0; }
+  }
+  @media (max-width: 1399.98px) {
+    .modal-fullscreen-xxl-down { width: 100%; max-width: none; height: 100%; margin: 0; }
+    .modal-fullscreen-xxl-down .modal-content { height: 100%; border: 0; border-radius: 0; }
+  }
+  /* modal-fullscreen:end */
   .modal-content {
     position: relative; display: flex; flex-direction: column; width: 100%; pointer-events: auto;
     background: var(--felt-surface-overlay); color: var(--felt-body-color);
@@ -1320,9 +1448,6 @@
   .toast-body { padding: .75rem; overflow-wrap: break-word; }
 
   /* alert extras */
-  .alert-info  { --_tone: var(--felt-info);  --_tone-emphasis: var(--felt-info-emphasis); }
-  .alert-light { --_tone: var(--felt-secondary-color); --_tone-emphasis: var(--felt-light-emphasis); background-color: var(--felt-surface-raised); border-color: var(--felt-border-color); }
-  .alert-dark  { --_tone: var(--felt-dark);  --_tone-emphasis: var(--felt-dark-emphasis); background-color: light-dark(color-mix(in oklab, var(--felt-dark) 16%, var(--felt-surface)), color-mix(in oklab, var(--felt-dark) 60%, var(--felt-surface))); border-color: light-dark(color-mix(in oklab, var(--felt-dark) 26%, var(--felt-surface)), var(--felt-border-color)); }
   .alert-dismissible { padding-right: 3.5rem; }
   .alert-dismissible .btn-close { position: absolute; top: .75rem; right: .75rem; }
   .alert-link { font-weight: 700; color: inherit; }
@@ -1503,7 +1628,43 @@
   }
   .dropdown-menu.show { display: block; }
   .dropdown-menu[data-bs-popper] { top: 100%; left: 0; margin-top: .25rem; }
+  /* dropdown-align:start */
+  /* written by tools/feltgen/variants.py; change it there, not these 34 lines */
+  .dropdown-menu-start { --bs-position: start; }
+  .dropdown-menu-start[data-bs-popper] { right: auto; left: 0; }
+  .dropdown-menu-end { --bs-position: end; }
   .dropdown-menu-end[data-bs-popper] { right: 0; left: auto; }
+  @media (min-width: 576px) {
+    .dropdown-menu-sm-start { --bs-position: start; }
+    .dropdown-menu-sm-start[data-bs-popper] { right: auto; left: 0; }
+    .dropdown-menu-sm-end { --bs-position: end; }
+    .dropdown-menu-sm-end[data-bs-popper] { right: 0; left: auto; }
+  }
+  @media (min-width: 768px) {
+    .dropdown-menu-md-start { --bs-position: start; }
+    .dropdown-menu-md-start[data-bs-popper] { right: auto; left: 0; }
+    .dropdown-menu-md-end { --bs-position: end; }
+    .dropdown-menu-md-end[data-bs-popper] { right: 0; left: auto; }
+  }
+  @media (min-width: 992px) {
+    .dropdown-menu-lg-start { --bs-position: start; }
+    .dropdown-menu-lg-start[data-bs-popper] { right: auto; left: 0; }
+    .dropdown-menu-lg-end { --bs-position: end; }
+    .dropdown-menu-lg-end[data-bs-popper] { right: 0; left: auto; }
+  }
+  @media (min-width: 1200px) {
+    .dropdown-menu-xl-start { --bs-position: start; }
+    .dropdown-menu-xl-start[data-bs-popper] { right: auto; left: 0; }
+    .dropdown-menu-xl-end { --bs-position: end; }
+    .dropdown-menu-xl-end[data-bs-popper] { right: 0; left: auto; }
+  }
+  @media (min-width: 1400px) {
+    .dropdown-menu-xxl-start { --bs-position: start; }
+    .dropdown-menu-xxl-start[data-bs-popper] { right: auto; left: 0; }
+    .dropdown-menu-xxl-end { --bs-position: end; }
+    .dropdown-menu-xxl-end[data-bs-popper] { right: 0; left: auto; }
+  }
+  /* dropdown-align:end */
   .dropup .dropdown-menu[data-bs-popper] { top: auto; bottom: 100%; margin: 0 0 .25rem; }
   .dropend .dropdown-menu[data-bs-popper] { top: 0; left: 100%; margin: 0 0 0 .25rem; }
   .dropstart .dropdown-menu[data-bs-popper] { top: 0; right: 100%; left: auto; margin: 0 .25rem 0 0; }
@@ -1519,10 +1680,6 @@
   .dropdown-item-text { display: block; padding: .45rem .75rem; color: var(--felt-secondary-color); }
   .dropdown-divider { height: 0; margin: .375rem .25rem; overflow: hidden; border-top: 1px solid var(--felt-border-color); opacity: 1; }
   .navbar-nav .dropdown-menu { position: static; }
-  .navbar-expand .navbar-nav .dropdown-menu { position: absolute; }
-  @media (min-width: 576px) { .navbar-expand-sm .navbar-nav .dropdown-menu { position: absolute; } }
-  @media (min-width: 768px) { .navbar-expand-md .navbar-nav .dropdown-menu { position: absolute; } }
-  @media (min-width: 992px) { .navbar-expand-lg .navbar-nav .dropdown-menu { position: absolute; } }
 
   /* offcanvas: a sheet sliding in from a screen edge; Bootstrap's JS adds .showing/.show/.hiding */
   .offcanvas {
@@ -1547,7 +1704,7 @@
   /* placeholders: loading skeletons, sized with .col-* and the text they stand in for */
   .placeholder { display: inline-block; min-height: 1em; vertical-align: middle; cursor: wait; border-radius: var(--felt-radius-sm); background-color: currentColor; opacity: .25; }
   .placeholder.btn::before { content: ""; display: inline-block; }
-  .placeholder.btn { background-color: var(--_tone); opacity: var(--felt-disabled-opacity); }
+  .placeholder.btn { background-color: var(--felt-btn-bg); opacity: var(--felt-disabled-opacity); }
   .placeholder-xs { min-height: .6em; }
   .placeholder-sm { min-height: .8em; }
   .placeholder-lg { min-height: 1.2em; }
@@ -1609,6 +1766,8 @@
 /* ------------------------------------------------------------ utilities */
 @layer utilities {
   /* solid colour helpers for cards, badges, … (Bootstrap's .text-bg-*) */
+  /* text-bg:start */
+  /* written by tools/feltgen/variants.py; change it there, not these 8 lines */
   .text-bg-primary { --_tone: var(--felt-primary); background-color: var(--felt-primary); color: var(--felt-primary-ink); border-color: transparent; }
   .text-bg-secondary { --_tone: var(--felt-secondary); background-color: var(--felt-secondary); color: var(--felt-secondary-ink); border-color: transparent; }
   .text-bg-success { --_tone: var(--felt-success); background-color: var(--felt-success); color: var(--felt-success-ink); border-color: transparent; }
@@ -1617,6 +1776,7 @@
   .text-bg-info { --_tone: var(--felt-info); background-color: var(--felt-info); color: var(--felt-info-ink); border-color: transparent; }
   .text-bg-light { --_tone: var(--felt-light); background-color: var(--felt-light); color: var(--felt-light-ink); border-color: transparent; box-shadow: inset 0 0 0 1px var(--felt-border-color); }
   .text-bg-dark { --_tone: var(--felt-dark); background-color: var(--felt-dark); color: var(--felt-dark-ink); border-color: light-dark(transparent, rgb(255 255 255 / .1)); }
+  /* text-bg:end */
 
   /* the rest follows Bootstrap and uses !important like it does */
   .text-nowrap { white-space: nowrap !important; }

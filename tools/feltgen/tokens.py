@@ -182,6 +182,7 @@ T("border-color", "light-dark(#e2e5ea, #41474f)", "light-dark(#c9bba3, #48423b)"
   doc="Hairlines (felt: hidden under the seams, but they keep their width)", bs=["--bs-border-color-translucent"])
 T("border-color-strong", "light-dark(#858f9e, #737b84)", "light-dark(#847b6a, #857a6c)",
   doc="Control outlines that reach 3:1 (checkboxes, radios)")
+T("link-decoration", "underline", doc="Links")
 T("link-color", "light-dark($primary, #8fb2e8)", "light-dark(#34578c, #8fb2e8)", doc="Links; .link-* set it too")
 T("track", "light-dark(#e3e7ec, #3a4047)", "light-dark(rgb(90 70 40 / .16), rgb(0 0 0 / .36))",
   doc="The empty part of progress bars, ranges and the off switch; use it for tracks of your own. "
@@ -207,6 +208,9 @@ T("disabled-opacity", ".55", dark=".45", doc="Disabled controls in the clean loo
 T("focus-ring-color", "light-dark(color-mix(in oklab, $primary 50%, transparent), color-mix(in oklab, $link-color 60%, transparent))",
   doc="Focus rings; .focus-ring-* set it too")
 T("focus-ring-width", ".25rem", doc="Focus rings of fields and .focus-ring")
+T("focus-ring-x", "0", doc=".focus-ring: horizontal offset")
+T("focus-ring-y", "0", doc=".focus-ring: vertical offset")
+T("focus-ring-blur", "0", doc=".focus-ring: blur")
 
 # ------------------------------------------------------------------ type
 
@@ -219,6 +223,7 @@ T("body-font-size", "1rem", doc="Body text")
 T("body-font-weight", "400", doc="Body text")
 T("body-line-height", "1.5", doc="Body text")
 T("heading-color", "inherit", doc="Headings")
+T("body-text-align", "start", doc="Body text")
 
 # ------------------------------------------------------------------ layout
 

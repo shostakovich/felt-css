@@ -70,9 +70,9 @@ description: Use custom button styles for actions in forms, dialogs, and more wi
 <button type="button" class="btn btn-secondary btn-sm">Small button</button>
 </example>
 
-<p>felt-css has no <code>--bs-btn-*</code> variables. To roll your own size, use <a href="../../utilities/spacing/">spacing</a> and <a href="../../utilities/text/">font size</a> utilities:</p>
+<p>You can even roll your own custom sizing with CSS variables:</p>
 <example>
-<button type="button" class="btn btn-primary py-1 px-2 small">
+<button type="button" class="btn btn-primary" style="--felt-btn-padding-y: .25rem; --felt-btn-padding-x: .5rem; --felt-btn-font-size: .75rem;">
   Custom button
 </button>
 </example>
@@ -261,4 +261,16 @@ description: Use custom button styles for actions in forms, dialogs, and more wi
 <codeblock lang="js">
 const bsButton = bootstrap.Button.getOrCreateInstance('#myButton')
 bsButton.toggle()
+</codeblock>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Buttons are built on local CSS variables, like Bootstrap's: <code>.btn</code> declares them, the colour variants and sizes set them, and you can set them yourself on any button.</p>
+<cssvars name="btn"></cssvars>
+<p>Each <code>.btn-*</code> variant sets the fill, the ink and the border; hover and pressed colours are mixed from the fill with <code>--felt-hover-ink</code>, <code>--felt-press-ink</code> and their mixes (see <a href="../../customize/css-variables/">CSS variables</a>). For example, a button of your own:</p>
+<codeblock lang="css">
+.btn-moss {
+  --felt-btn-bg: var(--felt-moss);
+  --felt-btn-color: #fff;
+}
 </codeblock>
