@@ -25,7 +25,7 @@ description: Provide valuable, actionable feedback to your users with HTML5 form
 <p>The feedback styles change the border colour and the focus ring of fields, the outline, fill and label colour of checks, and show the matching feedback message.</p>
 
 <example>
-<form class="row g-3" novalidate>
+<form class="row g-3 needs-validation" novalidate>
   <div class="col-md-4">
     <label for="validationCustom01" class="form-label">First name</label>
     <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
@@ -97,7 +97,7 @@ description: Provide valuable, actionable feedback to your users with HTML5 form
   'use strict'
 
   // Fetch all the forms we want to apply custom validation styles to
-  const forms = document.querySelectorAll('form[novalidate]')
+  const forms = document.querySelectorAll('.needs-validation')
 
   // Loop over them and prevent submission
   Array.from(forms).forEach(form => {
@@ -300,7 +300,7 @@ description: Provide valuable, actionable feedback to your users with HTML5 form
 <p>If your form layout allows it, you can swap the <code>.{valid|invalid}-feedback</code> classes for <code>.{valid|invalid}-tooltip</code> classes to display validation feedback in a styled tooltip. Be sure to have a parent with <code>position: relative</code> on it for tooltip positioning; in the example below, <code>.position-relative</code> on the columns does that. Tooltips lie over what follows, so leave room for them (here with <code>.gy-5</code>).</p>
 
 <example>
-<form class="row gx-3 gy-5" novalidate>
+<form class="row gx-3 gy-5 needs-validation" novalidate>
   <div class="col-md-4 position-relative">
     <label for="validationTooltip01" class="form-label">First name</label>
     <input type="text" class="form-control" id="validationTooltip01" value="Mark" required>
@@ -362,7 +362,7 @@ description: Provide valuable, actionable feedback to your users with HTML5 form
 
 <script>
 (() => {
-  for (const form of document.querySelectorAll('form[novalidate]')) {
+  for (const form of document.querySelectorAll('.needs-validation')) {
     form.addEventListener('submit', event => {
       if (!form.checkValidity()) {
         event.preventDefault()

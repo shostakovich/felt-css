@@ -30,6 +30,8 @@ ALLOW_TOKENS = {
                                         "white", "black"]},
     **{f"--bs-{t}-rgb": _RGB for t in ["body-color", "body-bg", "emphasis-color", "secondary-color", "secondary-bg",
                                         "tertiary-color", "tertiary-bg", "link-color", "link-hover-color"]},
+    "--bs-border-color-translucent": "overlays (dropdowns, modals, popovers, toasts) use --felt-border-color like everything else",
+    "--bs-box-shadow-inset": "fields lie flat in the clean look; in felt their inset shading is --felt-groove-shadow-field",
     "--bs-focus-ring-opacity": "the focus ring colour carries its own transparency (--felt-focus-ring-color)",
     # btn
     "--bs-btn-font-family": "buttons inherit the font; set font-family on .btn",

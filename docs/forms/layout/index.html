@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="en" data-look="felt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Layout · felt-css</title>
+  <meta name="description" content="Give your forms some structure—from inline to horizontal to custom grid implementations—with form layout options.">
+  <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
+  <link rel="stylesheet" href="../../../felt.css">
+  <link rel="stylesheet" href="../../assets/docs.css">
+  <script>
+    (() => {
+      const root = document.documentElement, q = new URLSearchParams(location.search);
+      const stored = k => { try { return localStorage.getItem(k); } catch { return null; } };
+      const look = q.get("look") || stored("look"), theme = q.get("theme") || stored("theme");
+      root.dataset.look = look === "clean" ? "clean" : "felt";
+      if (theme === "light" || theme === "dark") root.dataset.bsTheme = theme;
+    })();
+  </script>
+</head>
+<body class="bd-docs-page">
+  <a class="visually-hidden-focusable bd-skip" href="#content">Skip to main content</a>
+
+  <header class="bd-header">
+    <nav class="navbar navbar-expand-lg bd-navbar" aria-label="Main navigation">
+      <div class="container-fluid bd-gutter">
+        <a class="navbar-brand bd-brand" href="../../"><img src="../../assets/wordmark.webp" class="img-fluid" width="140" height="35" alt="felt-css"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" data-bd-nav="docs" href="../../getting-started/introduction/">Docs</a></li>
+            <li class="nav-item"><a class="nav-link" data-bd-nav="examples" href="../../examples/">Examples</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/shostakovich/felt-css">GitHub</a></li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-2 bd-switches">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Look">
+              <input type="radio" class="btn-check" name="look" id="bd-look-felt" value="felt" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-felt">Felt</label>
+              <input type="radio" class="btn-check" name="look" id="bd-look-clean" value="clean" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-look-clean">Clean</label>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color mode">
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-light" value="light" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-dark" value="dark" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-dark">Dark</label>
+              <input type="radio" class="btn-check" name="theme" id="bd-theme-auto" value="auto" autocomplete="off">
+              <label class="btn btn-outline-primary" for="bd-theme-auto">Auto</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <div class="container-fluid bd-gutter bd-layout">
+    <aside class="bd-sidebar">
+      <button class="btn bd-sidebar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-expanded="false">Browse docs</button>
+      <nav class="collapse bd-links" id="bdSidebar" aria-label="Docs navigation">
+        <ul class="list-unstyled mb-0"><li class="bd-nav-group"><strong class="bd-nav-heading">Getting started</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../getting-started/introduction/">Introduction</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/looks/">Felt and clean</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/felt-svg/">Felt in SVG</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/color-modes/">Color modes</a></li><li class="nav-item"><a class="nav-link" href="../../getting-started/javascript/">JavaScript</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Customize</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../customize/color/">Color</a></li><li class="nav-item"><a class="nav-link" href="../../customize/css-variables/">CSS variables</a></li><li class="nav-item"><a class="nav-link" href="../../customize/felt/">Felt</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Layout</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../layout/breakpoints/">Breakpoints</a></li><li class="nav-item"><a class="nav-link" href="../../layout/containers/">Containers</a></li><li class="nav-item"><a class="nav-link" href="../../layout/grid/">Grid</a></li><li class="nav-item"><a class="nav-link" href="../../layout/columns/">Columns</a></li><li class="nav-item"><a class="nav-link" href="../../layout/gutters/">Gutters</a></li><li class="nav-item"><a class="nav-link" href="../../layout/utilities/">Utilities</a></li><li class="nav-item"><a class="nav-link" href="../../layout/z-index/">Z-index</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Content</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../content/reboot/">Reboot</a></li><li class="nav-item"><a class="nav-link" href="../../content/typography/">Typography</a></li><li class="nav-item"><a class="nav-link" href="../../content/images/">Images</a></li><li class="nav-item"><a class="nav-link" href="../../content/tables/">Tables</a></li><li class="nav-item"><a class="nav-link" href="../../content/figures/">Figures</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Forms</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../forms/overview/">Overview</a></li><li class="nav-item"><a class="nav-link" href="../../forms/form-control/">Form control</a></li><li class="nav-item"><a class="nav-link" href="../../forms/select/">Select</a></li><li class="nav-item"><a class="nav-link" href="../../forms/checks-radios/">Checks & radios</a></li><li class="nav-item"><a class="nav-link" href="../../forms/range/">Range</a></li><li class="nav-item"><a class="nav-link" href="../../forms/input-group/">Input group</a></li><li class="nav-item"><a class="nav-link" href="../../forms/floating-labels/">Floating labels</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="../../forms/layout/">Layout</a></li><li class="nav-item"><a class="nav-link" href="../../forms/validation/">Validation</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Components</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../components/accordion/">Accordion</a></li><li class="nav-item"><a class="nav-link" href="../../components/alerts/">Alerts</a></li><li class="nav-item"><a class="nav-link" href="../../components/badge/">Badge</a></li><li class="nav-item"><a class="nav-link" href="../../components/breadcrumb/">Breadcrumb</a></li><li class="nav-item"><a class="nav-link" href="../../components/buttons/">Buttons</a></li><li class="nav-item"><a class="nav-link" href="../../components/button-group/">Button group</a></li><li class="nav-item"><a class="nav-link" href="../../components/card/">Card</a></li><li class="nav-item"><a class="nav-link" href="../../components/carousel/">Carousel</a></li><li class="nav-item"><a class="nav-link" href="../../components/close-button/">Close button</a></li><li class="nav-item"><a class="nav-link" href="../../components/collapse/">Collapse</a></li><li class="nav-item"><a class="nav-link" href="../../components/dropdowns/">Dropdowns</a></li><li class="nav-item"><a class="nav-link" href="../../components/list-group/">List group</a></li><li class="nav-item"><a class="nav-link" href="../../components/modal/">Modal</a></li><li class="nav-item"><a class="nav-link" href="../../components/navbar/">Navbar</a></li><li class="nav-item"><a class="nav-link" href="../../components/navs-tabs/">Navs & tabs</a></li><li class="nav-item"><a class="nav-link" href="../../components/offcanvas/">Offcanvas</a></li><li class="nav-item"><a class="nav-link" href="../../components/pagination/">Pagination</a></li><li class="nav-item"><a class="nav-link" href="../../components/placeholders/">Placeholders</a></li><li class="nav-item"><a class="nav-link" href="../../components/popovers/">Popovers</a></li><li class="nav-item"><a class="nav-link" href="../../components/progress/">Progress</a></li><li class="nav-item"><a class="nav-link" href="../../components/scrollspy/">Scrollspy</a></li><li class="nav-item"><a class="nav-link" href="../../components/spinners/">Spinners</a></li><li class="nav-item"><a class="nav-link" href="../../components/stat/">Stat tiles</a></li><li class="nav-item"><a class="nav-link" href="../../components/toasts/">Toasts</a></li><li class="nav-item"><a class="nav-link" href="../../components/tooltips/">Tooltips</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Helpers</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../helpers/clearfix/">Clearfix</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/color-background/">Color & background</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/colored-links/">Colored links</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/focus-ring/">Focus ring</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/icon-link/">Icon link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/ratio/">Ratio</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stacks/">Stacks</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/stretched-link/">Stretched link</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/text-truncation/">Text truncation</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/vertical-rule/">Vertical rule</a></li><li class="nav-item"><a class="nav-link" href="../../helpers/visually-hidden/">Visually hidden</a></li></ul></li><li class="bd-nav-group"><strong class="bd-nav-heading">Utilities</strong><ul class="nav nav-pills flex-column"><li class="nav-item"><a class="nav-link" href="../../utilities/background/">Background</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/borders/">Borders</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/colors/">Colors</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/display/">Display</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/flex/">Flex</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/float/">Float</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/interactions/">Interactions</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/link/">Link</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/object-fit/">Object fit</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/opacity/">Opacity</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/overflow/">Overflow</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/position/">Position</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/shadows/">Shadows</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/sizing/">Sizing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/spacing/">Spacing</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/text/">Text</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/vertical-align/">Vertical align</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/visibility/">Visibility</a></li><li class="nav-item"><a class="nav-link" href="../../utilities/z-index/">Z-index</a></li></ul></li></ul>
+      </nav>
+    </aside>
+
+    <main class="bd-main" id="content">
+      <div class="bd-intro">
+        <p class="bd-section">Forms</p>
+        <h1>Layout</h1>
+        <p class="lead">Give your forms some structure—from inline to horizontal to custom grid implementations—with form layout options.</p>
+        <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/forms/layout.html">View page source on GitHub</a>
+      </div>
+      
+      <div class="bd-toc">
+        <details class="bd-toc-details">
+          <summary>On this page</summary>
+          <nav aria-label="On this page"><ul><li><a href="#forms">Forms</a></li><li><a href="#utilities">Utilities</a></li><li><a href="#form-grid">Form grid</a></li><li><a href="#gutters">Gutters</a></li><li><a href="#horizontal-form">Horizontal form</a><ul><li><a href="#horizontal-form-label-sizing">Horizontal form label sizing</a></li></ul></li><li><a href="#column-sizing">Column sizing</a></li><li><a href="#auto-sizing">Auto-sizing</a></li><li><a href="#inline-forms">Inline forms</a></li></ul></nav>
+        </details>
+        <nav class="bd-toc-side" aria-label="On this page (sidebar)">
+          <strong>On this page</strong>
+          <ul><li><a href="#forms">Forms</a></li><li><a href="#utilities">Utilities</a></li><li><a href="#form-grid">Form grid</a></li><li><a href="#gutters">Gutters</a></li><li><a href="#horizontal-form">Horizontal form</a><ul><li><a href="#horizontal-form-label-sizing">Horizontal form label sizing</a></li></ul></li><li><a href="#column-sizing">Column sizing</a></li><li><a href="#auto-sizing">Auto-sizing</a></li><li><a href="#inline-forms">Inline forms</a></li></ul>
+        </nav>
+      </div>
+      
+      <div class="bd-content">
+        
+<h2 id="forms">Forms<a class="bd-anchor" href="#forms" aria-label="Link to this section">#</a></h2>
+<p>Every group of form fields should reside in a <code>&lt;form&gt;</code> element. felt-css provides no default styling for the <code>&lt;form&gt;</code> element, but there are some powerful browser features that are provided by default.</p>
+<ul>
+  <li>New to browser forms? Consider reviewing <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">the MDN form docs</a> for an overview and complete list of available attributes.</li>
+  <li><code>&lt;button&gt;</code>s within a <code>&lt;form&gt;</code> default to <code>type="submit"</code>, so strive to be specific and always include a <code>type</code>.</li>
+</ul>
+<p>Since felt-css applies <code>display: block</code> and <code>width: 100%</code> to almost all form controls, forms will by default stack vertically. Additional classes can be used to vary this layout on a per-form basis.</p>
+
+<h2 id="utilities">Utilities<a class="bd-anchor" href="#utilities" aria-label="Link to this section">#</a></h2>
+<p><a href="../../utilities/spacing/">Margin utilities</a> are the easiest way to add some structure to forms. They provide basic grouping of labels, controls, optional form text, and form validation messaging. We recommend sticking to <code>margin-bottom</code> utilities, and using a single direction throughout the form for consistency.</p>
+<p>Feel free to build your forms however you like, with <code>&lt;fieldset&gt;</code>s, <code>&lt;div&gt;</code>s, or nearly any other element.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="mb-3">
+  <label for="formGroupExampleInput" class="form-label">Example label</label>
+  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+</div>
+<div class="mb-3">
+  <label for="formGroupExampleInput2" class="form-label">Another label</label>
+  <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"formGroupExampleInput"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Example label<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"formGroupExampleInput"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Example input placeholder"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"formGroupExampleInput2"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Another label<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"formGroupExampleInput2"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Another input placeholder"</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="form-grid">Form grid<a class="bd-anchor" href="#form-grid" aria-label="Link to this section">#</a></h2>
+<p>More complex forms can be built using the <a href="../../layout/grid/">grid classes</a>. Use these for form layouts that require multiple columns, varied widths, and additional alignment options.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="row">
+  <div class="col">
+    <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+  </div>
+  <div class="col">
+    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"First name"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"First name"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Last name"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Last name"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="gutters">Gutters<a class="bd-anchor" href="#gutters" aria-label="Link to this section">#</a></h2>
+<p>By adding <a href="../../layout/gutters/">gutter modifier classes</a>, you can have control over the gutter width in as well the inline as block direction.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="row g-3">
+  <div class="col">
+    <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+  </div>
+  <div class="col">
+    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row g-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"First name"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"First name"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Last name"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Last name"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>More complex layouts can also be created with the grid system.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<form class="row g-3">
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail4">
+  </div>
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">Password</label>
+    <input type="password" class="form-control" id="inputPassword4">
+  </div>
+  <div class="col-12">
+    <label for="inputAddress" class="form-label">Address</label>
+    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+  </div>
+  <div class="col-12">
+    <label for="inputAddress2" class="form-label">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+  </div>
+  <div class="col-md-6">
+    <label for="inputCity" class="form-label">City</label>
+    <input type="text" class="form-control" id="inputCity">
+  </div>
+  <div class="col-md-4">
+    <label for="inputState" class="form-label">State</label>
+    <select id="inputState" class="form-select">
+      <option selected>Choose...</option>
+      <option>...</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label for="inputZip" class="form-label">Zip</label>
+    <input type="text" class="form-control" id="inputZip">
+  </div>
+  <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Sign in</button>
+  </div>
+</form>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row g-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-6"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inputEmail4"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Email<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"email"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inputEmail4"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-6"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inputPassword4"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Password<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"password"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inputPassword4"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-12"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inputAddress"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Address<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inputAddress"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"1234 Main St"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-12"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inputAddress2"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Address 2<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inputAddress2"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Apartment, studio, or floor"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-6"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inputCity"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>City<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inputCity"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-4"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inputState"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>State<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">select</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inputState"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-select"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">selected</span><span class="tok-punct">&gt;</span>Choose...<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>...<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">select</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-md-2"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inputZip"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-label"</span><span class="tok-punct">&gt;</span>Zip<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inputZip"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-12"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"gridCheck"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"gridCheck"</span><span class="tok-punct">&gt;</span>
+        Check me out
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-12"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Sign in<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="horizontal-form">Horizontal form<a class="bd-anchor" href="#horizontal-form" aria-label="Link to this section">#</a></h2>
+<p>Create horizontal forms with the grid by adding the <code>.row</code> class to form groups and using the <code>.col-*-*</code> classes to specify the width of your labels and controls. Be sure to add <code>.col-form-label</code> to your <code>&lt;label&gt;</code>s as well so they're vertically centered with their associated form controls.</p>
+<p>At times, you may need to use margin or padding utilities to create that perfect alignment you need. For example, we've removed the <code>padding-top</code> on our stacked radio inputs label to better align the text baseline.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<form>
+  <div class="row mb-3">
+    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputEmail3">
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword3">
+    </div>
+  </div>
+  <fieldset class="row mb-3">
+    <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+        <label class="form-check-label" for="gridRadios1">
+          First radio
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+        <label class="form-check-label" for="gridRadios2">
+          Second radio
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+        <label class="form-check-label" for="gridRadios3">
+          Third disabled radio
+        </label>
+      </div>
+    </div>
+  </fieldset>
+  <div class="row mb-3">
+    <div class="col-sm-10 offset-sm-2">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="gridCheck1">
+        <label class="form-check-label" for="gridCheck1">
+          Example checkbox
+        </label>
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Sign in</button>
+</form>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row mb-3"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inputEmail3"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-2 col-form-label"</span><span class="tok-punct">&gt;</span>Email<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-10"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"email"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inputEmail3"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row mb-3"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inputPassword3"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-2 col-form-label"</span><span class="tok-punct">&gt;</span>Password<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-10"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"password"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inputPassword3"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">fieldset</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row mb-3"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">legend</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-form-label col-sm-2 pt-0"</span><span class="tok-punct">&gt;</span>Radios<span class="tok-punct">&lt;/</span><span class="tok-tag">legend</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-10"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"gridRadios"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"gridRadios1"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option1"</span> <span class="tok-attr">checked</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"gridRadios1"</span><span class="tok-punct">&gt;</span>
+          First radio
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"gridRadios"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"gridRadios2"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option2"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"gridRadios2"</span><span class="tok-punct">&gt;</span>
+          Second radio
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"radio"</span> <span class="tok-attr">name</span><span class="tok-punct">=</span><span class="tok-val">"gridRadios"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"gridRadios3"</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"option3"</span> <span class="tok-attr">disabled</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"gridRadios3"</span><span class="tok-punct">&gt;</span>
+          Third disabled radio
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">fieldset</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row mb-3"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-10 offset-sm-2"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"gridCheck1"</span><span class="tok-punct">&gt;</span>
+        <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"gridCheck1"</span><span class="tok-punct">&gt;</span>
+          Example checkbox
+        <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Sign in<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h3 id="horizontal-form-label-sizing">Horizontal form label sizing<a class="bd-anchor" href="#horizontal-form-label-sizing" aria-label="Link to this section">#</a></h3>
+<p>Be sure to use <code>.col-form-label-sm</code> or <code>.col-form-label-lg</code> to your <code>&lt;label&gt;</code>s or <code>&lt;legend&gt;</code>s to correctly follow the size of <code>.form-control-lg</code> and <code>.form-control-sm</code>. Like <code>.col-form-label</code>, they set the label a little smaller than the field's text and pad it to the field's height, so label and text share a line.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="row mb-3">
+  <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Email</label>
+  <div class="col-sm-10">
+    <input type="email" class="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm">
+  </div>
+</div>
+<div class="row mb-3">
+  <label for="colFormLabel" class="col-sm-2 col-form-label">Email</label>
+  <div class="col-sm-10">
+    <input type="email" class="form-control" id="colFormLabel" placeholder="col-form-label">
+  </div>
+</div>
+<div class="row">
+  <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Email</label>
+  <div class="col-sm-10">
+    <input type="email" class="form-control form-control-lg" id="colFormLabelLg" placeholder="col-form-label-lg">
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"colFormLabelSm"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-2 col-form-label col-form-label-sm"</span><span class="tok-punct">&gt;</span>Email<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-10"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"email"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control form-control-sm"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"colFormLabelSm"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"col-form-label-sm"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row mb-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"colFormLabel"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-2 col-form-label"</span><span class="tok-punct">&gt;</span>Email<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-10"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"email"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"colFormLabel"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"col-form-label"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"colFormLabelLg"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-2 col-form-label col-form-label-lg"</span><span class="tok-punct">&gt;</span>Email<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-10"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"email"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control form-control-lg"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"colFormLabelLg"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"col-form-label-lg"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="column-sizing">Column sizing<a class="bd-anchor" href="#column-sizing" aria-label="Link to this section">#</a></h2>
+<p>As shown in the previous examples, the grid system allows you to place any number of <code>.col</code>s within a <code>.row</code>. They'll split the available width equally between them. You may also pick a subset of your columns to take up more or less space, while the remaining <code>.col</code>s equally split the rest, with specific column classes like <code>.col-sm-7</code>.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<div class="row g-3">
+  <div class="col-sm-7">
+    <input type="text" class="form-control" placeholder="City" aria-label="City">
+  </div>
+  <div class="col-sm">
+    <input type="text" class="form-control" placeholder="State" aria-label="State">
+  </div>
+  <div class="col-sm">
+    <input type="text" class="form-control" placeholder="Zip" aria-label="Zip">
+  </div>
+</div>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row g-3"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-7"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"City"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"City"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"State"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"State"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Zip"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Zip"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="auto-sizing">Auto-sizing<a class="bd-anchor" href="#auto-sizing" aria-label="Link to this section">#</a></h2>
+<p>The example below uses a flexbox utility to vertically center the contents and changes <code>.col</code> to <code>.col-auto</code> so that your columns only take up as much space as needed. Put another way, the column sizes itself based on the contents.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<form class="row gy-2 gx-3 align-items-center">
+  <div class="col-auto">
+    <label class="visually-hidden" for="autoSizingInput">Name</label>
+    <input type="text" class="form-control" id="autoSizingInput" placeholder="Jane Doe">
+  </div>
+  <div class="col-auto">
+    <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
+    <div class="input-group">
+      <div class="input-group-text">@</div>
+      <input type="text" class="form-control" id="autoSizingInputGroup" placeholder="Username">
+    </div>
+  </div>
+  <div class="col-auto">
+    <label class="visually-hidden" for="autoSizingSelect">Preference</label>
+    <select class="form-select" id="autoSizingSelect">
+      <option selected>Choose...</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+  </div>
+  <div class="col-auto">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="autoSizingCheck">
+      <label class="form-check-label" for="autoSizingCheck">
+        Remember me
+      </label>
+    </div>
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row gy-2 gx-3 align-items-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"autoSizingInput"</span><span class="tok-punct">&gt;</span>Name<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"autoSizingInput"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Jane Doe"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"autoSizingInputGroup"</span><span class="tok-punct">&gt;</span>Username<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"input-group"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"input-group-text"</span><span class="tok-punct">&gt;</span>@<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"autoSizingInputGroup"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Username"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"autoSizingSelect"</span><span class="tok-punct">&gt;</span>Preference<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">select</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-select"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"autoSizingSelect"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">selected</span><span class="tok-punct">&gt;</span>Choose...<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"1"</span><span class="tok-punct">&gt;</span>One<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"2"</span><span class="tok-punct">&gt;</span>Two<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"3"</span><span class="tok-punct">&gt;</span>Three<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">select</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"autoSizingCheck"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"autoSizingCheck"</span><span class="tok-punct">&gt;</span>
+        Remember me
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Submit<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<p>You can then remix that once again with size-specific column classes.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<form class="row gx-3 gy-2 align-items-center">
+  <div class="col-sm-3">
+    <label class="visually-hidden" for="specificSizeInputName">Name</label>
+    <input type="text" class="form-control" id="specificSizeInputName" placeholder="Jane Doe">
+  </div>
+  <div class="col-sm-3">
+    <label class="visually-hidden" for="specificSizeInputGroupUsername">Username</label>
+    <div class="input-group">
+      <div class="input-group-text">@</div>
+      <input type="text" class="form-control" id="specificSizeInputGroupUsername" placeholder="Username">
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <label class="visually-hidden" for="specificSizeSelect">Preference</label>
+    <select class="form-select" id="specificSizeSelect">
+      <option selected>Choose...</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+  </div>
+  <div class="col-auto">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="autoSizingCheck2">
+      <label class="form-check-label" for="autoSizingCheck2">
+        Remember me
+      </label>
+    </div>
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row gx-3 gy-2 align-items-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-3"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"specificSizeInputName"</span><span class="tok-punct">&gt;</span>Name<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"specificSizeInputName"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Jane Doe"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-3"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"specificSizeInputGroupUsername"</span><span class="tok-punct">&gt;</span>Username<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"input-group"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"input-group-text"</span><span class="tok-punct">&gt;</span>@<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"specificSizeInputGroupUsername"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Username"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-sm-3"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"specificSizeSelect"</span><span class="tok-punct">&gt;</span>Preference<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">select</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-select"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"specificSizeSelect"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">selected</span><span class="tok-punct">&gt;</span>Choose...<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"1"</span><span class="tok-punct">&gt;</span>One<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"2"</span><span class="tok-punct">&gt;</span>Two<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"3"</span><span class="tok-punct">&gt;</span>Three<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">select</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"autoSizingCheck2"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"autoSizingCheck2"</span><span class="tok-punct">&gt;</span>
+        Remember me
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-auto"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Submit<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="inline-forms">Inline forms<a class="bd-anchor" href="#inline-forms" aria-label="Link to this section">#</a></h2>
+<p>Use the <code>.row-cols-*</code> classes to create responsive horizontal layouts. By adding <a href="../../layout/gutters/">gutter modifier classes</a>, we'll have gutters in horizontal and vertical directions. On narrow mobile viewports, the <code>.col-12</code> helps stack the form controls and more. The <code>.align-items-center</code> aligns the form elements to the middle, making the <code>.form-check</code> align properly.</p>
+
+<div class="bd-example-snippet"><div class="bd-example">
+<form class="row row-cols-lg-auto g-3 align-items-center">
+  <div class="col-12">
+    <label class="visually-hidden" for="inlineFormInputGroupUsername">Username</label>
+    <div class="input-group">
+      <div class="input-group-text">@</div>
+      <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Username">
+    </div>
+  </div>
+
+  <div class="col-12">
+    <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
+    <select class="form-select" id="inlineFormSelectPref">
+      <option selected>Choose...</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+  </div>
+
+  <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+      <label class="form-check-label" for="inlineFormCheck">
+        Remember me
+      </label>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">form</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"row row-cols-lg-auto g-3 align-items-center"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-12"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inlineFormInputGroupUsername"</span><span class="tok-punct">&gt;</span>Username<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"input-group"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"input-group-text"</span><span class="tok-punct">&gt;</span>@<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"text"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-control"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inlineFormInputGroupUsername"</span> <span class="tok-attr">placeholder</span><span class="tok-punct">=</span><span class="tok-val">"Username"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-12"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"visually-hidden"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inlineFormSelectPref"</span><span class="tok-punct">&gt;</span>Preference<span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">select</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-select"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inlineFormSelectPref"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">selected</span><span class="tok-punct">&gt;</span>Choose...<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"1"</span><span class="tok-punct">&gt;</span>One<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"2"</span><span class="tok-punct">&gt;</span>Two<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">option</span> <span class="tok-attr">value</span><span class="tok-punct">=</span><span class="tok-val">"3"</span><span class="tok-punct">&gt;</span>Three<span class="tok-punct">&lt;/</span><span class="tok-tag">option</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">select</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-12"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">input</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-input"</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"checkbox"</span> <span class="tok-attr">id</span><span class="tok-punct">=</span><span class="tok-val">"inlineFormCheck"</span><span class="tok-punct">&gt;</span>
+      <span class="tok-punct">&lt;</span><span class="tok-tag">label</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"form-check-label"</span> <span class="tok-attr">for</span><span class="tok-punct">=</span><span class="tok-val">"inlineFormCheck"</span><span class="tok-punct">&gt;</span>
+        Remember me
+      <span class="tok-punct">&lt;/</span><span class="tok-tag">label</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+
+  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"col-12"</span><span class="tok-punct">&gt;</span>
+    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"submit"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Submit<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">form</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+        <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../forms/floating-labels/"><small>Previous</small>Floating labels</a><a class="bd-pager-next" href="../../forms/validation/"><small>Next</small>Validation</a></nav>
+      </div>
+    </main>
+  </div>
+  
+
+  <footer class="bd-footer">
+    <div class="container-fluid bd-gutter">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <img src="../../assets/wordmark.webp" class="img-fluid" width="120" height="30" alt="felt-css">
+          <p class="small mt-2 mb-0">Bootstrap, but made of wool felt. felt-css itself is public domain under <a href="https://github.com/shostakovich/felt-css/blob/main/LICENSE">The Unlicense</a>.</p>
+        </div>
+        <div class="col-md-7 small">
+          <p class="mb-2">The structure, wording and many examples of these pages are adapted and trimmed from the
+            <a href="https://getbootstrap.com/docs/5.3/">Bootstrap 5.3 documentation</a> by The Bootstrap Authors.
+            That text stays under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>, its example code
+            and icons under the <a href="../../LICENSE-bootstrap.txt">MIT License</a>.</p>
+          <p class="mb-0">Plush icons from <a href="https://github.com/shostakovich/ziwoas">ZiWoAS</a>, © Robert Curth,
+            all rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="../../assets/docs.js"></script>
+</body>
+</html>

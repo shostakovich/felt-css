@@ -510,7 +510,8 @@ def write(path, text):
 
 
 # Bootstrap's JS sets these at runtime; they are styled by felt.css under the same names
-RUNTIME_CLASSES = {"show", "showing", "hiding", "collapsed", "collapsing", "fade", "active", "disabled"}
+RUNTIME_CLASSES = {"show", "showing", "hiding", "collapsed", "collapsing", "fade", "active", "disabled",
+                   "needs-validation"}   # the hook Bootstrap's validation example script looks for
 
 
 def main():
