@@ -3889,7 +3889,10 @@
       &:where(.accordion-flush > .accordion-item) { background-image: none; }
       /* a felt piece on a clean page brings its felt along: a see-through one (a flush list or accordion) is cut from
        * the sheet itself */
+      /* a piece with a look of its own lies on another page: on a clean dark one a faint rim keeps its edge */
+      &:scope:not(:root, body):is(.card) { --felt-card-box-shadow: var(--felt-patch-shadow), 0 0 0 1px light-dark(transparent, rgb(255 240 220 / .1)); }
       &:scope:is(.list-group-flush, .accordion-flush) {
+        box-shadow: var(--felt-patch-shadow), 0 0 0 1px light-dark(transparent, rgb(255 240 220 / .1));
         background-color: var(--felt-surface);
         background-image: var(--felt-texture-sheet); background-size: var(--felt-texture-sheet-size); background-blend-mode: var(--felt-texture-sheet-blend);
       }
@@ -4029,7 +4032,13 @@
           }
         }
         &:is(.card-group > .card) { --felt-card-box-shadow: none; &::after { content: none; } }
-        &:is(.card-group > .card + .card) { --felt-card-box-shadow: var(--felt-groove-fold); }
+        /* the fold between two cards: both sides slope into it */
+        &:is(.card-group > .card + .card) { --felt-card-box-shadow: var(--felt-groove-fold), inset 7px 0 7px -6px color-mix(in srgb, var(--felt-groove-shadow) 60%, transparent); }
+        &:is(.card-group > .card:has(+ .card)) { --felt-card-box-shadow: inset -6px 0 6px -5px color-mix(in srgb, var(--felt-groove-shadow) 35%, transparent); }
+        &:is(.card-group > .card + .card:has(+ .card)) {
+          --felt-card-box-shadow: var(--felt-groove-fold), inset 7px 0 7px -6px color-mix(in srgb, var(--felt-groove-shadow) 60%, transparent),
+            inset -6px 0 6px -5px color-mix(in srgb, var(--felt-groove-shadow) 35%, transparent);
+        }
       }
       &:is(.btn-pill, .btn-icon, .rounded-pill) {
         --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: var(--_seam-pill-width);
@@ -4409,6 +4418,8 @@
       &:is(.dropdown-menu, .popover, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl) {
         box-shadow: var(--felt-patch-shadow), 0 16px 32px -12px var(--felt-patch-shadow-far);
       }
+      /* the menu header on charcoal felt: a step lighter than the secondary text, to hold 4.5:1 on the flecks */
+      &.dropdown-menu { --felt-dropdown-header-color: light-dark(var(--felt-secondary-color), #cabfaf); }
       &:is(.dropdown-menu, .popover) {
         --_seam-img: url("img/seam-md.svg"); --_seam-slice: var(--_seam-md-slice); --_seam-width: var(--_seam-md-width); --felt-seam-inset: 5px;
       }
@@ -4492,15 +4503,16 @@
         content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
         --_tl: top left / var(--_corner) var(--_corner) no-repeat; --_tr: top right / var(--_corner) var(--_corner) no-repeat;
         --_bl: bottom left / var(--_corner) var(--_corner) no-repeat; --_br: bottom right / var(--_corner) var(--_corner) no-repeat;
-        mask: linear-gradient(135deg, #000 50%, transparent 0) var(--_tl), linear-gradient(225deg, #000 50%, transparent 0) var(--_tr),
-          linear-gradient(45deg, #000 50%, transparent 0) var(--_bl), linear-gradient(315deg, #000 50%, transparent 0) var(--_br);
+        --_edge: #000 calc(50% - .5px), transparent calc(50% + .5px);   /* an anti-aliased diagonal */
+        mask: linear-gradient(135deg, var(--_edge)) var(--_tl), linear-gradient(225deg, var(--_edge)) var(--_tr),
+          linear-gradient(45deg, var(--_edge)) var(--_bl), linear-gradient(315deg, var(--_edge)) var(--_br);
       }
       &.carousel-inner::before {
-        --_cut: color-mix(in oklab, var(--felt-body-bg) 60%, var(--felt-patch-cut));
+        --_cut: color-mix(in oklab, var(--felt-surface-raised) 60%, var(--felt-patch-cut));   /* cut from a light piece, not the page: */
         background:
           linear-gradient(135deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_tl), linear-gradient(225deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_tr),
           linear-gradient(45deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_bl), linear-gradient(315deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_br),
-          var(--felt-texture-sheet) 0 0 / var(--felt-texture-sheet-size) var(--felt-body-bg);
+          var(--felt-texture-sheet) 0 0 / var(--felt-texture-sheet-size) var(--felt-surface-raised);   /* they lie on the photo */
         background-blend-mode: normal, normal, normal, normal, var(--felt-texture-sheet-blend);
         translate: 0 -1px;   /* the cut edge below stays visible as the shadow's first pixel */
       }
@@ -4526,13 +4538,14 @@
       &:is(.carousel-control-prev-icon, .carousel-control-next-icon)::after {
         content: ""; position: absolute; inset: 3px; pointer-events: none;
         border: 0 solid transparent; border-image: url("img/seam-circle.svg") 0 fill / 0 round;
-        mix-blend-mode: hard-light; filter: var(--_carousel-thread); opacity: var(--felt-thread-strength);
+        mix-blend-mode: hard-light; filter: var(--_carousel-thread); opacity: min(1, calc(var(--felt-thread-strength) * 1.4));
       }
       /* indicators: stitches of wool thread laid over the photo, the current one a small patch */
       &:is(.carousel-indicators [data-bs-target]) {
         border-radius: 4px / 11.5px;   /* past the 10px transparent borders: tapered ends on the 3px stitch */
         background-image: url("img/thread.svg"); background-size: 4px 4px; background-blend-mode: multiply;
-        filter: drop-shadow(0 1px 0 rgb(0 0 0 / .4)) drop-shadow(0 1px 2px rgb(0 0 0 / .25));
+        /* in the dark a light halo, so the stitch holds on dark photos too */
+        filter: drop-shadow(0 1px 0 rgb(0 0 0 / .4)) drop-shadow(0 1px 2px rgb(0 0 0 / .25)) drop-shadow(0 0 1px light-dark(transparent, rgb(255 240 220 / .5)));
         opacity: .85;
       }
       &:is(.carousel-indicators .active) { opacity: 1; }
@@ -4540,7 +4553,8 @@
         content: ""; position: absolute; inset: -3px -1px; border-radius: var(--felt-radius-pill);
         background: var(--felt-texture-sheet) 0 0 / var(--felt-texture-sheet-size) var(--felt-carousel-indicator-active-bg);
         background-blend-mode: var(--felt-texture-sheet-blend);
-        box-shadow: inset 0 -1px 2px rgb(0 0 0 / .18), 0 1px 0 color-mix(in oklab, var(--felt-carousel-indicator-active-bg) 55%, var(--felt-patch-cut));
+        box-shadow: inset 0 -1px 2px rgb(0 0 0 / .18), 0 1px 0 color-mix(in oklab, var(--felt-carousel-indicator-active-bg) 55%, var(--felt-patch-cut)),
+          0 0 0 1px light-dark(transparent, rgb(255 240 220 / .3));
       }
 
       /* --- modal: a flat sheet of felt lying on the dimmed page */
