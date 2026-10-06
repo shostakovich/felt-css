@@ -1,0 +1,101 @@
+<!--
+title: Felt in SVG
+description: Sew your own SVG drawings — gauges, rings, chart bands — with the thread and felt of the components, taken from the same files.
+-->
+<h2>Example</h2>
+<p>A gauge in a card. In the felt look its value is a felt patch sewn on with a seam down the middle and its track is pressed into the card; in the clean look both are plain strokes.</p>
+<example>
+<div class="card" style="max-width: 18rem">
+  <div class="card-header">CO₂</div>
+  <div class="card-body">
+    <div class="position-relative mx-auto" style="width: 200px">
+      <svg class="d-block" width="200" height="110" viewBox="0 0 200 110" aria-hidden="true">
+        <defs>
+          <pattern id="felt-gauge" width="256" height="256" patternUnits="userSpaceOnUse">
+            <image href="{{repo}}img/felt.svg" width="256" height="256"/>
+          </pattern>
+          <filter id="gauge-blur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.5"/></filter>
+        </defs>
+        <g fill="none" stroke-width="16">
+          <path d="M24 96A76 76 0 0 1 176 96" style="stroke: var(--track)"/>
+          <path d="M24 96A76 76 0 0 1 138 30.2" class="felt-shadow" filter="url(#gauge-blur)"/>
+          <path d="M24 96A76 76 0 0 1 138 30.2" class="felt-edge" style="color: var(--primary)"/>
+          <path d="M24 96A76 76 0 0 1 138 30.2" style="stroke: var(--primary)"/>
+          <path d="M24 96A76 76 0 0 1 138 30.2" stroke="url(#felt-gauge)" class="felt-texture"/>
+        </g>
+      </svg>
+      <svg class="stitches stitches-patch" viewBox="0 0 200 110" aria-hidden="true">
+        <g transform="translate(100 96)">
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(-86.25) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(-78.75) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(-71.25) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(-63.75) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(-56.25) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(-48.75) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(-41.25) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(-33.75) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(-26.25) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(-18.75) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(-11.25) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(-3.75) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(3.75) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(11.25) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(18.75) translate(0 -76)"/>
+          <use href="{{repo}}img/stitch.svg#stitch" transform="rotate(26.25) translate(0 -76)"/>
+        </g>
+      </svg>
+    </div>
+    <p class="text-center mb-0">812 ppm</p>
+  </div>
+</div>
+</example>
+
+<h2>Thread</h2>
+<p><code>img/stitch.svg#stitch</code> is one stitch of the seams, drawn along the x axis and centred on the origin. Place it with <code>&lt;use&gt;</code> and a transform; a seam is a row of them.</p>
+<div class="table-responsive">
+  <table class="table table-sm">
+    <thead><tr><th>Size</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Length</td><td><code>7px</code>, <code>--stitch-length</code></td></tr>
+      <tr><td>Pitch (stitch and gap)</td><td><code>10px</code>, <code>--stitch-pitch</code></td></tr>
+      <tr><td>Thickness</td><td><code>1.6px</code></td></tr>
+    </tbody>
+  </table>
+</div>
+<p>Sizes are in user units: keep one unit at one CSS pixel (<code>width</code> equal to the <code>viewBox</code> width) and the stitches match the seams around them. On an arc of radius <var>r</var> the pitch is an angle of <code>10 / r</code> radians; the gauge above has <code>r = 76</code> and a stitch every <code>7.5°</code>. Along any other path, measure it in script:</p>
+<codeblock lang="js">
+const seam = document.querySelector('#seam')   // a path in the overlay: the line to sew along
+const pitch = 10                               // --stitch-pitch
+const length = seam.getTotalLength()
+const count = Math.round(length / pitch)
+for (let i = 0; i < count; i++) {
+  const at = (i + .5) * length / count
+  const p = seam.getPointAtLength(at), a = seam.getPointAtLength(at - .5), b = seam.getPointAtLength(at + .5)
+  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use')
+  use.setAttribute('href', 'img/stitch.svg#stitch')
+  use.setAttribute('transform', `translate(${p.x} ${p.y}) rotate(${Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI})`)
+  seam.before(use)
+}
+</codeblock>
+<p>The stitch is near-white thread, like the seam images. Put the stitches in an <code>&lt;svg class="stitches"&gt;</code> of their own, laid over the drawing with the same <code>viewBox</code> inside a <code>.position-relative</code> wrapper. In the felt look the overlay casts the seams' shadow down the page (<code>--stitch-shadow</code>) and is tinted with their <code>--seam-filter</code> and <code>--seam-strength</code>, so the thread is a tone of the felt underneath and follows the theme; add <code>.stitches-patch</code> when the stitches lie on a coloured patch, for the patches' lighter thread. In the clean look the overlay is hidden.</p>
+
+<h2>Felt</h2>
+<p>Coloured shapes are patches: the grey felt <code>img/felt.svg</code>, tiled at <code>--felt-size</code> (<code>256px</code>) and blended <code>soft-light</code> onto the colour. In SVG, define it as a pattern and lay a copy of the shape over the coloured one with <code>.felt-texture</code>, which blends it in the felt look and hides it in the clean look:</p>
+<codeblock lang="html">
+<pattern id="felt" width="256" height="256" patternUnits="userSpaceOnUse">
+  <image href="img/felt.svg" width="256" height="256"/>
+</pattern>
+<path d="…" class="felt-shadow" filter="url(#blur)"/>
+<path d="…" class="felt-edge" style="color: var(--primary)"/>
+<path d="…" style="stroke: var(--primary)"/>
+<path d="…" stroke="url(#felt)" class="felt-texture"/>
+</codeblock>
+<p>A patch lies on the felt with a cut edge and a soft shadow, as buttons and badges do: put copies of the shape under it, one with <code>.felt-shadow</code> (blurred by an SVG <code>&lt;filter&gt;</code> with <code>feGaussianBlur</code>) and one with <code>.felt-edge</code>, coloured with <code>color</code>. In the felt look they are drawn a little lower, the edge in a darker tone of that colour; in the clean look they are hidden.</p>
+<p>The cream and charcoal sheet that the page and cards are cut from is a photo per theme (<code>--sheet</code>, <code>--sheet-blend</code>). Rather than painting it, leave such shapes transparent or shade them with <code>--track</code>, like the gauge's track (the same groove as the empty part of progress bars and ranges), and the sheet underneath shows through. As a fill it is <code>img/felt-light.webp</code> blended <code>multiply</code> in light mode and <code>img/felt-dark.webp</code> blended <code>soft-light</code> in dark mode, both tiled at <code>256px</code>.</p>
+
+<h2>Browsers</h2>
+<ul>
+  <li><strong>Keep the pattern inline.</strong> Safari ignores paint servers from another file (<code>fill="url(file.svg#id)"</code>), and Chrome draws no images inside one.</li>
+  <li><strong>Thread in its own <code>&lt;svg&gt;</code>.</strong> Safari ignores CSS <code>filter</code> on elements inside an SVG, so the tint sits on the overlay's <code>&lt;svg&gt;</code> element.</li>
+  <li><strong>Same origin.</strong> <code>&lt;use&gt;</code> loads <code>stitch.svg</code> from the page's own origin only. The file has no internal references, which Safari doesn't resolve in a used file.</li>
+</ul>

@@ -31,6 +31,7 @@ NAV = [
     ("Getting started", "getting-started", [
         ("introduction", "Introduction"),
         ("looks", "Felt and clean"),
+        ("felt-svg", "Felt in SVG"),
         ("color-modes", "Color modes"),
         ("javascript", "JavaScript"),
     ]),
