@@ -3890,9 +3890,9 @@
       /* a felt piece on a clean page brings its felt along: a see-through one (a flush list or accordion) is cut from
        * the sheet itself */
       /* a piece with a look of its own lies on another page: on a clean dark one a faint rim keeps its edge */
-      &:scope:not(:root, body):is(.card) { --felt-card-box-shadow: var(--felt-patch-shadow), 0 0 0 1px light-dark(transparent, rgb(255 240 220 / .1)); }
+      &:scope:not(:root, body):is(.card) { --felt-card-box-shadow: var(--felt-patch-shadow), 0 0 0 1px light-dark(transparent, rgb(255 240 220 / .16)); }
       &:scope:is(.list-group-flush, .accordion-flush) {
-        box-shadow: var(--felt-patch-shadow), 0 0 0 1px light-dark(transparent, rgb(255 240 220 / .1));
+        box-shadow: var(--felt-patch-shadow), 0 0 0 1px light-dark(transparent, rgb(255 240 220 / .16));
         background-color: var(--felt-surface);
         background-image: var(--felt-texture-sheet); background-size: var(--felt-texture-sheet-size); background-blend-mode: var(--felt-texture-sheet-blend);
       }
@@ -4034,8 +4034,12 @@
         &:is(.card-group > .card) { --felt-card-box-shadow: none; &::after { content: none; } }
         /* the fold between two cards: both sides slope into it */
         &:is(.card-group > .card + .card) { --felt-card-box-shadow: var(--felt-groove-fold), inset 7px 0 7px -6px color-mix(in srgb, var(--felt-groove-shadow) 60%, transparent); }
-        &:is(.card-group > .card:has(+ .card)) { --felt-card-box-shadow: inset -6px 0 6px -5px color-mix(in srgb, var(--felt-groove-shadow) 35%, transparent); }
+        &:is(.card-group > .card:has(+ .card)) {
+          --felt-card-box-shadow: inset -6px 0 6px -5px color-mix(in srgb, var(--felt-groove-shadow) 35%, transparent);
+          border-right-color: color-mix(in srgb, var(--felt-groove-shadow) 30%, transparent);   /* the shading runs on to the crease */
+        }
         &:is(.card-group > .card + .card:has(+ .card)) {
+          border-right-color: color-mix(in srgb, var(--felt-groove-shadow) 30%, transparent);
           --felt-card-box-shadow: var(--felt-groove-fold), inset 7px 0 7px -6px color-mix(in srgb, var(--felt-groove-shadow) 60%, transparent),
             inset -6px 0 6px -5px color-mix(in srgb, var(--felt-groove-shadow) 35%, transparent);
         }
@@ -4545,7 +4549,7 @@
         border-radius: 4px / 11.5px;   /* past the 10px transparent borders: tapered ends on the 3px stitch */
         background-image: url("img/thread.svg"); background-size: 4px 4px; background-blend-mode: multiply;
         /* in the dark a light halo, so the stitch holds on dark photos too */
-        filter: drop-shadow(0 1px 0 rgb(0 0 0 / .4)) drop-shadow(0 1px 2px rgb(0 0 0 / .25)) drop-shadow(0 0 1px light-dark(transparent, rgb(255 240 220 / .5)));
+        filter: drop-shadow(0 1px 0 rgb(0 0 0 / .4)) drop-shadow(0 1px 2px rgb(0 0 0 / .25)) drop-shadow(0 0 1px light-dark(transparent, rgb(255 240 220 / .7)));
         opacity: .85;
       }
       &:is(.carousel-indicators .active) { opacity: 1; }
