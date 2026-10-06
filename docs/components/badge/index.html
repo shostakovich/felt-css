@@ -73,18 +73,18 @@
       <div class="bd-toc">
         <details class="bd-toc-details">
           <summary>On this page</summary>
-          <nav aria-label="On this page"><ul><li><a href="#examples">Examples</a><ul><li><a href="#headings">Headings</a></li><li><a href="#buttons">Buttons</a></li><li><a href="#positioned">Positioned</a></li></ul></li><li><a href="#background-colors">Background colors</a></li><li><a href="#pill-badges">Pill badges</a></li><li><a href="#legend-dots">Legend dots</a></li></ul></nav>
+          <nav aria-label="On this page"><ul><li><a href="#examples">Examples</a><ul><li><a href="#headings">Headings</a></li><li><a href="#buttons">Buttons</a></li><li><a href="#positioned">Positioned</a></li></ul></li><li><a href="#background-colors">Background colors</a></li><li><a href="#pill-badges">Pill badges</a></li><li><a href="#legend-dots">Legend dots</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul></nav>
         </details>
         <nav class="bd-toc-side" aria-label="On this page (sidebar)">
           <strong>On this page</strong>
-          <ul><li><a href="#examples">Examples</a><ul><li><a href="#headings">Headings</a></li><li><a href="#buttons">Buttons</a></li><li><a href="#positioned">Positioned</a></li></ul></li><li><a href="#background-colors">Background colors</a></li><li><a href="#pill-badges">Pill badges</a></li><li><a href="#legend-dots">Legend dots</a></li></ul>
+          <ul><li><a href="#examples">Examples</a><ul><li><a href="#headings">Headings</a></li><li><a href="#buttons">Buttons</a></li><li><a href="#positioned">Positioned</a></li></ul></li><li><a href="#background-colors">Background colors</a></li><li><a href="#pill-badges">Pill badges</a></li><li><a href="#legend-dots">Legend dots</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul>
         </nav>
       </div>
       
       <div class="bd-content">
         
 <h2 id="examples">Examples<a class="bd-anchor" href="#examples" aria-label="Link to this section">#</a></h2>
-<p>Badges are small pill-shaped labels and counters. Unlike Bootstrap's, felt-css badges have a fixed size (<code>.75rem</code>) and don't scale with the parent element. Like in Bootstrap 5, badges have no focus or hover styles for links.</p>
+<p>Badges are small pill-shaped labels and counters. Unlike Bootstrap's, felt-css badges have a fixed size (<code>.75rem</code>) and don't scale with the parent element; set <code>--felt-badge-font-size: .75em</code> to have them scale like Bootstrap's. Like in Bootstrap 5, badges have no focus or hover styles for links.</p>
 
 <h3 id="headings">Headings<a class="bd-anchor" href="#headings" aria-label="Link to this section">#</a></h3>
 <div class="bd-example-snippet"><div class="bd-example">
@@ -175,7 +175,7 @@
 </div>
 
 <h2 id="pill-badges">Pill badges<a class="bd-anchor" href="#pill-badges" aria-label="Link to this section">#</a></h2>
-<p>felt-css badges are always pills, so <code>.rounded-pill</code> changes nothing on them; it's kept here so Bootstrap markup works unchanged. For a squarer badge, use a <a href="../../utilities/borders/"><code>.rounded-*</code></a> utility such as <code>.rounded-2</code>.</p>
+<p>felt-css badges are pills by default (<code>--felt-badge-border-radius</code>), so <code>.rounded-pill</code> changes nothing on them; it's kept here so Bootstrap markup works unchanged. For a squarer badge, use a <a href="../../utilities/borders/"><code>.rounded-*</code></a> utility such as <code>.rounded-2</code>.</p>
 <div class="bd-example-snippet"><div class="bd-example">
 <span class="badge rounded-pill text-bg-primary">Primary</span>
 <span class="badge rounded-pill text-bg-secondary">Secondary</span>
@@ -213,6 +213,11 @@
 <div class="bd-callout bd-callout-felt">
   <p>In the felt look a dot is a tiny patch of saturated felt, like the coloured badges. In both looks its rim leans towards the text colour, so light and dark dots stand apart from the surface.</p>
 </div>
+
+<h2 id="css">CSS<a class="bd-anchor" href="#css" aria-label="Link to this section">#</a></h2>
+<h3 id="variables">Variables<a class="bd-anchor" href="#variables" aria-label="Link to this section">#</a></h3>
+<p>Badges are built on local CSS variables, like Bootstrap's: <code>.badge</code> declares them, and you can set them on any badge. On a solid <code>.bg-*</code> fill a badge sets <code>--felt-badge-color</code> to the fill's ink.</p>
+<div class="table-responsive bd-tokens"><table class="table table-sm"><thead><tr><th>Token</th><th>Default</th><th>Bootstrap</th></tr></thead><tbody><tr><td><code>--felt-badge-padding-x</code></td><td><code>.6rem</code></td><td><code>--bs-badge-padding-x</code></td></tr><tr><td><code>--felt-badge-padding-y</code></td><td><code>.2rem</code></td><td><code>--bs-badge-padding-y</code></td></tr><tr><td><code>--felt-badge-font-size</code></td><td><code>.75rem</code></td><td><code>--bs-badge-font-size</code></td></tr><tr><td><code>--felt-badge-font-weight</code></td><td><code>700</code></td><td><code>--bs-badge-font-weight</code></td></tr><tr><td><code>--felt-badge-color</code></td><td><code>var(--felt-body-color)</code></td><td><code>--bs-badge-color</code></td></tr><tr><td><code>--felt-badge-border-radius</code></td><td><code>var(--felt-radius-pill)</code></td><td><code>--bs-badge-border-radius</code></td></tr></tbody></table></div>
 
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/alerts/"><small>Previous</small>Alerts</a><a class="bd-pager-next" href="../../components/breadcrumb/"><small>Next</small>Breadcrumb</a></nav>
       </div>

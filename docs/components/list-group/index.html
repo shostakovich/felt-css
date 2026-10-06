@@ -73,11 +73,11 @@
       <div class="bd-toc">
         <details class="bd-toc-details">
           <summary>On this page</summary>
-          <nav aria-label="On this page"><ul><li><a href="#basic-example">Basic example</a></li><li><a href="#active-items">Active items</a></li><li><a href="#links-and-buttons">Links and buttons</a></li><li><a href="#flush">Flush</a></li><li><a href="#numbered">Numbered</a></li><li><a href="#horizontal">Horizontal</a></li><li><a href="#variants">Variants</a><ul><li><a href="#for-links-and-buttons">For links and buttons</a></li></ul></li><li><a href="#with-badges">With badges</a></li><li><a href="#custom-content">Custom content</a></li><li><a href="#checkboxes-and-radios">Checkboxes and radios</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul></nav>
+          <nav aria-label="On this page"><ul><li><a href="#basic-example">Basic example</a></li><li><a href="#active-items">Active items</a></li><li><a href="#links-and-buttons">Links and buttons</a></li><li><a href="#flush">Flush</a></li><li><a href="#numbered">Numbered</a></li><li><a href="#horizontal">Horizontal</a></li><li><a href="#variants">Variants</a><ul><li><a href="#for-links-and-buttons">For links and buttons</a></li></ul></li><li><a href="#with-badges">With badges</a></li><li><a href="#custom-content">Custom content</a></li><li><a href="#checkboxes-and-radios">Checkboxes and radios</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul></nav>
         </details>
         <nav class="bd-toc-side" aria-label="On this page (sidebar)">
           <strong>On this page</strong>
-          <ul><li><a href="#basic-example">Basic example</a></li><li><a href="#active-items">Active items</a></li><li><a href="#links-and-buttons">Links and buttons</a></li><li><a href="#flush">Flush</a></li><li><a href="#numbered">Numbered</a></li><li><a href="#horizontal">Horizontal</a></li><li><a href="#variants">Variants</a><ul><li><a href="#for-links-and-buttons">For links and buttons</a></li></ul></li><li><a href="#with-badges">With badges</a></li><li><a href="#custom-content">Custom content</a></li><li><a href="#checkboxes-and-radios">Checkboxes and radios</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul>
+          <ul><li><a href="#basic-example">Basic example</a></li><li><a href="#active-items">Active items</a></li><li><a href="#links-and-buttons">Links and buttons</a></li><li><a href="#flush">Flush</a></li><li><a href="#numbered">Numbered</a></li><li><a href="#horizontal">Horizontal</a></li><li><a href="#variants">Variants</a><ul><li><a href="#for-links-and-buttons">For links and buttons</a></li></ul></li><li><a href="#with-badges">With badges</a></li><li><a href="#custom-content">Custom content</a></li><li><a href="#checkboxes-and-radios">Checkboxes and radios</a></li><li><a href="#javascript-behavior">JavaScript behavior</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul>
         </nav>
       </div>
       
@@ -258,11 +258,16 @@
 <span class="tok-punct">&lt;/</span><span class="tok-tag">ol</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 
 <h2 id="horizontal">Horizontal<a class="bd-anchor" href="#horizontal" aria-label="Link to this section">#</a></h2>
-<p>Add <code>.list-group-horizontal</code> to change the layout of list group items from vertical to horizontal across all breakpoints. Alternatively, use the responsive variant <code>.list-group-horizontal-md</code> to make a list group horizontal starting at the <code>md</code> breakpoint's <code>min-width</code> (768px). felt-css has no <code>-sm</code>, <code>-lg</code>, <code>-xl</code> or <code>-xxl</code> variants here. Currently <strong>horizontal list groups cannot be combined with flush list groups.</strong></p>
+<p>Add <code>.list-group-horizontal</code> to change the layout of list group items from vertical to horizontal across all breakpoints. Alternatively, choose a responsive variant <code>.list-group-horizontal-{sm|md|lg|xl|xxl}</code> to make a list group horizontal starting at that breakpoint's <code>min-width</code>. Currently <strong>horizontal list groups cannot be combined with flush list groups.</strong></p>
 <p><strong>ProTip:</strong> Want equal-width list group items when horizontal? Add <code>.flex-fill</code> to each list group item.</p>
 
 <div class="bd-example-snippet"><div class="bd-example">
 <ul class="list-group list-group-horizontal">
+  <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+</ul>
+<ul class="list-group list-group-horizontal-sm">
   <li class="list-group-item">An item</li>
   <li class="list-group-item">A second item</li>
   <li class="list-group-item">A third item</li>
@@ -272,12 +277,47 @@
   <li class="list-group-item">A second item</li>
   <li class="list-group-item">A third item</li>
 </ul>
+<ul class="list-group list-group-horizontal-lg">
+  <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+</ul>
+<ul class="list-group list-group-horizontal-xl">
+  <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+</ul>
+<ul class="list-group list-group-horizontal-xxl">
+  <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+</ul>
 </div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group list-group-horizontal"</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>An item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A second item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A third item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group list-group-horizontal-sm"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>An item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A second item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A third item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group list-group-horizontal-md"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>An item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A second item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A third item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group list-group-horizontal-lg"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>An item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A second item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A third item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group list-group-horizontal-xl"</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>An item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A second item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+  <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A third item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;/</span><span class="tok-tag">ul</span><span class="tok-punct">&gt;</span>
+<span class="tok-punct">&lt;</span><span class="tok-tag">ul</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group list-group-horizontal-xxl"</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>An item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A second item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">li</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"list-group-item"</span><span class="tok-punct">&gt;</span>A third item<span class="tok-punct">&lt;/</span><span class="tok-tag">li</span><span class="tok-punct">&gt;</span>
@@ -571,6 +611,12 @@
 
 <div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> triggerEl = <span class="tok-tag">document</span>.querySelector(<span class="tok-val">'#list-tab a[href="#list-profile"]'</span>)
 bootstrap.Tab.getOrCreateInstance(triggerEl).show()</code></pre></div>
+
+<h2 id="css">CSS<a class="bd-anchor" href="#css" aria-label="Link to this section">#</a></h2>
+<h3 id="variables">Variables<a class="bd-anchor" href="#variables" aria-label="Link to this section">#</a></h3>
+<p>List groups are built on local CSS variables, like Bootstrap's: <code>.list-group</code> declares them and its items read them, so you can set them on a whole list. The contextual classes set the colours, background and link and button states on their item; the hover and pressed backgrounds of links and buttons are mixed from the item's own background and text colour.</p>
+<div class="table-responsive bd-tokens"><table class="table table-sm"><thead><tr><th>Token</th><th>Default</th><th>Bootstrap</th></tr></thead><tbody><tr><td><code>--felt-list-group-color</code></td><td><code>var(--felt-body-color)</code></td><td><code>--bs-list-group-color</code></td></tr><tr><td><code>--felt-list-group-bg</code></td><td><code>var(--felt-surface)</code></td><td><code>--bs-list-group-bg</code></td></tr><tr><td><code>--felt-list-group-border-color</code></td><td><code>var(--felt-border-color)</code></td><td><code>--bs-list-group-border-color</code></td></tr><tr><td><code>--felt-list-group-border-width</code></td><td><code>var(--felt-border-width)</code></td><td><code>--bs-list-group-border-width</code></td></tr><tr><td><code>--felt-list-group-border-radius</code></td><td><code>var(--felt-radius-lg)</code></td><td><code>--bs-list-group-border-radius</code></td></tr><tr><td><code>--felt-list-group-item-padding-x</code></td><td><code>1rem</code></td><td><code>--bs-list-group-item-padding-x</code></td></tr><tr><td><code>--felt-list-group-item-padding-y</code></td><td><code>.65rem</code></td><td><code>--bs-list-group-item-padding-y</code></td></tr><tr><td><code>--felt-list-group-action-color</code></td><td><code>var(--felt-list-group-color)</code></td><td><code>--bs-list-group-action-color</code></td></tr><tr><td><code>--felt-list-group-action-hover-color</code></td><td><code>var(--felt-list-group-action-color)</code></td><td><code>--bs-list-group-action-hover-color</code></td></tr><tr><td><code>--felt-list-group-action-hover-bg</code></td><td><code>color-mix(in oklab, var(--felt-list-group-bg), currentColor 6%)</code></td><td><code>--bs-list-group-action-hover-bg</code></td></tr><tr><td><code>--felt-list-group-action-active-color</code></td><td><code>var(--felt-list-group-action-color)</code></td><td><code>--bs-list-group-action-active-color</code></td></tr><tr><td><code>--felt-list-group-action-active-bg</code></td><td><code>color-mix(in oklab, var(--felt-list-group-bg), currentColor 12%)</code></td><td><code>--bs-list-group-action-active-bg</code></td></tr><tr><td><code>--felt-list-group-disabled-color</code></td><td><code>var(--felt-tertiary-color)</code></td><td><code>--bs-list-group-disabled-color</code></td></tr><tr><td><code>--felt-list-group-disabled-bg</code></td><td><code>var(--felt-list-group-bg)</code></td><td><code>--bs-list-group-disabled-bg</code></td></tr><tr><td><code>--felt-list-group-active-color</code></td><td><code>var(--felt-primary-ink)</code></td><td><code>--bs-list-group-active-color</code></td></tr><tr><td><code>--felt-list-group-active-bg</code></td><td><code>var(--felt-primary)</code></td><td><code>--bs-list-group-active-bg</code></td></tr><tr><td><code>--felt-list-group-active-border-color</code></td><td><code>var(--felt-primary)</code></td><td><code>--bs-list-group-active-border-color</code></td></tr></tbody></table></div>
+<p>In the felt look a flush list is see-through: <code>--felt-list-group-bg</code> is <code>transparent</code>, so the felt it lies on shows.</p>
 
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/dropdowns/"><small>Previous</small>Dropdowns</a><a class="bd-pager-next" href="../../components/modal/"><small>Next</small>Modal</a></nav>
       </div>

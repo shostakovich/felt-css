@@ -73,11 +73,11 @@
       <div class="bd-toc">
         <details class="bd-toc-details">
           <summary>On this page</summary>
-          <nav aria-label="On this page"><ul><li><a href="#about">About</a></li><li><a href="#border-spinner">Border spinner</a><ul><li><a href="#colors">Colors</a></li></ul></li><li><a href="#growing-spinner">Growing spinner</a></li><li><a href="#alignment">Alignment</a><ul><li><a href="#margin">Margin</a></li><li><a href="#placement">Placement</a></li></ul></li><li><a href="#size">Size</a></li><li><a href="#buttons">Buttons</a></li></ul></nav>
+          <nav aria-label="On this page"><ul><li><a href="#about">About</a></li><li><a href="#border-spinner">Border spinner</a><ul><li><a href="#colors">Colors</a></li></ul></li><li><a href="#growing-spinner">Growing spinner</a></li><li><a href="#alignment">Alignment</a><ul><li><a href="#margin">Margin</a></li><li><a href="#placement">Placement</a></li></ul></li><li><a href="#size">Size</a></li><li><a href="#buttons">Buttons</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul></nav>
         </details>
         <nav class="bd-toc-side" aria-label="On this page (sidebar)">
           <strong>On this page</strong>
-          <ul><li><a href="#about">About</a></li><li><a href="#border-spinner">Border spinner</a><ul><li><a href="#colors">Colors</a></li></ul></li><li><a href="#growing-spinner">Growing spinner</a></li><li><a href="#alignment">Alignment</a><ul><li><a href="#margin">Margin</a></li><li><a href="#placement">Placement</a></li></ul></li><li><a href="#size">Size</a></li><li><a href="#buttons">Buttons</a></li></ul>
+          <ul><li><a href="#about">About</a></li><li><a href="#border-spinner">Border spinner</a><ul><li><a href="#colors">Colors</a></li></ul></li><li><a href="#growing-spinner">Growing spinner</a></li><li><a href="#alignment">Alignment</a><ul><li><a href="#margin">Margin</a></li><li><a href="#placement">Placement</a></li></ul></li><li><a href="#size">Size</a></li><li><a href="#buttons">Buttons</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul>
         </nav>
       </div>
       
@@ -366,6 +366,11 @@
   <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"spinner-grow spinner-grow-sm"</span> <span class="tok-attr">aria-hidden</span><span class="tok-punct">=</span><span class="tok-val">"true"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"status"</span><span class="tok-punct">&gt;</span>Loading...<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="css">CSS<a class="bd-anchor" href="#css" aria-label="Link to this section">#</a></h2>
+<h3 id="variables">Variables<a class="bd-anchor" href="#variables" aria-label="Link to this section">#</a></h3>
+<p>Spinners are built on local CSS variables, like Bootstrap's: <code>.spinner-border</code> and <code>.spinner-grow</code> declare them (the growing spinner with <code>--felt-spinner-animation-name: spinner-grow</code>), the small sizes set them, and you can set them on any spinner. In the felt look the ring is cut <code>--felt-spinner-border-width</code> wide, too.</p>
+<div class="table-responsive bd-tokens"><table class="table table-sm"><thead><tr><th>Token</th><th>Default</th><th>Bootstrap</th></tr></thead><tbody><tr><td><code>--felt-spinner-width</code></td><td><code>2rem</code></td><td><code>--bs-spinner-width</code></td></tr><tr><td><code>--felt-spinner-height</code></td><td><code>2rem</code></td><td><code>--bs-spinner-height</code></td></tr><tr><td><code>--felt-spinner-vertical-align</code></td><td><code>-.125em</code></td><td><code>--bs-spinner-vertical-align</code></td></tr><tr><td><code>--felt-spinner-border-width</code></td><td><code>.25em</code></td><td><code>--bs-spinner-border-width</code></td></tr><tr><td><code>--felt-spinner-animation-speed</code></td><td><code>.75s</code></td><td><code>--bs-spinner-animation-speed</code></td></tr><tr><td><code>--felt-spinner-animation-name</code></td><td><code>spinner-border</code></td><td><code>--bs-spinner-animation-name</code></td></tr></tbody></table></div>
 
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/progress/"><small>Previous</small>Progress</a><a class="bd-pager-next" href="../../components/stat/"><small>Next</small>Stat tiles</a></nav>
       </div>

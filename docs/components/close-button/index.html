@@ -73,11 +73,11 @@
       <div class="bd-toc">
         <details class="bd-toc-details">
           <summary>On this page</summary>
-          <nav aria-label="On this page"><ul><li><a href="#example">Example</a></li><li><a href="#disabled-state">Disabled state</a></li><li><a href="#dark-variant">Dark variant</a></li></ul></nav>
+          <nav aria-label="On this page"><ul><li><a href="#example">Example</a></li><li><a href="#disabled-state">Disabled state</a></li><li><a href="#dark-variant">Dark variant</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul></nav>
         </details>
         <nav class="bd-toc-side" aria-label="On this page (sidebar)">
           <strong>On this page</strong>
-          <ul><li><a href="#example">Example</a></li><li><a href="#disabled-state">Disabled state</a></li><li><a href="#dark-variant">Dark variant</a></li></ul>
+          <ul><li><a href="#example">Example</a></li><li><a href="#disabled-state">Disabled state</a></li><li><a href="#dark-variant">Dark variant</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul>
         </nav>
       </div>
       
@@ -107,7 +107,13 @@
   <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn-close"</span> <span class="tok-attr">disabled</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Close"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 
-<p>Bootstrap's deprecated <code>.btn-close-white</code> still works as well; it simply sets the color to white.</p>
+<p>Bootstrap's deprecated <code>.btn-close-white</code> still works as well; it simply sets <code>--felt-btn-close-color</code> to white.</p>
+
+<h2 id="css">CSS<a class="bd-anchor" href="#css" aria-label="Link to this section">#</a></h2>
+<h3 id="variables">Variables<a class="bd-anchor" href="#variables" aria-label="Link to this section">#</a></h3>
+<p>The close button is built on local CSS variables, like Bootstrap's: <code>.btn-close</code> declares them, and you can set them on any close button.</p>
+<div class="table-responsive bd-tokens"><table class="table table-sm"><thead><tr><th>Token</th><th>Default</th><th>Bootstrap</th></tr></thead><tbody><tr><td><code>--felt-btn-close-color</code></td><td><code>currentColor</code></td><td><code>--bs-btn-close-color</code></td></tr><tr><td><code>--felt-btn-close-bg</code></td><td><code>url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 16 16&#x27;%3E%3Cpath d=&#x27;m3.5 3.5 9 9m0-9-9 9&#x27; stroke=&#x27;%23000&#x27; stroke-width=&#x27;1.8&#x27; stroke-linecap=&#x27;round&#x27; fill=&#x27;none&#x27;/%3E%3C/svg%3E&quot;)</code></td><td><code>--bs-btn-close-bg</code></td></tr><tr><td><code>--felt-btn-close-opacity</code></td><td><code>.5</code></td><td><code>--bs-btn-close-opacity</code></td></tr><tr><td><code>--felt-btn-close-hover-opacity</code></td><td><code>.75</code></td><td><code>--bs-btn-close-hover-opacity</code></td></tr><tr><td><code>--felt-btn-close-focus-opacity</code></td><td><code>1</code></td><td><code>--bs-btn-close-focus-opacity</code></td></tr><tr><td><code>--felt-btn-close-disabled-opacity</code></td><td><code>.25</code></td><td><code>--bs-btn-close-disabled-opacity</code></td></tr></tbody></table></div>
+<p>felt-css draws the X as a mask in <code>--felt-btn-close-color</code> (the text colour by default), so <code>--felt-btn-close-bg</code> gives only its shape: any image works, its colours don't count. That is also why there is no <code>--bs-btn-close-filter</code> counterpart: dark mode and <code>.btn-close-white</code> change the colour instead of filtering an image.</p>
 
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/card/"><small>Previous</small>Card</a><a class="bd-pager-next" href="../../components/collapse/"><small>Next</small>Collapse</a></nav>
       </div>

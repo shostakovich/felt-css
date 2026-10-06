@@ -134,7 +134,7 @@
 <h2 id="what-s-in-the-box">What's in the box<a class="bd-anchor" href="#what-s-in-the-box" aria-label="Link to this section">#</a></h2>
 <p>felt-css covers most of Bootstrap 5.3, with Bootstrap's names and behaviour:</p>
 <ul>
-  <li><strong>Layout:</strong> <a href="../../layout/containers/">containers</a>, the <a href="../../layout/grid/">grid</a> (<code>.row</code>, <code>.col-*</code>, <code>.row-cols-*</code>, <code>.g-*</code>, <code>.offset-*</code>) and <a href="../../helpers/stacks/">stacks</a>.</li>
+  <li><strong>Layout:</strong> six <a href="../../layout/breakpoints/">breakpoints</a> like Bootstrap's, <a href="../../layout/containers/">containers</a>, the <a href="../../layout/grid/">grid</a> (<code>.row</code>, <code>.col-*</code>, <code>.row-cols-*</code>, <code>.g-*</code>, <code>.offset-*</code>) and <a href="../../helpers/stacks/">stacks</a>.</li>
   <li><strong>Content:</strong> <a href="../../content/reboot/">Reboot</a>-style base styles, <a href="../../content/typography/">typography</a>, <a href="../../content/tables/">tables</a>, <a href="../../content/images/">images</a> and <a href="../../content/figures/">figures</a>.</li>
   <li><strong>Forms:</strong> <a href="../../forms/form-control/">controls</a>, <a href="../../forms/select/">selects</a>, <a href="../../forms/checks-radios/">checks, radios and switches</a>, <a href="../../forms/range/">range</a>, <a href="../../forms/input-group/">input groups</a>, <a href="../../forms/floating-labels/">floating labels</a> and <a href="../../forms/validation/">validation states</a>.</li>
   <li><strong>Components:</strong> everything in the sidebar, from <a href="../../components/accordion/">accordion</a> to <a href="../../components/tooltips/">tooltips</a>, plus a felt-css extra, <a href="../../components/stat/">stat tiles</a>.</li>
@@ -142,7 +142,7 @@
 </ul>
 
 <div class="bd-callout bd-callout-info">
-  <p><strong>Not included:</strong> the <code>xl</code> and <code>xxl</code> breakpoints (felt-css stops at <code>lg</code>), carousel, card groups, scrollspy styling, <code>.was-validated</code> and the responsive offcanvas variants. There is no Sass: everything is plain CSS with custom properties.</p>
+  <p><strong>All of Bootstrap 5.3:</strong> every class of Bootstrap's <code>bootstrap.css</code> exists in felt-css, and every Bootstrap CSS variable has a <code>--felt-*</code> counterpart or a documented reason why not; <code>tools/check_parity.py</code> checks both in CI. There is no Sass: everything is plain CSS with <a href="../../customize/css-variables/">custom properties</a>.</p>
 </div>
 
 <h2 id="important-globals">Important globals<a class="bd-anchor" href="#important-globals" aria-label="Link to this section">#</a></h2>

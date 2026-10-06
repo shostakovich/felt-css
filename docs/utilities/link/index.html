@@ -73,11 +73,11 @@
       <div class="bd-toc">
         <details class="bd-toc-details">
           <summary>On this page</summary>
-          <nav aria-label="On this page"><ul><li><a href="#link-opacity">Link opacity</a></li><li><a href="#link-underlines">Link underlines</a><ul><li><a href="#underline-color">Underline color</a></li><li><a href="#underline-offset">Underline offset</a></li><li><a href="#underline-opacity">Underline opacity</a></li><li><a href="#hover-variants">Hover variants</a></li></ul></li><li><a href="#colored-links">Colored links</a></li></ul></nav>
+          <nav aria-label="On this page"><ul><li><a href="#link-opacity">Link opacity</a></li><li><a href="#link-underlines">Link underlines</a><ul><li><a href="#underline-color">Underline color</a></li><li><a href="#underline-offset">Underline offset</a></li><li><a href="#underline-opacity">Underline opacity</a></li><li><a href="#hover-variants">Hover variants</a></li></ul></li><li><a href="#colored-links">Colored links</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul></nav>
         </details>
         <nav class="bd-toc-side" aria-label="On this page (sidebar)">
           <strong>On this page</strong>
-          <ul><li><a href="#link-opacity">Link opacity</a></li><li><a href="#link-underlines">Link underlines</a><ul><li><a href="#underline-color">Underline color</a></li><li><a href="#underline-offset">Underline offset</a></li><li><a href="#underline-opacity">Underline opacity</a></li><li><a href="#hover-variants">Hover variants</a></li></ul></li><li><a href="#colored-links">Colored links</a></li></ul>
+          <ul><li><a href="#link-opacity">Link opacity</a></li><li><a href="#link-underlines">Link underlines</a><ul><li><a href="#underline-color">Underline color</a></li><li><a href="#underline-offset">Underline offset</a></li><li><a href="#underline-opacity">Underline opacity</a></li><li><a href="#hover-variants">Hover variants</a></li></ul></li><li><a href="#colored-links">Colored links</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul>
         </nav>
       </div>
       
@@ -192,6 +192,22 @@
 <span class="tok-punct">&lt;</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">a</span> <span class="tok-attr">href</span><span class="tok-punct">=</span><span class="tok-val">"#"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"</span><span class="tok-punct">&gt;</span>Emphasis link<span class="tok-punct">&lt;/</span><span class="tok-tag">a</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 <div class="bd-callout bd-callout-warning">
   <p><strong>Accessibility tip:</strong> Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies like screen readers. Please ensure the meaning is obvious from the content itself (e.g., the visible text with a sufficient color contrast) or is included through alternative means, such as additional text hidden with the <code>.visually-hidden</code> class.</p>
+</div>
+
+<h2 id="css">CSS<a class="bd-anchor" href="#css" aria-label="Link to this section">#</a></h2>
+<h3 id="variables">Variables<a class="bd-anchor" href="#variables" aria-label="Link to this section">#</a></h3>
+<p>The link utilities set a few variables on the link, which you can set yourself too:</p>
+<div class="table-responsive">
+  <table class="table table-sm">
+    <thead><tr><th>Variable</th><th>Set by</th><th>Bootstrap</th></tr></thead>
+    <tbody>
+      <tr><td><code>--felt-link-color</code></td><td>the global link colour; <code>.link-*</code></td><td><code>--bs-link-color</code>, <code>--bs-link-color-rgb</code></td></tr>
+      <tr><td><code>--felt-link-hover-color</code></td><td><code>.link-*</code>: the colour on hover and focus</td><td><code>--bs-link-hover-color</code></td></tr>
+      <tr><td><code>--felt-link-opacity</code></td><td><code>.link-opacity-*</code></td><td><code>--bs-link-opacity</code></td></tr>
+      <tr><td><code>--felt-link-underline-color</code></td><td><code>.link-underline-*</code></td><td>—</td></tr>
+      <tr><td><code>--felt-link-underline-opacity</code></td><td><code>.link-underline</code>, <code>.link-underline-opacity-*</code></td><td><code>--bs-link-underline-opacity</code></td></tr>
+    </tbody>
+  </table>
 </div>
 
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../utilities/interactions/"><small>Previous</small>Interactions</a><a class="bd-pager-next" href="../../utilities/object-fit/"><small>Next</small>Object fit</a></nav>

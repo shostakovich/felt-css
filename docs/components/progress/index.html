@@ -73,11 +73,11 @@
       <div class="bd-toc">
         <details class="bd-toc-details">
           <summary>On this page</summary>
-          <nav aria-label="On this page"><ul><li><a href="#how-it-works">How it works</a></li><li><a href="#bar-sizing">Bar sizing</a><ul><li><a href="#width">Width</a></li><li><a href="#height">Height</a></li></ul></li><li><a href="#labels">Labels</a><ul><li><a href="#long-labels">Long labels</a></li></ul></li><li><a href="#backgrounds">Backgrounds</a></li><li><a href="#multiple-bars">Multiple bars</a></li><li><a href="#striped">Striped</a></li><li><a href="#animated-stripes">Animated stripes</a></li></ul></nav>
+          <nav aria-label="On this page"><ul><li><a href="#how-it-works">How it works</a></li><li><a href="#bar-sizing">Bar sizing</a><ul><li><a href="#width">Width</a></li><li><a href="#height">Height</a></li></ul></li><li><a href="#labels">Labels</a><ul><li><a href="#long-labels">Long labels</a></li></ul></li><li><a href="#backgrounds">Backgrounds</a></li><li><a href="#multiple-bars">Multiple bars</a></li><li><a href="#striped">Striped</a></li><li><a href="#animated-stripes">Animated stripes</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul></nav>
         </details>
         <nav class="bd-toc-side" aria-label="On this page (sidebar)">
           <strong>On this page</strong>
-          <ul><li><a href="#how-it-works">How it works</a></li><li><a href="#bar-sizing">Bar sizing</a><ul><li><a href="#width">Width</a></li><li><a href="#height">Height</a></li></ul></li><li><a href="#labels">Labels</a><ul><li><a href="#long-labels">Long labels</a></li></ul></li><li><a href="#backgrounds">Backgrounds</a></li><li><a href="#multiple-bars">Multiple bars</a></li><li><a href="#striped">Striped</a></li><li><a href="#animated-stripes">Animated stripes</a></li></ul>
+          <ul><li><a href="#how-it-works">How it works</a></li><li><a href="#bar-sizing">Bar sizing</a><ul><li><a href="#width">Width</a></li><li><a href="#height">Height</a></li></ul></li><li><a href="#labels">Labels</a><ul><li><a href="#long-labels">Long labels</a></li></ul></li><li><a href="#backgrounds">Backgrounds</a></li><li><a href="#multiple-bars">Multiple bars</a></li><li><a href="#striped">Striped</a></li><li><a href="#animated-stripes">Animated stripes</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul>
         </nav>
       </div>
       
@@ -159,7 +159,7 @@
   <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 25%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 
-<p>Or set <code>--felt-progress-height</code> (Bootstrap's <code>--bs-progress-height</code>) on the bar or any parent. On <code>.progress-stacked</code>, either way sizes every segment.</p>
+<p>Or set <code>--felt-progress-height</code> (Bootstrap's <code>--bs-progress-height</code>) on the <code>.progress</code>. On <code>.progress-stacked</code>, set it on the stack: that sizes every segment.</p>
 
 <div class="bd-example-snippet"><div class="bd-example">
 <div class="progress-stacked" style="--felt-progress-height: 1.5rem">
@@ -339,6 +339,12 @@
 </div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress"</span> <span class="tok-attr">role</span><span class="tok-punct">=</span><span class="tok-val">"progressbar"</span> <span class="tok-attr">aria-label</span><span class="tok-punct">=</span><span class="tok-val">"Animated striped example"</span> <span class="tok-attr">aria-valuenow</span><span class="tok-punct">=</span><span class="tok-val">"75"</span> <span class="tok-attr">aria-valuemin</span><span class="tok-punct">=</span><span class="tok-val">"0"</span> <span class="tok-attr">aria-valuemax</span><span class="tok-punct">=</span><span class="tok-val">"100"</span><span class="tok-punct">&gt;</span>
   <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"progress-bar progress-bar-striped progress-bar-animated"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"width: 75%"</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
+
+<h2 id="css">CSS<a class="bd-anchor" href="#css" aria-label="Link to this section">#</a></h2>
+<h3 id="variables">Variables<a class="bd-anchor" href="#variables" aria-label="Link to this section">#</a></h3>
+<p>Progress bars are built on local CSS variables, like Bootstrap's: <code>.progress</code> and <code>.progress-stacked</code> declare them, the bars inside read them, and you can set them on any progress bar.</p>
+<div class="table-responsive bd-tokens"><table class="table table-sm"><thead><tr><th>Token</th><th>Default</th><th>Bootstrap</th></tr></thead><tbody><tr><td><code>--felt-progress-height</code></td><td><code>1rem</code></td><td><code>--bs-progress-height</code></td></tr><tr><td><code>--felt-progress-font-size</code></td><td><code>.75rem</code></td><td><code>--bs-progress-font-size</code></td></tr><tr><td><code>--felt-progress-bg</code></td><td><code>var(--felt-track)</code></td><td><code>--bs-progress-bg</code></td></tr><tr><td><code>--felt-progress-border-radius</code></td><td><code>var(--felt-radius-pill)</code></td><td><code>--bs-progress-border-radius</code></td></tr><tr><td><code>--felt-progress-box-shadow</code></td><td><code>none</code></td><td><code>--bs-progress-box-shadow</code></td></tr><tr><td><code>--felt-progress-bar-color</code></td><td><code>var(--felt-primary-ink)</code></td><td><code>--bs-progress-bar-color</code></td></tr><tr><td><code>--felt-progress-bar-bg</code></td><td><code>var(--felt-primary)</code></td><td><code>--bs-progress-bar-bg</code></td></tr><tr><td><code>--felt-progress-bar-transition</code></td><td><code>width .6s ease</code></td><td><code>--bs-progress-bar-transition</code></td></tr></tbody></table></div>
+<p>The felt look presses the track into the felt with <code>--felt-progress-box-shadow</code>.</p>
 
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/popovers/"><small>Previous</small>Popovers</a><a class="bd-pager-next" href="../../components/spinners/"><small>Next</small>Spinners</a></nav>
       </div>

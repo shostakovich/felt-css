@@ -73,11 +73,11 @@
       <div class="bd-toc">
         <details class="bd-toc-details">
           <summary>On this page</summary>
-          <nav aria-label="On this page"><ul><li><a href="#examples">Examples</a><ul><li><a href="#link-color">Link color</a></li><li><a href="#additional-content">Additional content</a></li><li><a href="#icons">Icons</a></li><li><a href="#dismissing">Dismissing</a></li></ul></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul></nav>
+          <nav aria-label="On this page"><ul><li><a href="#examples">Examples</a><ul><li><a href="#link-color">Link color</a></li><li><a href="#additional-content">Additional content</a></li><li><a href="#icons">Icons</a></li><li><a href="#dismissing">Dismissing</a></li></ul></li><li><a href="#javascript-behavior">JavaScript behavior</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul></nav>
         </details>
         <nav class="bd-toc-side" aria-label="On this page (sidebar)">
           <strong>On this page</strong>
-          <ul><li><a href="#examples">Examples</a><ul><li><a href="#link-color">Link color</a></li><li><a href="#additional-content">Additional content</a></li><li><a href="#icons">Icons</a></li><li><a href="#dismissing">Dismissing</a></li></ul></li><li><a href="#javascript-behavior">JavaScript behavior</a></li></ul>
+          <ul><li><a href="#examples">Examples</a><ul><li><a href="#link-color">Link color</a></li><li><a href="#additional-content">Additional content</a></li><li><a href="#icons">Icons</a></li><li><a href="#dismissing">Dismissing</a></li></ul></li><li><a href="#javascript-behavior">JavaScript behavior</a></li><li><a href="#css">CSS</a><ul><li><a href="#variables">Variables</a></li></ul></li></ul>
         </nav>
       </div>
       
@@ -227,6 +227,13 @@
 
 <div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-js"><span class="tok-tag">const</span> alert = bootstrap.Alert.getOrCreateInstance(<span class="tok-val">'#myAlert'</span>)
 alert.close()</code></pre></div>
+
+<h2 id="css">CSS<a class="bd-anchor" href="#css" aria-label="Link to this section">#</a></h2>
+<h3 id="variables">Variables<a class="bd-anchor" href="#variables" aria-label="Link to this section">#</a></h3>
+<p>Alerts are built on local CSS variables, like Bootstrap's: <code>.alert</code> declares them (the defaults are the primary alert's), the <code>.alert-*</code> variants set the colours, and you can set them on any alert. Links (<code>.alert-link</code>) take the alert's text colour.</p>
+<div class="table-responsive bd-tokens"><table class="table table-sm"><thead><tr><th>Token</th><th>Default</th><th>Bootstrap</th></tr></thead><tbody><tr><td><code>--felt-alert-bg</code></td><td><code>color-mix(in oklab, var(--felt-primary) 12%, var(--felt-surface))</code></td><td><code>--bs-alert-bg</code></td></tr><tr><td><code>--felt-alert-padding-x</code></td><td><code>var(--felt-space-4)</code></td><td><code>--bs-alert-padding-x</code></td></tr><tr><td><code>--felt-alert-padding-y</code></td><td><code>var(--felt-space-3)</code></td><td><code>--bs-alert-padding-y</code></td></tr><tr><td><code>--felt-alert-margin-bottom</code></td><td><code>0</code></td><td><code>--bs-alert-margin-bottom</code></td></tr><tr><td><code>--felt-alert-color</code></td><td><code>var(--felt-primary-emphasis)</code></td><td><code>--bs-alert-color</code></td></tr><tr><td><code>--felt-alert-border-color</code></td><td><code>color-mix(in oklab, var(--felt-primary) 30%, var(--felt-surface))</code></td><td><code>--bs-alert-border-color</code></td></tr><tr><td><code>--felt-alert-border</code></td><td><code>var(--felt-border-width) solid var(--felt-alert-border-color)</code></td><td><code>--bs-alert-border</code></td></tr><tr><td><code>--felt-alert-border-radius</code></td><td><code>var(--felt-radius-lg)</code></td><td><code>--bs-alert-border-radius</code></td></tr><tr><td><code>--felt-alert-link-color</code></td><td><code>var(--felt-alert-color)</code></td><td><code>--bs-alert-link-color</code></td></tr></tbody></table></div>
+<p>In the felt look an alert is a piece of felt dyed in its variant's colour, and <code>--felt-alert-bg</code> is that dye mixed into the light felt (the light and dark alerts have tones of their own). How much dye goes in is a felt-look token, set on the alert:</p>
+<div class="table-responsive bd-tokens"><table class="table table-sm"><thead><tr><th>Token</th><th>Default</th><th>Bootstrap</th></tr></thead><tbody><tr><td><code>--felt-alert-patch-mix</code></td><td><code>20%</code></td><td></td></tr></tbody></table></div>
 
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../components/accordion/"><small>Previous</small>Accordion</a><a class="bd-pager-next" href="../../components/badge/"><small>Next</small>Badge</a></nav>
       </div>
