@@ -21,6 +21,7 @@ _RGB = "felt colours are light-dark() values, not RGB triplets; opacity utilitie
 
 # Bootstrap tokens whose felt counterpart has another name (tokens.py lists the global ones itself)
 MAP = {
+    "--bs-position": "--bs-position",   # read by Bootstrap's JS (Popper), so felt.css sets it under Bootstrap's name
 }
 
 # Bootstrap tokens without a felt counterpart, and why
@@ -37,6 +38,12 @@ ALLOW_TOKENS = {
     # btn-close
     # badge, alert, card, list-group, table, progress, spinner, placeholder
     # nav, navbar, dropdown, breadcrumb, pagination, accordion, modal, offcanvas, toast, tooltip, popover
+    "--bs-navbar-toggler-transition": "the toggler changes state without a transition",
+    "--bs-dropdown-inner-border-radius": "items are inset by the menu's padding with a radius of their own, --felt-dropdown-item-border-radius",
+    "--bs-pagination-focus-color": _FOCUS,
+    "--bs-pagination-focus-bg": _FOCUS,
+    "--bs-pagination-focus-box-shadow": _FOCUS,
+    "--bs-accordion-transition": "the button changes state without a transition; the icon turns with --felt-accordion-btn-icon-transition",
     # carousel, forms
 }
 

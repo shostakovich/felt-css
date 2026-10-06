@@ -281,3 +281,10 @@ const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, o
 </codeblock>
 
 <p>Options (<code>animation</code>, <code>autohide</code>, <code>delay</code>), methods (<code>show</code>, <code>hide</code>, <code>isShown</code>, <code>dispose</code>, <code>getInstance</code>, <code>getOrCreateInstance</code>) and events (<code>show.bs.toast</code>, <code>shown.bs.toast</code>, <code>hide.bs.toast</code>, <code>hidden.bs.toast</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/toasts/#usage">Bootstrap's toast documentation</a>.</p>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Toasts are built on local CSS variables, like Bootstrap's: <code>.toast</code> declares them and you can set them on any toast. In the felt look a toast is cut from the raised cream felt: there the background defaults to <code>--felt-surface-raised</code>. The header's colors are mixed from the toast's text color, so they follow a <code>.text-bg-*</code> toast.</p>
+<cssvars name="toast"></cssvars>
+<p><code>.toast-container</code> declares its stacking order and the space between its toasts:</p>
+<cssvars name="toast-container"></cssvars>

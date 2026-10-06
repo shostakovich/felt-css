@@ -126,7 +126,7 @@ description: Build hidden sidebars into your project for navigation, shopping ca
 </example>
 
 <h2>Dark offcanvas</h2>
-<p>To match an offcanvas to a dark context like a dark navbar, set <code>data-bs-theme="dark"</code> on it (or on a parent wrapper). Everything inside follows, including the close button and dropdowns, so felt-css needs no <code>.btn-close-white</code> or <code>.dropdown-menu-dark</code>.</p>
+<p>To match an offcanvas to a dark context like a dark navbar, set <code>data-bs-theme="dark"</code> on it (or on a parent wrapper). Everything inside follows, including the close button and dropdowns, so no <code>.btn-close-white</code> or <code>.dropdown-menu-dark</code> is needed.</p>
 
 <example class="bd-example-offcanvas p-0 bg-body-secondary">
 <div class="offcanvas offcanvas-start" data-bs-theme="dark" tabindex="-1" id="offcanvasDark" aria-labelledby="offcanvasDarkLabel">
@@ -141,7 +141,33 @@ description: Build hidden sidebars into your project for navigation, shopping ca
 </example>
 
 <h2>Responsive</h2>
-<p>Bootstrap's responsive offcanvas classes (<code>.offcanvas-sm</code>, <code>.offcanvas-md</code>, <code>.offcanvas-lg</code>, …), which show the contents in place above a breakpoint, aren't part of felt-css. An <code>.offcanvas</code> is always an overlay.</p>
+<p>Responsive offcanvas classes hide content outside the viewport from a specified breakpoint and down. Above that breakpoint, the contents within will behave as usual. For example, <code>.offcanvas-lg</code> hides content in an offcanvas below the <code>lg</code> breakpoint, but shows the content above the <code>lg</code> breakpoint.</p>
+<ul>
+  <li><code>.offcanvas</code></li>
+  <li><code>.offcanvas-sm</code></li>
+  <li><code>.offcanvas-md</code></li>
+  <li><code>.offcanvas-lg</code></li>
+  <li><code>.offcanvas-xl</code></li>
+  <li><code>.offcanvas-xxl</code></li>
+</ul>
+<p>To make a responsive offcanvas, replace the <code>.offcanvas</code> base class with a responsive variant and ensure your close button has an explicit <code>data-bs-target</code>.</p>
+<p>Below its breakpoint it is a sheet of felt sewn along its free edges like any offcanvas; from the breakpoint up it is plain content in the page: no sheet, no seam, no header.</p>
+
+<example>
+<button class="btn btn-primary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">Toggle offcanvas</button>
+
+<div class="alert alert-info d-none d-lg-block">Resize your browser to show the responsive offcanvas toggle.</div>
+
+<div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">Responsive offcanvas</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <p class="mb-0">This is content within an <code>.offcanvas-lg</code>.</p>
+  </div>
+</div>
+</example>
 
 <h2>Placement</h2>
 <p>There's no default placement for offcanvas components, so you must add one of the modifier classes below.</p>
@@ -213,3 +239,8 @@ description: Build hidden sidebars into your project for navigation, shopping ca
 const bsOffcanvas = new bootstrap.Offcanvas('#myOffcanvas')
 bsOffcanvas.show()
 </codeblock>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Offcanvases are built on local CSS variables, like Bootstrap's: <code>.offcanvas</code> and the responsive <code>.offcanvas-{sm|md|lg|xl|xxl}</code> declare them and you can set them on any offcanvas. From its breakpoint up a responsive offcanvas sets <code>--felt-offcanvas-height</code> to <code>auto</code> and <code>--felt-offcanvas-border-width</code> to <code>0</code>. Its backdrop shares the <a href="../modal/#css">modal backdrop's variables</a> (with a z-index of <code>1040</code>).</p>
+<cssvars name="offcanvas"></cssvars>

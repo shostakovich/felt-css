@@ -6,7 +6,7 @@ description: Documentation and examples for the powerful, responsive navigation 
 <h2>How it works</h2>
 <p>Here's what you need to know before getting started with the navbar:</p>
 <ul>
-  <li>Navbars require a wrapping <code>.navbar</code> with <code>.navbar-expand{-sm|-md|-lg}</code> for responsive collapsing and <a href="#color-schemes">color scheme</a> classes. felt-css has no <code>-xl</code>/<code>-xxl</code> variants.</li>
+  <li>Navbars require a wrapping <code>.navbar</code> with <code>.navbar-expand{-sm|-md|-lg|-xl|-xxl}</code> for responsive collapsing and <a href="#color-schemes">color scheme</a> classes.</li>
   <li>Navbars and their contents are fluid by default. Change the <a href="#containers">container</a> to limit their horizontal width in different ways.</li>
   <li>Use <a href="../../utilities/spacing/">spacing</a> and <a href="../../utilities/flex/">flex</a> utility classes for controlling spacing and alignment within navbars.</li>
   <li>Navbars are responsive by default, but you can easily modify them to change that. Responsive behavior depends on Bootstrap's Collapse JavaScript plugin.</li>
@@ -301,7 +301,7 @@ description: Documentation and examples for the powerful, responsive navigation 
 </example>
 
 <h2>Color schemes</h2>
-<p>The default navbar uses the page's colors. Apply <code>data-bs-theme="dark"</code> to the <code>.navbar</code> for dark background colors, then customize with <code>.bg-*</code> and additional utilities. felt-css has no <code>.navbar-dark</code> or <code>.navbar-light</code>; the color mode attribute does that job (<a href="../../getting-started/color-modes/">learn more about color modes</a>). Avoid <code>.bg-primary</code> on a navbar with an active <code>.nav-link</code>: the active pill is primary too and would disappear.</p>
+<p>The default navbar uses the page's colors. Apply <code>data-bs-theme="dark"</code> to the <code>.navbar</code> for dark background colors, then customize with <code>.bg-*</code> and additional utilities (<a href="../../getting-started/color-modes/">learn more about color modes</a>). Avoid <code>.bg-primary</code> on a navbar with an active <code>.nav-link</code>: the active pill is primary too and would disappear.</p>
 
 <example code="false">
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
@@ -396,6 +396,37 @@ description: Documentation and examples for the powerful, responsive navigation 
   <!-- Navbar content -->
 </nav>
 </codeblock>
+
+<div class="bd-callout bd-callout-warning">
+  <p><strong>Deprecated in Bootstrap 5.3.</strong> <code>.navbar-dark</code> is kept for markup written for older versions: it does exactly what <code>data-bs-theme="dark"</code> on the navbar does, so the navbar and everything in it (its dropdowns and offcanvas too) take the dark colors. Prefer the attribute in new markup. Bootstrap 5.3 has no <code>.navbar-light</code> any more.</p>
+</div>
+
+<example>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDark" aria-controls="navbarDark" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarDark">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        Navbar text
+      </span>
+    </div>
+  </div>
+</nav>
+</example>
 
 <h2>Containers</h2>
 <p>Although it's not required, you can wrap a navbar in a <code>.container</code> to center it on a page–though note that an inner container is still required. Or you can add a container inside the <code>.navbar</code> to only center the contents of a <a href="#placement">fixed or static top navbar</a>.</p>
@@ -506,10 +537,51 @@ description: Documentation and examples for the powerful, responsive navigation 
 </codeblock>
 
 <h2>Scrolling</h2>
-<p>Bootstrap's <code>.navbar-nav-scroll</code> isn't part of felt-css. To scroll the toggleable contents of a tall collapsed navbar, give the <code>.navbar-nav</code> a <code>max-height</code> and <code>.overflow-y-auto</code> yourself.</p>
+<p>Add <code>.navbar-nav-scroll</code> to a <code>.navbar-nav</code> (or other navbar sub-component) to enable vertical scrolling within the toggleable contents of a collapsed navbar. By default, scrolling kicks in at <code>75vh</code> (or 75% of the viewport height), but you can override that with the local CSS custom property <code>--felt-scroll-height</code> or custom styles. At larger viewports when the navbar is expanded, content will appear as it does in a default navbar.</p>
+<p>Please note that this behavior comes with a potential drawback of <code>overflow</code>—when setting <code>overflow-y: auto</code> (required to scroll the content here), <code>overflow-x</code> is the equivalent of <code>auto</code>, which will crop some horizontal content.</p>
+<p>Here's an example navbar using <code>.navbar-nav-scroll</code> with <code>style="--felt-scroll-height: 100px;"</code>, with some extra margin utilities for optimum spacing.</p>
+
+<example>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar scroll</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--felt-scroll-height: 100px;">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Link
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Link</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+</example>
 
 <h2>Responsive behaviors</h2>
-<p>Navbars can use <code>.navbar-toggler</code>, <code>.navbar-collapse</code>, and <code>.navbar-expand{-sm|-md|-lg}</code> classes to determine when their content collapses behind a button. In combination with other utilities, you can easily choose when to show or hide particular elements.</p>
+<p>Navbars can use <code>.navbar-toggler</code>, <code>.navbar-collapse</code>, and <code>.navbar-expand{-sm|-md|-lg|-xl|-xxl}</code> classes to determine when their content collapses behind a button. In combination with other utilities, you can easily choose when to show or hide particular elements.</p>
 <p>For navbars that never collapse, add the <code>.navbar-expand</code> class on the navbar. For navbars that always collapse, don't add any <code>.navbar-expand</code> class.</p>
 
 <h3>Toggler</h3>
@@ -626,8 +698,8 @@ description: Documentation and examples for the powerful, responsive navigation 
 <p>When you do this, we recommend including additional JavaScript to move the focus programmatically to the container when it is opened. Otherwise, keyboard users and users of assistive technologies will likely have a hard time finding the newly revealed content - particularly if the container that was opened comes <em>before</em> the toggler in the document's structure. We also recommend making sure that the toggler has the <code>aria-controls</code> attribute, pointing to the <code>id</code> of the content container.</p>
 
 <h3>Offcanvas</h3>
-<p>Transform your expanding and collapsing navbar into an offcanvas drawer with the <a href="../offcanvas/">offcanvas component</a>. Put the offcanvas inside the navbar and point the toggler at it with <code>data-bs-toggle="offcanvas"</code>.</p>
-<p>The offcanvas navbar is always collapsed: felt-css has no responsive offcanvas, so it doesn't expand into a normal navbar at a breakpoint. Add <code>.fixed-top</code> to the <code>.navbar</code> to pin it to the top of the page as Bootstrap does; it's left out here so the example stays in place.</p>
+<p>Transform your expanding and collapsing navbar into an offcanvas drawer with the <a href="../offcanvas/">offcanvas component</a>. Put the offcanvas inside the navbar and point the toggler at it with <code>data-bs-toggle="offcanvas"</code>. In the example below, to create an offcanvas navbar that is always collapsed across all breakpoints, omit the <code>.navbar-expand-*</code> class entirely.</p>
+<p>Add <code>.fixed-top</code> to the <code>.navbar</code> to pin it to the top of the page as Bootstrap does; it's left out in these examples so they stay in place.</p>
 
 <example>
 <nav class="navbar bg-body-tertiary">
@@ -664,6 +736,39 @@ description: Documentation and examples for the powerful, responsive navigation 
           </li>
         </ul>
         <form class="d-flex mt-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+</example>
+
+<p>To create an offcanvas navbar that expands into a normal navbar at a specific breakpoint like <code>lg</code>, use <code>.navbar-expand-lg</code>. From that breakpoint up the offcanvas is plain navbar content: no sheet, no seam, and its header is hidden.</p>
+
+<example>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Offcanvas navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarLg" aria-controls="offcanvasNavbarLg" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbarLg" aria-labelledby="offcanvasNavbarLgLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLgLabel">Offcanvas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+        </ul>
+        <form class="d-flex mt-3 mt-lg-0" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
@@ -721,3 +826,9 @@ description: Documentation and examples for the powerful, responsive navigation 
 
 <h2>JavaScript behavior</h2>
 <p>felt-css is CSS only. The toggler opens and closes <code>.navbar-collapse</code> through Bootstrap's <a href="../collapse/">collapse plugin</a>, dropdowns use the <a href="../dropdowns/">dropdown plugin</a> and offcanvas navbars the <a href="../offcanvas/">offcanvas plugin</a>; their options, methods and events are described in <a href="https://getbootstrap.com/docs/5.3/components/navbar/">Bootstrap's navbar documentation</a>.</p>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Navbars are built on local CSS variables, like Bootstrap's: <code>.navbar</code> declares them and you can set them on any navbar. <code>.navbar-nav</code> hands the navbar's colors and link padding on to the <a href="../navs-tabs/#css">nav variables</a> of its links.</p>
+<cssvars name="navbar"></cssvars>
+<p>The toggler icon is a mask painted in the toggler's color, so any single-color icon (an SVG data URI, for example) takes the navbar's colors. <code>.navbar-nav-scroll</code> reads <code>--felt-scroll-height</code> (default <code>75vh</code>) from the element or any parent.</p>

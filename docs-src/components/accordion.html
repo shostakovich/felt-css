@@ -16,7 +16,7 @@ description: Build vertically collapsing accordions in combination with Bootstra
   <li>add the <code>.show</code> class on the <code>.collapse</code> element.</li>
   <li>drop the <code>.collapsed</code> class from the <code>.accordion-button</code> element and set its <code>aria-expanded</code> attribute to <code>true</code>.</li>
 </ul>
-<p>Bootstrap’s markup also puts an <code>.accordion-collapse</code> class on each collapsing element. felt-css doesn’t need it, but markup copied from Bootstrap works unchanged.</p>
+<p>Like Bootstrap, the collapsing element carries <code>.accordion-collapse</code> next to <code>.collapse</code>: it keeps the last item's open body within the accordion's rounded corners.</p>
 
 <example>
 <div class="accordion" id="accordionExample">
@@ -220,3 +220,8 @@ const accordionCollapseList = [...accordionCollapseElementList].map(accordionCol
 
 <h2>JavaScript behavior</h2>
 <p>felt-css is CSS only; opening and closing comes from Bootstrap’s collapse plugin. Options (<code>parent</code>, <code>toggle</code>), methods (<code>show</code>, <code>hide</code>, <code>toggle</code>, <code>dispose</code>, <code>getOrCreateInstance</code>) and events (<code>show.bs.collapse</code>, <code>shown.bs.collapse</code>, <code>hide.bs.collapse</code>, <code>hidden.bs.collapse</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/accordion/#usage">Bootstrap’s accordion documentation</a>.</p>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Accordions are built on local CSS variables, like Bootstrap's: <code>.accordion</code> declares them and you can set them on any accordion; <code>.accordion-flush</code> sets the background to transparent. The icon is a mask painted in the button's text color, so any single-color icon (an SVG data URI, for example) takes the colors of the closed and the open button.</p>
+<cssvars name="accordion"></cssvars>

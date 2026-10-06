@@ -102,10 +102,18 @@ def text_bg():
 # ------------------------------------------------------------------ breakpoints
 
 def navbar_expand(i):
+    """expanded, an offcanvas in the navbar is plain navbar content, laid out like .navbar-collapse"""
     n = f".navbar-expand{i}"
     return [f"{n} {{ flex-wrap: nowrap; }}", f"{n} .navbar-nav {{ flex-direction: row; }}",
-            f"{n} .navbar-nav .dropdown-menu {{ position: absolute; }}", f"{n} .navbar-toggler {{ display: none; }}",
-            f"{n} .navbar-collapse {{ display: flex !important; flex-basis: auto; }}"]
+            f"{n} .navbar-nav .dropdown-menu {{ position: absolute; }}", f"{n} .navbar-nav-scroll {{ overflow: visible; }}",
+            f"{n} .navbar-toggler {{ display: none; }}",
+            f"{n} .navbar-collapse {{ display: flex !important; flex-basis: auto; }}",
+            f"{n} .offcanvas {{ position: static; z-index: auto; flex-grow: 1; width: auto !important; height: auto !important; "
+            "visibility: visible !important; background-color: transparent !important; border: 0 !important; border-radius: 0; "
+            "box-shadow: none; transform: none !important; transition: none; }",
+            f"{n} .offcanvas .offcanvas-header {{ display: none; }}",
+            refs(f"{n} .offcanvas .offcanvas-body {{ display: flex; flex-grow: 0; align-items: center; gap: $space-2 $space-3; "
+                 "padding: 0; overflow-y: visible; }")]
 
 
 def list_group_horizontal(i):
@@ -132,7 +140,26 @@ def table_responsive(i):
 def modal_fullscreen(i):
     n = f".modal-fullscreen{i}{'-down' if i else ''}"
     return [f"{n} {{ width: 100%; max-width: none; height: 100%; margin: 0; }}",
-            f"{n} .modal-content {{ height: 100%; border: 0; border-radius: 0; }}"]
+            f"{n} .modal-content {{ height: 100%; border: 0; border-radius: 0; }}",
+            f"{n} :is(.modal-header, .modal-footer) {{ border-radius: 0; }}"]
+
+
+def offcanvas_responsive(i):
+    """.offcanvas-{bp} from its breakpoint up: the sheet becomes plain content in the page's flow"""
+    n = f".offcanvas{i}"
+    return [f"{n} {{ --felt-offcanvas-height: auto; --felt-offcanvas-border-width: 0; position: static; z-index: auto; display: block; "
+            "width: auto; max-width: none; visibility: visible; background-color: transparent !important; color: inherit; "
+            "border-radius: 0; box-shadow: none; transform: none; transition: none; }",
+            f"{n} .offcanvas-header {{ display: none; }}",
+            f"{n} .offcanvas-body {{ display: flex; flex-grow: 0; padding: 0; overflow-y: visible; background-color: transparent !important; }}"]
+
+
+def offcanvas_inline(i):
+    """the felt layer's half of offcanvas_responsive and navbar_expand: inline, an offcanvas is no piece of felt"""
+    sel = ", ".join(([f".offcanvas{i}"] if i else []) + [f".navbar-expand{i} .offcanvas"])
+    return [f"&:is({sel}) {{ background-image: none; box-shadow: none; overflow: visible; "
+            "--felt-thread-filter: inherit; --_rule-piece: inherit; }",
+            f"&:is({sel})::after {{ content: none; }}"]
 
 
 def containers():
@@ -155,4 +182,6 @@ def blocks():
         "dropdown-align": per_breakpoint(dropdown_align),
         "table-responsive": below_breakpoint(table_responsive),
         "modal-fullscreen": below_breakpoint(modal_fullscreen),
+        "offcanvas-responsive": per_breakpoint(offcanvas_responsive, plain=False),
+        "offcanvas-inline": per_breakpoint(offcanvas_inline),
     }

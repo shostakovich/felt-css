@@ -338,7 +338,55 @@ description: Toggle contextual overlays for displaying lists of links and more w
 </codeblock>
 
 <h2>Dark dropdowns</h2>
-<p>felt-css has no <code>.dropdown-menu-dark</code> (Bootstrap deprecated it in 5.3, too). Add <code>data-bs-theme="dark"</code> to the menu or a parent element instead; see <a href="../../getting-started/color-modes/">color modes</a>.</p>
+<p>Opt into darker dropdowns to match a dark navbar or custom style by adding <code>.dropdown-menu-dark</code> onto an existing <code>.dropdown-menu</code>. No changes are required to the dropdown items.</p>
+
+<div class="bd-callout bd-callout-warning">
+  <p><strong>Deprecated in Bootstrap 5.3.</strong> Dark variants for components were deprecated with the introduction of color modes. Instead of adding <code>.dropdown-menu-dark</code>, set <code>data-bs-theme="dark"</code> on the root element, a parent wrapper, or the component itself (<a href="../../getting-started/color-modes/">learn more about color modes</a>). In felt-css <code>.dropdown-menu-dark</code> does exactly that: the menu switches to the dark color mode.</p>
+</div>
+
+<example>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <ul class="dropdown-menu dropdown-menu-dark">
+    <li><a class="dropdown-item active" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#">Separated link</a></li>
+  </ul>
+</div>
+</example>
+
+<p>And putting it to use in a navbar:</p>
+
+<example>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</example>
+
+<p>With the color mode attribute instead:</p>
 <example>
 <div class="dropdown" data-bs-theme="dark">
   <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -608,7 +656,39 @@ description: Toggle contextual overlays for displaying lists of links and more w
 </div>
 </example>
 
-<p>felt-css has no responsive alignment classes (<code>.dropdown-menu-{sm|md|lg}-end</code>, <code>.dropdown-menu-*-start</code>); <code>.dropdown-menu-end</code> is the only alignment modifier.</p>
+<h3>Responsive alignment</h3>
+<p>If you want to use responsive alignment, disable dynamic positioning by adding the <code>data-bs-display="static"</code> attribute and use the responsive variation classes.</p>
+<p>To align <strong>right</strong> the dropdown menu with the given breakpoint or larger, add <code>.dropdown-menu{-sm|-md|-lg|-xl|-xxl}-end</code>.</p>
+
+<example>
+<div class="btn-group">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+    Left-aligned but right aligned when large screen
+  </button>
+  <ul class="dropdown-menu dropdown-menu-lg-end">
+    <li><button class="dropdown-item" type="button">Action</button></li>
+    <li><button class="dropdown-item" type="button">Another action</button></li>
+    <li><button class="dropdown-item" type="button">Something else here</button></li>
+  </ul>
+</div>
+</example>
+
+<p>To align <strong>left</strong> the dropdown menu with the given breakpoint or larger, add <code>.dropdown-menu-end</code> and <code>.dropdown-menu{-sm|-md|-lg|-xl|-xxl}-start</code>.</p>
+
+<example>
+<div class="btn-group">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+    Right-aligned but left aligned when large screen
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+    <li><button class="dropdown-item" type="button">Action</button></li>
+    <li><button class="dropdown-item" type="button">Another action</button></li>
+    <li><button class="dropdown-item" type="button">Something else here</button></li>
+  </ul>
+</div>
+</example>
+
+<p>Note that you don't need to add a <code>data-bs-display="static"</code> attribute to dropdown buttons in navbars, since Popper isn't used in navbars.</p>
 
 <h3>Alignment options</h3>
 <p>Taking most of the options shown above, here’s a small kitchen sink demo of various dropdown alignment options in one place.</p>
@@ -869,3 +949,8 @@ const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootst
 
 <h2>JavaScript behavior</h2>
 <p>felt-css is CSS only; opening, closing and positioning come from Bootstrap’s dropdown plugin. Options (<code>autoClose</code>, <code>boundary</code>, <code>display</code>, <code>offset</code>, <code>popperConfig</code>, <code>reference</code>), methods (<code>show</code>, <code>hide</code>, <code>toggle</code>, <code>update</code>, <code>dispose</code>, <code>getOrCreateInstance</code>) and events (<code>show.bs.dropdown</code>, <code>shown.bs.dropdown</code>, <code>hide.bs.dropdown</code>, <code>hidden.bs.dropdown</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/dropdowns/#usage">Bootstrap’s dropdown documentation</a>.</p>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Dropdowns are built on local CSS variables, like Bootstrap's: <code>.dropdown-menu</code> declares them and you can set them on any menu. <code>.dropdown-menu-dark</code> sets none of them: it switches the menu to the dark color mode, so the same variables resolve to their dark values.</p>
+<cssvars name="dropdown"></cssvars>

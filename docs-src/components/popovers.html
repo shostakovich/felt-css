@@ -102,7 +102,22 @@ const popover = new bootstrap.Popover('.example-popover', {
 </codeblock>
 
 <h3>Custom popovers</h3>
-<p>felt-css has no <code>--bs-popover-*</code> variables. To restyle single popovers, add a class with <code>data-bs-custom-class="custom-popover"</code> and target <code>.custom-popover</code>, <code>.popover-header</code> and <code>.popover-body</code> in your own CSS.</p>
+<p>You can customize the appearance of popovers using <a href="#css">CSS variables</a>. We set a custom class with <code>data-bs-custom-class="custom-popover"</code> to scope our custom appearance and use it to override some of the local CSS variables.</p>
+<codeblock lang="css">
+.custom-popover {
+  --felt-popover-max-width: 200px;
+  --felt-popover-border-color: var(--felt-primary);
+  --felt-popover-header-bg: var(--felt-primary);
+  --felt-popover-header-color: var(--felt-primary-ink);
+  --felt-popover-body-padding-x: 1rem;
+  --felt-popover-body-padding-y: .5rem;
+}
+</codeblock>
+<example>
+<button type="button" class="btn btn-secondary" data-bs-toggle="popover" data-bs-placement="right" data-bs-custom-class="custom-popover" data-bs-title="Custom popover" data-bs-content="This popover is themed via CSS variables.">
+  Custom popover
+</button>
+</example>
 
 <h3>Dismiss on next click</h3>
 <p>Use the <code>focus</code> trigger to dismiss popovers on the user's next click of an element other than the toggle element.</p>
@@ -144,3 +159,8 @@ const popover = new bootstrap.Popover(exampleEl, options)
 </div>
 
 <p>Options (<code>placement</code>, <code>trigger</code>, <code>container</code>, <code>html</code>, <code>offset</code>, <code>customClass</code>, …), methods (<code>show</code>, <code>hide</code>, <code>toggle</code>, <code>enable</code>, <code>disable</code>, <code>setContent</code>, <code>update</code>, <code>dispose</code>) and events (<code>show.bs.popover</code>, <code>shown.bs.popover</code>, <code>hide.bs.popover</code>, <code>hidden.bs.popover</code>, <code>inserted.bs.popover</code>) work exactly as described in <a href="https://getbootstrap.com/docs/5.3/components/popovers/#usage">Bootstrap's popover documentation</a>.</p>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>Popovers are built on local CSS variables, like Bootstrap's: <code>.popover</code> declares them and you can set them on a popover, through a custom class (<code>data-bs-custom-class</code>) or on a parent of its container. In the felt look the arrow has no outline: it is cut from the popover's own felt.</p>
+<cssvars name="popover"></cssvars>
