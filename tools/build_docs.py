@@ -56,6 +56,8 @@ NAV = [
         ("grid", "Grid"),
         ("columns", "Columns"),
         ("gutters", "Gutters"),
+        ("utilities", "Utilities"),
+        ("z-index", "Z-index"),
     ]),
     ("Content", "content", [
         ("reboot", "Reboot"),
@@ -72,6 +74,7 @@ NAV = [
         ("range", "Range"),
         ("input-group", "Input group"),
         ("floating-labels", "Floating labels"),
+        ("layout", "Layout"),
         ("validation", "Validation"),
     ]),
     ("Components", "components", [
@@ -82,6 +85,7 @@ NAV = [
         ("buttons", "Buttons"),
         ("button-group", "Button group"),
         ("card", "Card"),
+        ("carousel", "Carousel"),
         ("close-button", "Close button"),
         ("collapse", "Collapse"),
         ("dropdowns", "Dropdowns"),
@@ -94,6 +98,7 @@ NAV = [
         ("placeholders", "Placeholders"),
         ("popovers", "Popovers"),
         ("progress", "Progress"),
+        ("scrollspy", "Scrollspy"),
         ("spinners", "Spinners"),
         ("stat", "Stat tiles"),
         ("toasts", "Toasts"),

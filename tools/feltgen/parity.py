@@ -38,6 +38,8 @@ ALLOW_TOKENS = {
     # badge, alert, card, list-group, table, progress, spinner, placeholder
     # nav, navbar, dropdown, breadcrumb, pagination, accordion, modal, offcanvas, toast, tooltip, popover
     # carousel, forms
+    "--bs-form-select-bg-icon": "felt-css draws no validation icon in fields: the border, the felt tint and the feedback "
+                                "carry the state",
 }
 
 # Bootstrap classes felt.css leaves out, and why

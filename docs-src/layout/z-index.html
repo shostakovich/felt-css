@@ -1,0 +1,41 @@
+<!--
+title: Z-index
+description: While not a part of the grid system, z-indexes play an important part in how the components overlay and interact with one another.
+-->
+<p>Several components use <code>z-index</code>, the CSS property that helps control layout by providing a third axis to arrange content. felt-css uses Bootstrap's z-index scale, designed to properly layer navigation, tooltips and popovers, modals, and more, so its components layer the same way next to Bootstrap's or your own.</p>
+<p>These higher values start at an arbitrary number, high and specific enough to ideally avoid conflicts. We need a standard set of these across the layered components—tooltips, popovers, navbars, dropdowns, modals—so we can be reasonably consistent in the behaviors. There's no reason we couldn't have used <code>100</code>+ or <code>500</code>+.</p>
+<p>We don't encourage customization of these individual values; should you change one, you likely need to change them all. Unlike Bootstrap, felt-css has no variables for them: they are plain values in <code>felt.css</code>.</p>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr><th>Layer</th><th><code>z-index</code></th><th>Bootstrap</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>.dropdown-menu</code></td><td><code>1000</code></td><td><code>$zindex-dropdown</code></td></tr>
+      <tr><td><code>.sticky-top</code>, <code>.sticky-bottom</code> (and their breakpoint variants)</td><td><code>1020</code></td><td><code>$zindex-sticky</code></td></tr>
+      <tr><td><code>.fixed-top</code>, <code>.fixed-bottom</code></td><td><code>1030</code></td><td><code>$zindex-fixed</code></td></tr>
+      <tr><td><code>.offcanvas-backdrop</code></td><td><code>1040</code></td><td><code>$zindex-offcanvas-backdrop</code></td></tr>
+      <tr><td><code>.offcanvas</code></td><td><code>1045</code></td><td><code>$zindex-offcanvas</code></td></tr>
+      <tr><td><code>.modal-backdrop</code></td><td><code>1050</code></td><td><code>$zindex-modal-backdrop</code></td></tr>
+      <tr><td><code>.modal</code></td><td><code>1055</code></td><td><code>$zindex-modal</code></td></tr>
+      <tr><td><code>.popover</code></td><td><code>1070</code></td><td><code>$zindex-popover</code></td></tr>
+      <tr><td><code>.tooltip</code></td><td><code>1080</code></td><td><code>$zindex-tooltip</code></td></tr>
+      <tr><td><code>.toast-container</code></td><td><code>1090</code></td><td><code>$zindex-toast</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Within components</h2>
+<p>To handle overlapping borders within components (e.g., buttons and inputs in input groups, list group items, pagination links), felt-css uses low single digit <code>z-index</code> values of <code>1</code>, <code>2</code>, and <code>3</code> for default, hover, and active states. On hover/focus/active, a particular element is brought to the forefront with a higher <code>z-index</code> value to show its border over the sibling elements. Validation tooltips use <code>5</code>, the carousel's controls <code>1</code> and its indicators <code>2</code>, as in Bootstrap.</p>
+
+<h2>Seams in the felt look</h2>
+<p>The felt look draws its seams, stitch rows and felt details with <code>::before</code> and <code>::after</code>, layered with small values inside the piece they belong to, never above the scale above:</p>
+<ul>
+  <li>The seam of a sewn piece (a card, an alert, a modal, a list group…) is its <code>::after</code> at <code>z-index: 3</code>, over the piece's content but under anything positioned higher; the seams of buttons and pagination links stay at <code>auto</code>.</li>
+  <li>Photos lie on top of the felt: card images are lifted to <code>4</code>, so a card's seam runs underneath them, and <code>.card-img-overlay</code> to <code>5</code>, above its image.</li>
+  <li>A list group isolates its stacking (<code>isolation: isolate</code>), so its seam can sit above the hovered and active items (<code>1</code> and <code>2</code>) without reaching out of the list.</li>
+  <li>The seam of a <code>.fixed-top</code> or <code>.fixed-bottom</code> navbar goes under the bar's content (<code>0</code>).</li>
+  <li>In a carousel, the felt corners holding the photo are at <code>3</code> and their shadow at <code>2</code>: above the slides (<code>1</code> while they cross-fade) and level with the indicators; they let clicks through to the controls.</li>
+</ul>
+<p>If you position elements of your own inside felt pieces, keep them under <code>3</code> to stay below the seam, or lift them to <code>4</code> to lie on top of it, like the card images.</p>

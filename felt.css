@@ -20,7 +20,7 @@
 /* --------------------------------------------------------------- tokens */
 @layer tokens {
   /* tokens:start */
-  /* written by tools/feltgen/tokens.py; change it there, not these 408 lines */
+  /* written by tools/feltgen/tokens.py; change it there, not these 417 lines */
   /* the clean look; colours are light-dark(light, dark) and follow color-scheme: the system's, or data-bs-theme's */
   :root {
     color-scheme: light dark;
@@ -127,6 +127,11 @@
     --felt-highlight-bg: var(--felt-warning-subtle);
     --felt-highlight-color: inherit;
     --felt-code-color: var(--felt-danger-emphasis);
+    /* form validation */
+    --felt-form-valid-color: var(--felt-success-emphasis);
+    --felt-form-valid-border-color: var(--felt-success);
+    --felt-form-invalid-color: var(--felt-danger-emphasis);
+    --felt-form-invalid-border-color: var(--felt-danger);
     /* interaction */
     --felt-hover-ink: light-dark(#000, #fff);
     --felt-press-ink: #000;
@@ -252,6 +257,8 @@
     --felt-track: light-dark(rgb(90 70 40 / .16), rgb(0 0 0 / .36));
     --felt-backdrop: light-dark(rgb(50 35 15 / .26), rgb(10 8 5 / .5));
     --felt-highlight-bg: light-dark(#f0d8a2, color-mix(in oklab, var(--felt-warning) 35%, var(--felt-surface)));
+    /* form validation */
+    --felt-form-invalid-border-color: color-mix(in oklab, var(--felt-danger-emphasis) 80%, transparent);
     /* interaction */
     --felt-focus-ring-color: light-dark(color-mix(in oklab, var(--felt-primary) 50%, transparent), color-mix(in oklab, var(--felt-link-color) 60%, transparent));
     /* spacing, radius and shadows */
@@ -373,6 +380,8 @@
     --felt-track: light-dark(#e3e7ec, #3a4047);
     --felt-backdrop: light-dark(rgb(16 24 40 / .45), rgb(0 0 0 / .6));
     --felt-highlight-bg: var(--felt-warning-subtle);
+    /* form validation */
+    --felt-form-invalid-border-color: var(--felt-danger);
     /* interaction */
     --felt-focus-ring-color: light-dark(color-mix(in oklab, var(--felt-primary) 50%, transparent), color-mix(in oklab, var(--felt-link-color) 60%, transparent));
     /* spacing, radius and shadows */
@@ -947,13 +956,20 @@
   }
   .form-control::placeholder { color: var(--felt-secondary-color); opacity: 1; }
   .form-control:focus, .form-select:focus { outline: none; border-color: color-mix(in oklab, var(--felt-primary) 60%, var(--felt-border-color)); box-shadow: 0 0 0 .25rem var(--felt-focus-ring-color); }
-  :is(.form-control, .form-select).is-invalid { --_state: var(--felt-danger); border-color: var(--_state); }
-  :is(.form-control, .form-select).is-valid { --_state: var(--felt-success); border-color: var(--_state); }
-  :is(.form-control, .form-select):is(.is-invalid, .is-valid):focus { border-color: var(--_state); box-shadow: 0 0 0 .25rem color-mix(in oklab, var(--_state) 30%, transparent); }
+  /* validation: .is-valid / .is-invalid, or the browser's verdict inside .was-validated (as weak as the classes) */
+  :is(.form-control, .form-select, .form-check-input):is(.is-invalid, :where(.was-validated) :invalid) {
+    --_state: var(--felt-danger); --_state-border: var(--felt-form-invalid-border-color);
+  }
+  :is(.form-control, .form-select, .form-check-input):is(.is-valid, :where(.was-validated) :valid) {
+    --_state: var(--felt-success); --_state-border: var(--felt-form-valid-border-color);
+  }
+  :is(.form-control, .form-select):is(.is-invalid, .is-valid, :where(.was-validated) :is(:invalid, :valid)) { border-color: var(--_state-border); }
+  :is(.form-control, .form-select):is(.is-invalid, .is-valid, :where(.was-validated) :is(:invalid, :valid)):focus { border-color: var(--_state-border); box-shadow: 0 0 0 .25rem color-mix(in oklab, var(--_state) 30%, transparent); }
   .invalid-feedback, .valid-feedback { display: none; margin: var(--felt-space-1) 0 0; font-size: .8125rem; font-weight: 600; }
-  .invalid-feedback { color: var(--felt-danger-emphasis); }
-  .valid-feedback { color: var(--felt-success-emphasis); }
-  .is-invalid ~ :is(.invalid-feedback, .invalid-tooltip), .is-valid ~ :is(.valid-feedback, .valid-tooltip) { display: block; }
+  .invalid-feedback { color: var(--felt-form-invalid-color); }
+  .valid-feedback { color: var(--felt-form-valid-color); }
+  :is(.is-invalid, :where(.was-validated) :invalid) ~ :is(.invalid-feedback, .invalid-tooltip),
+  :is(.is-valid, :where(.was-validated) :valid) ~ :is(.valid-feedback, .valid-tooltip) { display: block; }
   /* tooltip-style feedback: needs a positioned parent (e.g. .position-relative) */
   .invalid-tooltip, .valid-tooltip {
     position: absolute; top: 100%; z-index: 5; display: none; max-width: 100%; margin-top: .25rem; padding: .25rem .6rem;
@@ -976,40 +992,64 @@
 
   .form-check { display: flex; align-items: center; gap: .6rem; min-height: 1.75rem; }
   .form-check-input {
+    /* docs:form-check-vars:start */
+    --felt-form-check-bg: var(--felt-field);
+    --felt-form-check-bg-image: none;
+    /* docs:form-check-vars:end */
+    --_check-fill: var(--felt-primary);
     flex: none;
     width: 1.25rem; height: 1.25rem; margin: 0;
     appearance: none;
-    background-color: var(--felt-field);
+    background-color: var(--felt-form-check-bg);
+    background-image: var(--felt-form-check-bg-image);
     border: 1.5px solid var(--felt-border-color-strong);
     border-radius: var(--felt-radius-sm);
     background-repeat: no-repeat; background-position: center; background-size: 80%;
     cursor: pointer;
   }
   .form-check-input[type="radio"] { border-radius: 50%; }
-  .form-check-input[type="radio"]:checked { background-image: radial-gradient(circle, #fff 0 28%, transparent 33%); background-size: 100%; }
+  .form-check-input[type="radio"]:checked { --felt-form-check-bg-image: radial-gradient(circle, #fff 0 28%, transparent 33%); background-size: 100%; }
+  .form-check-input:is(:checked, :where([type="checkbox"]):indeterminate) { background-color: var(--_check-fill); border-color: var(--_check-fill); }
   .form-check-input:checked {
-    background-color: var(--felt-primary);
-    border-color: var(--felt-primary);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 8.5 3 3 6-7' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --felt-form-check-bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 8.5 3 3 6-7' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+  .form-check-input[type="checkbox"]:indeterminate {
+    --felt-form-check-bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8h8' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
   }
 
   .form-switch .form-check-input {
-    --_knob: radial-gradient(circle closest-side, light-dark(#fff, #9aa2ac) 88%, rgb(0 0 0 / .14) 95%, transparent 100%);
+    /* docs:form-switch-vars:start */
+    --felt-form-switch-bg: radial-gradient(circle closest-side, light-dark(#fff, #9aa2ac) 88%, rgb(0 0 0 / .14) 95%, transparent 100%);
+    /* docs:form-switch-vars:end */
     width: 2.75rem; height: 1.5rem;
     border-radius: var(--felt-radius-pill);
     background-color: var(--felt-surface-sunk);
-    background-image: var(--_knob);
+    background-image: var(--felt-form-switch-bg);
     background-size: 1.25rem 1.25rem;
     background-position: 1px center;
     transition: background-position .15s ease, background-color .15s ease;
   }
   .form-switch .form-check-input:checked {
-    background-color: var(--felt-primary);
-    border-color: var(--felt-primary);
-    --_knob: radial-gradient(circle closest-side, #fff 88%, rgb(0 0 0 / .14) 95%, transparent 100%);
-    background-image: var(--_knob);
+    background-color: var(--_check-fill);
+    border-color: var(--_check-fill);
+    --felt-form-switch-bg: radial-gradient(circle closest-side, #fff 88%, rgb(0 0 0 / .14) 95%, transparent 100%);
+    background-image: var(--felt-form-switch-bg);
     background-position: calc(100% - 1px) center;
   }
+  /* a valid or invalid check: its outline, fill and label in the state's colour */
+  .form-check-input:is(.is-invalid, .is-valid, :where(.was-validated) :is(:invalid, :valid)) { --_check-fill: var(--_state); border-color: var(--_state-border); }
+  .form-check-input:is(.is-invalid, .is-valid, :where(.was-validated) :is(:invalid, :valid)):focus-visible { outline-color: color-mix(in oklab, var(--_state) 50%, transparent); }
+  .form-check-input:is(.is-invalid, :where(.was-validated) :invalid) ~ .form-check-label { color: var(--felt-form-invalid-color); }
+  .form-check-input:is(.is-valid, :where(.was-validated) :valid) ~ .form-check-label { color: var(--felt-form-valid-color); }
+  /* feedback in a .form-check gets a line of its own, under the label */
+  .form-check:has(> :is(.valid-feedback, .invalid-feedback)) { flex-wrap: wrap; }
+  .form-check:has(> :is(.valid-feedback, .invalid-feedback)):not(.form-check-inline) > .form-check-label { flex: 1 1 0; min-width: 0; }
+  .form-check > :is(.valid-feedback, .invalid-feedback) { flex-basis: 100%; margin-top: calc(var(--felt-space-1) - .6rem); padding-left: 1.85rem; }
+  .form-switch > :is(.valid-feedback, .invalid-feedback) { padding-left: 3.35rem; }
+  .form-check-reverse > :is(.valid-feedback, .invalid-feedback) { padding: 0 1.85rem 0 0; }
+  .form-switch.form-check-reverse > :is(.valid-feedback, .invalid-feedback) { padding: 0 3.35rem 0 0; }
+  /* reverse: the input at the end, the label before it */
+  .form-check-reverse { flex-direction: row-reverse; text-align: end; }
 
   /* badge */
   .badge {
@@ -1516,10 +1556,18 @@
   .input-group { position: relative; flex-wrap: nowrap; align-items: stretch; width: 100%; }
   .input-group > * { position: relative; }
   .input-group > .form-control, .input-group > .form-select { flex: 1 1 auto; width: 1%; min-width: 0; }
-  .input-group > :not(:first-child, .dropdown-menu) { margin-left: -1px; border-top-left-radius: 0; border-bottom-left-radius: 0; }
-  .input-group > :not(:last-child, .dropdown-toggle, .dropdown-menu), .input-group > .dropdown-toggle:nth-last-child(n+3) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
-  .input-group > :is(:focus, .is-invalid, .is-valid) { z-index: 3; }
+  .input-group > :not(:first-child, .dropdown-menu, .valid-feedback, .invalid-feedback, .valid-tooltip, .invalid-tooltip) { margin-left: -1px; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+  .input-group:where(:not(.has-validation)) > :not(:last-child, .dropdown-toggle, .dropdown-menu), .input-group:where(:not(.has-validation)) > .dropdown-toggle:nth-last-child(n+3),
+  .input-group.has-validation > :nth-last-child(n+3):not(.dropdown-toggle, .dropdown-menu), .input-group.has-validation > .dropdown-toggle:nth-last-child(n+4) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+  .input-group > :is(:focus, .is-invalid, .is-valid), :where(.was-validated .input-group) > :is(.form-control, .form-select):is(:invalid, :valid) { z-index: 3; }
   .input-group > :focus { box-shadow: none; }
+  /* .has-validation: the feedback (last) wraps onto a line of its own; the focus ring goes around the field then, not
+   * around the group with its message */
+  .input-group.has-validation { flex-wrap: wrap; }
+  .input-group.has-validation:focus-within { box-shadow: none; }
+  :where(.input-group.has-validation) > :is(.form-control, .form-select):focus { box-shadow: 0 0 0 .25rem var(--felt-focus-ring-color); }
+  .input-group > :is(.valid-feedback, .invalid-feedback) { width: 100%; }
+  .input-group > :is(.valid-tooltip, .invalid-tooltip) { position: absolute; }
   .input-group-text {
     display: flex; align-items: center; padding: 0 .85rem; white-space: nowrap;
     background: var(--felt-field-addon); border: 1px solid var(--felt-border-color);
@@ -1543,6 +1591,9 @@
   .form-control-plaintext { display: block; width: 100%; padding: .6rem 0; border: solid transparent; border-width: 1px 0; background: none; line-height: 1.4; }
   .form-control-plaintext:focus { outline: 0; }
   .col-form-label { margin: 0; padding-block: calc(.644rem + 1px); font-size: .9375rem; font-weight: 600; line-height: 1.4; }
+  /* a label a little smaller than its field's text, padded to the field's height */
+  .col-form-label-sm { padding-block: calc(.494rem + 1px); font-size: .8125rem; }
+  .col-form-label-lg { padding-block: calc(.794rem + 1px); font-size: 1.0625rem; }
   .form-control[readonly] { background-color: var(--felt-surface-sunk); }
   .form-control:disabled, .form-select:disabled { background-color: var(--felt-field-disabled); color: var(--felt-secondary-color); }
 
@@ -1604,7 +1655,8 @@
   .form-floating > :disabled ~ label { color: var(--felt-tertiary-color); }
   .input-group > .form-floating { position: relative; flex: 1 1 auto; width: 1%; min-width: 0; }
   .input-group > .form-floating:not(:first-child) > :is(.form-control, .form-select) { border-top-left-radius: 0; border-bottom-left-radius: 0; }
-  .input-group > .form-floating:not(:last-child) > :is(.form-control, .form-select) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+  .input-group:where(:not(.has-validation)) > .form-floating:not(:last-child) > :is(.form-control, .form-select),
+  .input-group.has-validation > .form-floating:nth-last-child(n+3) > :is(.form-control, .form-select) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
 
   /* dropdown. Positioned by Bootstrap's JS (Popper); [data-bs-popper] is its static fallback, e.g. in a navbar */
   :is(.dropdown, .dropup, .dropend, .dropstart, .dropdown-center, .dropup-center) { position: relative; }
@@ -1705,6 +1757,67 @@
   .offcanvas-title { margin: 0; font-size: 1.125rem; font-weight: 700; line-height: 1.4; }
   .offcanvas-body { flex-grow: 1; padding: 0 var(--felt-space-4) var(--felt-space-4); overflow-y: auto; }
   @media (prefers-reduced-motion: reduce) { .offcanvas { transition: none; } }
+
+  /* carousel: Bootstrap's JS moves the slides (.carousel-item-next/-prev/-start/-end) and adds .pointer-event.
+   * The icons are drawn in --felt-carousel-indicator-active-bg (white, black in dark mode or .carousel-dark), where
+   * Bootstrap inverts a white icon with a filter; the filter token stays free for your own */
+  .carousel {
+    /* docs:carousel-vars:start */
+    --felt-carousel-indicator-active-bg: light-dark(#fff, #000);
+    --felt-carousel-caption-color: light-dark(#fff, #000);
+    --felt-carousel-control-icon-filter: none;
+    /* docs:carousel-vars:end */
+    position: relative;
+  }
+  .carousel-dark { --felt-carousel-indicator-active-bg: #000; --felt-carousel-caption-color: #000; }
+  .carousel.pointer-event { touch-action: pan-y; }
+  .carousel-inner { position: relative; width: 100%; overflow: hidden; }   /* overflow holds the floated slides */
+  .carousel-item { position: relative; display: none; float: left; width: 100%; margin-right: -100%; backface-visibility: hidden; }
+  /* Bootstrap's JS animates only a .slide carousel, and waits for this transition */
+  :where(.slide) .carousel-item { transition: transform .6s ease-in-out; }
+  .carousel-item.active, .carousel-item-next, .carousel-item-prev { display: block; }
+  .carousel-item-next:not(.carousel-item-start), .active.carousel-item-end { transform: translateX(100%); }
+  .carousel-item-prev:not(.carousel-item-end), .active.carousel-item-start { transform: translateX(-100%); }
+  .carousel-fade .carousel-item { opacity: 0; transition-property: opacity; transform: none; }
+  .carousel-fade :is(.carousel-item.active, .carousel-item-next.carousel-item-start, .carousel-item-prev.carousel-item-end) { z-index: 1; opacity: 1; }
+  .carousel-fade .active:is(.carousel-item-start, .carousel-item-end) { z-index: 0; opacity: 0; transition: opacity 0s .6s; }
+  .carousel-control-prev, .carousel-control-next {
+    position: absolute; top: 0; bottom: 0; z-index: 1;
+    display: flex; align-items: center; justify-content: center; width: 15%; padding: 0;
+    border: 0; background: none; color: var(--felt-carousel-indicator-active-bg); text-align: center;
+    opacity: .5; transition: opacity .15s ease;
+  }
+  .carousel-control-prev { left: 0; }
+  .carousel-control-next { right: 0; }
+  :is(.carousel-control-prev, .carousel-control-next):is(:hover, :focus) { opacity: .9; }
+  /* the focus ring goes around the icon, not the whole edge of the slide */
+  :is(.carousel-control-prev, .carousel-control-next):focus-visible { outline: 0; }
+  :is(.carousel-control-prev, .carousel-control-next):focus-visible > :is(.carousel-control-prev-icon, .carousel-control-next-icon) { outline: 3px solid var(--felt-focus-ring-color); outline-offset: 2px; }
+  .carousel-control-prev-icon, .carousel-control-next-icon {
+    --_carousel-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0'/%3E%3C/svg%3E");
+    position: relative; display: inline-block; width: 2rem; height: 2rem;
+    filter: var(--felt-carousel-control-icon-filter);
+  }
+  .carousel-control-next-icon { --_carousel-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708'/%3E%3C/svg%3E"); }
+  :is(.carousel-control-prev-icon, .carousel-control-next-icon)::before {
+    content: ""; position: absolute; inset: 0;
+    background-color: currentColor; mask: var(--_carousel-chevron) center / 100% no-repeat;
+  }
+  .carousel-indicators {
+    position: absolute; right: 0; bottom: 0; left: 0; z-index: 2;
+    display: flex; justify-content: center; margin: 0 15% 1rem; padding: 0;
+  }
+  .carousel-indicators [data-bs-target] {
+    position: relative; box-sizing: content-box; flex: 0 1 auto; width: 30px; height: 3px; margin: 0 3px; padding: 0;
+    border: 0; border-block: 10px solid transparent;
+    background-color: var(--felt-carousel-indicator-active-bg); background-clip: padding-box;
+    text-indent: -999px; cursor: pointer; opacity: .5; transition: opacity .6s ease;
+  }
+  .carousel-indicators .active { opacity: 1; }
+  .carousel-caption {
+    position: absolute; right: 15%; bottom: 1.25rem; left: 15%; padding-block: 1.25rem;
+    color: var(--felt-carousel-caption-color); text-align: center;
+  }
 
   /* placeholders: loading skeletons, sized with .col-* and the text they stand in for */
   .placeholder { display: inline-block; min-height: 1em; vertical-align: middle; cursor: wait; border-radius: var(--felt-radius-sm); background-color: currentColor; opacity: .25; }
@@ -3376,7 +3489,8 @@
       /* a button in an input group is cut off where it meets the field: sewn along its free edges only */
       &:is(.input-group > .btn) { overflow: hidden; }
       &:is(.input-group > .btn:not(:first-child))::after { left: -40px; }
-      &:is(.input-group > .btn:not(:last-child, .dropdown-toggle), .input-group > .btn.dropdown-toggle:nth-last-child(n+3))::after { right: -40px; }
+      &:is(.input-group:not(.has-validation) > .btn:not(:last-child, .dropdown-toggle), .input-group:not(.has-validation) > .btn.dropdown-toggle:nth-last-child(n+3),
+        .input-group.has-validation > .btn:nth-last-child(n+3):not(.dropdown-toggle), .input-group.has-validation > .btn.dropdown-toggle:nth-last-child(n+4))::after { right: -40px; }
       &:is(.input-group > .btn) { --felt-seam-inset: 5px; --_seam-width: calc(var(--_seam-md-width) * .6); }
         /* a bar fixed to the screen edge is sewn along its inner edge only */
       &.navbar:is(.fixed-top, .fixed-bottom)::after {
@@ -3778,6 +3892,81 @@
       /* --- photos lie on the felt */
       &:where(.figure-img, .img-thumbnail, img.rounded) { box-shadow: 0 0 0 1px rgb(0 0 0 / .06), 0 1px 2px var(--felt-patch-shadow-near); }
 
+      /* --- carousel: the slides are a photo lying on the felt, tucked into four felt corners. The controls are small
+       * patches of undyed wool sewn on, the indicators a row of stitches with the current slide's a patch; like
+       * Bootstrap's they turn dark in dark mode and with .carousel-dark (charcoal felt) */
+      &.carousel {
+        --felt-carousel-indicator-active-bg: light-dark(var(--felt-wool), var(--felt-gray-900));
+        --felt-carousel-caption-color: light-dark(var(--felt-wool), var(--felt-gray-900));
+        --_carousel-ink: light-dark(var(--felt-navy), var(--felt-wool));
+        --_carousel-thread: var(--_carousel-thread-dark, var(--felt-thread-filter-cream));
+        --_carousel-thread-dark: var(--_dark) var(--felt-thread-filter-patch);
+      }
+      &.carousel-dark {
+        --felt-carousel-indicator-active-bg: var(--felt-gray-900); --felt-carousel-caption-color: var(--felt-gray-900);
+        --_carousel-ink: var(--felt-wool); --_carousel-thread: var(--felt-thread-filter-patch);
+      }
+      &.carousel-inner {
+        --_corner: 2.5rem;
+        border-radius: var(--felt-radius-sm);
+        box-shadow: 0 0 0 1px rgb(0 0 0 / .06), 0 1px 2px var(--felt-patch-shadow-near), 0 10px 18px -8px var(--felt-patch-shadow-far);
+      }
+      /* the corners (::before) and the shadow they cast on the photo (::after): triangles cut out with a mask */
+      &.carousel-inner::before, &.carousel-inner::after {
+        content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+        --_tl: top left / var(--_corner) var(--_corner) no-repeat; --_tr: top right / var(--_corner) var(--_corner) no-repeat;
+        --_bl: bottom left / var(--_corner) var(--_corner) no-repeat; --_br: bottom right / var(--_corner) var(--_corner) no-repeat;
+        mask: linear-gradient(135deg, #000 50%, transparent 0) var(--_tl), linear-gradient(225deg, #000 50%, transparent 0) var(--_tr),
+          linear-gradient(45deg, #000 50%, transparent 0) var(--_bl), linear-gradient(315deg, #000 50%, transparent 0) var(--_br);
+      }
+      &.carousel-inner::before {
+        --_cut: color-mix(in oklab, var(--felt-body-bg) 60%, var(--felt-patch-cut));
+        background:
+          linear-gradient(135deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_tl), linear-gradient(225deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_tr),
+          linear-gradient(45deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_bl), linear-gradient(315deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_br),
+          var(--felt-texture-sheet) 0 0 / var(--felt-texture-sheet-size) var(--felt-body-bg);
+        background-blend-mode: normal, normal, normal, normal, var(--felt-texture-sheet-blend);
+        translate: 0 -1px;   /* the cut edge below stays visible as the shadow's first pixel */
+      }
+      &.carousel-inner::after {
+        z-index: 2; --_corner: calc(2.5rem + 6px); --_shade: rgb(30 20 10 / .55);
+        background:
+          linear-gradient(135deg, var(--_shade) calc(50% - 6px), transparent 50%) var(--_tl), linear-gradient(225deg, var(--_shade) calc(50% - 6px), transparent 50%) var(--_tr),
+          linear-gradient(45deg, var(--_shade) calc(50% - 6px), transparent 50%) var(--_bl), linear-gradient(315deg, var(--_shade) calc(50% - 6px), transparent 50%) var(--_br);
+      }
+      &:is(.carousel-control-prev, .carousel-control-next) { opacity: .9; }
+      &:is(.carousel-control-prev, .carousel-control-next):is(:hover, :focus) { opacity: 1; }
+      &:is(.carousel-control-prev-icon, .carousel-control-next-icon) {
+        border-radius: 50%;
+        background: var(--felt-texture-sheet) 0 0 / var(--felt-texture-sheet-size) var(--felt-carousel-indicator-active-bg);
+        background-blend-mode: var(--felt-texture-sheet-blend);
+        box-shadow: inset 0 -2px 3px rgb(0 0 0 / .14), 0 1px 0 color-mix(in oklab, var(--felt-carousel-indicator-active-bg) 55%, var(--felt-patch-cut)),
+          0 3px 6px -1px rgb(0 0 0 / .4);
+        color: var(--_carousel-ink);
+      }
+      &:is(.carousel-control-prev-icon, .carousel-control-next-icon)::before { mask-size: 45%; }
+      &.carousel-control-prev-icon::before { translate: -1px 0; }
+      &.carousel-control-next-icon::before { translate: 1px 0; }
+      &:is(.carousel-control-prev-icon, .carousel-control-next-icon)::after {
+        content: ""; position: absolute; inset: 3px; pointer-events: none;
+        border: 0 solid transparent; border-image: url("img/seam-circle.svg") 0 fill / 0 round;
+        mix-blend-mode: hard-light; filter: var(--_carousel-thread); opacity: var(--felt-thread-strength);
+      }
+      /* indicators: stitches of wool thread laid over the photo, the current one a small patch */
+      &:is(.carousel-indicators [data-bs-target]) {
+        border-radius: 4px / 11.5px;   /* past the 10px transparent borders: tapered ends on the 3px stitch */
+        background-image: url("img/thread.svg"); background-size: 4px 4px; background-blend-mode: multiply;
+        filter: drop-shadow(0 1px 0 rgb(0 0 0 / .4)) drop-shadow(0 1px 2px rgb(0 0 0 / .25));
+        opacity: .85;
+      }
+      &:is(.carousel-indicators .active) { opacity: 1; }
+      &:is(.carousel-indicators .active)::before {
+        content: ""; position: absolute; inset: -3px -1px; border-radius: var(--felt-radius-pill);
+        background: var(--felt-texture-sheet) 0 0 / var(--felt-texture-sheet-size) var(--felt-carousel-indicator-active-bg);
+        background-blend-mode: var(--felt-texture-sheet-blend);
+        box-shadow: inset 0 -1px 2px rgb(0 0 0 / .18), 0 1px 0 color-mix(in oklab, var(--felt-carousel-indicator-active-bg) 55%, var(--felt-patch-cut));
+      }
+
       /* --- modal: a flat sheet of felt lying on the dimmed page */
       &.modal-content { box-shadow: var(--felt-patch-shadow), 0 24px 48px -12px var(--felt-patch-shadow-far); }
 
@@ -3792,14 +3981,12 @@
         background-size: var(--felt-texture-sheet-size);
         background-blend-mode: var(--felt-texture-sheet-blend);
       }
-      &:is(.form-control, .form-select).is-invalid {
-        border-color: color-mix(in oklab, var(--felt-danger-emphasis) 80%, transparent);
-        background-color: var(--felt-field-invalid);
-      }
+      &:is(.form-control, .form-select):is(.is-invalid, :where(.was-validated) :invalid) { background-color: var(--felt-field-invalid); }
       &.form-control[readonly] { background-color: var(--felt-surface-sunk); box-shadow: none; }
       /* the felt shows through a disabled field and darkens it: its text takes a little of the body ink to stay >= 4.5:1 */
       &:is(.form-control, .form-select):disabled { background-color: var(--felt-field-disabled); color: color-mix(in oklab, var(--felt-secondary-color), var(--felt-body-color) 25%); box-shadow: none; }
       &:is(.input-group > :is(.form-control, .form-select):focus) { box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field); }
+      &:is(.has-validation > :is(.form-control, .form-select):focus) { box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field), 0 0 0 .25rem var(--felt-focus-ring-color); }
       &.form-select {
         background-image: var(--felt-select-chevron), var(--felt-texture-sheet);
         background-size: 14px, var(--felt-texture-sheet-size);
@@ -3810,7 +3997,7 @@
       &:is(.form-control, .form-select):focus {
         box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field), 0 0 0 .25rem var(--felt-focus-ring-color);
       }
-      &:is(.form-control, .form-select):is(.is-invalid, .is-valid):focus {
+      &:is(.form-control, .form-select):is(.is-invalid, .is-valid, :where(.was-validated) :is(:invalid, :valid)):focus {
         box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field), 0 0 0 .25rem color-mix(in oklab, var(--_state) 30%, transparent);
       }
 
@@ -3818,33 +4005,38 @@
       &.form-check-input {
         box-shadow: inset 0 1px 2px var(--felt-groove-shadow-field);
       }
-      &.form-check-input:checked {
-        background-image:
-          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 8.5 3 3 6-7' fill='none' stroke='%23fbf6ea' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
-          var(--felt-texture);
+      &.form-check-input:is(:checked, :where([type="checkbox"]):indeterminate) {
+        background-image: var(--felt-form-check-bg-image), var(--felt-texture);
         background-size: 80%, var(--felt-texture-size);
         background-repeat: no-repeat, repeat;
         background-blend-mode: normal, soft-light;
         border-color: transparent;
-        box-shadow: inset 0 -1px 2px rgb(0 0 0 / .15), 0 1px 0 color-mix(in oklab, var(--felt-primary) 70%, var(--felt-patch-cut)), 0 2px 3px var(--felt-patch-shadow-near);
+        box-shadow: inset 0 -1px 2px rgb(0 0 0 / .15), 0 1px 0 color-mix(in oklab, var(--_check-fill) 70%, var(--felt-patch-cut)), 0 2px 3px var(--felt-patch-shadow-near);
+      }
+      /* the marks in cream, like the stitches on patches */
+      &.form-check-input:checked {
+        --felt-form-check-bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 8.5 3 3 6-7' fill='none' stroke='%23fbf6ea' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      }
+      &.form-check-input[type="checkbox"]:indeterminate {
+        --felt-form-check-bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8h8' fill='none' stroke='%23fbf6ea' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
       }
       &.form-check-input[type="radio"]:checked {
-        background-image: radial-gradient(circle, #fbf6ea 0 28%, transparent 33%), var(--felt-texture);
+        --felt-form-check-bg-image: radial-gradient(circle, #fbf6ea 0 28%, transparent 33%);
         background-size: 100%, var(--felt-texture-size);
       }
 
       /* switch: a felt groove like the other tracks, matte felt disc as knob */
       &:is(.form-switch .form-check-input) {
-        --_knob: radial-gradient(circle closest-side, var(--felt-wool-knob) 82%, var(--felt-groove-shadow) 90%, transparent 100%);
+        --felt-form-switch-bg: radial-gradient(circle closest-side, var(--felt-wool-knob) 82%, var(--felt-groove-shadow) 90%, transparent 100%);
         background-color: var(--felt-track);
-        background-image: var(--_knob);
+        background-image: var(--felt-form-switch-bg);
         background-size: 1.25rem 1.25rem;
         background-position: 1px center;
         box-shadow: inset 0 1px 0 var(--felt-groove-shade), inset 0 1px 3px var(--felt-groove-shadow), inset 0 -1px 0 var(--felt-groove-lip);   /* keeps the control outline, like the checkboxes */
       }
       &:is(.form-switch .form-check-input:checked) {
-        background-color: var(--felt-primary);
-        background-image: var(--_knob), var(--felt-texture);
+        background-color: var(--_check-fill);
+        background-image: var(--felt-form-switch-bg), var(--felt-texture);
         background-size: 1.25rem 1.25rem, var(--felt-texture-size);
         background-repeat: no-repeat, repeat;
         background-position: calc(100% - 1px) center, 0 0;
@@ -4014,6 +4206,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .btn, .form-switch .form-check-input { transition: none; }
+  .carousel-item, .carousel-fade .active:is(.carousel-item-start, .carousel-item-end),
+  .carousel-control-prev, .carousel-control-next, .carousel-indicators [data-bs-target] { transition: none; }
 }
 
 /* forced colours: a swatch keeps its colour (it is the content), and the chosen one a plain ring in the text colour */

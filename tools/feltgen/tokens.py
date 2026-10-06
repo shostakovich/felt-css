@@ -194,6 +194,16 @@ T("highlight-bg", "$warning-subtle", "light-dark(#f0d8a2, color-mix(in oklab, $w
 T("highlight-color", "inherit", doc="Text in <mark>")
 T("code-color", "$danger-emphasis", doc="Inline <code>")
 
+# ------------------------------------------------------------------ forms
+
+group("forms", "Form validation", "The colours of valid and invalid fields, checks and their feedback "
+      "(.is-valid, .is-invalid, and :valid / :invalid inside .was-validated).")
+T("form-valid-color", "$success-emphasis", doc="Valid feedback text and the labels of valid checks")
+T("form-valid-border-color", "$success", doc="Border of valid fields and checks")
+T("form-invalid-color", "$danger-emphasis", doc="Invalid feedback text and the labels of invalid checks")
+T("form-invalid-border-color", "$danger", "color-mix(in oklab, $danger-emphasis 80%, transparent)",
+  doc="Border of invalid fields and checks (felt: a deeper red, which the tint of --felt-field-invalid needs)")
+
 # ------------------------------------------------------------------ interaction
 
 group("interaction", "Interaction", "States change the fill, never the text: hover mixes it towards "
