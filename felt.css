@@ -1383,6 +1383,7 @@
   .table-borderless > :not(caption) > * > * { border-bottom-width: 0; }
   .table-group-divider { border-top: 2px solid currentColor; }
   :where(.table-striped > tbody > tr:nth-of-type(odd)) > * { --_table-color-type: var(--felt-table-striped-color); --_table-bg-type: var(--felt-table-striped-bg); }
+  :where(.table-striped-columns > :not(caption) > tr > :nth-child(even)) { --_table-color-type: var(--felt-table-striped-color); --_table-bg-type: var(--felt-table-striped-bg); }
   :where(.table-hover > tbody > tr:hover) > * { --_table-color-state: var(--felt-table-hover-color); --_table-bg-state: var(--felt-table-hover-bg); }
   .table-active, .table-active > * { --_table-color-state: var(--felt-table-active-color); --_table-bg-state: var(--felt-table-active-bg); }
   /* table-variants:start */
@@ -1635,6 +1636,19 @@
   .card > .list-group-flush:only-child { border-radius: var(--felt-card-inner-border-radius); }
   .card > .list-group-flush > .list-group-item:first-child { border-top-left-radius: inherit; border-top-right-radius: inherit; }
   .card > .list-group-flush > .list-group-item:last-child { border-bottom-left-radius: inherit; border-bottom-right-radius: inherit; }
+  /* card group: from sm up the cards are attached in a row of equal heights, one shadow round the whole group */
+  .card-group > .card { margin-bottom: var(--felt-card-group-margin); }
+  @media (min-width: 576px) {
+    .card-group { display: flex; flex-flow: row wrap; border-radius: var(--felt-radius-lg); box-shadow: var(--felt-shadow); }
+    .card-group > .card { --felt-card-box-shadow: none; flex: 1 0 0; margin-bottom: 0; }
+    .card-group > .card + .card { margin-left: 0; border-left: 0; }
+    .card-group > .card:not(:last-child) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+    .card-group > .card:not(:last-child) > :is(.card-img-top, .card-header) { border-top-right-radius: 0; }
+    .card-group > .card:not(:last-child) > :is(.card-img-bottom, .card-footer) { border-bottom-right-radius: 0; }
+    .card-group > .card:not(:first-child) { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+    .card-group > .card:not(:first-child) > :is(.card-img-top, .card-header) { border-top-left-radius: 0; }
+    .card-group > .card:not(:first-child) > :is(.card-img-bottom, .card-footer) { border-bottom-left-radius: 0; }
+  }
 
   /* forms: sizes */
   .form-control-sm, .form-select-sm, .input-group-sm > :is(.form-control, .form-select, .input-group-text, .btn) { font-size: .875rem; }
@@ -3503,6 +3517,22 @@
       &.card-img-overlay { z-index: 5; }
       &:is(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .offcanvas) {
         --_seam-img: url("img/seam-lg.svg"); --_seam-slice: var(--_seam-lg-slice); --_seam-width: var(--_seam-lg-width); --felt-seam-inset: 9px;
+      }
+      /* a card group is one piece where its cards are attached (from sm up): sewn round once, the cards meeting at
+       * folds pressed into the felt, like the buttons of a group */
+      @media (min-width: 576px) {
+        &.card-group {
+          --_seam-img: url("img/seam-lg.svg"); --_seam-slice: var(--_seam-lg-slice); --_seam-width: var(--_seam-lg-width); --felt-seam-inset: 9px;
+          --felt-thread-filter: var(--felt-thread-filter-cream);
+          position: relative; box-shadow: var(--felt-patch-shadow);
+          &::after {
+            content: ""; position: absolute; z-index: 3; inset: calc(var(--felt-seam-inset) - var(--_seam-margin)); pointer-events: none;
+            border: 0 solid transparent; border-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
+            mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: var(--felt-thread-strength);
+          }
+        }
+        &:is(.card-group > .card) { --felt-card-box-shadow: none; &::after { content: none; } }
+        &:is(.card-group > .card + .card) { --felt-card-box-shadow: var(--felt-groove-fold); }
       }
       &:is(.btn-pill, .btn-icon, .rounded-pill) {
         --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: var(--_seam-pill-width);

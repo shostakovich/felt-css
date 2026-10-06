@@ -23,4 +23,10 @@ description: A generic close button for dismissing content like modals and alert
 </div>
 </example>
 
-<p>Bootstrap's deprecated <code>.btn-close-white</code> still works as well; it simply sets the color to white.</p>
+<p>Bootstrap's deprecated <code>.btn-close-white</code> still works as well; it simply sets <code>--felt-btn-close-color</code> to white.</p>
+
+<h2>CSS</h2>
+<h3>Variables</h3>
+<p>The close button is built on local CSS variables, like Bootstrap's: <code>.btn-close</code> declares them, and you can set them on any close button.</p>
+<cssvars name="btn-close"></cssvars>
+<p>felt-css draws the X as a mask in <code>--felt-btn-close-color</code> (the text colour by default), so <code>--felt-btn-close-bg</code> gives only its shape: any image works, its colours don't count. That is also why there is no <code>--bs-btn-close-filter</code> counterpart: dark mode and <code>.btn-close-white</code> change the colour instead of filtering an image.</p>
