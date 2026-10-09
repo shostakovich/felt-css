@@ -42,7 +42,7 @@ BTN["light"] = {"bg": "$surface-raised", "border-color": "$border-color",
                 "btn-active-shadow": "inset 0 1px 3px rgb(0 0 0 / .15)"}
 BTN["dark"]["border-color"] = "light-dark(transparent, $border-color)"
 # outline: the colour as text and thread; chosen or pressed, the solid fill
-OUTLINE_COLOR = {"primary": "light-dark($primary, $primary-text)", "secondary": "light-dark($secondary, $secondary-text)",
+OUTLINE_COLOR = {"primary": "$primary-text", "secondary": "$secondary-text",
                  "success": "$success-emphasis", "danger": "$danger-emphasis", "warning": "$warning-emphasis",
                  "info": "$info-text", "light": "$light-emphasis", "dark": "$dark-emphasis"}
 OUTLINE_FILL = {c: (f"${c}", f"${c}-ink") for c in COLOURS} | {"light": ("$light-emphasis", "$surface"),
