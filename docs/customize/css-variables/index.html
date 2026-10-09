@@ -111,7 +111,7 @@
   <span class="tok-punct">&lt;</span><span class="tok-tag">span</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"badge text-bg-primary"</span><span class="tok-punct">&gt;</span>Badge<span class="tok-punct">&lt;/</span><span class="tok-tag">span</span><span class="tok-punct">&gt;</span>
 <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
 <div class="bd-callout bd-callout-info">
-  <p>Variables that differ between the looks (most colours, the radii) are set on <code>:root</code> for clean and again on <code>[data-look="felt"]</code>. To change a value for one look only, override it there: <code>[data-look="felt"] { --felt-radius: 16px; }</code>.</p>
+  <p>Variables that differ between the looks (most colours, the radii) are set on <code>:root</code> for clean and again on <code>:root[data-look="felt"]</code>. To change a value for one look only, override it there: <code>:root[data-look="felt"] { --felt-radius: 16px; }</code>.</p>
 </div>
 
 <h2 id="colors">Colors<a class="bd-anchor" href="#colors" aria-label="Link to this section">#</a></h2>

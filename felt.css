@@ -1,6 +1,5 @@
 /*! felt-css — a small Bootstrap-flavoured toolkit with a switchable felt look.
- * Clean by default; data-look="felt" on <html> (or on any element) for wool felt and stitched seams,
- * data-look="clean" inside it for a clean island.
+ * Clean by default; data-look="felt" on <html> for wool felt and stitched seams.
  * Switching looks never changes layout: felt only swaps colours, textures, shadows and seams. */
 
 @layer reset, tokens, base, components, utilities, felt;
@@ -20,7 +19,7 @@
 /* --------------------------------------------------------------- tokens */
 @layer tokens {
   /* tokens:start */
-  /* written by tools/feltgen/tokens.py; change it there, not these 437 lines */
+  /* written by tools/feltgen/tokens.py; change it there, not these 351 lines */
   /* the clean look; colours are light-dark(light, dark) and follow color-scheme: the system's, or data-bs-theme's */
   :root {
     color-scheme: light dark;
@@ -194,8 +193,8 @@
     color-scheme: dark;
     --_dark: ; --_light: initial;
   }
-  /* the felt look, on any element */
-  [data-look="felt"] {
+  /* the felt look, for the whole page */
+  :root[data-look="felt"] {
     --_felt: ; --_clean: initial;
     /* grays */
     --felt-gray-100: #f5efe5;
@@ -280,7 +279,7 @@
     /* images */
     --felt-gradient: var(--felt-texture), var(--felt-patch-dome);
     /* felt textures */
-    --felt-texture: url("img/felt.svg");
+    --felt-texture: url("img/felt.webp");
     --felt-texture-size: 256px;
     --felt-texture-light: url("img/felt-light.webp");
     --felt-texture-light-size: 256px;
@@ -327,94 +326,8 @@
     --_seam-row-size: 30px 6px;
     --_seam-col-size: 6px 24px;
   }
-  /* and back to clean inside it */
-  [data-look="clean"] {
-    --_felt: initial; --_clean: ;
-    /* grays */
-    --felt-gray-100: #f8f9fa;
-    --felt-gray-200: #e9ecef;
-    --felt-gray-300: #dee2e6;
-    --felt-gray-400: #ced4da;
-    --felt-gray-500: #adb5bd;
-    --felt-gray-600: #6c757d;
-    --felt-gray-700: #495057;
-    --felt-gray-800: #343a40;
-    --felt-gray-900: #212529;
-    /* theme colours */
-    --felt-secondary: light-dark(var(--felt-taupe), #6a5f52);
-    --felt-success: light-dark(var(--felt-moss), #527530);
-    --felt-danger: light-dark(var(--felt-tomato), #b23f29);
-    --felt-info: light-dark(var(--felt-petrol), #276f75);
-    --felt-light: light-dark(#f8f9fa, #3b4148);
-    --felt-light-ink: light-dark(#1f2633, #e9ecef);
-    --felt-dark: light-dark(#212529, #111315);
-    --felt-success-emphasis: light-dark(#36501d, #b0d18c);
-    --felt-warning-emphasis: light-dark(#6b4e12, #f1cb72);
-    --felt-info-emphasis: light-dark(#1b4f53, #94d3d6);
-    --felt-light-emphasis: light-dark(#495057, #dee2e6);
-    --felt-primary-text: light-dark(var(--felt-primary), #8fb2e8);
-    --felt-secondary-text: light-dark(var(--felt-secondary), #c4b9aa);
-    --felt-success-text: light-dark(#4e6f2c, #98c26c);
-    --felt-danger-text: light-dark(var(--felt-danger), #ef8c76);
-    --felt-warning-text: light-dark(#8a5f0c, var(--felt-warning));
-    --felt-info-text: light-dark(var(--felt-info), #6cc3c8);
-    --felt-light-fixed: #f8f9fa;
-    --felt-dark-fixed: #212529;
-    --felt-primary-subtle: color-mix(in oklab, var(--felt-primary) 14%, var(--felt-surface));
-    --felt-secondary-subtle: color-mix(in oklab, var(--felt-secondary) 14%, var(--felt-surface));
-    --felt-success-subtle: color-mix(in oklab, var(--felt-success) 14%, var(--felt-surface));
-    --felt-danger-subtle: color-mix(in oklab, var(--felt-danger) 14%, var(--felt-surface));
-    --felt-warning-subtle: color-mix(in oklab, var(--felt-warning) 18%, var(--felt-surface));
-    --felt-info-subtle: color-mix(in oklab, var(--felt-info) 14%, var(--felt-surface));
-    --felt-light-subtle: color-mix(in oklab, var(--felt-light) 50%, var(--felt-surface));
-    --felt-dark-subtle: color-mix(in oklab, var(--felt-dark) 20%, var(--felt-surface));
-    --felt-primary-border-subtle: color-mix(in oklab, var(--felt-primary) 32%, var(--felt-surface));
-    --felt-secondary-border-subtle: color-mix(in oklab, var(--felt-secondary) 32%, var(--felt-surface));
-    --felt-success-border-subtle: color-mix(in oklab, var(--felt-success) 32%, var(--felt-surface));
-    --felt-danger-border-subtle: color-mix(in oklab, var(--felt-danger) 32%, var(--felt-surface));
-    --felt-warning-border-subtle: color-mix(in oklab, var(--felt-warning) 40%, var(--felt-surface));
-    --felt-info-border-subtle: color-mix(in oklab, var(--felt-info) 32%, var(--felt-surface));
-    --felt-light-border-subtle: var(--felt-border-color);
-    --felt-dark-border-subtle: color-mix(in oklab, var(--felt-dark) 40%, var(--felt-surface));
-    /* body and surfaces */
-    --felt-body-bg: light-dark(#f6f7f9, #212529);
-    --felt-body-color: light-dark(#1f2633, #dee2e6);
-    --felt-emphasis-color: light-dark(#000, #fff);
-    --felt-secondary-color: light-dark(#677084, #a2aab4);
-    --felt-tertiary-color: light-dark(#8a92a3, #7d858f);
-    --felt-surface: light-dark(#fff, #2b3035);
-    --felt-surface-sunk: light-dark(#f1f3f5, #1c1f23);
-    --felt-surface-raised: light-dark(#f8f9fa, #343a40);
-    --felt-surface-overlay: light-dark(#fff, #343a40);
-    --felt-surface-hover: light-dark(#eef0f3, color-mix(in oklab, var(--felt-body-color) 8%, var(--felt-surface)));
-    --felt-surface-pressed: light-dark(#d4d9e0, color-mix(in oklab, var(--felt-body-color) 18%, var(--felt-surface)));
-    --felt-field: light-dark(#fff, #212529);
-    --felt-field-addon: light-dark(#f1f3f5, #2b3035);
-    --felt-field-disabled: light-dark(#e9ecef, #343a40);
-    --felt-field-invalid: var(--felt-field);
-    --felt-border-color: light-dark(#e2e5ea, #41474f);
-    --felt-border-color-strong: light-dark(#858f9e, #737b84);
-    --felt-link-color: light-dark(var(--felt-primary), #8fb2e8);
-    --felt-track: light-dark(#e3e7ec, #3a4047);
-    --felt-backdrop: light-dark(rgb(16 24 40 / .45), rgb(0 0 0 / .6));
-    --felt-highlight-bg: var(--felt-warning-subtle);
-    /* form validation */
-    --felt-form-valid-color: var(--felt-success-emphasis);
-    --felt-form-valid-border-color: var(--felt-success);
-    --felt-form-invalid-border-color: var(--felt-danger);
-    /* interaction */
-    --felt-focus-ring-color: light-dark(color-mix(in oklab, var(--felt-link-color) 80%, transparent), color-mix(in oklab, var(--felt-link-color) 60%, transparent));
-    /* spacing, radius and shadows */
-    --felt-radius-sm: 6px;
-    --felt-radius: 10px;
-    --felt-radius-lg: 14px;
-    --felt-radius-xl: 20px;
-    --felt-radius-xxl: 32px;
-    /* images */
-    --felt-gradient: linear-gradient(180deg, rgb(255 255 255 / .15), rgb(255 255 255 / 0));
-  }
-  /* what differs by colour mode but isn't a colour: recomputed wherever the look or the theme changes */
-  :root, [data-look], [data-bs-theme], .navbar-dark, .dropdown-menu-dark {
+  /* what differs by colour mode but isn't a colour: recomputed wherever the theme changes */
+  :root, [data-bs-theme], .navbar-dark, .dropdown-menu-dark {
     /* interaction */
     --felt-disabled-opacity: var(--_v-disabled-opacity-d, .55);
     --_v-disabled-opacity-d: var(--_dark) .45;
@@ -475,7 +388,7 @@
     -webkit-font-smoothing: antialiased;
   }
   /* colour is inherited as a resolved value, so a re-themed subtree re-reads it */
-  [data-bs-theme], [data-look], .navbar-dark, .dropdown-menu-dark { color: var(--felt-body-color); }
+  [data-bs-theme], :root[data-look], .navbar-dark, .dropdown-menu-dark { color: var(--felt-body-color); }
   /* prose spacing follows Bootstrap's Reboot */
   h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { margin: 0 0 .5rem; font-family: var(--felt-font-heading); line-height: 1.2; font-weight: 700; color: var(--felt-heading-color); }
   h1, .h1 { font-size: 2rem; }
@@ -540,8 +453,7 @@
    * -webkit-mask-box-image (Firefox) keep the plain coloured line. An element's own background image is laid out
    * across the border too, or it would repeat into the strip that turned transparent. */
   @supports (-webkit-mask-box-image: none) {
-    @scope ([data-look="felt"]) to ([data-look="clean"]) {
-    :where(:scope, *):is(.border, .border-top, .border-bottom, .border-start, .border-end,
+    :where(:root[data-look="felt"]) :is(.border, .border-top, .border-bottom, .border-start, .border-end,
       .border-primary, .border-secondary, .border-success, .border-danger, .border-warning, .border-info,
       .border-primary-subtle, .border-secondary-subtle, .border-success-subtle, .border-danger-subtle, .border-warning-subtle,
       .border-info-subtle, .border-light-subtle, .border-dark-subtle, .border-white, .border-light, .border-dark, .border-black):not(
@@ -549,7 +461,6 @@
         :is(.border-top, .border-bottom, .border-start, .border-end):not(.border):is(.border-3, .border-4, .border-5)) {
       border-color: transparent !important;
       background-origin: border-box !important;
-    }
     }
   }
 }
@@ -3855,976 +3766,965 @@
 }
 
 /* ----------------------------------------------------------------- felt
- * Everything below applies to elements with data-look="felt" and inside them, up to a data-look="clean": the
- * @scope picks the nearest look, and `&` is any element in it, the one with the attribute included. The felt
- * selectors have the specificity of the component's own (`&.card` is one class), so project CSS can override them.
+ * Everything below applies with data-look="felt" on <html>. Each rule is a descendant of it (`& .card`), which lets the
+ * browser skip the layer cheaply on a clean page, and has the specificity of the component's own selector (one
+ * class), so project CSS can override it.
  * Border widths and paddings are never touched, so both looks share one layout. */
 @layer felt {
-  @scope ([data-look="felt"]) to ([data-look="clean"]) {
-    :where(:scope, *) {
-      /* Sewn-on pieces are ~2mm thick felt: a darker cut edge below, edges rolling off
-       * outside the seam, a soft cast shadow. Declared on the elements (not :root) so that
-       * --_patch-edge follows each piece's own --_tone. */
-      &:where(.btn, .btn-group, .btn-group-vertical, .badge, .alert, .toast, .page-link, .progress-bar, [class*="text-bg-"]) {
-        --_patch-edge: color-mix(in oklab, var(--_tone, light-dark(#d8ccb6, #24211e)) 70%, var(--felt-patch-cut) 30%);
-        --_patch-relief:
-          0 0 1px .5px color-mix(in oklab, color-mix(in oklab, var(--_tone, light-dark(#f3ecdf, #3a3531)) 75%, var(--felt-patch-cut)) 45%, transparent),
-          inset 0 0 0 1px rgb(0 0 0 / .06),
-          inset 0 1px 0 var(--_patch-gloss, rgb(255 255 255 / .26)),
-          inset 0 -3px 5px -1px light-dark(rgb(0 0 0 / .26), rgb(0 0 0 / .18)),
-          inset 0 0 7px rgb(0 0 0 / .10),
-          0 var(--_patch-edge-y, 1.5px) 1px var(--_patch-edge),
-          0 3px 6px -1px var(--felt-patch-shadow-near),
-          0 10px 18px -8px var(--felt-patch-shadow-far);
-        --_patch-relief-pressed:
-          inset 0 0 0 1px rgb(0 0 0 / .08),
-          inset 0 2px 4px rgb(0 0 0 / .22),
-          inset 0 0 7px rgb(0 0 0 / .10),
-          0 1px 1px var(--_patch-edge),
-          0 1px 2px var(--felt-patch-shadow-near);
-      }
+  :where(:root[data-look="felt"]) {
+    /* Sewn-on pieces are ~2mm thick felt: a darker cut edge below, edges rolling off
+     * outside the seam, a soft cast shadow. Declared on the elements (not :root) so that
+     * --_patch-edge follows each piece's own --_tone. */
+    & :where(.btn, .btn-group, .btn-group-vertical, .badge, .alert, .toast, .page-link, .progress-bar, [class*="text-bg-"]) {
+      --_patch-edge: color-mix(in oklab, var(--_tone, light-dark(#d8ccb6, #24211e)) 70%, var(--felt-patch-cut) 30%);
+      --_patch-relief:
+        0 0 1px .5px color-mix(in oklab, color-mix(in oklab, var(--_tone, light-dark(#f3ecdf, #3a3531)) 75%, var(--felt-patch-cut)) 45%, transparent),
+        inset 0 0 0 1px rgb(0 0 0 / .06),
+        inset 0 1px 0 var(--_patch-gloss, rgb(255 255 255 / .26)),
+        inset 0 -3px 5px -1px light-dark(rgb(0 0 0 / .26), rgb(0 0 0 / .18)),
+        inset 0 0 7px rgb(0 0 0 / .10),
+        0 var(--_patch-edge-y, 1.5px) 1px var(--_patch-edge),
+        0 3px 6px -1px var(--felt-patch-shadow-near),
+        0 10px 18px -8px var(--felt-patch-shadow-far);
+      --_patch-relief-pressed:
+        inset 0 0 0 1px rgb(0 0 0 / .08),
+        inset 0 2px 4px rgb(0 0 0 / .22),
+        inset 0 0 7px rgb(0 0 0 / .10),
+        0 1px 1px var(--_patch-edge),
+        0 1px 2px var(--felt-patch-shadow-near);
+    }
 
-      /* --- recipe 1: light felt (page, cards, navbar, alerts, light buttons, chips, …), cut from --felt-texture-sheet */
-      &:where(body, .card, .navbar, .btn, .badge, .alert, .list-group-item, .accordion-item, .modal-content,
-        .toast, .dropdown-menu, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl, .popover, .nav-tabs .nav-link.active, pre,
-        .bg-body, .bg-body-secondary, .bg-body-tertiary, [class*="bg-"][class*="-subtle"]) {
-        background-image: var(--felt-texture-sheet);
-        background-size: var(--felt-texture-sheet-size);
-        background-blend-mode: var(--felt-texture-sheet-blend);
-      }
-      &:where(.card, .navbar, .btn, .badge, .alert, .list-group-item, .accordion-item, .modal-content, .toast, .page-link,
-        .dropdown-menu, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl, .popover) {
-        border-color: transparent;
-      }
-      /* the page is the quietest felt of all (a veil over its fibres in dark mode) */
-      &:is(body) {
-        background-image: linear-gradient(var(--felt-texture-veil, transparent) 0 0), var(--felt-texture-sheet);
-        background-size: auto, var(--felt-texture-sheet-size);
-        background-blend-mode: normal, var(--felt-texture-sheet-blend);
-      }
-      &:where(.navbar, .list-group, .accordion, .modal-content) { box-shadow: var(--felt-patch-shadow); }
-      &:where(.list-group, .accordion) { position: relative; isolation: isolate; }
-      &.list-group-flush { isolation: auto; }   /* its entries are see-through: the stitch rows blend into the felt below */
-      &:where(.accordion:not(.accordion-flush)) { border-radius: var(--felt-accordion-border-radius); }
-      &.list-group::after { z-index: 1030; }
-      &:where(.list-group-flush, .card .list-group, .accordion-flush) { box-shadow: none; }
-      /* flush accordion and list items are see-through, like Bootstrap's: the felt they lie on shows (the chosen and the
-       * tinted entries stay pieces of their own) */
-      &:where(.accordion-flush > .accordion-item) { background-image: none; }
-      /* a felt piece on a clean page brings its felt along: a see-through one (a flush list or accordion) is cut from
-       * the sheet itself */
-      /* a piece with a look of its own lies on another page: on a clean dark one a faint rim keeps its edge */
-      &:scope:not(:root, body):is(.card) { --felt-card-box-shadow: var(--felt-patch-shadow), 0 0 0 1px light-dark(transparent, rgb(255 240 220 / .16)); }
-      &:scope:is(.list-group-flush, .accordion-flush) {
-        box-shadow: var(--felt-patch-shadow), 0 0 0 1px light-dark(transparent, rgb(255 240 220 / .16));
-        background-color: var(--felt-surface);
-        background-image: var(--felt-texture-sheet); background-size: var(--felt-texture-sheet-size); background-blend-mode: var(--felt-texture-sheet-blend);
-      }
-      &.list-group-flush { --felt-list-group-bg: transparent; }
-      &:where(.list-group-flush > .list-group-item:not(.active, .list-group-item-primary, .list-group-item-secondary, .list-group-item-success,
-        .list-group-item-danger, .list-group-item-warning, .list-group-item-info, .list-group-item-light, .list-group-item-dark)) { background-image: none; }
-      /* light pieces that are sewn on as well: same depth as the coloured patches */
-      &:where(.btn-light, [class*="btn-outline-"], .text-bg-light, .toast:not([class*="text-bg-"])) {
-        --_patch-edge: var(--felt-patch-edge-light);
-        --_patch-gloss: transparent;   /* cream has no sheen: a white top edge would read as a second frame */
-        box-shadow: var(--_patch-relief);
-      }
-      &:where(.btn-light, [class*="btn-outline-"]) { background-color: var(--felt-surface-raised); }
-      &:where(.toast:not([class*="text-bg-"])) { --felt-toast-bg: var(--felt-surface-raised); }
-      &:where(.card, .navbar, .list-group, .accordion, .modal-content, .toast, .dropdown-menu, .popover, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl,
-        .btn-light, .text-bg-light):where(:not(.bg-primary, .bg-secondary, .bg-success, .bg-danger, .bg-warning, .bg-info, .bg-dark)) {
-        --felt-thread-filter: var(--felt-thread-filter-cream);
-      }
-      /* cream shades towards the warm cut colour, not grey */
-      &:where(.btn-light, [class*="btn-outline-"]) {
-        &:hover { background-color: color-mix(in oklab, var(--felt-surface-raised), light-dark(var(--felt-patch-cut), #fff) var(--felt-hover-mix)); }
-        &:is(:active, .active, .btn-check:checked + *) { background-color: color-mix(in oklab, var(--felt-surface-raised), light-dark(var(--felt-patch-cut), #fff) var(--felt-select-mix)); }
-      }
-      /* alerts: a large tinted piece, so it lies flatter than the small patches (in light mode with a cut edge and a
-       * contact shadow like the cards) */
-      &:where(.alert) {
-        /* docs:alert-felt-vars:start */
-        --felt-alert-patch-mix: 20%;
-        /* docs:alert-felt-vars:end */
-        --_patch-edge: color-mix(in oklab, var(--_tone) 35%, light-dark(#a8987c, #15130f));
-        --felt-thread-strength: .8;
-        --felt-alert-bg: color-mix(in oklab, var(--_tone) var(--felt-alert-patch-mix), var(--felt-surface));
-        box-shadow:
-          0 0 0 1px light-dark(rgb(80 60 40 / .2), transparent),
-          0 1px 0 light-dark(rgb(80 60 40 / .24), transparent),
-          0 0 1px .5px color-mix(in oklab, var(--_tone) 20%, light-dark(transparent, rgb(0 0 0 / .3))),
-          inset 0 1px 0 light-dark(rgb(255 255 255 / .08), color-mix(in srgb, var(--felt-nap-highlight) 60%, transparent)),
-          inset 0 -2px 0 light-dark(rgb(80 60 40 / .12), transparent),
-          0 1px 1px light-dark(transparent, var(--_patch-edge)),
-          0 1px 1.5px light-dark(rgb(70 50 30 / .3), transparent),
-          0 4px 12px light-dark(rgb(70 50 30 / .14), transparent),
-          0 3px 6px -1px light-dark(transparent, color-mix(in srgb, var(--felt-patch-shadow-near) 80%, transparent)),
-          0 10px 18px -8px light-dark(transparent, color-mix(in srgb, var(--felt-patch-shadow-far) 80%, transparent));
-      }
+    /* --- recipe 1: light felt (page, cards, navbar, alerts, light buttons, chips, …), cut from --felt-texture-sheet */
+    & :where(body, .card, .navbar, .btn, .badge, .alert, .list-group-item, .accordion-item, .modal-content,
+      .toast, .dropdown-menu, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl, .popover, .nav-tabs .nav-link.active, pre,
+      .bg-body, .bg-body-secondary, .bg-body-tertiary, [class*="bg-"][class*="-subtle"]) {
+      background-image: var(--felt-texture-sheet);
+      background-size: var(--felt-texture-sheet-size);
+      background-blend-mode: var(--felt-texture-sheet-blend);
+    }
+    & :where(.card, .navbar, .btn, .badge, .alert, .list-group-item, .accordion-item, .modal-content, .toast, .page-link,
+      .dropdown-menu, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl, .popover) {
+      border-color: transparent;
+    }
+    /* the page is the quietest felt of all (a veil over its fibres in dark mode) */
+    & :is(body) {
+      background-image: linear-gradient(var(--felt-texture-veil, transparent) 0 0), var(--felt-texture-sheet);
+      background-size: auto, var(--felt-texture-sheet-size);
+      background-blend-mode: normal, var(--felt-texture-sheet-blend);
+    }
+    & :where(.navbar, .list-group, .accordion, .modal-content) { box-shadow: var(--felt-patch-shadow); }
+    & :where(.list-group, .accordion) { position: relative; isolation: isolate; }
+    & .list-group-flush { isolation: auto; }   /* its entries are see-through: the stitch rows blend into the felt below */
+    & :where(.accordion:not(.accordion-flush)) { border-radius: var(--felt-accordion-border-radius); }
+    & .list-group::after { z-index: 1030; }
+    & :where(.list-group-flush, .card .list-group, .accordion-flush) { box-shadow: none; }
+    /* flush accordion and list items are see-through, like Bootstrap's: the felt they lie on shows (the chosen and the
+     * tinted entries stay pieces of their own) */
+    & :where(.accordion-flush > .accordion-item) { background-image: none; }
+    & .list-group-flush { --felt-list-group-bg: transparent; }
+    & :where(.list-group-flush > .list-group-item:not(.active, .list-group-item-primary, .list-group-item-secondary, .list-group-item-success,
+      .list-group-item-danger, .list-group-item-warning, .list-group-item-info, .list-group-item-light, .list-group-item-dark)) { background-image: none; }
+    /* light pieces that are sewn on as well: same depth as the coloured patches */
+    & :where(.btn-light, [class*="btn-outline-"], .text-bg-light, .toast:not([class*="text-bg-"])) {
+      --_patch-edge: var(--felt-patch-edge-light);
+      --_patch-gloss: transparent;   /* cream has no sheen: a white top edge would read as a second frame */
+      box-shadow: var(--_patch-relief);
+    }
+    & :where(.btn-light, [class*="btn-outline-"]) { background-color: var(--felt-surface-raised); }
+    & :where(.toast:not([class*="text-bg-"])) { --felt-toast-bg: var(--felt-surface-raised); }
+    & :where(.card, .navbar, .list-group, .accordion, .modal-content, .toast, .dropdown-menu, .popover, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl,
+      .btn-light, .text-bg-light):where(:not(.bg-primary, .bg-secondary, .bg-success, .bg-danger, .bg-warning, .bg-info, .bg-dark)) {
+      --felt-thread-filter: var(--felt-thread-filter-cream);
+    }
+    /* cream shades towards the warm cut colour, not grey */
+    & :where(.btn-light, [class*="btn-outline-"]) {
+      &:hover { background-color: color-mix(in oklab, var(--felt-surface-raised), light-dark(var(--felt-patch-cut), #fff) var(--felt-hover-mix)); }
+      &:is(:active, .active, .btn-check:checked + *) { background-color: color-mix(in oklab, var(--felt-surface-raised), light-dark(var(--felt-patch-cut), #fff) var(--felt-select-mix)); }
+    }
+    /* alerts: a large tinted piece, so it lies flatter than the small patches (in light mode with a cut edge and a
+     * contact shadow like the cards) */
+    & :where(.alert) {
+      /* docs:alert-felt-vars:start */
+      --felt-alert-patch-mix: 20%;
+      /* docs:alert-felt-vars:end */
+      --_patch-edge: color-mix(in oklab, var(--_tone) 35%, light-dark(#a8987c, #15130f));
+      --felt-thread-strength: .8;
+      --felt-alert-bg: color-mix(in oklab, var(--_tone) var(--felt-alert-patch-mix), var(--felt-surface));
+      box-shadow:
+        0 0 0 1px light-dark(rgb(80 60 40 / .2), transparent),
+        0 1px 0 light-dark(rgb(80 60 40 / .24), transparent),
+        0 0 1px .5px color-mix(in oklab, var(--_tone) 20%, light-dark(transparent, rgb(0 0 0 / .3))),
+        inset 0 1px 0 light-dark(rgb(255 255 255 / .08), color-mix(in srgb, var(--felt-nap-highlight) 60%, transparent)),
+        inset 0 -2px 0 light-dark(rgb(80 60 40 / .12), transparent),
+        0 1px 1px light-dark(transparent, var(--_patch-edge)),
+        0 1px 1.5px light-dark(rgb(70 50 30 / .3), transparent),
+        0 4px 12px light-dark(rgb(70 50 30 / .14), transparent),
+        0 3px 6px -1px light-dark(transparent, color-mix(in srgb, var(--felt-patch-shadow-near) 80%, transparent)),
+        0 10px 18px -8px light-dark(transparent, color-mix(in srgb, var(--felt-patch-shadow-far) 80%, transparent));
+    }
 
-      &.alert-secondary { --felt-alert-patch-mix: 14%; }
-      /* in the dark the light alert is a raised piece and the dark one a deep navy piece, so neither reads as the page */
-      &.alert-dark { --felt-alert-bg: light-dark(color-mix(in oklab, var(--_tone) 26%, var(--felt-surface)), color-mix(in oklab, var(--_tone) 55%, var(--felt-surface))); }
-      &.alert-light { --felt-alert-bg: light-dark(color-mix(in oklab, var(--_tone) 6%, var(--felt-surface)), color-mix(in oklab, var(--felt-body-color) 6%, var(--felt-surface-raised))); }
+    & .alert-secondary { --felt-alert-patch-mix: 14%; }
+    /* in the dark the light alert is a raised piece and the dark one a deep navy piece, so neither reads as the page */
+    & .alert-dark { --felt-alert-bg: light-dark(color-mix(in oklab, var(--_tone) 26%, var(--felt-surface)), color-mix(in oklab, var(--_tone) 55%, var(--felt-surface))); }
+    & .alert-light { --felt-alert-bg: light-dark(color-mix(in oklab, var(--_tone) 6%, var(--felt-surface)), color-mix(in oklab, var(--felt-body-color) 6%, var(--felt-surface-raised))); }
 
-      /* a well in a sewn piece (.bg-body-secondary/-tertiary in a card, a list, a modal, …) is a pocket: the felt pressed
-       * in along its edge, shaded at the top and lit at its lower lip like the grooves. Tertiary is the shallower one: a
-       * shade between the piece and secondary (a tint under the shading; the fills themselves are !important utilities) */
-      &:is(:where(.card, .modal-content, .offcanvas, .accordion-item, .list-group-item, .toast, .popover, .dropdown-menu, .alert)
-        :where(.bg-body-secondary, .bg-body-tertiary):not(.card, .navbar, .list-group-item, .accordion-item, .alert, .toast, .btn, .badge,
-          .card-header, .card-footer, .modal-header, .modal-footer, input, select, textarea, .form-control, .form-select, table, tr, th, td,
-          img, svg, video, canvas, picture)) {
-        box-shadow: inset 0 1px 2px var(--felt-groove-shadow), inset 0 2px 3px light-dark(transparent, rgb(0 0 0 / .45)), inset 0 3px 6px -3px var(--felt-groove-shadow),
-          inset 0 -1px 0 light-dark(var(--felt-nap-highlight), rgb(255 255 255 / .04)), inset 0 0 0 999px var(--_pocket-tint, transparent);
-        &.bg-body-tertiary { --_pocket-tint: light-dark(rgb(90 70 40 / .08), rgb(0 0 0 / .14)); }
-      }
+    /* a well in a sewn piece (.bg-body-secondary/-tertiary in a card, a list, a modal, …) is a pocket: the felt pressed
+     * in along its edge, shaded at the top and lit at its lower lip like the grooves. Tertiary is the shallower one: a
+     * shade between the piece and secondary (a tint under the shading; the fills themselves are !important utilities) */
+    & :is(:where(.card, .modal-content, .offcanvas, .accordion-item, .list-group-item, .toast, .popover, .dropdown-menu, .alert)
+      :where(.bg-body-secondary, .bg-body-tertiary):not(.card, .navbar, .list-group-item, .accordion-item, .alert, .toast, .btn, .badge,
+        .card-header, .card-footer, .modal-header, .modal-footer, input, select, textarea, .form-control, .form-select, table, tr, th, td,
+        img, svg, video, canvas, picture)) {
+      box-shadow: inset 0 1px 2px var(--felt-groove-shadow), inset 0 2px 3px light-dark(transparent, rgb(0 0 0 / .45)), inset 0 3px 6px -3px var(--felt-groove-shadow),
+        inset 0 -1px 0 light-dark(var(--felt-nap-highlight), rgb(255 255 255 / .04)), inset 0 0 0 999px var(--_pocket-tint, transparent);
+      &.bg-body-tertiary { --_pocket-tint: light-dark(rgb(90 70 40 / .08), rgb(0 0 0 / .14)); }
+    }
 
-      /* --- recipe 2: patch (saturated felt, sewn on); solid bg-* fills get the same felt */
-      &:where(.bg-primary, .bg-secondary, .bg-success, .bg-danger, .bg-warning, .bg-info, .bg-dark) {
-        box-shadow: inset 0 1px 0 rgb(255 255 255 / .08), 0 1px 0 color-mix(in srgb, var(--felt-patch-cut) 40%, transparent);
-        background-image: var(--felt-texture);
-        background-size: var(--felt-texture-size);
-        background-blend-mode: soft-light;
-      }
-      /* .bg-light keeps its cream in dark mode, like Bootstrap's: it is always cut from the cream felt, with a light piece's edge */
-      &:where(.bg-light) {
-        box-shadow: inset 0 1px 0 rgb(255 255 255 / .35), 0 1px 0 light-dark(rgb(60 40 15 / .1), color-mix(in oklab, var(--felt-light-fixed) 70%, var(--felt-patch-cut)));
-        background-image: var(--felt-texture-light);
-        background-size: var(--felt-texture-light-size);
-        background-blend-mode: multiply;
-      }
-      /* a see-through fill is a tint, not a piece: the felt underneath shows through it */
-      &:where(.bg-primary, .bg-secondary, .bg-success, .bg-danger, .bg-warning, .bg-info, .bg-light, .bg-dark):where([class*="bg-opacity-"]:not(.bg-opacity-100), [style*="--felt-bg-opacity"]) { background-image: none; box-shadow: none; }
-      &.bg-gradient { background-size: var(--felt-texture-size), 100% 100%; background-repeat: repeat, no-repeat; background-blend-mode: soft-light, normal; }
-      &:where(.text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger, .text-bg-warning, .text-bg-info, .text-bg-dark,
-        .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark,
-        .list-group-item.active, .btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, :active, .show)) {
-        background-image: var(--felt-texture), var(--felt-patch-dome);
-        background-size: var(--felt-texture-size), 100% 100%;
-        background-repeat: repeat, no-repeat;
-        background-blend-mode: soft-light, normal;
-        box-shadow: var(--_patch-relief);
-        /* thread: a lighter tone of the patch */
-        --felt-thread-filter: var(--felt-thread-filter-patch);
-        --felt-thread-strength: var(--felt-thread-strength-patch);
-      }
-      &:is(.btn-dark, .text-bg-dark) { box-shadow: var(--_patch-relief), 0 0 0 1px light-dark(transparent, rgb(255 240 220 / .14)); }
-      /* neighbouring pieces are cut from different parts of the sheet, so their fibres don't repeat;
-       * only the felt moves, the layers under it (a dome, a swatch's image) stay put on the piece */
-      &:where(.card, .btn, .badge, .alert, [class*="text-bg-"]):where(:nth-child(2n)) { background-position: 97px 41px, 0 0, 0 0; }
-      &:where(.card, .btn, .badge, .alert, [class*="text-bg-"]):where(:nth-child(3n)) { background-position: 173px 118px, 0 0, 0 0; }
+    /* --- recipe 2: patch (saturated felt, sewn on); solid bg-* fills get the same felt */
+    & :where(.bg-primary, .bg-secondary, .bg-success, .bg-danger, .bg-warning, .bg-info, .bg-dark) {
+      box-shadow: inset 0 1px 0 rgb(255 255 255 / .08), 0 1px 0 color-mix(in srgb, var(--felt-patch-cut) 40%, transparent);
+      background-image: var(--felt-texture);
+      background-size: var(--felt-texture-size);
+      background-blend-mode: soft-light;
+    }
+    /* .bg-light keeps its cream in dark mode, like Bootstrap's: it is always cut from the cream felt, with a light piece's edge */
+    & :where(.bg-light) {
+      box-shadow: inset 0 1px 0 rgb(255 255 255 / .35), 0 1px 0 light-dark(rgb(60 40 15 / .1), color-mix(in oklab, var(--felt-light-fixed) 70%, var(--felt-patch-cut)));
+      background-image: var(--felt-texture-light);
+      background-size: var(--felt-texture-light-size);
+      background-blend-mode: multiply;
+    }
+    /* a see-through fill is a tint, not a piece: the felt underneath shows through it */
+    & :where(.bg-primary, .bg-secondary, .bg-success, .bg-danger, .bg-warning, .bg-info, .bg-light, .bg-dark):where([class*="bg-opacity-"]:not(.bg-opacity-100), [style*="--felt-bg-opacity"]) { background-image: none; box-shadow: none; }
+    & .bg-gradient { background-size: var(--felt-texture-size), 100% 100%; background-repeat: repeat, no-repeat; background-blend-mode: soft-light, normal; }
+    & :where(.text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger, .text-bg-warning, .text-bg-info, .text-bg-dark,
+      .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark,
+      .list-group-item.active, .btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, :active, .show)) {
+      background-image: var(--felt-texture), var(--felt-patch-dome);
+      background-size: var(--felt-texture-size), 100% 100%;
+      background-repeat: repeat, no-repeat;
+      background-blend-mode: soft-light, normal;
+      box-shadow: var(--_patch-relief);
+      /* thread: a lighter tone of the patch */
+      --felt-thread-filter: var(--felt-thread-filter-patch);
+      --felt-thread-strength: var(--felt-thread-strength-patch);
+    }
+    & :is(.btn-dark, .text-bg-dark) { box-shadow: var(--_patch-relief), 0 0 0 1px light-dark(transparent, rgb(255 240 220 / .14)); }
+    /* neighbouring pieces are cut from different parts of the sheet, so their fibres don't repeat;
+     * only the felt moves, the layers under it (a dome, a swatch's image) stay put on the piece */
+    & :where(.card, .btn, .badge, .alert, [class*="text-bg-"]):where(:nth-child(2n)) { background-position: 97px 41px, 0 0, 0 0; }
+    & :where(.card, .btn, .badge, .alert, [class*="text-bg-"]):where(:nth-child(3n)) { background-position: 173px 118px, 0 0, 0 0; }
 
-      /* --- seams: a 9-slice image of thread, blended tone-on-tone into the felt.
-       * Sewn: navbar, cards, list groups, accordions, modals, toasts, alerts and all filled/outline buttons;
-       * not badges, pills or inputs. --felt-seam-inset is measured from the outer edge, so the seam radius is
-       * radius − inset. */
-      &:where(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link,
-        .dropdown-menu, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl, .popover,
-        .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-swatch, [class*="btn-outline-"])::after {
-        content: "";
-        position: absolute;
-        z-index: 3;
-        inset: calc(var(--felt-seam-inset) - var(--_seam-margin) - 1px);   /* 1px: the element's own border */
-        pointer-events: none;
-        border: 0 solid transparent;
-        border-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
-        mix-blend-mode: hard-light;
-        filter: var(--felt-thread-filter);
-        opacity: var(--felt-thread-strength);
-      }
-      &:where(.list-group-flush, .card .list-group, .accordion-flush)::after { content: none; }
-      &:where(.btn, .page-link)::after { z-index: auto; }
-      &.card { --_patch-edge-y: 1px; --felt-card-cap-bg: transparent; --felt-card-box-shadow: var(--felt-patch-shadow); }
-      &.btn { --_seam-img: url("img/seam-md.svg"); --_seam-slice: var(--_seam-md-slice); --_seam-width: var(--_seam-md-width); --felt-seam-inset: 5px; }
-      /* photos lie on top of the felt: the seam runs underneath */
-      &:is(.card-img, .card-img-top, .card-img-bottom, .card > .row img) { position: relative; z-index: 4; }
-      &.card-img-overlay { z-index: 5; }
-      &:is(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl) {
+    /* --- seams: a 9-slice image of thread, blended tone-on-tone into the felt.
+     * Sewn: navbar, cards, list groups, accordions, modals, toasts, alerts and all filled/outline buttons;
+     * not badges, pills or inputs. --felt-seam-inset is measured from the outer edge, so the seam radius is
+     * radius − inset. */
+    & :where(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link,
+      .dropdown-menu, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl, .popover,
+      .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-swatch, [class*="btn-outline-"])::after {
+      content: "";
+      position: absolute;
+      z-index: 3;
+      inset: calc(var(--felt-seam-inset) - var(--_seam-margin) - 1px);   /* 1px: the element's own border */
+      pointer-events: none;
+      border: 0 solid transparent;
+      border-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
+      mix-blend-mode: hard-light;
+      filter: var(--felt-thread-filter);
+      opacity: var(--felt-thread-strength);
+    }
+    & :where(.list-group-flush, .card .list-group, .accordion-flush)::after { content: none; }
+    & :where(.btn, .page-link)::after { z-index: auto; }
+    & .card { --_patch-edge-y: 1px; --felt-card-cap-bg: transparent; --felt-card-box-shadow: var(--felt-patch-shadow); }
+    & .btn { --_seam-img: url("img/seam-md.svg"); --_seam-slice: var(--_seam-md-slice); --_seam-width: var(--_seam-md-width); --felt-seam-inset: 5px; }
+    /* photos lie on top of the felt: the seam runs underneath */
+    & :is(.card-img, .card-img-top, .card-img-bottom, .card > .row img) { position: relative; z-index: 4; }
+    & .card-img-overlay { z-index: 5; }
+    & :is(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl) {
+      --_seam-img: url("img/seam-lg.svg"); --_seam-slice: var(--_seam-lg-slice); --_seam-width: var(--_seam-lg-width); --felt-seam-inset: 9px;
+    }
+    /* a card group is one piece where its cards are attached (from sm up): sewn round once, the cards meeting at
+     * folds pressed into the felt, like the buttons of a group */
+    @media (min-width: 576px) {
+      & .card-group {
         --_seam-img: url("img/seam-lg.svg"); --_seam-slice: var(--_seam-lg-slice); --_seam-width: var(--_seam-lg-width); --felt-seam-inset: 9px;
-      }
-      /* a card group is one piece where its cards are attached (from sm up): sewn round once, the cards meeting at
-       * folds pressed into the felt, like the buttons of a group */
-      @media (min-width: 576px) {
-        &.card-group {
-          --_seam-img: url("img/seam-lg.svg"); --_seam-slice: var(--_seam-lg-slice); --_seam-width: var(--_seam-lg-width); --felt-seam-inset: 9px;
-          --felt-thread-filter: var(--felt-thread-filter-cream);
-          position: relative; box-shadow: var(--felt-patch-shadow);
-          &::after {
-            content: ""; position: absolute; z-index: 3; inset: calc(var(--felt-seam-inset) - var(--_seam-margin)); pointer-events: none;
-            border: 0 solid transparent; border-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
-            mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: var(--felt-thread-strength);
-          }
-        }
-        &:is(.card-group > .card) { --felt-card-box-shadow: none; &::after { content: none; } }
-        /* the fold between two cards: both sides slope into it */
-        &:is(.card-group > .card + .card) { --felt-card-box-shadow: var(--felt-groove-fold), inset 7px 0 7px -6px color-mix(in srgb, var(--felt-groove-shadow) 60%, transparent); }
-        &:is(.card-group > .card:has(+ .card)) {
-          --felt-card-box-shadow: inset -6px 0 6px -5px color-mix(in srgb, var(--felt-groove-shadow) 35%, transparent);
-          border-right-color: color-mix(in srgb, var(--felt-groove-shadow) 30%, transparent);   /* the shading runs on to the crease */
-        }
-        &:is(.card-group > .card + .card:has(+ .card)) {
-          border-right-color: color-mix(in srgb, var(--felt-groove-shadow) 30%, transparent);
-          --felt-card-box-shadow: var(--felt-groove-fold), inset 7px 0 7px -6px color-mix(in srgb, var(--felt-groove-shadow) 60%, transparent),
-            inset -6px 0 6px -5px color-mix(in srgb, var(--felt-groove-shadow) 35%, transparent);
-        }
-      }
-      &:is(.btn-pill, .btn-icon, .rounded-pill) {
-        --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: var(--_seam-pill-width);
-      }
-      &:is(.btn-sm, .btn-group-sm > .btn) { --felt-seam-inset: 3.5px; --_seam-width: calc(var(--_seam-md-width) * .7); }
-      &:is(.btn-sm, .btn-group-sm > .btn):is(.btn-pill, .rounded-pill) { --_seam-width: calc(var(--_seam-pill-width) * .7); }
-      /* a button in an input group is cut off where it meets the field: sewn along its free edges only */
-      &:is(.input-group > .btn) { overflow: hidden; }
-      &:is(.input-group > .btn:not(:first-child))::after { left: -40px; }
-      &:is(.input-group:not(.has-validation) > .btn:not(:last-child, .dropdown-toggle), .input-group:not(.has-validation) > .btn.dropdown-toggle:nth-last-child(n+3),
-        .input-group.has-validation > .btn:nth-last-child(n+3):not(.dropdown-toggle), .input-group.has-validation > .btn.dropdown-toggle:nth-last-child(n+4))::after { right: -40px; }
-      &:is(.input-group > .btn) { --felt-seam-inset: 5px; --_seam-width: calc(var(--_seam-md-width) * .6); }
-        /* a bar fixed to the screen edge is sewn along its inner edge only */
-      &.navbar:is(.fixed-top, .fixed-bottom)::after {
-        inset: auto 0; height: calc(2 * var(--_seam-margin)); border-image: none;
-        background: url("img/seam-row.svg") left center / var(--_seam-row-size) round no-repeat;
-      }
-      &.navbar.fixed-top::after { bottom: 4px; }
-      &.navbar.fixed-bottom::after { top: 4px; }
-      &.navbar:is(.fixed-top, .fixed-bottom)::after { z-index: 0; }
-      &:is(.navbar .nav-link.flex-column) { z-index: 1; }
-
-      /* dividers inside a piece: a straight row of stitches that stops at the outer seam; quieter than
-       * the outer seam so it reads as a divider */
-      &:where(.card-header, .card-footer, .modal-header, .modal-footer, .toast-header, .popover-header,
-        .list-group-item + .list-group-item, .accordion-item + .accordion-item, .table > :not(caption) > tr > *, hr) {
-        position: relative; border-color: transparent;
-      }
-      &:is(hr) { overflow: visible; opacity: 1; }
-      &:where(.card-header, .card-footer, .modal-header, .modal-footer, .toast-header, .popover-header)::after,
-      &:where(.list-group-item + .list-group-item:not(.active))::after,
-      &:where(.accordion-item + .accordion-item, .table > tbody > tr + tr > *, .table > thead > tr > *, .dropdown-divider)::before {
-        content: "";
-        position: absolute;
-        left: calc(var(--felt-seam-inset) + 6px); right: calc(var(--felt-seam-inset) + 6px);
-        height: calc(2 * var(--_seam-margin));
-        pointer-events: none;
-        background: url("img/seam-row.svg") left center / var(--_seam-row-size) round no-repeat;
-        mix-blend-mode: hard-light;
-        filter: var(--felt-thread-filter);
-        opacity: calc(var(--felt-thread-strength) * var(--felt-thread-strength-row));
-      }
-      &:where(.card-header, .modal-header, .toast-header, .popover-header)::after { bottom: calc(-.5px - var(--_seam-margin)); }
-      &:where(.card-footer, .modal-footer)::after { top: calc(-.5px - var(--_seam-margin)); }
-      &:where(.list-group-item + .list-group-item)::after,
-      &:where(.accordion-item + .accordion-item, .table > tbody > tr + tr > *, .dropdown-divider)::before { top: calc(-.5px - var(--_seam-margin)); }
-      &.dropdown-divider::before { left: 0; right: 0; }
-      /* hr and .vr stand on their own: the same row of stitches, its thread dyed in the rule's own
-       * colour (currentColor, like Bootstrap's rules): the stitches multiplied with the dye and laid into the felt
-       * (--_rule-blend) with the seams' relief. Inside a piece it is a divider, as quiet as the piece's own stitch rows. */
-      &:is(hr) { --_rule-seam: url("img/seam-row.svg") left center / var(--_seam-row-size) round no-repeat; }
-      /* .vr: stitches at 4/5 size, repeated from the top rather than squeezed, so a short rule still shows whole stitches */
-      &.vr { --_rule-seam: url("img/seam-col.svg") center top / var(--_seam-col-size) no-repeat repeat; position: relative; background-color: transparent; opacity: 1; }
-      &:where(hr:not(.dropdown-divider), .vr)::before {
-        content: ""; position: absolute; pointer-events: none;
-        background: var(--_rule-seam) var(--_rule-thread); background-blend-mode: multiply; mask: var(--_rule-seam);
-        mix-blend-mode: var(--_rule-blend); filter: sepia(.4) var(--felt-thread-relief); opacity: calc(var(--felt-thread-strength-rule) * var(--_rule-piece, 1));
-      }
-      &:where(.card, .alert, .modal-content, .toast, .popover, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl, .dropdown-menu, .list-group-item, .accordion-item) {
-        --_rule-piece: var(--_rule-in-piece);
-      }
-      &:where(hr:not(.dropdown-divider))::before { top: calc(-.5px - var(--_seam-margin)); left: 0; right: 0; height: calc(2 * var(--_seam-margin)); }
-      &:where(.vr)::before { top: 0; bottom: 0; left: calc(.5px - var(--_seam-margin)); width: calc(2 * var(--_seam-margin)); }
-      /* with border utilities an hr is a plain line again */
-      &:where(hr[class*="border"])::before { content: none; }
-      /* SVG drawings: thread tinted like the seams of the piece it lies on, felt blended like a patch */
-      &.stitches { visibility: visible; mix-blend-mode: hard-light; filter: var(--felt-stitch-shadow) var(--felt-thread-filter); opacity: var(--felt-thread-strength); }
-      &.stitches-patch { --felt-thread-filter: var(--felt-thread-filter-patch); --felt-thread-strength: var(--felt-thread-strength-patch); }
-      &.felt-texture { visibility: visible; mix-blend-mode: soft-light; }
-      /* a sewn-on piece's cut edge (its colour, darker) and soft shadow are copies moved down: transforms, not CSS
-       * drop-shadow(), which Safari ignores inside SVG; blur the shadow with an SVG filter (feGaussianBlur) */
-      &.felt-edge { visibility: visible; transform: translateY(1px); stroke: color-mix(in oklab, currentColor 70%, #000); }
-      &.felt-shadow { visibility: visible; transform: translateY(2px); stroke: var(--felt-patch-shadow-far); }
-      &.toast { --felt-seam-inset: 5px; }
-      &.toast-header::after { left: 11px; right: 11px; }
-      /* a flush list on the page runs edge to edge; in a card its rows stop at the card's seam like the header's */
-      &:is(:where(.list-group-flush:not(.card .list-group)) > .list-group-item)::after { left: 0; right: 0; }
-      &:is(.list-group[class*="horizontal"] > .list-group-item:not(.active))::after { content: none; }
-      &:is(.list-group[class*="horizontal"] > .list-group-item + .list-group-item:not(.active)) { border-left-color: transparent; box-shadow: var(--felt-groove-fold); }
-      &:is(:is(.text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger, .text-bg-info, .text-bg-dark) :is(.card-header, .card-footer)) {
-        --felt-border-color: rgb(255 255 255 / .2);
-      }
-
-      /* --- buttons */
-      &:is(.btn:active, .btn.active, .btn-check:checked + .btn) { box-shadow: var(--_patch-relief-pressed); }
-      &.btn:active { transform: translateY(1px); }   /* a press dents the felt; a chosen .active stays in line */
-      /* felt is opaque: a disabled piece goes pale and flat instead of see-through */
-      &:is(.btn:disabled, .btn.disabled, .btn-check:disabled + .btn) {
-        opacity: 1; filter: saturate(.6); box-shadow: var(--_patch-relief-pressed);
-        background-color: color-mix(in oklab, var(--_tone) var(--_disabled-tone), var(--felt-body-bg));
-        color: color-mix(in oklab, var(--felt-body-color) var(--_disabled-ink), var(--felt-body-bg));
-        &::after { opacity: calc(var(--felt-thread-strength) * .5); }
-      }
-      /* buttons without a piece of felt (plain, link) stay flat in every state */
-      &:where(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-swatch, .btn-link, [class*="btn-outline-"]), .btn-link) { background: none; box-shadow: none; }
-      /* the felt layer outranks the components, so the chosen nav item is left out or it would lose its fill */
-      &:is(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-swatch, .btn-link, [class*="btn-outline-"]), .btn-link, .nav-link:not(.active, [aria-current="page"]), .accordion-button) {
-        &:hover { background-color: var(--felt-surface-hover); }
-        &:active { background-color: var(--felt-surface-pressed); }
-      }
-      &:is(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-swatch, .btn-link, [class*="btn-outline-"]), .btn-link) {
-        &:is(:active, .active, .btn-check:checked + *) { background-color: var(--felt-surface-pressed); box-shadow: inset 0 1px 2px var(--felt-groove-shadow-field); }
-        &:is(:disabled, .disabled, .btn-check:disabled:not(:checked) + *) { filter: none; background: none; box-shadow: none; color: var(--felt-tertiary-color); }
-      }
-      /* outline: a cream felt patch, sewn on with thread in the button colour; checked, it becomes a patch */
-      &[class*="btn-outline-"] { border-color: transparent; }
-      /* inset shading stops at the padding box, so the 1px border of a light piece would stay its brightest
-       * pixel, a light rim. A translucent border carries the shading out to the cut edge. */
-      &:is(.btn-light, [class*="btn-outline-"], .text-bg-light, .toast:not([class*="text-bg-"])) { border-color: light-dark(rgb(60 40 15 / .12), rgb(0 0 0 / .2)); }
-      &:is(.btn-light, [class*="btn-outline-"]):is(:disabled, .disabled) { border-color: light-dark(rgb(60 40 15 / .08), rgb(0 0 0 / .08)); }
-      &:is(.btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, :active, .show)) { --_tone: var(--felt-btn-active-bg); background-color: var(--felt-btn-active-bg); }
-      @supports (-webkit-mask-box-image: none) {
-        &[class*="btn-outline-"]::after {
-          border: 0;
-          border-image: none;
-          background: currentColor;
-          -webkit-mask-box-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
-          mix-blend-mode: normal;
-          filter: none;
-          opacity: .75;
-        }
-        &:is(.btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, :active, .show))::after { opacity: .45; }
-      }
-      /* button groups. A group of filled buttons is one piece with one seam around it, carried by one of its
-       * buttons (positioned against the group; no filter/transform, which would make the button the seam's
-       * containing block). A toggle group (checks, outline or light buttons) is a groove pressed into the
-       * felt, with the chosen segment sewn into it as a raised patch; pagination follows the same recipe. */
-      &:is(.btn-group, .btn-group-vertical) {
-        > .btn { filter: none; transform: none; }
-        /* the piece's shading and seam are drawn once across the whole group, by its first button that isn't a
-         * dropdown toggle (a toggle's ::before is its caret); where two buttons meet, the piece has a fold. A
-         * nested group (a dropdown in the series) is part of the piece. */
-        &:has(> :is(.btn, .btn-group) ~ :is(.btn, .btn-group)):not(:has(> .btn-check, > [class*="btn-outline-"], > .btn-light)) {
-          > .btn-group { position: static; }
-          > .btn, > .btn-group > .btn {
-            --_fold: 0 0 transparent;
-            position: static; filter: none; transform: none; box-shadow: var(--_fold);
-            &:hover { box-shadow: var(--_fold), inset 0 0 0 99px rgb(255 255 255 / .06); }
-            &:is(:active, .active) { box-shadow: var(--_fold), inset 0 2px 4px rgb(0 0 0 / .22); }
-          }
-          > .btn:not(:first-child), > .btn-group:not(:first-child) > .btn { --_fold: var(--felt-groove-fold); }
-          &.btn-group-vertical > .btn:not(:first-child), &.btn-group-vertical > .btn-group:not(:first-child) > .btn { --_fold: var(--felt-groove-fold-y); }
-          > .btn:not(.dropdown-toggle, .btn:not(.dropdown-toggle) ~ *) {
-            --felt-seam-inset: 5px;
-            &::before { content: ""; position: absolute; inset: 0; border-radius: var(--felt-radius); pointer-events: none; box-shadow: var(--_patch-relief); }
-          }
-          &.btn-group-sm > .btn:not(.dropdown-toggle, .btn:not(.dropdown-toggle) ~ *) { --felt-seam-inset: 4.5px; }
-          > .btn:is(.dropdown-toggle, .btn:not(.dropdown-toggle) ~ *)::after, > .btn-group > .btn::after { content: none; }
-          /* no plain button to carry it (only nested groups or toggles, whose ::before is the caret): the group
-           * shades the piece in its buttons' tone, and its first button sews the seam */
-          &:not(:has(> .btn:not(.dropdown-toggle))) {
-            &::before { content: ""; position: absolute; inset: 0; border-radius: var(--felt-radius); pointer-events: none; box-shadow: var(--_patch-relief); }
-            > .btn:first-child, > .btn-group:first-child > .btn { --felt-seam-inset: 5px; &::after { content: ""; } }
-            &.btn-group-sm > .btn:first-child, &.btn-group-sm > .btn-group:first-child > .btn { --felt-seam-inset: 4.5px; }
-            &:has(> .btn-primary, > .btn-group > .btn-primary) { --_tone: var(--felt-primary); }
-            &:has(> .btn-secondary, > .btn-group > .btn-secondary) { --_tone: var(--felt-secondary); }
-            &:has(> .btn-success, > .btn-group > .btn-success) { --_tone: var(--felt-success); }
-            &:has(> .btn-danger, > .btn-group > .btn-danger) { --_tone: var(--felt-danger); }
-            &:has(> .btn-warning, > .btn-group > .btn-warning) { --_tone: var(--felt-warning); }
-            &:has(> .btn-info, > .btn-group > .btn-info) { --_tone: var(--felt-info); }
-            &:has(> .btn-dark, > .btn-group > .btn-dark) { --_tone: var(--felt-dark); }
-          }
-        }
-      }
-      &:is(:is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light), .page-link) {
-        background: var(--_groove-bg, var(--felt-groove-bg));
-        box-shadow: var(--_groove-inset, inset 0 1px 3px var(--felt-groove-shadow)), 0 1px 0 var(--felt-nap-highlight);
-      }
-      &:is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) { border-radius: var(--felt-radius); }
-      &:is(:is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > .btn) {
-        background: none; box-shadow: none; border-color: transparent;
-        &:not(:is(.active, .btn-check:checked + .btn)) {
-          &::after { content: none; }
-          /* the groove darkens the felt: its labels take the deeper tone */
-          &.btn-outline-primary { --felt-btn-color: var(--felt-primary-emphasis); }
-          &.btn-outline-secondary { --felt-btn-color: var(--felt-secondary-emphasis); }
-          &.btn-outline-info { --felt-btn-color: var(--felt-info-emphasis); }
-          &:hover { background-color: var(--felt-surface-hover); }
-          &:active { background-color: var(--felt-surface-pressed); }
-        }
-        &:is(.active, .btn-check:checked + .btn) { position: relative; isolation: isolate; color: var(--felt-btn-active-color, var(--felt-body-color)); }
-      }
-      &:is(.page-item.active .page-link) { --_tone: var(--felt-pagination-active-bg); isolation: isolate; }
-      &:is(:is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > :is(.active, .btn-check:checked + .btn), .page-item.active .page-link) {
-        &::before {
-          content: ""; position: absolute; z-index: -1; inset: var(--_patch-inset, 3px) var(--_patch-inset-x, var(--_patch-inset, 3px)); border-radius: var(--_patch-radius, calc(var(--felt-radius) - 3px));
-          background: var(--felt-texture) var(--_tone, var(--felt-surface-raised));
-          background-size: var(--felt-texture-size);
-          background-blend-mode: soft-light;
-          box-shadow: var(--_patch-relief);
-        }
+        --felt-thread-filter: var(--felt-thread-filter-cream);
+        position: relative; box-shadow: var(--felt-patch-shadow);
         &::after {
-          inset: calc(var(--felt-seam-inset) + var(--_patch-inset, 3px) - var(--_seam-margin) - 1px)
-            calc(var(--felt-seam-inset) + var(--_patch-inset-x, var(--_patch-inset, 3px)) - var(--_seam-margin) - 1px);
-        }
-      }
-      /* a horizontal toggle is a capsule: groove and patch share the pill shape and the pill seam */
-      &.btn-group:has(> .btn-check, > [class*="btn-outline-"], > .btn-light) {
-        border-radius: var(--felt-radius-pill);
-        > :is(.active, .btn-check:checked + .btn) { --_patch-radius: var(--felt-radius-pill); --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: calc(var(--_seam-pill-width) * .8); }
-        &.btn-group-sm > :is(.active, .btn-check:checked + .btn) { --_seam-width: calc(var(--_seam-pill-width) * .6); }
-      }
-      /* pagination: a capsule groove laid on the links themselves, so the list keeps Bootstrap's layout. Each
-       * link shades only its own stretch of the groove: the top everywhere, the sides only at the two ends, and
-       * not the pixel it overlaps its neighbour by. */
-      &.pagination { --felt-pagination-border-radius: var(--felt-radius-pill); --felt-pagination-color: var(--felt-primary-emphasis); }
-      &.page-item {
-        --_groove-inset: inset 0 7px 3px -6px var(--felt-groove-shadow);
-        &:first-child { --_groove-inset: inset 6px 7px 3px -6px var(--felt-groove-shadow); }
-        &:last-child { --_groove-inset: inset -6px 7px 3px -6px var(--felt-groove-shadow); }
-        &:only-child { --_groove-inset: inset 0 1px 3px var(--felt-groove-shadow); }
-        &:not(:first-child) { --_groove-bg: linear-gradient(to right, transparent 1px, var(--felt-groove-bg) 0) border-box; }
-        &.active .page-link {
-          /* a narrow page number still gets a pill, not a disc: the patch may reach a little past its link */
-          --_patch-inset: 4px; --_patch-inset-x: min(4px, (100% - 2.5em) / 2); --_patch-radius: var(--felt-radius-pill);
-          --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: calc(var(--_seam-pill-width) * .6); --felt-seam-inset: 3.5px;
-        }
-      }
-
-      /* --- nav: the active pill is a small felt chip, the active tab a flap of the sheet below */
-      &:is(.nav-link.active, .nav-link[aria-current="page"]):not(:is(.nav-tabs, .nav-underline) .nav-link, .flex-column),
-      &.nav-link.flex-column:is(.active, [aria-current="page"])::before {
-        background-image: var(--felt-texture);
-        background-size: var(--felt-texture-size);
-        background-blend-mode: soft-light;
-        box-shadow: inset 0 -1px 2px rgb(0 0 0 / .12), 0 1px 2px var(--felt-groove-shadow);
-      }
-      &.nav-tabs { position: relative; border-bottom-color: transparent; }
-      &.nav-tabs::after {
-        content: ""; position: absolute; left: 0; right: 0; bottom: calc(-.5px - var(--_seam-margin)); height: calc(2 * var(--_seam-margin));
-        pointer-events: none; background: url("img/seam-row.svg") left center / var(--_seam-row-size) round no-repeat;
-        mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: calc(var(--felt-thread-strength) * var(--felt-thread-strength-row));
-      }
-      &:is(.card-header .nav-tabs)::after { content: none; }
-      &:is(.nav-tabs .nav-link.active) {
-        z-index: 1; border-color: transparent;
-        box-shadow: 0 -1px 2px color-mix(in srgb, var(--felt-groove-shadow) 50%, transparent), inset 1px 1px 0 var(--felt-nap-highlight), inset -1px 0 0 var(--felt-nap-highlight);
-      }
-      /* in a card the tabs sit on a strip pressed into the felt, so the flap of the active one stands out */
-      &.card-header:has(> .card-header-tabs) { background-color: var(--felt-groove-bg); }
-      /* below the active tab the stitch row is covered by a strip of the same felt: the flap stays open */
-      &:is(.nav-tabs .nav-link.active)::before {
-        content: ""; position: absolute; left: 1px; right: 1px; bottom: -5px; height: 6px;
-        background-color: var(--felt-nav-tabs-link-active-bg); background-image: var(--felt-texture-sheet); background-size: var(--felt-texture-sheet-size); background-blend-mode: var(--felt-texture-sheet-blend);
-      }
-      &:is(.nav-tabs .nav-link.active)::after {
-        content: ""; position: absolute; inset: 3px 3px -5px; pointer-events: none;
-        border: 0 solid transparent; border-image: url("img/seam-md.svg") var(--_seam-md-slice) / calc(var(--_seam-md-width) * .8) calc(var(--_seam-md-width) * .8) 0 round;
-        mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: var(--felt-thread-strength);
-      }
-
-      /* --- small pieces: badges */
-      &.badge {
-        box-shadow: inset 0 -1px 2px rgb(0 0 0 / .14), 0 1px 0 var(--_patch-edge), 0 2px 3px var(--felt-patch-shadow-near);
-      }
-      &.badge.border { background-color: var(--felt-surface-raised); }
-      &.badge-dot { background-image: var(--felt-texture); background-size: var(--felt-texture-size); background-blend-mode: soft-light; }
-      &.badge-dot.text-bg-light {
-        --felt-light: light-dark(color-mix(in oklab, var(--felt-surface) 93%, var(--felt-secondary-color)), color-mix(in oklab, var(--felt-surface) 88%, var(--felt-body-color)));
-        background-image: var(--felt-texture-light); background-size: var(--felt-texture-light-size); background-blend-mode: multiply;
-      }
-      /* a swatch is a patch of felt dyed --felt-swatch-color (over --felt-swatch-image, if any), sewn on tone on tone like the filled
-       * buttons, with a short shadow so its neighbours and its ring stay clear; the chosen one keeps its height and is
-       * circled a few millimetres off by a running stitch in the ink's tone. --_swatch-face is its colour in the current
-       * state: lighter or darker on hover (with a deeper shadow), faded into the page when disabled */
-      &:is(.btn-swatch, .btn-check:checked + .btn-swatch) {
-        --_swatch-face: var(--felt-swatch-color);
-        --_swatch-lift: 0 2px 3px -1px var(--felt-patch-shadow-near);
-        --felt-thread-filter: var(--felt-thread-filter-patch); --felt-thread-strength: var(--felt-thread-strength-patch);
-        border-color: transparent;
-        background-color: var(--_swatch-face);
-        background-image: var(--felt-texture), var(--felt-patch-dome), var(--felt-swatch-image, none);
-        background-size: var(--felt-texture-size), 100% 100%, 100% 100%;
-        background-repeat: repeat, no-repeat, no-repeat;
-        background-blend-mode: soft-light, normal, normal;
-        box-shadow: inset 0 0 0 1px rgb(0 0 0 / .06), inset 0 1px 0 rgb(255 255 255 / .26), inset 0 -3px 5px -1px light-dark(rgb(0 0 0 / .26), rgb(0 0 0 / .18)),
-          inset 0 0 7px rgb(0 0 0 / .1), 0 1.5px 1px var(--_patch-edge), var(--_swatch-lift);
-        &:hover { --_swatch-face: color-mix(in oklab, var(--felt-swatch-color), var(--felt-hover-ink) 9%); --_swatch-lift: 0 3px 5px -1px var(--felt-patch-shadow-far); }
-      }
-      &:is(.btn-check:disabled + .btn-swatch) {
-        --_swatch-face: color-mix(in oklab, var(--felt-swatch-color) var(--_disabled-tone), var(--felt-body-bg));
-        box-shadow: var(--_patch-relief-pressed);
-      }
-      /* a light swatch (white, cream) is cut from the cream felt like the light pieces (grey felt in soft-light shows nothing
-       * on white), in the wool white of light thumbs and dots: the face, opaque up to oklch L .82 and clear from .88,
-       * covers the cream felt and its multiplied fibres; the dome's sheen fades out the same way */
-      @supports (color: oklch(from red l c h / clamp(0, (.88 - l) * 16, 1))) {
-        &:is(.btn-swatch, .btn-check:checked + .btn-swatch) {
-          background-color: color-mix(in oklab, var(--_swatch-face) 60%, var(--felt-wool));
-          background-image: var(--felt-texture), radial-gradient(120% 95% at 35% 10%, oklch(from var(--_swatch-face) 1 0 0 / clamp(0, (.88 - l) * 1.6, .2)), transparent 60%),
-            var(--felt-swatch-image, none), linear-gradient(oklch(from var(--_swatch-face) l c h / clamp(0, (.88 - l) * 16, 1)) 0 0), var(--felt-texture-light);
-          background-size: var(--felt-texture-size), 100% 100%, 100% 100%, auto, var(--felt-texture-light-size);
-          background-repeat: repeat, no-repeat, no-repeat, repeat, repeat;
-          background-blend-mode: soft-light, normal, normal, normal, multiply;
-        }
-      }
-      &:is(.btn-check:checked + .btn-swatch)::before {
-        content: ""; position: absolute; inset: -7px; pointer-events: none;
-        border: 0 solid transparent; border-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
-        filter: var(--felt-thread-filter-ink);
-      }
-      /* disabled, the chosen ring fades with its patch; a dot fades with the label of a disabled button */
-      &:is(.btn-check:disabled:checked + .btn-swatch)::before { opacity: .4; }
-      &:is(:is(.btn:disabled, .btn.disabled, .btn-check:disabled + .btn) .badge-dot) { opacity: .45; }
-      &.page-link:hover { box-shadow: var(--_groove-inset), inset 0 0 0 99px var(--felt-pagination-hover-bg); }
-      &.page-link:active { box-shadow: var(--_groove-inset), inset 0 0 0 99px var(--felt-surface-pressed); }
-
-      /* --- list group and accordion: a sewn sheet; the active entry is a patch on it */
-      &.list-group-item.active { box-shadow: inset 0 1px 0 rgb(255 255 255 / .2), inset 0 -1px 2px rgb(0 0 0 / .15), inset 1px 0 0 rgb(255 255 255 / .12), inset -1px 0 0 rgb(0 0 0 / .18), 0 1px 0 color-mix(in srgb, var(--felt-patch-cut) 25%, transparent); }
-      /* the list's seam runs across the active entry; on the patch it is redrawn in the patch's thread, which
-       * stays visible on saturated felt (the stretch outside the entry is clipped away) */
-      &:is(.list-group:not(.list-group-flush, .card .list-group) > .list-group-item.active) {
-        overflow: hidden;
-        &::after {
-          content: ""; position: absolute; inset: -40px 4px; pointer-events: none;
+          content: ""; position: absolute; z-index: 3; inset: calc(var(--felt-seam-inset) - var(--_seam-margin)); pointer-events: none;
           border: 0 solid transparent; border-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
           mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: var(--felt-thread-strength);
         }
-        &:first-child::after { top: 4px; }
-        &:last-child::after { bottom: 4px; }
       }
-      &:is(.list-group[class*="horizontal"]:not(.list-group-flush) > .list-group-item.active) {
-        &::after { inset: 4px -40px; }
-        &:first-child::after { left: 4px; }
-        &:last-child::after { right: 4px; }
+      & :is(.card-group > .card) { --felt-card-box-shadow: none; &::after { content: none; } }
+      /* the fold between two cards: both sides slope into it */
+      & :is(.card-group > .card + .card) { --felt-card-box-shadow: var(--felt-groove-fold), inset 7px 0 7px -6px color-mix(in srgb, var(--felt-groove-shadow) 60%, transparent); }
+      & :is(.card-group > .card:has(+ .card)) {
+        --felt-card-box-shadow: inset -6px 0 6px -5px color-mix(in srgb, var(--felt-groove-shadow) 35%, transparent);
+        border-right-color: color-mix(in srgb, var(--felt-groove-shadow) 30%, transparent);   /* the shading runs on to the crease */
       }
-      &:is(.list-group-item.active + .list-group-item)::after { opacity: 0; }
-      /* a sticky header (e.g. a month above a list) covers the next entry's stitch row, so it carries the row itself */
-      &:is(.list-group-item.sticky-top + .list-group-item)::after { content: none; }
-      &.list-group-item.sticky-top::after {
-        content: ""; position: absolute; left: calc(var(--felt-seam-inset) + 6px); right: calc(var(--felt-seam-inset) + 6px); bottom: calc(-.5px - var(--_seam-margin));
-        height: calc(2 * var(--_seam-margin)); pointer-events: none;
-        background: url("img/seam-row.svg") left center / var(--_seam-row-size) round no-repeat;
-        mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: calc(var(--felt-thread-strength) * var(--felt-thread-strength-row));
+      & :is(.card-group > .card + .card:has(+ .card)) {
+        border-right-color: color-mix(in srgb, var(--felt-groove-shadow) 30%, transparent);
+        --felt-card-box-shadow: var(--felt-groove-fold), inset 7px 0 7px -6px color-mix(in srgb, var(--felt-groove-shadow) 60%, transparent),
+          inset -6px 0 6px -5px color-mix(in srgb, var(--felt-groove-shadow) 35%, transparent);
       }
-      &:is(.accordion-item + .accordion-item)::before { top: 0; }
-      &:is(.accordion-button:not(.collapsed, summary), details[open] > .accordion-button) {
-        background-color: color-mix(in oklab, var(--felt-primary) 6%, var(--felt-surface-hover));
-        &:not(:focus-visible) { box-shadow: none; }
-      }
+    }
+    & :is(.btn-pill, .btn-icon, .rounded-pill) {
+      --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: var(--_seam-pill-width);
+    }
+    & :is(.btn-sm, .btn-group-sm > .btn) { --felt-seam-inset: 3.5px; --_seam-width: calc(var(--_seam-md-width) * .7); }
+    & :is(.btn-sm, .btn-group-sm > .btn):is(.btn-pill, .rounded-pill) { --_seam-width: calc(var(--_seam-pill-width) * .7); }
+    /* a button in an input group is cut off where it meets the field: sewn along its free edges only */
+    & :is(.input-group > .btn) { overflow: hidden; }
+    & :is(.input-group > .btn:not(:first-child))::after { left: -40px; }
+    & :is(.input-group:not(.has-validation) > .btn:not(:last-child, .dropdown-toggle), .input-group:not(.has-validation) > .btn.dropdown-toggle:nth-last-child(n+3),
+      .input-group.has-validation > .btn:nth-last-child(n+3):not(.dropdown-toggle), .input-group.has-validation > .btn.dropdown-toggle:nth-last-child(n+4))::after { right: -40px; }
+    & :is(.input-group > .btn) { --felt-seam-inset: 5px; --_seam-width: calc(var(--_seam-md-width) * .6); }
+      /* a bar fixed to the screen edge is sewn along its inner edge only */
+    & .navbar:is(.fixed-top, .fixed-bottom)::after {
+      inset: auto 0; height: calc(2 * var(--_seam-margin)); border-image: none;
+      background: url("img/seam-row.svg") left center / var(--_seam-row-size) round no-repeat;
+    }
+    & .navbar.fixed-top::after { bottom: 4px; }
+    & .navbar.fixed-bottom::after { top: 4px; }
+    & .navbar:is(.fixed-top, .fixed-bottom)::after { z-index: 0; }
+    & :is(.navbar .nav-link.flex-column) { z-index: 1; }
 
-      /* --- table: nearly clean, a tinted head and quiet rows of stitches between the rows */
-      &:is(.table > thead) { background-color: var(--felt-surface-hover); }
-      &:is(.table > thead.table-light) { --felt-table-bg: transparent; }
-      &:is(.table > thead > tr > *)::before { bottom: calc(-.5px - var(--_seam-margin)); }
-      &:is(.table > :not(caption) > tr > *)::before { left: 0; right: 0; opacity: var(--felt-thread-strength); }
-      /* bordered: the columns are pressed folds, no outer frame; the table lies on its piece */
-      &:is(.table-bordered > :not(caption) > * > *) { border-color: transparent; }
-      &:is(.table-bordered > :not(caption) > * > * + *) { box-shadow: var(--felt-groove-fold), inset 0 0 0 9999px var(--_table-accent); }
-      &:is(.table-borderless > :not(caption) > * > *)::before { content: none; }
+    /* dividers inside a piece: a straight row of stitches that stops at the outer seam; quieter than
+     * the outer seam so it reads as a divider */
+    & :where(.card-header, .card-footer, .modal-header, .modal-footer, .toast-header, .popover-header,
+      .list-group-item + .list-group-item, .accordion-item + .accordion-item, .table > :not(caption) > tr > *, hr) {
+      position: relative; border-color: transparent;
+    }
+    & :is(hr) { overflow: visible; opacity: 1; }
+    & :where(.card-header, .card-footer, .modal-header, .modal-footer, .toast-header, .popover-header)::after,
+    & :where(.list-group-item + .list-group-item:not(.active))::after,
+    & :where(.accordion-item + .accordion-item, .table > tbody > tr + tr > *, .table > thead > tr > *, .dropdown-divider)::before {
+      content: "";
+      position: absolute;
+      left: calc(var(--felt-seam-inset) + 6px); right: calc(var(--felt-seam-inset) + 6px);
+      height: calc(2 * var(--_seam-margin));
+      pointer-events: none;
+      background: url("img/seam-row.svg") left center / var(--_seam-row-size) round no-repeat;
+      mix-blend-mode: hard-light;
+      filter: var(--felt-thread-filter);
+      opacity: calc(var(--felt-thread-strength) * var(--felt-thread-strength-row));
+    }
+    & :where(.card-header, .modal-header, .toast-header, .popover-header)::after { bottom: calc(-.5px - var(--_seam-margin)); }
+    & :where(.card-footer, .modal-footer)::after { top: calc(-.5px - var(--_seam-margin)); }
+    & :where(.list-group-item + .list-group-item)::after,
+    & :where(.accordion-item + .accordion-item, .table > tbody > tr + tr > *, .dropdown-divider)::before { top: calc(-.5px - var(--_seam-margin)); }
+    & .dropdown-divider::before { left: 0; right: 0; }
+    /* hr and .vr stand on their own: the same row of stitches, its thread dyed in the rule's own
+     * colour (currentColor, like Bootstrap's rules): the stitches multiplied with the dye and laid into the felt
+     * (--_rule-blend) with the seams' relief. Inside a piece it is a divider, as quiet as the piece's own stitch rows. */
+    & :is(hr) { --_rule-seam: url("img/seam-row.svg") left center / var(--_seam-row-size) round no-repeat; }
+    /* .vr: stitches at 4/5 size, repeated from the top rather than squeezed, so a short rule still shows whole stitches */
+    & .vr { --_rule-seam: url("img/seam-col.svg") center top / var(--_seam-col-size) no-repeat repeat; position: relative; background-color: transparent; opacity: 1; }
+    & :where(hr:not(.dropdown-divider), .vr)::before {
+      content: ""; position: absolute; pointer-events: none;
+      background: var(--_rule-seam) var(--_rule-thread); background-blend-mode: multiply; mask: var(--_rule-seam);
+      mix-blend-mode: var(--_rule-blend); filter: sepia(.4) var(--felt-thread-relief); opacity: calc(var(--felt-thread-strength-rule) * var(--_rule-piece, 1));
+    }
+    & :where(.card, .alert, .modal-content, .toast, .popover, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl, .dropdown-menu, .list-group-item, .accordion-item) {
+      --_rule-piece: var(--_rule-in-piece);
+    }
+    & :where(hr:not(.dropdown-divider))::before { top: calc(-.5px - var(--_seam-margin)); left: 0; right: 0; height: calc(2 * var(--_seam-margin)); }
+    & :where(.vr)::before { top: 0; bottom: 0; left: calc(.5px - var(--_seam-margin)); width: calc(2 * var(--_seam-margin)); }
+    /* with border utilities an hr is a plain line again */
+    & :where(hr[class*="border"])::before { content: none; }
+    /* SVG drawings: thread tinted like the seams of the piece it lies on, felt blended like a patch */
+    & .stitches { visibility: visible; mix-blend-mode: hard-light; filter: var(--felt-stitch-shadow) var(--felt-thread-filter); opacity: var(--felt-thread-strength); }
+    & .stitches-patch { --felt-thread-filter: var(--felt-thread-filter-patch); --felt-thread-strength: var(--felt-thread-strength-patch); }
+    & .felt-texture { visibility: visible; mix-blend-mode: soft-light; }
+    /* a sewn-on piece's cut edge (its colour, darker) and soft shadow are copies moved down: transforms, not CSS
+     * drop-shadow(), which Safari ignores inside SVG; blur the shadow with an SVG filter (feGaussianBlur) */
+    & .felt-edge { visibility: visible; transform: translateY(1px); stroke: color-mix(in oklab, currentColor 70%, #000); }
+    & .felt-shadow { visibility: visible; transform: translateY(2px); stroke: var(--felt-patch-shadow-far); }
+    & .toast { --felt-seam-inset: 5px; }
+    & .toast-header::after { left: 11px; right: 11px; }
+    /* a flush list on the page runs edge to edge; in a card its rows stop at the card's seam like the header's */
+    & :is(:where(.list-group-flush:not(.card .list-group)) > .list-group-item)::after { left: 0; right: 0; }
+    & :is(.list-group[class*="horizontal"] > .list-group-item:not(.active))::after { content: none; }
+    & :is(.list-group[class*="horizontal"] > .list-group-item + .list-group-item:not(.active)) { border-left-color: transparent; box-shadow: var(--felt-groove-fold); }
+    & :is(:is(.text-bg-primary, .text-bg-secondary, .text-bg-success, .text-bg-danger, .text-bg-info, .text-bg-dark) :is(.card-header, .card-footer)) {
+      --felt-border-color: rgb(255 255 255 / .2);
+    }
 
-      /* --- progress: a groove pressed into the felt, the bar a patch laid in it */
-      &:is(.progress, .progress-stacked) {
-        --felt-progress-box-shadow: inset 0 1px 0 var(--felt-groove-shade), inset 0 1px 3px color-mix(in srgb, var(--felt-groove-shadow) 80%, transparent), inset 0 -1px 0 var(--felt-groove-lip);
+    /* --- buttons */
+    & :is(.btn:active, .btn.active, .btn-check:checked + .btn) { box-shadow: var(--_patch-relief-pressed); }
+    & .btn:active { transform: translateY(1px); }   /* a press dents the felt; a chosen .active stays in line */
+    /* felt is opaque: a disabled piece goes pale and flat instead of see-through */
+    & :is(.btn:disabled, .btn.disabled, .btn-check:disabled + .btn) {
+      opacity: 1; filter: saturate(.6); box-shadow: var(--_patch-relief-pressed);
+      background-color: color-mix(in oklab, var(--_tone) var(--_disabled-tone), var(--felt-body-bg));
+      color: color-mix(in oklab, var(--felt-body-color) var(--_disabled-ink), var(--felt-body-bg));
+      &::after { opacity: calc(var(--felt-thread-strength) * .5); }
+    }
+    /* buttons without a piece of felt (plain, link) stay flat in every state */
+    & :where(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-swatch, .btn-link, [class*="btn-outline-"]), .btn-link) { background: none; box-shadow: none; }
+    /* the felt layer outranks the components, so the chosen nav item is left out or it would lose its fill */
+    & :is(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-swatch, .btn-link, [class*="btn-outline-"]), .btn-link, .nav-link:not(.active, [aria-current="page"]), .accordion-button) {
+      &:hover { background-color: var(--felt-surface-hover); }
+      &:active { background-color: var(--felt-surface-pressed); }
+    }
+    & :is(.btn:not(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light, .btn-swatch, .btn-link, [class*="btn-outline-"]), .btn-link) {
+      &:is(:active, .active, .btn-check:checked + *) { background-color: var(--felt-surface-pressed); box-shadow: inset 0 1px 2px var(--felt-groove-shadow-field); }
+      &:is(:disabled, .disabled, .btn-check:disabled:not(:checked) + *) { filter: none; background: none; box-shadow: none; color: var(--felt-tertiary-color); }
+    }
+    /* outline: a cream felt patch, sewn on with thread in the button colour; checked, it becomes a patch */
+    & [class*="btn-outline-"] { border-color: transparent; }
+    /* inset shading stops at the padding box, so the 1px border of a light piece would stay its brightest
+     * pixel, a light rim. A translucent border carries the shading out to the cut edge. */
+    & :is(.btn-light, [class*="btn-outline-"], .text-bg-light, .toast:not([class*="text-bg-"])) { border-color: light-dark(rgb(60 40 15 / .12), rgb(0 0 0 / .2)); }
+    & :is(.btn-light, [class*="btn-outline-"]):is(:disabled, .disabled) { border-color: light-dark(rgb(60 40 15 / .08), rgb(0 0 0 / .08)); }
+    & :is(.btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, :active, .show)) { --_tone: var(--felt-btn-active-bg); background-color: var(--felt-btn-active-bg); }
+    @supports (-webkit-mask-box-image: none) {
+      & [class*="btn-outline-"]::after {
+        border: 0;
+        border-image: none;
+        background: currentColor;
+        -webkit-mask-box-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
+        mix-blend-mode: normal;
+        filter: none;
+        opacity: .75;
       }
-      &.progress-bar {
-        background-image: var(--felt-texture), var(--felt-patch-dome);
-        background-size: var(--felt-texture-size), 100% 100%;
-        background-blend-mode: soft-light, normal;
-        box-shadow: inset 0 1px 0 rgb(255 255 255 / .2), inset 0 -1px 2px rgb(0 0 0 / .2), 1px 0 1px rgb(0 0 0 / .15);
-      }
-      /* stacked: pieces laid edge to edge, each with its own cut */
-      &:is(.progress-stacked > .progress + .progress > .progress-bar) {
-        box-shadow: inset 1px 0 0 rgb(255 255 255 / .18), -1px 0 2px rgb(0 0 0 / .3), inset 0 1px 0 rgb(255 255 255 / .2), inset 0 -1px 2px rgb(0 0 0 / .2);
-      }
-      &.progress-bar-striped {
-        background-image: linear-gradient(45deg, rgb(255 255 255 / .15) 25%, transparent 25%, transparent 50%, rgb(255 255 255 / .15) 50%, rgb(255 255 255 / .15) 75%, transparent 75%), var(--felt-texture);
-        background-size: 1rem 1rem, var(--felt-texture-size);
-        background-blend-mode: normal, soft-light;
-      }
-
-      /* --- spinners: a turning ring of felt, a pulsing felt dot */
-      &:is(.spinner-border, .spinner-grow) {
-        background: var(--felt-texture) currentColor; background-size: var(--felt-texture-size); background-blend-mode: soft-light;
-      }
-      &.spinner-border {
-        border-color: transparent;
-        mask: conic-gradient(#000 0 75%, transparent 0), radial-gradient(farthest-side, transparent calc(100% - var(--felt-spinner-border-width)), #000 calc(100% - var(--felt-spinner-border-width) + .5px));
-        mask-composite: intersect;
-      }
-      &.spinner-grow { box-shadow: inset 0 1px 0 rgb(255 255 255 / .25), inset 0 -2px 3px rgb(0 0 0 / .2); }
-
-      /* --- dropdown, popover, offcanvas: flat pieces of felt lying above the page, sewn round */
-      &:is(.dropdown-menu, .popover, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl) {
-        box-shadow: var(--felt-patch-shadow), 0 16px 32px -12px var(--felt-patch-shadow-far);
-      }
-      /* the menu header on charcoal felt: a step lighter than the secondary text, to hold 4.5:1 on the flecks */
-      &.dropdown-menu { --felt-dropdown-header-color: light-dark(var(--felt-secondary-color), #cabfaf); }
-      &:is(.dropdown-menu, .popover) {
-        --_seam-img: url("img/seam-md.svg"); --_seam-slice: var(--_seam-md-slice); --_seam-width: var(--_seam-md-width); --felt-seam-inset: 5px;
-      }
-      /* the medium seam is finer than the cards' large one: a little more thread, so it carries the same weight */
-      &:is(.dropdown-menu, .popover, .toast)::after { opacity: min(1, calc(var(--felt-thread-strength) * 1.2)); }
-      &.popover-arrow::before { border-color: transparent; }
-      &.dropdown-item:is(:hover, :focus-visible):not(.active, :active) { background-color: var(--felt-dropdown-link-hover-bg); }
-      &.dropdown-item:is(.active, :active) {
-        background-image: var(--felt-texture); background-size: var(--felt-texture-size); background-blend-mode: soft-light;
-        box-shadow: inset 0 -1px 2px rgb(0 0 0 / .12), 0 1px 2px var(--felt-groove-shadow);
-      }
-      /* an offcanvas is fixed to a screen edge: its seam runs past that edge, so only the free edges are sewn */
-      &:is(.offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl) { --felt-seam-inset: 9px; --_off: -40px; overflow: hidden; }
-      &.offcanvas-start::after { inset: var(--_off) 5px var(--_off) var(--_off); }
-      &.offcanvas-end::after { inset: var(--_off) var(--_off) var(--_off) 5px; }
-      &.offcanvas-top::after { inset: var(--_off) 5px 5px; }
-      &.offcanvas-bottom::after { inset: 5px 5px var(--_off); }
-      /* inline (a responsive offcanvas from its breakpoint up, or one in an expanded navbar) it is no piece of its own */
-      /* offcanvas-inline:start */
-      /* written by tools/feltgen/variants.py; change it there, not these 22 lines */
-      &:is(.navbar-expand .offcanvas) { background-image: none; box-shadow: none; overflow: visible; --felt-thread-filter: inherit; --_rule-piece: inherit; }
-      &:is(.navbar-expand .offcanvas)::after { content: none; }
-      @media (min-width: 576px) {
-        &:is(.offcanvas-sm, .navbar-expand-sm .offcanvas) { background-image: none; box-shadow: none; overflow: visible; --felt-thread-filter: inherit; --_rule-piece: inherit; }
-        &:is(.offcanvas-sm, .navbar-expand-sm .offcanvas)::after { content: none; }
-      }
-      @media (min-width: 768px) {
-        &:is(.offcanvas-md, .navbar-expand-md .offcanvas) { background-image: none; box-shadow: none; overflow: visible; --felt-thread-filter: inherit; --_rule-piece: inherit; }
-        &:is(.offcanvas-md, .navbar-expand-md .offcanvas)::after { content: none; }
-      }
-      @media (min-width: 992px) {
-        &:is(.offcanvas-lg, .navbar-expand-lg .offcanvas) { background-image: none; box-shadow: none; overflow: visible; --felt-thread-filter: inherit; --_rule-piece: inherit; }
-        &:is(.offcanvas-lg, .navbar-expand-lg .offcanvas)::after { content: none; }
-      }
-      @media (min-width: 1200px) {
-        &:is(.offcanvas-xl, .navbar-expand-xl .offcanvas) { background-image: none; box-shadow: none; overflow: visible; --felt-thread-filter: inherit; --_rule-piece: inherit; }
-        &:is(.offcanvas-xl, .navbar-expand-xl .offcanvas)::after { content: none; }
-      }
-      @media (min-width: 1400px) {
-        &:is(.offcanvas-xxl, .navbar-expand-xxl .offcanvas) { background-image: none; box-shadow: none; overflow: visible; --felt-thread-filter: inherit; --_rule-piece: inherit; }
-        &:is(.offcanvas-xxl, .navbar-expand-xxl .offcanvas)::after { content: none; }
-      }
-      /* offcanvas-inline:end */
-      /* tooltip: a small patch, not sewn (like badges) */
-      &.tooltip-inner {
-        background-image: var(--_tooltip-texture); background-size: var(--felt-texture-size); background-blend-mode: var(--_tooltip-texture-blend);
-        box-shadow: inset 0 -1px 2px rgb(0 0 0 / .2), 0 1px 0 color-mix(in oklab, var(--felt-tooltip-bg) 70%, var(--felt-patch-cut)), 0 3px 6px -1px var(--felt-patch-shadow-near);
-      }
-
-      /* --- placeholders: soft felt pressed into the piece; validation tooltips are small patches */
-      &.placeholder { background-image: var(--felt-texture); background-size: var(--felt-texture-size); background-blend-mode: soft-light; box-shadow: inset 0 1px 2px rgb(0 0 0 / .25); }
-      &:is(.invalid-tooltip, .valid-tooltip) {
-        background-image: var(--felt-texture); background-size: var(--felt-texture-size); background-blend-mode: soft-light;
-        box-shadow: inset 0 -1px 2px rgb(0 0 0 / .18), 0 1px 0 color-mix(in oklab, var(--_tone) 70%, var(--felt-patch-cut)), 0 3px 6px -1px var(--felt-patch-shadow-near);
-      }
-
-      /* --- photos lie on the felt */
-      &:where(.figure-img, .img-thumbnail, img.rounded) { box-shadow: 0 0 0 1px rgb(0 0 0 / .06), 0 1px 2px var(--felt-patch-shadow-near); }
-
-      /* --- carousel: the slides are a photo lying on the felt, tucked into four felt corners. The controls are small
-       * patches of undyed wool sewn on, the indicators a row of stitches with the current slide's a patch; like
-       * Bootstrap's they turn dark in dark mode and with .carousel-dark (charcoal felt) */
-      &.carousel {
-        --felt-carousel-indicator-active-bg: light-dark(var(--felt-wool), var(--felt-gray-900));
-        --felt-carousel-caption-color: light-dark(var(--felt-wool), var(--felt-gray-900));
-        --_carousel-ink: light-dark(var(--felt-navy), var(--felt-wool));
-        --_carousel-thread: var(--_carousel-thread-dark, var(--felt-thread-filter-cream));
-        --_carousel-thread-dark: var(--_dark) var(--felt-thread-filter-patch);
-      }
-      &.carousel-dark {
-        --felt-carousel-indicator-active-bg: var(--felt-gray-900); --felt-carousel-caption-color: var(--felt-gray-900);
-        --_carousel-ink: var(--felt-wool); --_carousel-thread: var(--felt-thread-filter-patch);
-      }
-      &.carousel-inner {
-        --_corner: 2.5rem;
-        border-radius: var(--felt-radius-sm);
-        box-shadow: 0 0 0 1px rgb(0 0 0 / .06), 0 1px 2px var(--felt-patch-shadow-near), 0 10px 18px -8px var(--felt-patch-shadow-far);
-      }
-      /* the corners (::before) and the shadow they cast on the photo (::after): triangles cut out with a mask */
-      &.carousel-inner::before, &.carousel-inner::after {
-        content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
-        --_tl: top left / var(--_corner) var(--_corner) no-repeat; --_tr: top right / var(--_corner) var(--_corner) no-repeat;
-        --_bl: bottom left / var(--_corner) var(--_corner) no-repeat; --_br: bottom right / var(--_corner) var(--_corner) no-repeat;
-        --_edge: #000 calc(50% - .5px), transparent calc(50% + .5px);   /* an anti-aliased diagonal */
-        mask: linear-gradient(135deg, var(--_edge)) var(--_tl), linear-gradient(225deg, var(--_edge)) var(--_tr),
-          linear-gradient(45deg, var(--_edge)) var(--_bl), linear-gradient(315deg, var(--_edge)) var(--_br);
-      }
-      &.carousel-inner::before {
-        --_cut: color-mix(in oklab, var(--felt-surface-raised) 60%, var(--felt-patch-cut));   /* cut from a light piece, not the page: */
-        background:
-          linear-gradient(135deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_tl), linear-gradient(225deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_tr),
-          linear-gradient(45deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_bl), linear-gradient(315deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_br),
-          var(--felt-texture-sheet) 0 0 / var(--felt-texture-sheet-size) var(--felt-surface-raised);   /* they lie on the photo */
-        background-blend-mode: normal, normal, normal, normal, var(--felt-texture-sheet-blend);
-        translate: 0 -1px;   /* the cut edge below stays visible as the shadow's first pixel */
-      }
-      &.carousel-inner::after {
-        z-index: 2; --_corner: calc(2.5rem + 6px); --_shade: rgb(30 20 10 / .55);
-        background:
-          linear-gradient(135deg, var(--_shade) calc(50% - 6px), transparent 50%) var(--_tl), linear-gradient(225deg, var(--_shade) calc(50% - 6px), transparent 50%) var(--_tr),
-          linear-gradient(45deg, var(--_shade) calc(50% - 6px), transparent 50%) var(--_bl), linear-gradient(315deg, var(--_shade) calc(50% - 6px), transparent 50%) var(--_br);
-      }
-      &:is(.carousel-control-prev, .carousel-control-next) { opacity: .9; }
-      &:is(.carousel-control-prev, .carousel-control-next):is(:hover, :focus) { opacity: 1; }
-      &:is(.carousel-control-prev-icon, .carousel-control-next-icon) {
-        border-radius: 50%;
-        background: var(--felt-texture-sheet) 0 0 / var(--felt-texture-sheet-size) var(--felt-carousel-indicator-active-bg);
-        background-blend-mode: var(--felt-texture-sheet-blend);
-        box-shadow: inset 0 -2px 3px rgb(0 0 0 / .14), 0 1px 0 color-mix(in oklab, var(--felt-carousel-indicator-active-bg) 55%, var(--felt-patch-cut)),
-          0 3px 6px -1px rgb(0 0 0 / .4);
-        color: var(--_carousel-ink);
-      }
-      &:is(.carousel-control-prev-icon, .carousel-control-next-icon)::before { mask-size: 45%; }
-      &.carousel-control-prev-icon::before { translate: -1px 0; }
-      &.carousel-control-next-icon::before { translate: 1px 0; }
-      &:is(.carousel-control-prev-icon, .carousel-control-next-icon)::after {
-        content: ""; position: absolute; inset: 3px; pointer-events: none;
-        border: 0 solid transparent; border-image: url("img/seam-circle.svg") 0 fill / 0 round;
-        mix-blend-mode: hard-light; filter: var(--_carousel-thread); opacity: min(1, calc(var(--felt-thread-strength) * 1.4));
-      }
-      /* indicators: stitches of wool thread laid over the photo, the current one a small patch */
-      &:is(.carousel-indicators [data-bs-target]) {
-        border-radius: 4px / 11.5px;   /* past the 10px transparent borders: tapered ends on the 3px stitch */
-        background-image: url("img/thread.svg"); background-size: 4px 4px; background-blend-mode: multiply;
-        /* in the dark a light halo, so the stitch holds on dark photos too */
-        filter: drop-shadow(0 1px 0 rgb(0 0 0 / .4)) drop-shadow(0 1px 2px rgb(0 0 0 / .25)) drop-shadow(0 0 1px light-dark(transparent, rgb(255 240 220 / .7)));
-        opacity: .85;
-      }
-      &:is(.carousel-indicators .active) { opacity: 1; }
-      &:is(.carousel-indicators .active)::before {
-        content: ""; position: absolute; inset: -3px -1px; border-radius: var(--felt-radius-pill);
-        background: var(--felt-texture-sheet) 0 0 / var(--felt-texture-sheet-size) var(--felt-carousel-indicator-active-bg);
-        background-blend-mode: var(--felt-texture-sheet-blend);
-        box-shadow: inset 0 -1px 2px rgb(0 0 0 / .18), 0 1px 0 color-mix(in oklab, var(--felt-carousel-indicator-active-bg) 55%, var(--felt-patch-cut)),
-          0 0 0 1px light-dark(transparent, rgb(255 240 220 / .3));
-      }
-
-      /* --- modal: a flat sheet of felt lying on the dimmed page */
-      &.modal-content { box-shadow: var(--felt-patch-shadow), 0 24px 48px -12px var(--felt-patch-shadow-far); }
-
-      /* --- form controls: nearly clean, pressed slightly into the felt */
-      &:is(.form-control, .form-select) {
-        background-color: var(--felt-field);
-        box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field);
-      }
-      &:is(.form-control, .input-group-text),
-      &:is(.form-floating > textarea ~ label)::after {
-        background-image: var(--felt-texture-sheet);
-        background-size: var(--felt-texture-sheet-size);
-        background-blend-mode: var(--felt-texture-sheet-blend);
-      }
-      &:is(.form-control, .form-select):is(.is-invalid, :where(.was-validated) :invalid) { background-color: var(--felt-field-invalid); }
-      &.form-control[readonly] { background-color: var(--felt-surface-sunk); box-shadow: none; }
-      /* the felt shows through a disabled field and darkens it: its text takes a little of the body ink to stay >= 4.5:1 */
-      &:is(.form-control, .form-select):disabled { background-color: var(--felt-field-disabled); color: color-mix(in oklab, var(--felt-secondary-color), var(--felt-body-color) 25%); box-shadow: none; }
-      &:is(.input-group > :is(.form-control, .form-select):focus) { box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field); }
-      &:is(.has-validation > :is(.form-control, .form-select):focus) { box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field), 0 0 0 .25rem var(--felt-focus-ring-color); }
-      &.form-select {
-        background-image: var(--felt-select-chevron), var(--felt-texture-sheet);
-        background-size: 14px, var(--felt-texture-sheet-size);
-        background-position: right .75rem center, 0 0;
-        background-repeat: no-repeat, repeat;
-        background-blend-mode: normal, var(--felt-texture-sheet-blend);
-      }
-      &:is(.form-control, .form-select):focus {
-        box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field), 0 0 0 .25rem var(--felt-focus-ring-color);
-      }
-      &:is(.form-control, .form-select):is(.is-invalid, .is-valid, :where(.was-validated) :is(:invalid, :valid)):focus {
-        box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field), 0 0 0 .25rem color-mix(in oklab, var(--_state) 30%, transparent);
-      }
-
-      /* checkbox: a little felt square */
-      &.form-check-input {
-        box-shadow: inset 0 1px 2px var(--felt-groove-shadow-field);
-      }
-      &.form-check-input:is(:checked, :where([type="checkbox"]):indeterminate) {
-        background-image: var(--felt-form-check-bg-image), var(--felt-texture);
-        background-size: 80%, var(--felt-texture-size);
-        background-repeat: no-repeat, repeat;
-        background-blend-mode: normal, soft-light;
-        border-color: transparent;
-        box-shadow: inset 0 -1px 2px rgb(0 0 0 / .15), 0 1px 0 color-mix(in oklab, var(--_check-fill) 70%, var(--felt-patch-cut)), 0 2px 3px var(--felt-patch-shadow-near);
-      }
-      /* the marks in cream, like the stitches on patches */
-      &.form-check-input:checked {
-        --felt-form-check-bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 8.5 3 3 6-7' fill='none' stroke='%23fbf6ea' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      }
-      &.form-check-input[type="checkbox"]:indeterminate {
-        --felt-form-check-bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8h8' fill='none' stroke='%23fbf6ea' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
-      }
-      &.form-check-input[type="radio"]:checked {
-        --felt-form-check-bg-image: radial-gradient(circle, #fbf6ea 0 28%, transparent 33%);
-        background-size: 100%, var(--felt-texture-size);
-      }
-
-      /* switch: a felt groove like the other tracks, matte felt disc as knob */
-      &:is(.form-switch .form-check-input) {
-        --felt-form-switch-bg: radial-gradient(circle closest-side, var(--felt-wool-knob) 82%, var(--felt-groove-shadow) 90%, transparent 100%);
-        background-color: var(--felt-track);
-        background-image: var(--felt-form-switch-bg);
-        background-size: 1.25rem 1.25rem;
-        background-position: 1px center;
-        box-shadow: inset 0 1px 0 var(--felt-groove-shade), inset 0 1px 3px var(--felt-groove-shadow), inset 0 -1px 0 var(--felt-groove-lip);   /* keeps the control outline, like the checkboxes */
-      }
-      &:is(.form-switch .form-check-input:checked) {
-        background-color: var(--_check-fill);
-        background-image: var(--felt-form-switch-bg), var(--felt-texture);
-        background-size: 1.25rem 1.25rem, var(--felt-texture-size);
-        background-repeat: no-repeat, repeat;
-        background-position: calc(100% - 1px) center, 0 0;
-        background-blend-mode: normal, soft-light;
-        border-color: transparent;
-      }
-
-      /* range: a felt groove (shaded at the top, lit at its lower lip, like the progress groove) with a patch as knob */
-      &.form-range {
-        --_range-track: var(--felt-track);
-        --_range-groove: inset 0 1px 0 var(--felt-groove-shade), inset 0 1px 2px color-mix(in srgb, var(--felt-groove-shadow) 75%, transparent), inset 0 -1px 0 var(--felt-groove-lip);
-        --_thumb-shadow: inset 0 1px 0 rgb(255 255 255 / .25), inset 0 -2px 3px rgb(0 0 0 / .2),
-          0 0 0 1px color-mix(in oklab, var(--felt-form-range-thumb-bg, var(--felt-primary)) 45%, var(--felt-patch-cut)), 0 1px 1px color-mix(in oklab, var(--felt-form-range-thumb-bg, var(--felt-primary)) 70%, #000), 0 3px 5px var(--felt-patch-shadow-far);
-      }
-      &.form-range::-webkit-slider-runnable-track { box-shadow: var(--_range-groove); }
-      &.form-range::-moz-range-track { box-shadow: var(--_range-groove); }
-      &.form-range::-webkit-slider-thumb { border-color: light-dark(rgb(60 40 15 / .12), rgb(0 0 0 / .45)); background: var(--felt-texture) var(--felt-form-range-thumb-bg, var(--felt-primary)); background-size: var(--felt-texture-size); background-blend-mode: soft-light; }
-      &.form-range::-moz-range-thumb { border-color: light-dark(rgb(60 40 15 / .12), rgb(0 0 0 / .45)); background: var(--felt-texture) var(--felt-form-range-thumb-bg, var(--felt-primary)); background-size: var(--felt-texture-size); background-blend-mode: soft-light; }
-      /* a light thumb (white, cream) is wool cut from the cream sheet, matte; a coloured one stays a patch. The thumb's own
-       * colour, opaque up to oklch L .82 and clear from .88, covers the cream felt; the gloss fades out the same way */
-      @supports (color: oklch(from red l c h / clamp(0, (.88 - l) * 16, 1))) {
-        &.form-range {
-          --_thumb-cover: oklch(from var(--felt-form-range-thumb-bg, var(--felt-primary)) l c h / clamp(0, (.88 - l) * 16, 1));
-          --_thumb-wool: color-mix(in oklab, var(--felt-form-range-thumb-bg, var(--felt-primary)) 60%, var(--felt-wool));
-          --_thumb-shadow: inset 0 1px 0 oklch(from var(--felt-form-range-thumb-bg, var(--felt-primary)) 1 0 0 / clamp(0, (.88 - l) * 4, .25)), inset 0 -2px 3px rgb(0 0 0 / .16),
-            0 0 0 1px light-dark(color-mix(in oklab, var(--felt-form-range-thumb-bg, var(--felt-primary)) 45%, var(--felt-patch-cut)), color-mix(in oklab, var(--felt-form-range-thumb-bg, var(--felt-primary)) 18%, #2a2420)), 0 1px 1px color-mix(in oklab, var(--felt-form-range-thumb-bg, var(--felt-primary)) 70%, #000), 0 3px 5px var(--felt-patch-shadow-far);
+      & :is(.btn-check:checked + [class*="btn-outline-"], [class*="btn-outline-"]:is(.active, :active, .show))::after { opacity: .45; }
+    }
+    /* button groups. A group of filled buttons is one piece with one seam around it, carried by one of its
+     * buttons (positioned against the group; no filter/transform, which would make the button the seam's
+     * containing block). A toggle group (checks, outline or light buttons) is a groove pressed into the
+     * felt, with the chosen segment sewn into it as a raised patch; pagination follows the same recipe. */
+    & :is(.btn-group, .btn-group-vertical) {
+      > .btn { filter: none; transform: none; }
+      /* the piece's shading and seam are drawn once across the whole group, by its first button that isn't a
+       * dropdown toggle (a toggle's ::before is its caret); where two buttons meet, the piece has a fold. A
+       * nested group (a dropdown in the series) is part of the piece. */
+      &:has(> :is(.btn, .btn-group) ~ :is(.btn, .btn-group)):not(:has(> .btn-check, > [class*="btn-outline-"], > .btn-light)) {
+        > .btn-group { position: static; }
+        > .btn, > .btn-group > .btn {
+          --_fold: 0 0 transparent;
+          position: static; filter: none; transform: none; box-shadow: var(--_fold);
+          &:hover { box-shadow: var(--_fold), inset 0 0 0 99px rgb(255 255 255 / .06); }
+          &:is(:active, .active) { box-shadow: var(--_fold), inset 0 2px 4px rgb(0 0 0 / .22); }
         }
-        &.form-range::-webkit-slider-thumb {
-          background: var(--felt-texture), linear-gradient(var(--_thumb-cover) 0 0), var(--felt-texture-light) var(--_thumb-wool);
-          background-size: var(--felt-texture-size), auto, var(--felt-texture-light-size); background-blend-mode: soft-light, normal, multiply;
+        > .btn:not(:first-child), > .btn-group:not(:first-child) > .btn { --_fold: var(--felt-groove-fold); }
+        &.btn-group-vertical > .btn:not(:first-child), &.btn-group-vertical > .btn-group:not(:first-child) > .btn { --_fold: var(--felt-groove-fold-y); }
+        > .btn:not(.dropdown-toggle, .btn:not(.dropdown-toggle) ~ *) {
+          --felt-seam-inset: 5px;
+          &::before { content: ""; position: absolute; inset: 0; border-radius: var(--felt-radius); pointer-events: none; box-shadow: var(--_patch-relief); }
         }
-        &.form-range::-moz-range-thumb {
-          background: var(--felt-texture), linear-gradient(var(--_thumb-cover) 0 0), var(--felt-texture-light) var(--_thumb-wool);
-          background-size: var(--felt-texture-size), auto, var(--felt-texture-light-size); background-blend-mode: soft-light, normal, multiply;
+        &.btn-group-sm > .btn:not(.dropdown-toggle, .btn:not(.dropdown-toggle) ~ *) { --felt-seam-inset: 4.5px; }
+        > .btn:is(.dropdown-toggle, .btn:not(.dropdown-toggle) ~ *)::after, > .btn-group > .btn::after { content: none; }
+        /* no plain button to carry it (only nested groups or toggles, whose ::before is the caret): the group
+         * shades the piece in its buttons' tone, and its first button sews the seam */
+        &:not(:has(> .btn:not(.dropdown-toggle))) {
+          &::before { content: ""; position: absolute; inset: 0; border-radius: var(--felt-radius); pointer-events: none; box-shadow: var(--_patch-relief); }
+          > .btn:first-child, > .btn-group:first-child > .btn { --felt-seam-inset: 5px; &::after { content: ""; } }
+          &.btn-group-sm > .btn:first-child, &.btn-group-sm > .btn-group:first-child > .btn { --felt-seam-inset: 4.5px; }
+          &:has(> .btn-primary, > .btn-group > .btn-primary) { --_tone: var(--felt-primary); }
+          &:has(> .btn-secondary, > .btn-group > .btn-secondary) { --_tone: var(--felt-secondary); }
+          &:has(> .btn-success, > .btn-group > .btn-success) { --_tone: var(--felt-success); }
+          &:has(> .btn-danger, > .btn-group > .btn-danger) { --_tone: var(--felt-danger); }
+          &:has(> .btn-warning, > .btn-group > .btn-warning) { --_tone: var(--felt-warning); }
+          &:has(> .btn-info, > .btn-group > .btn-info) { --_tone: var(--felt-info); }
+          &:has(> .btn-dark, > .btn-group > .btn-dark) { --_tone: var(--felt-dark); }
         }
       }
-
-      /* --- borders are thread: .border-{colour} dyes the seam a piece has; a bordered element without one gets a seam
-       * (or, on one side, a stitch row). Dyed thread is the colour masked by the seam image, with the twist of
-       * img/thread.svg multiplied in. Firefox has no -webkit-mask-box-image and keeps the plain coloured line. */
-      &.border-primary { --_thread: light-dark(var(--felt-primary), var(--felt-primary-text)); }
-      &.border-secondary { --_thread: light-dark(var(--felt-secondary), var(--felt-secondary-text)); }
-      &.border-success { --_thread: light-dark(var(--felt-success), var(--felt-success-text)); }
-      &.border-danger { --_thread: light-dark(var(--felt-danger), var(--felt-danger-text)); }
-      &.border-warning { --_thread: light-dark(var(--felt-warning), var(--felt-warning-text)); }
-      &.border-info { --_thread: light-dark(var(--felt-info), var(--felt-info-text)); }
-      &.border-primary-subtle { --_thread: var(--felt-primary-border-subtle); }
-      &.border-secondary-subtle { --_thread: var(--felt-secondary-border-subtle); }
-      &.border-success-subtle { --_thread: var(--felt-success-border-subtle); }
-      &.border-danger-subtle { --_thread: var(--felt-danger-border-subtle); }
-      &.border-warning-subtle { --_thread: var(--felt-warning-border-subtle); }
-      &.border-info-subtle { --_thread: var(--felt-info-border-subtle); }
-      &.border-light-subtle { --_thread: var(--felt-light-border-subtle); }
-      &.border-dark-subtle { --_thread: var(--felt-dark-border-subtle); }
-      &.border-1 { --_border-width: 1px; }
-      &.border-2 { --_border-width: 2px; }
-      &.border-3 { --_border-width: 3px; }
-      &.border-4 { --_border-width: 4px; }
-      &.border-5 { --_border-width: 5px; }
-      /* a seam of their own for plain bordered elements: the medium seam, like a button's, tone on tone by default */
-      &.border:not(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
-        .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
-        [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img),
-      &:is(.border-top, .border-bottom, .border-start, .border-end):not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
-        .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
-        [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img) {
-        position: relative;
+    }
+    & :is(:is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light), .page-link) {
+      background: var(--_groove-bg, var(--felt-groove-bg));
+      box-shadow: var(--_groove-inset, inset 0 1px 3px var(--felt-groove-shadow)), 0 1px 0 var(--felt-nap-highlight);
+    }
+    & :is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) { border-radius: var(--felt-radius); }
+    & :is(:is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > .btn) {
+      background: none; box-shadow: none; border-color: transparent;
+      &:not(:is(.active, .btn-check:checked + .btn)) {
+        &::after { content: none; }
+        /* the groove darkens the felt: its labels take the deeper tone */
+        &.btn-outline-primary { --felt-btn-color: var(--felt-primary-emphasis); }
+        &.btn-outline-secondary { --felt-btn-color: var(--felt-secondary-emphasis); }
+        &.btn-outline-info { --felt-btn-color: var(--felt-info-emphasis); }
+        &:hover { background-color: var(--felt-surface-hover); }
+        &:active { background-color: var(--felt-surface-pressed); }
       }
-      &.border:not(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
-        .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
-        [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img)::after {
-        content: ""; position: absolute; z-index: 3; pointer-events: none;
-        inset: calc(5px - var(--_seam-margin) - var(--_border-width, 1px));
-        border: 0 solid transparent;
-        border-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
+      &:is(.active, .btn-check:checked + .btn) { position: relative; isolation: isolate; color: var(--felt-btn-active-color, var(--felt-body-color)); }
+    }
+    & :is(.page-item.active .page-link) { --_tone: var(--felt-pagination-active-bg); isolation: isolate; }
+    & :is(:is(.btn-group, .btn-group-vertical):has(> .btn-check, > [class*="btn-outline-"], > .btn-light) > :is(.active, .btn-check:checked + .btn), .page-item.active .page-link) {
+      &::before {
+        content: ""; position: absolute; z-index: -1; inset: var(--_patch-inset, 3px) var(--_patch-inset-x, var(--_patch-inset, 3px)); border-radius: var(--_patch-radius, calc(var(--felt-radius) - 3px));
+        background: var(--felt-texture) var(--_tone, var(--felt-surface-raised));
+        background-size: var(--felt-texture-size);
+        background-blend-mode: soft-light;
+        box-shadow: var(--_patch-relief);
+      }
+      &::after {
+        inset: calc(var(--felt-seam-inset) + var(--_patch-inset, 3px) - var(--_seam-margin) - 1px)
+          calc(var(--felt-seam-inset) + var(--_patch-inset-x, var(--_patch-inset, 3px)) - var(--_seam-margin) - 1px);
+      }
+    }
+    /* a horizontal toggle is a capsule: groove and patch share the pill shape and the pill seam */
+    & .btn-group:has(> .btn-check, > [class*="btn-outline-"], > .btn-light) {
+      border-radius: var(--felt-radius-pill);
+      > :is(.active, .btn-check:checked + .btn) { --_patch-radius: var(--felt-radius-pill); --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: calc(var(--_seam-pill-width) * .8); }
+      &.btn-group-sm > :is(.active, .btn-check:checked + .btn) { --_seam-width: calc(var(--_seam-pill-width) * .6); }
+    }
+    /* pagination: a capsule groove laid on the links themselves, so the list keeps Bootstrap's layout. Each
+     * link shades only its own stretch of the groove: the top everywhere, the sides only at the two ends, and
+     * not the pixel it overlaps its neighbour by. */
+    & .pagination { --felt-pagination-border-radius: var(--felt-radius-pill); --felt-pagination-color: var(--felt-primary-emphasis); }
+    & .page-item {
+      --_groove-inset: inset 0 7px 3px -6px var(--felt-groove-shadow);
+      &:first-child { --_groove-inset: inset 6px 7px 3px -6px var(--felt-groove-shadow); }
+      &:last-child { --_groove-inset: inset -6px 7px 3px -6px var(--felt-groove-shadow); }
+      &:only-child { --_groove-inset: inset 0 1px 3px var(--felt-groove-shadow); }
+      &:not(:first-child) { --_groove-bg: linear-gradient(to right, transparent 1px, var(--felt-groove-bg) 0) border-box; }
+      &.active .page-link {
+        /* a narrow page number still gets a pill, not a disc: the patch may reach a little past its link */
+        --_patch-inset: 4px; --_patch-inset-x: min(4px, (100% - 2.5em) / 2); --_patch-radius: var(--felt-radius-pill);
+        --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: calc(var(--_seam-pill-width) * .6); --felt-seam-inset: 3.5px;
+      }
+    }
+
+    /* --- nav: the active pill is a small felt chip, the active tab a flap of the sheet below */
+    & :is(.nav-link.active, .nav-link[aria-current="page"]):not(:is(.nav-tabs, .nav-underline) .nav-link, .flex-column),
+    & .nav-link.flex-column:is(.active, [aria-current="page"])::before {
+      background-image: var(--felt-texture);
+      background-size: var(--felt-texture-size);
+      background-blend-mode: soft-light;
+      box-shadow: inset 0 -1px 2px rgb(0 0 0 / .12), 0 1px 2px var(--felt-groove-shadow);
+    }
+    & .nav-tabs { position: relative; border-bottom-color: transparent; }
+    & .nav-tabs::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: calc(-.5px - var(--_seam-margin)); height: calc(2 * var(--_seam-margin));
+      pointer-events: none; background: url("img/seam-row.svg") left center / var(--_seam-row-size) round no-repeat;
+      mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: calc(var(--felt-thread-strength) * var(--felt-thread-strength-row));
+    }
+    & :is(.card-header .nav-tabs)::after { content: none; }
+    & :is(.nav-tabs .nav-link.active) {
+      z-index: 1; border-color: transparent;
+      box-shadow: 0 -1px 2px color-mix(in srgb, var(--felt-groove-shadow) 50%, transparent), inset 1px 1px 0 var(--felt-nap-highlight), inset -1px 0 0 var(--felt-nap-highlight);
+    }
+    /* in a card the tabs sit on a strip pressed into the felt, so the flap of the active one stands out */
+    & .card-header:has(> .card-header-tabs) { background-color: var(--felt-groove-bg); }
+    /* below the active tab the stitch row is covered by a strip of the same felt: the flap stays open */
+    & :is(.nav-tabs .nav-link.active)::before {
+      content: ""; position: absolute; left: 1px; right: 1px; bottom: -5px; height: 6px;
+      background-color: var(--felt-nav-tabs-link-active-bg); background-image: var(--felt-texture-sheet); background-size: var(--felt-texture-sheet-size); background-blend-mode: var(--felt-texture-sheet-blend);
+    }
+    & :is(.nav-tabs .nav-link.active)::after {
+      content: ""; position: absolute; inset: 3px 3px -5px; pointer-events: none;
+      border: 0 solid transparent; border-image: url("img/seam-md.svg") var(--_seam-md-slice) / calc(var(--_seam-md-width) * .8) calc(var(--_seam-md-width) * .8) 0 round;
+      mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: var(--felt-thread-strength);
+    }
+
+    /* --- small pieces: badges */
+    & .badge {
+      box-shadow: inset 0 -1px 2px rgb(0 0 0 / .14), 0 1px 0 var(--_patch-edge), 0 2px 3px var(--felt-patch-shadow-near);
+    }
+    & .badge.border { background-color: var(--felt-surface-raised); }
+    & .badge-dot { background-image: var(--felt-texture); background-size: var(--felt-texture-size); background-blend-mode: soft-light; }
+    & .badge-dot.text-bg-light {
+      --felt-light: light-dark(color-mix(in oklab, var(--felt-surface) 93%, var(--felt-secondary-color)), color-mix(in oklab, var(--felt-surface) 88%, var(--felt-body-color)));
+      background-image: var(--felt-texture-light); background-size: var(--felt-texture-light-size); background-blend-mode: multiply;
+    }
+    /* a swatch is a patch of felt dyed --felt-swatch-color (over --felt-swatch-image, if any), sewn on tone on tone like the filled
+     * buttons, with a short shadow so its neighbours and its ring stay clear; the chosen one keeps its height and is
+     * circled a few millimetres off by a running stitch in the ink's tone. --_swatch-face is its colour in the current
+     * state: lighter or darker on hover (with a deeper shadow), faded into the page when disabled */
+    & :is(.btn-swatch, .btn-check:checked + .btn-swatch) {
+      --_swatch-face: var(--felt-swatch-color);
+      --_swatch-lift: 0 2px 3px -1px var(--felt-patch-shadow-near);
+      --felt-thread-filter: var(--felt-thread-filter-patch); --felt-thread-strength: var(--felt-thread-strength-patch);
+      border-color: transparent;
+      background-color: var(--_swatch-face);
+      background-image: var(--felt-texture), var(--felt-patch-dome), var(--felt-swatch-image, none);
+      background-size: var(--felt-texture-size), 100% 100%, 100% 100%;
+      background-repeat: repeat, no-repeat, no-repeat;
+      background-blend-mode: soft-light, normal, normal;
+      box-shadow: inset 0 0 0 1px rgb(0 0 0 / .06), inset 0 1px 0 rgb(255 255 255 / .26), inset 0 -3px 5px -1px light-dark(rgb(0 0 0 / .26), rgb(0 0 0 / .18)),
+        inset 0 0 7px rgb(0 0 0 / .1), 0 1.5px 1px var(--_patch-edge), var(--_swatch-lift);
+      &:hover { --_swatch-face: color-mix(in oklab, var(--felt-swatch-color), var(--felt-hover-ink) 9%); --_swatch-lift: 0 3px 5px -1px var(--felt-patch-shadow-far); }
+    }
+    & :is(.btn-check:disabled + .btn-swatch) {
+      --_swatch-face: color-mix(in oklab, var(--felt-swatch-color) var(--_disabled-tone), var(--felt-body-bg));
+      box-shadow: var(--_patch-relief-pressed);
+    }
+    /* a light swatch (white, cream) is cut from the cream felt like the light pieces (grey felt in soft-light shows nothing
+     * on white), in the wool white of light thumbs and dots: the face, opaque up to oklch L .82 and clear from .88,
+     * covers the cream felt and its multiplied fibres; the dome's sheen fades out the same way */
+    @supports (color: oklch(from red l c h / clamp(0, (.88 - l) * 16, 1))) {
+      & :is(.btn-swatch, .btn-check:checked + .btn-swatch) {
+        background-color: color-mix(in oklab, var(--_swatch-face) 60%, var(--felt-wool));
+        background-image: var(--felt-texture), radial-gradient(120% 95% at 35% 10%, oklch(from var(--_swatch-face) 1 0 0 / clamp(0, (.88 - l) * 1.6, .2)), transparent 60%),
+          var(--felt-swatch-image, none), linear-gradient(oklch(from var(--_swatch-face) l c h / clamp(0, (.88 - l) * 16, 1)) 0 0), var(--felt-texture-light);
+        background-size: var(--felt-texture-size), 100% 100%, 100% 100%, auto, var(--felt-texture-light-size);
+        background-repeat: repeat, no-repeat, no-repeat, repeat, repeat;
+        background-blend-mode: soft-light, normal, normal, normal, multiply;
+      }
+    }
+    & :is(.btn-check:checked + .btn-swatch)::before {
+      content: ""; position: absolute; inset: -7px; pointer-events: none;
+      border: 0 solid transparent; border-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
+      filter: var(--felt-thread-filter-ink);
+    }
+    /* disabled, the chosen ring fades with its patch; a dot fades with the label of a disabled button */
+    & :is(.btn-check:disabled:checked + .btn-swatch)::before { opacity: .4; }
+    & :is(:is(.btn:disabled, .btn.disabled, .btn-check:disabled + .btn) .badge-dot) { opacity: .45; }
+    & .page-link:hover { box-shadow: var(--_groove-inset), inset 0 0 0 99px var(--felt-pagination-hover-bg); }
+    & .page-link:active { box-shadow: var(--_groove-inset), inset 0 0 0 99px var(--felt-surface-pressed); }
+
+    /* --- list group and accordion: a sewn sheet; the active entry is a patch on it */
+    & .list-group-item.active { box-shadow: inset 0 1px 0 rgb(255 255 255 / .2), inset 0 -1px 2px rgb(0 0 0 / .15), inset 1px 0 0 rgb(255 255 255 / .12), inset -1px 0 0 rgb(0 0 0 / .18), 0 1px 0 color-mix(in srgb, var(--felt-patch-cut) 25%, transparent); }
+    /* the list's seam runs across the active entry; on the patch it is redrawn in the patch's thread, which
+     * stays visible on saturated felt (the stretch outside the entry is clipped away) */
+    & :is(.list-group:not(.list-group-flush, .card .list-group) > .list-group-item.active) {
+      overflow: hidden;
+      &::after {
+        content: ""; position: absolute; inset: -40px 4px; pointer-events: none;
+        border: 0 solid transparent; border-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
         mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: var(--felt-thread-strength);
       }
-      &:is(.border-top, .border-bottom, .border-start, .border-end):not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
-        .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
-        [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img, .border-3, .border-4, .border-5) {
-        &::after {
-          content: ""; position: absolute; z-index: 3; pointer-events: none;
-          background: var(--_rule-img); mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: var(--felt-thread-strength);
-        }
-        &:is(.border-top, .border-bottom)::after {
-          --_rule-img: url("img/seam-row.svg") left center / var(--_seam-row-size) round no-repeat;
-          left: 6px; right: 6px; height: calc(2 * var(--_seam-margin));
-        }
-        &:is(.border-start, .border-end)::after {
-          --_rule-img: url("img/seam-col.svg") center top / var(--_seam-col-size) no-repeat repeat;
-          top: 6px; bottom: 6px; width: calc(2 * var(--_seam-margin));
-        }
-        &.border-top::after { top: calc(3px - var(--_seam-margin) - var(--_border-width, 1px)); }
-        &.border-bottom::after { bottom: calc(3px - var(--_seam-margin) - var(--_border-width, 1px)); }
-        &.border-start::after { left: calc(3px - var(--_seam-margin) - var(--_border-width, 1px)); }
-        &.border-end::after { right: calc(3px - var(--_seam-margin) - var(--_border-width, 1px)); }
-      }
-      @supports (-webkit-mask-box-image: none) {
-        &:is(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
-        .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
-        [class*="btn-outline-"], .border):is(.border-primary, .border-secondary, .border-success, .border-danger, .border-warning, .border-info,
-          .border-primary-subtle, .border-secondary-subtle, .border-success-subtle, .border-danger-subtle, .border-warning-subtle,
-          .border-info-subtle, .border-light-subtle, .border-dark-subtle)::after {
-          border: 0; border-image: none;
-          background: url("img/thread.svg") 0 0 / 3px 3px, var(--_thread); background-blend-mode: multiply;
-          -webkit-mask-box-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
-          mix-blend-mode: normal; filter: none; opacity: calc(.85 * var(--felt-border-opacity, 1));
-        }
-        &:is(.border-top, .border-bottom, .border-start, .border-end):not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
-        .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
-        [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img, .border-3, .border-4, .border-5):is(.border-primary, .border-secondary, .border-success, .border-danger, .border-warning, .border-info,
-          .border-primary-subtle, .border-secondary-subtle, .border-success-subtle, .border-danger-subtle, .border-warning-subtle,
-          .border-info-subtle, .border-light-subtle, .border-dark-subtle)::after {
-          background: url("img/thread.svg") 0 0 / 3px 3px, var(--_thread); background-blend-mode: multiply;
-          -webkit-mask: var(--_rule-img); mix-blend-mode: normal; filter: none; opacity: calc(.85 * var(--felt-border-opacity, 1));
-        }
-      }
-      /* a thick rule on one side (a quote's bar) is a strip of felt in that colour, laid in, not a thread */
-      &:is(.border-top, .border-bottom, .border-start, .border-end):not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
-        .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
-        [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img):is(.border-3, .border-4, .border-5) {
-        &::after {
-          content: ""; position: absolute; pointer-events: none;
-          background: var(--felt-texture) 0 0 / var(--felt-texture-size); mix-blend-mode: soft-light; box-shadow: inset 0 0 1px rgb(0 0 0 / .25);
-        }
-        &.border-start::after { inset: 0 auto 0 calc(-1 * var(--_border-width)); width: var(--_border-width); }
-        &.border-end::after { inset: 0 calc(-1 * var(--_border-width)) 0 auto; width: var(--_border-width); }
-        &.border-top::after { inset: calc(-1 * var(--_border-width)) 0 auto 0; height: var(--_border-width); }
-        &.border-bottom::after { inset: auto 0 calc(-1 * var(--_border-width)) 0; height: var(--_border-width); }
-      }
-      /* neutral thread is the seam itself, lightened (with a contour and a shadow) or darkened (with a light edge),
-       * so it still reads on felt of its own tone */
-      &:is(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
-        .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
-        [class*="btn-outline-"], .border, .border-top, .border-bottom, .border-start, .border-end):not(input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img) {
-        &:is(.border-white, .border-light, .border-dark, .border-black) {
-          --felt-thread-filter-cream: var(--felt-thread-filter); --felt-thread-filter-patch: var(--felt-thread-filter); --felt-thread-strength: .9; --felt-thread-strength-patch: .9;
-        }
-        &.border-white { --felt-thread-filter: brightness(1.25) drop-shadow(0 0 .4px rgb(60 45 25 / .4)) drop-shadow(0 .8px .3px rgb(0 0 0 / .45)); }
-        &.border-light { --felt-thread-filter: brightness(1.1) sepia(.15) drop-shadow(0 0 .4px rgb(60 45 25 / .4)) drop-shadow(0 .8px .3px rgb(0 0 0 / .45)); }
-        &.border-dark { --felt-thread-filter: brightness(.1) drop-shadow(0 -.5px 0 rgb(255 255 255 / .3)) drop-shadow(0 .5px 0 rgb(255 255 255 / .12)); }
-        &.border-black { --felt-thread-filter: brightness(.03) drop-shadow(0 -.5px 0 rgb(255 255 255 / .3)) drop-shadow(0 .5px 0 rgb(255 255 255 / .12)); }
-      }
+      &:first-child::after { top: 4px; }
+      &:last-child::after { bottom: 4px; }
+    }
+    & :is(.list-group[class*="horizontal"]:not(.list-group-flush) > .list-group-item.active) {
+      &::after { inset: 4px -40px; }
+      &:first-child::after { left: 4px; }
+      &:last-child::after { right: 4px; }
+    }
+    & :is(.list-group-item.active + .list-group-item)::after { opacity: 0; }
+    /* a sticky header (e.g. a month above a list) covers the next entry's stitch row, so it carries the row itself */
+    & :is(.list-group-item.sticky-top + .list-group-item)::after { content: none; }
+    & .list-group-item.sticky-top::after {
+      content: ""; position: absolute; left: calc(var(--felt-seam-inset) + 6px); right: calc(var(--felt-seam-inset) + 6px); bottom: calc(-.5px - var(--_seam-margin));
+      height: calc(2 * var(--_seam-margin)); pointer-events: none;
+      background: url("img/seam-row.svg") left center / var(--_seam-row-size) round no-repeat;
+      mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: calc(var(--felt-thread-strength) * var(--felt-thread-strength-row));
+    }
+    & :is(.accordion-item + .accordion-item)::before { top: 0; }
+    & :is(.accordion-button:not(.collapsed, summary), details[open] > .accordion-button) {
+      background-color: color-mix(in oklab, var(--felt-primary) 6%, var(--felt-surface-hover));
+      &:not(:focus-visible) { box-shadow: none; }
+    }
 
-      /* the seam follows the piece's corners: square pieces get a square seam, pills and round buttons one concentric with
-       * their edge (the pill seam scaled by (height / 2 - inset) / 17 for each button size, its margin with it) */
-      &:is(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
-        .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
-        [class*="btn-outline-"], .border):not(input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img).rounded-0 {
-        --_seam-img: url("img/seam-sq.svg"); --_seam-slice: var(--_seam-sq-slice); --_seam-width: var(--_seam-sq-width);
+    /* --- table: nearly clean, a tinted head and quiet rows of stitches between the rows */
+    & :is(.table > thead) { background-color: var(--felt-surface-hover); }
+    & :is(.table > thead.table-light) { --felt-table-bg: transparent; }
+    & :is(.table > thead > tr > *)::before { bottom: calc(-.5px - var(--_seam-margin)); }
+    & :is(.table > :not(caption) > tr > *)::before { left: 0; right: 0; opacity: var(--felt-thread-strength); }
+    /* bordered: the columns are pressed folds, no outer frame; the table lies on its piece */
+    & :is(.table-bordered > :not(caption) > * > *) { border-color: transparent; }
+    & :is(.table-bordered > :not(caption) > * > * + *) { box-shadow: var(--felt-groove-fold), inset 0 0 0 9999px var(--_table-accent); }
+    & :is(.table-borderless > :not(caption) > * > *)::before { content: none; }
+
+    /* --- progress: a groove pressed into the felt, the bar a patch laid in it */
+    & :is(.progress, .progress-stacked) {
+      --felt-progress-box-shadow: inset 0 1px 0 var(--felt-groove-shade), inset 0 1px 3px color-mix(in srgb, var(--felt-groove-shadow) 80%, transparent), inset 0 -1px 0 var(--felt-groove-lip);
+    }
+    & .progress-bar {
+      background-image: var(--felt-texture), var(--felt-patch-dome);
+      background-size: var(--felt-texture-size), 100% 100%;
+      background-blend-mode: soft-light, normal;
+      box-shadow: inset 0 1px 0 rgb(255 255 255 / .2), inset 0 -1px 2px rgb(0 0 0 / .2), 1px 0 1px rgb(0 0 0 / .15);
+    }
+    /* stacked: pieces laid edge to edge, each with its own cut */
+    & :is(.progress-stacked > .progress + .progress > .progress-bar) {
+      box-shadow: inset 1px 0 0 rgb(255 255 255 / .18), -1px 0 2px rgb(0 0 0 / .3), inset 0 1px 0 rgb(255 255 255 / .2), inset 0 -1px 2px rgb(0 0 0 / .2);
+    }
+    & .progress-bar-striped {
+      background-image: linear-gradient(45deg, rgb(255 255 255 / .15) 25%, transparent 25%, transparent 50%, rgb(255 255 255 / .15) 50%, rgb(255 255 255 / .15) 75%, transparent 75%), var(--felt-texture);
+      background-size: 1rem 1rem, var(--felt-texture-size);
+      background-blend-mode: normal, soft-light;
+    }
+
+    /* --- spinners: a turning ring of felt, a pulsing felt dot */
+    & :is(.spinner-border, .spinner-grow) {
+      background: var(--felt-texture) currentColor; background-size: var(--felt-texture-size); background-blend-mode: soft-light;
+    }
+    & .spinner-border {
+      border-color: transparent;
+      mask: conic-gradient(#000 0 75%, transparent 0), radial-gradient(farthest-side, transparent calc(100% - var(--felt-spinner-border-width)), #000 calc(100% - var(--felt-spinner-border-width) + .5px));
+      mask-composite: intersect;
+    }
+    & .spinner-grow { box-shadow: inset 0 1px 0 rgb(255 255 255 / .25), inset 0 -2px 3px rgb(0 0 0 / .2); }
+
+    /* --- dropdown, popover, offcanvas: flat pieces of felt lying above the page, sewn round */
+    & :is(.dropdown-menu, .popover, .offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl) {
+      box-shadow: var(--felt-patch-shadow), 0 16px 32px -12px var(--felt-patch-shadow-far);
+    }
+    /* the menu header on charcoal felt: a step lighter than the secondary text, to hold 4.5:1 on the flecks */
+    & .dropdown-menu { --felt-dropdown-header-color: light-dark(var(--felt-secondary-color), #cabfaf); }
+    & :is(.dropdown-menu, .popover) {
+      --_seam-img: url("img/seam-md.svg"); --_seam-slice: var(--_seam-md-slice); --_seam-width: var(--_seam-md-width); --felt-seam-inset: 5px;
+    }
+    /* the medium seam is finer than the cards' large one: a little more thread, so it carries the same weight */
+    & :is(.dropdown-menu, .popover, .toast)::after { opacity: min(1, calc(var(--felt-thread-strength) * 1.2)); }
+    & .popover-arrow::before { border-color: transparent; }
+    & .dropdown-item:is(:hover, :focus-visible):not(.active, :active) { background-color: var(--felt-dropdown-link-hover-bg); }
+    & .dropdown-item:is(.active, :active) {
+      background-image: var(--felt-texture); background-size: var(--felt-texture-size); background-blend-mode: soft-light;
+      box-shadow: inset 0 -1px 2px rgb(0 0 0 / .12), 0 1px 2px var(--felt-groove-shadow);
+    }
+    /* an offcanvas is fixed to a screen edge: its seam runs past that edge, so only the free edges are sewn */
+    & :is(.offcanvas, .offcanvas-sm, .offcanvas-md, .offcanvas-lg, .offcanvas-xl, .offcanvas-xxl) { --felt-seam-inset: 9px; --_off: -40px; overflow: hidden; }
+    & .offcanvas-start::after { inset: var(--_off) 5px var(--_off) var(--_off); }
+    & .offcanvas-end::after { inset: var(--_off) var(--_off) var(--_off) 5px; }
+    & .offcanvas-top::after { inset: var(--_off) 5px 5px; }
+    & .offcanvas-bottom::after { inset: 5px 5px var(--_off); }
+    /* inline (a responsive offcanvas from its breakpoint up, or one in an expanded navbar) it is no piece of its own */
+    /* offcanvas-inline:start */
+    /* written by tools/feltgen/variants.py; change it there, not these 22 lines */
+    & :is(.navbar-expand .offcanvas) { background-image: none; box-shadow: none; overflow: visible; --felt-thread-filter: inherit; --_rule-piece: inherit; }
+    & :is(.navbar-expand .offcanvas)::after { content: none; }
+    @media (min-width: 576px) {
+      & :is(.offcanvas-sm, .navbar-expand-sm .offcanvas) { background-image: none; box-shadow: none; overflow: visible; --felt-thread-filter: inherit; --_rule-piece: inherit; }
+      & :is(.offcanvas-sm, .navbar-expand-sm .offcanvas)::after { content: none; }
+    }
+    @media (min-width: 768px) {
+      & :is(.offcanvas-md, .navbar-expand-md .offcanvas) { background-image: none; box-shadow: none; overflow: visible; --felt-thread-filter: inherit; --_rule-piece: inherit; }
+      & :is(.offcanvas-md, .navbar-expand-md .offcanvas)::after { content: none; }
+    }
+    @media (min-width: 992px) {
+      & :is(.offcanvas-lg, .navbar-expand-lg .offcanvas) { background-image: none; box-shadow: none; overflow: visible; --felt-thread-filter: inherit; --_rule-piece: inherit; }
+      & :is(.offcanvas-lg, .navbar-expand-lg .offcanvas)::after { content: none; }
+    }
+    @media (min-width: 1200px) {
+      & :is(.offcanvas-xl, .navbar-expand-xl .offcanvas) { background-image: none; box-shadow: none; overflow: visible; --felt-thread-filter: inherit; --_rule-piece: inherit; }
+      & :is(.offcanvas-xl, .navbar-expand-xl .offcanvas)::after { content: none; }
+    }
+    @media (min-width: 1400px) {
+      & :is(.offcanvas-xxl, .navbar-expand-xxl .offcanvas) { background-image: none; box-shadow: none; overflow: visible; --felt-thread-filter: inherit; --_rule-piece: inherit; }
+      & :is(.offcanvas-xxl, .navbar-expand-xxl .offcanvas)::after { content: none; }
+    }
+    /* offcanvas-inline:end */
+    /* tooltip: a small patch, not sewn (like badges) */
+    & .tooltip-inner {
+      background-image: var(--_tooltip-texture); background-size: var(--felt-texture-size); background-blend-mode: var(--_tooltip-texture-blend);
+      box-shadow: inset 0 -1px 2px rgb(0 0 0 / .2), 0 1px 0 color-mix(in oklab, var(--felt-tooltip-bg) 70%, var(--felt-patch-cut)), 0 3px 6px -1px var(--felt-patch-shadow-near);
+    }
+
+    /* --- placeholders: soft felt pressed into the piece; validation tooltips are small patches */
+    & .placeholder { background-image: var(--felt-texture); background-size: var(--felt-texture-size); background-blend-mode: soft-light; box-shadow: inset 0 1px 2px rgb(0 0 0 / .25); }
+    & :is(.invalid-tooltip, .valid-tooltip) {
+      background-image: var(--felt-texture); background-size: var(--felt-texture-size); background-blend-mode: soft-light;
+      box-shadow: inset 0 -1px 2px rgb(0 0 0 / .18), 0 1px 0 color-mix(in oklab, var(--_tone) 70%, var(--felt-patch-cut)), 0 3px 6px -1px var(--felt-patch-shadow-near);
+    }
+
+    /* --- photos lie on the felt */
+    & :where(.figure-img, .img-thumbnail, img.rounded) { box-shadow: 0 0 0 1px rgb(0 0 0 / .06), 0 1px 2px var(--felt-patch-shadow-near); }
+
+    /* --- carousel: the slides are a photo lying on the felt, tucked into four felt corners. The controls are small
+     * patches of undyed wool sewn on, the indicators a row of stitches with the current slide's a patch; like
+     * Bootstrap's they turn dark in dark mode and with .carousel-dark (charcoal felt) */
+    & .carousel {
+      --felt-carousel-indicator-active-bg: light-dark(var(--felt-wool), var(--felt-gray-900));
+      --felt-carousel-caption-color: light-dark(var(--felt-wool), var(--felt-gray-900));
+      --_carousel-ink: light-dark(var(--felt-navy), var(--felt-wool));
+      --_carousel-thread: var(--_carousel-thread-dark, var(--felt-thread-filter-cream));
+      --_carousel-thread-dark: var(--_dark) var(--felt-thread-filter-patch);
+    }
+    & .carousel-dark {
+      --felt-carousel-indicator-active-bg: var(--felt-gray-900); --felt-carousel-caption-color: var(--felt-gray-900);
+      --_carousel-ink: var(--felt-wool); --_carousel-thread: var(--felt-thread-filter-patch);
+    }
+    & .carousel-inner {
+      --_corner: 2.5rem;
+      border-radius: var(--felt-radius-sm);
+      box-shadow: 0 0 0 1px rgb(0 0 0 / .06), 0 1px 2px var(--felt-patch-shadow-near), 0 10px 18px -8px var(--felt-patch-shadow-far);
+    }
+    /* the corners (::before) and the shadow they cast on the photo (::after): triangles cut out with a mask */
+    & .carousel-inner::before, & .carousel-inner::after {
+      content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+      --_tl: top left / var(--_corner) var(--_corner) no-repeat; --_tr: top right / var(--_corner) var(--_corner) no-repeat;
+      --_bl: bottom left / var(--_corner) var(--_corner) no-repeat; --_br: bottom right / var(--_corner) var(--_corner) no-repeat;
+      --_edge: #000 calc(50% - .5px), transparent calc(50% + .5px);   /* an anti-aliased diagonal */
+      mask: linear-gradient(135deg, var(--_edge)) var(--_tl), linear-gradient(225deg, var(--_edge)) var(--_tr),
+        linear-gradient(45deg, var(--_edge)) var(--_bl), linear-gradient(315deg, var(--_edge)) var(--_br);
+    }
+    & .carousel-inner::before {
+      --_cut: color-mix(in oklab, var(--felt-surface-raised) 60%, var(--felt-patch-cut));   /* cut from a light piece, not the page: */
+      background:
+        linear-gradient(135deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_tl), linear-gradient(225deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_tr),
+        linear-gradient(45deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_bl), linear-gradient(315deg, transparent calc(50% - 2.5px), var(--_cut) 50%) var(--_br),
+        var(--felt-texture-sheet) 0 0 / var(--felt-texture-sheet-size) var(--felt-surface-raised);   /* they lie on the photo */
+      background-blend-mode: normal, normal, normal, normal, var(--felt-texture-sheet-blend);
+      translate: 0 -1px;   /* the cut edge below stays visible as the shadow's first pixel */
+    }
+    & .carousel-inner::after {
+      z-index: 2; --_corner: calc(2.5rem + 6px); --_shade: rgb(30 20 10 / .55);
+      background:
+        linear-gradient(135deg, var(--_shade) calc(50% - 6px), transparent 50%) var(--_tl), linear-gradient(225deg, var(--_shade) calc(50% - 6px), transparent 50%) var(--_tr),
+        linear-gradient(45deg, var(--_shade) calc(50% - 6px), transparent 50%) var(--_bl), linear-gradient(315deg, var(--_shade) calc(50% - 6px), transparent 50%) var(--_br);
+    }
+    & :is(.carousel-control-prev, .carousel-control-next) { opacity: .9; }
+    & :is(.carousel-control-prev, .carousel-control-next):is(:hover, :focus) { opacity: 1; }
+    & :is(.carousel-control-prev-icon, .carousel-control-next-icon) {
+      border-radius: 50%;
+      background: var(--felt-texture-sheet) 0 0 / var(--felt-texture-sheet-size) var(--felt-carousel-indicator-active-bg);
+      background-blend-mode: var(--felt-texture-sheet-blend);
+      box-shadow: inset 0 -2px 3px rgb(0 0 0 / .14), 0 1px 0 color-mix(in oklab, var(--felt-carousel-indicator-active-bg) 55%, var(--felt-patch-cut)),
+        0 3px 6px -1px rgb(0 0 0 / .4);
+      color: var(--_carousel-ink);
+    }
+    & :is(.carousel-control-prev-icon, .carousel-control-next-icon)::before { mask-size: 45%; }
+    & .carousel-control-prev-icon::before { translate: -1px 0; }
+    & .carousel-control-next-icon::before { translate: 1px 0; }
+    & :is(.carousel-control-prev-icon, .carousel-control-next-icon)::after {
+      content: ""; position: absolute; inset: 3px; pointer-events: none;
+      border: 0 solid transparent; border-image: url("img/seam-circle.svg") 0 fill / 0 round;
+      mix-blend-mode: hard-light; filter: var(--_carousel-thread); opacity: min(1, calc(var(--felt-thread-strength) * 1.4));
+    }
+    /* indicators: stitches of wool thread laid over the photo, the current one a small patch */
+    & :is(.carousel-indicators [data-bs-target]) {
+      border-radius: 4px / 11.5px;   /* past the 10px transparent borders: tapered ends on the 3px stitch */
+      background-image: url("img/thread.svg"); background-size: 4px 4px; background-blend-mode: multiply;
+      /* in the dark a light halo, so the stitch holds on dark photos too */
+      filter: drop-shadow(0 1px 0 rgb(0 0 0 / .4)) drop-shadow(0 1px 2px rgb(0 0 0 / .25)) drop-shadow(0 0 1px light-dark(transparent, rgb(255 240 220 / .7)));
+      opacity: .85;
+    }
+    & :is(.carousel-indicators .active) { opacity: 1; }
+    & :is(.carousel-indicators .active)::before {
+      content: ""; position: absolute; inset: -3px -1px; border-radius: var(--felt-radius-pill);
+      background: var(--felt-texture-sheet) 0 0 / var(--felt-texture-sheet-size) var(--felt-carousel-indicator-active-bg);
+      background-blend-mode: var(--felt-texture-sheet-blend);
+      box-shadow: inset 0 -1px 2px rgb(0 0 0 / .18), 0 1px 0 color-mix(in oklab, var(--felt-carousel-indicator-active-bg) 55%, var(--felt-patch-cut)),
+        0 0 0 1px light-dark(transparent, rgb(255 240 220 / .3));
+    }
+
+    /* --- modal: a flat sheet of felt lying on the dimmed page */
+    & .modal-content { box-shadow: var(--felt-patch-shadow), 0 24px 48px -12px var(--felt-patch-shadow-far); }
+
+    /* --- form controls: nearly clean, pressed slightly into the felt */
+    & :is(.form-control, .form-select) {
+      background-color: var(--felt-field);
+      box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field);
+    }
+    & :is(.form-control, .input-group-text),
+    & :is(.form-floating > textarea ~ label)::after {
+      background-image: var(--felt-texture-sheet);
+      background-size: var(--felt-texture-sheet-size);
+      background-blend-mode: var(--felt-texture-sheet-blend);
+    }
+    & :is(.form-control, .form-select):is(.is-invalid, :where(.was-validated) :invalid) { background-color: var(--felt-field-invalid); }
+    & .form-control[readonly] { background-color: var(--felt-surface-sunk); box-shadow: none; }
+    /* the felt shows through a disabled field and darkens it: its text takes a little of the body ink to stay >= 4.5:1 */
+    & :is(.form-control, .form-select):disabled { background-color: var(--felt-field-disabled); color: color-mix(in oklab, var(--felt-secondary-color), var(--felt-body-color) 25%); box-shadow: none; }
+    & :is(.input-group > :is(.form-control, .form-select):focus) { box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field); }
+    & :is(.has-validation > :is(.form-control, .form-select):focus) { box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field), 0 0 0 .25rem var(--felt-focus-ring-color); }
+    & .form-select {
+      background-image: var(--felt-select-chevron), var(--felt-texture-sheet);
+      background-size: 14px, var(--felt-texture-sheet-size);
+      background-position: right .75rem center, 0 0;
+      background-repeat: no-repeat, repeat;
+      background-blend-mode: normal, var(--felt-texture-sheet-blend);
+    }
+    & :is(.form-control, .form-select):focus {
+      box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field), 0 0 0 .25rem var(--felt-focus-ring-color);
+    }
+    & :is(.form-control, .form-select):is(.is-invalid, .is-valid, :where(.was-validated) :is(:invalid, :valid)):focus {
+      box-shadow: inset 0 2px 3px var(--felt-groove-shadow-field), 0 0 0 .25rem color-mix(in oklab, var(--_state) 30%, transparent);
+    }
+
+    /* checkbox: a little felt square */
+    & .form-check-input {
+      box-shadow: inset 0 1px 2px var(--felt-groove-shadow-field);
+    }
+    & .form-check-input:is(:checked, :where([type="checkbox"]):indeterminate) {
+      background-image: var(--felt-form-check-bg-image), var(--felt-texture);
+      background-size: 80%, var(--felt-texture-size);
+      background-repeat: no-repeat, repeat;
+      background-blend-mode: normal, soft-light;
+      border-color: transparent;
+      box-shadow: inset 0 -1px 2px rgb(0 0 0 / .15), 0 1px 0 color-mix(in oklab, var(--_check-fill) 70%, var(--felt-patch-cut)), 0 2px 3px var(--felt-patch-shadow-near);
+    }
+    /* the marks in cream, like the stitches on patches */
+    & .form-check-input:checked {
+      --felt-form-check-bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.5 8.5 3 3 6-7' fill='none' stroke='%23fbf6ea' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+    & .form-check-input[type="checkbox"]:indeterminate {
+      --felt-form-check-bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8h8' fill='none' stroke='%23fbf6ea' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
+    }
+    & .form-check-input[type="radio"]:checked {
+      --felt-form-check-bg-image: radial-gradient(circle, #fbf6ea 0 28%, transparent 33%);
+      background-size: 100%, var(--felt-texture-size);
+    }
+
+    /* switch: a felt groove like the other tracks, matte felt disc as knob */
+    & :is(.form-switch .form-check-input) {
+      --felt-form-switch-bg: radial-gradient(circle closest-side, var(--felt-wool-knob) 82%, var(--felt-groove-shadow) 90%, transparent 100%);
+      background-color: var(--felt-track);
+      background-image: var(--felt-form-switch-bg);
+      background-size: 1.25rem 1.25rem;
+      background-position: 1px center;
+      box-shadow: inset 0 1px 0 var(--felt-groove-shade), inset 0 1px 3px var(--felt-groove-shadow), inset 0 -1px 0 var(--felt-groove-lip);   /* keeps the control outline, like the checkboxes */
+    }
+    & :is(.form-switch .form-check-input:checked) {
+      background-color: var(--_check-fill);
+      background-image: var(--felt-form-switch-bg), var(--felt-texture);
+      background-size: 1.25rem 1.25rem, var(--felt-texture-size);
+      background-repeat: no-repeat, repeat;
+      background-position: calc(100% - 1px) center, 0 0;
+      background-blend-mode: normal, soft-light;
+      border-color: transparent;
+    }
+
+    /* range: a felt groove (shaded at the top, lit at its lower lip, like the progress groove) with a patch as knob */
+    & .form-range {
+      --_range-track: var(--felt-track);
+      --_range-groove: inset 0 1px 0 var(--felt-groove-shade), inset 0 1px 2px color-mix(in srgb, var(--felt-groove-shadow) 75%, transparent), inset 0 -1px 0 var(--felt-groove-lip);
+      --_thumb-shadow: inset 0 1px 0 rgb(255 255 255 / .25), inset 0 -2px 3px rgb(0 0 0 / .2),
+        0 0 0 1px color-mix(in oklab, var(--felt-form-range-thumb-bg, var(--felt-primary)) 45%, var(--felt-patch-cut)), 0 1px 1px color-mix(in oklab, var(--felt-form-range-thumb-bg, var(--felt-primary)) 70%, #000), 0 3px 5px var(--felt-patch-shadow-far);
+    }
+    & .form-range::-webkit-slider-runnable-track { box-shadow: var(--_range-groove); }
+    & .form-range::-moz-range-track { box-shadow: var(--_range-groove); }
+    & .form-range::-webkit-slider-thumb { border-color: light-dark(rgb(60 40 15 / .12), rgb(0 0 0 / .45)); background: var(--felt-texture) var(--felt-form-range-thumb-bg, var(--felt-primary)); background-size: var(--felt-texture-size); background-blend-mode: soft-light; }
+    & .form-range::-moz-range-thumb { border-color: light-dark(rgb(60 40 15 / .12), rgb(0 0 0 / .45)); background: var(--felt-texture) var(--felt-form-range-thumb-bg, var(--felt-primary)); background-size: var(--felt-texture-size); background-blend-mode: soft-light; }
+    /* a light thumb (white, cream) is wool cut from the cream sheet, matte; a coloured one stays a patch. The thumb's own
+     * colour, opaque up to oklch L .82 and clear from .88, covers the cream felt; the gloss fades out the same way */
+    @supports (color: oklch(from red l c h / clamp(0, (.88 - l) * 16, 1))) {
+      & .form-range {
+        --_thumb-cover: oklch(from var(--felt-form-range-thumb-bg, var(--felt-primary)) l c h / clamp(0, (.88 - l) * 16, 1));
+        --_thumb-wool: color-mix(in oklab, var(--felt-form-range-thumb-bg, var(--felt-primary)) 60%, var(--felt-wool));
+        --_thumb-shadow: inset 0 1px 0 oklch(from var(--felt-form-range-thumb-bg, var(--felt-primary)) 1 0 0 / clamp(0, (.88 - l) * 4, .25)), inset 0 -2px 3px rgb(0 0 0 / .16),
+          0 0 0 1px light-dark(color-mix(in oklab, var(--felt-form-range-thumb-bg, var(--felt-primary)) 45%, var(--felt-patch-cut)), color-mix(in oklab, var(--felt-form-range-thumb-bg, var(--felt-primary)) 18%, #2a2420)), 0 1px 1px color-mix(in oklab, var(--felt-form-range-thumb-bg, var(--felt-primary)) 70%, #000), 0 3px 5px var(--felt-patch-shadow-far);
       }
-      &:is(.btn-sm, .btn-group-sm > .btn):is(.btn-pill, .rounded-pill) { --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: 15.8px; --_seam-margin: 2.37px; }
-      &.btn:is(.btn-pill, .rounded-pill):not(.btn-sm, .btn-lg, .btn-group-sm > .btn, .btn-group-lg > .btn) { --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: 18.34px; --_seam-margin: 2.75px; }
-      &:is(.btn-lg, .btn-group-lg > .btn):is(.btn-pill, .rounded-pill) { --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: 23.56px; --_seam-margin: 3.53px; }
-      /* round buttons are 44px at every size: the same seam as .btn-icon */
-      &.btn-icon.btn-sm { --felt-seam-inset: 5px; }
-      /* a circle's seam follows it at any size: a 9-slice keeps its corners' size, so a large circle would get a rounded
-       * square. img/seam-circle.svg draws itself for the size of the box it fills (border-image's middle, no slices), so
-       * no size rule may give it a border width */
-      &:is(.btn-icon, .rounded-circle),
-      &:is(.btn-icon, .rounded-circle):is(.btn-sm, .btn-lg, .btn-group-sm > .btn, .btn-group-lg > .btn) {
-        --_seam-img: url("img/seam-circle.svg"); --_seam-slice: 0 fill; --_seam-width: 0;
+      & .form-range::-webkit-slider-thumb {
+        background: var(--felt-texture), linear-gradient(var(--_thumb-cover) 0 0), var(--felt-texture-light) var(--_thumb-wool);
+        background-size: var(--felt-texture-size), auto, var(--felt-texture-light-size); background-blend-mode: soft-light, normal, multiply;
       }
+      & .form-range::-moz-range-thumb {
+        background: var(--felt-texture), linear-gradient(var(--_thumb-cover) 0 0), var(--felt-texture-light) var(--_thumb-wool);
+        background-size: var(--felt-texture-size), auto, var(--felt-texture-light-size); background-blend-mode: soft-light, normal, multiply;
+      }
+    }
+
+    /* --- borders are thread: .border-{colour} dyes the seam a piece has; a bordered element without one gets a seam
+     * (or, on one side, a stitch row). Dyed thread is the colour masked by the seam image, with the twist of
+     * img/thread.svg multiplied in. Firefox has no -webkit-mask-box-image and keeps the plain coloured line. */
+    & .border-primary { --_thread: light-dark(var(--felt-primary), var(--felt-primary-text)); }
+    & .border-secondary { --_thread: light-dark(var(--felt-secondary), var(--felt-secondary-text)); }
+    & .border-success { --_thread: light-dark(var(--felt-success), var(--felt-success-text)); }
+    & .border-danger { --_thread: light-dark(var(--felt-danger), var(--felt-danger-text)); }
+    & .border-warning { --_thread: light-dark(var(--felt-warning), var(--felt-warning-text)); }
+    & .border-info { --_thread: light-dark(var(--felt-info), var(--felt-info-text)); }
+    & .border-primary-subtle { --_thread: var(--felt-primary-border-subtle); }
+    & .border-secondary-subtle { --_thread: var(--felt-secondary-border-subtle); }
+    & .border-success-subtle { --_thread: var(--felt-success-border-subtle); }
+    & .border-danger-subtle { --_thread: var(--felt-danger-border-subtle); }
+    & .border-warning-subtle { --_thread: var(--felt-warning-border-subtle); }
+    & .border-info-subtle { --_thread: var(--felt-info-border-subtle); }
+    & .border-light-subtle { --_thread: var(--felt-light-border-subtle); }
+    & .border-dark-subtle { --_thread: var(--felt-dark-border-subtle); }
+    & .border-1 { --_border-width: 1px; }
+    & .border-2 { --_border-width: 2px; }
+    & .border-3 { --_border-width: 3px; }
+    & .border-4 { --_border-width: 4px; }
+    & .border-5 { --_border-width: 5px; }
+    /* a seam of their own for plain bordered elements: the medium seam, like a button's, tone on tone by default */
+    & .border:not(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
+      .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
+      [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img),
+    & :is(.border-top, .border-bottom, .border-start, .border-end):not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
+      .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
+      [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img) {
+      position: relative;
+    }
+    & .border:not(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
+      .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
+      [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img)::after {
+      content: ""; position: absolute; z-index: 3; pointer-events: none;
+      inset: calc(5px - var(--_seam-margin) - var(--_border-width, 1px));
+      border: 0 solid transparent;
+      border-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
+      mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: var(--felt-thread-strength);
+    }
+    & :is(.border-top, .border-bottom, .border-start, .border-end):not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
+      .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
+      [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img, .border-3, .border-4, .border-5) {
+      &::after {
+        content: ""; position: absolute; z-index: 3; pointer-events: none;
+        background: var(--_rule-img); mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: var(--felt-thread-strength);
+      }
+      &:is(.border-top, .border-bottom)::after {
+        --_rule-img: url("img/seam-row.svg") left center / var(--_seam-row-size) round no-repeat;
+        left: 6px; right: 6px; height: calc(2 * var(--_seam-margin));
+      }
+      &:is(.border-start, .border-end)::after {
+        --_rule-img: url("img/seam-col.svg") center top / var(--_seam-col-size) no-repeat repeat;
+        top: 6px; bottom: 6px; width: calc(2 * var(--_seam-margin));
+      }
+      &.border-top::after { top: calc(3px - var(--_seam-margin) - var(--_border-width, 1px)); }
+      &.border-bottom::after { bottom: calc(3px - var(--_seam-margin) - var(--_border-width, 1px)); }
+      &.border-start::after { left: calc(3px - var(--_seam-margin) - var(--_border-width, 1px)); }
+      &.border-end::after { right: calc(3px - var(--_seam-margin) - var(--_border-width, 1px)); }
+    }
+    @supports (-webkit-mask-box-image: none) {
+      & :is(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
+      .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
+      [class*="btn-outline-"], .border):is(.border-primary, .border-secondary, .border-success, .border-danger, .border-warning, .border-info,
+        .border-primary-subtle, .border-secondary-subtle, .border-success-subtle, .border-danger-subtle, .border-warning-subtle,
+        .border-info-subtle, .border-light-subtle, .border-dark-subtle)::after {
+        border: 0; border-image: none;
+        background: url("img/thread.svg") 0 0 / 3px 3px, var(--_thread); background-blend-mode: multiply;
+        -webkit-mask-box-image: var(--_seam-img) var(--_seam-slice) / var(--_seam-width) round;
+        mix-blend-mode: normal; filter: none; opacity: calc(.85 * var(--felt-border-opacity, 1));
+      }
+      & :is(.border-top, .border-bottom, .border-start, .border-end):not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
+      .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
+      [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img, .border-3, .border-4, .border-5):is(.border-primary, .border-secondary, .border-success, .border-danger, .border-warning, .border-info,
+        .border-primary-subtle, .border-secondary-subtle, .border-success-subtle, .border-danger-subtle, .border-warning-subtle,
+        .border-info-subtle, .border-light-subtle, .border-dark-subtle)::after {
+        background: url("img/thread.svg") 0 0 / 3px 3px, var(--_thread); background-blend-mode: multiply;
+        -webkit-mask: var(--_rule-img); mix-blend-mode: normal; filter: none; opacity: calc(.85 * var(--felt-border-opacity, 1));
+      }
+    }
+    /* a thick rule on one side (a quote's bar) is a strip of felt in that colour, laid in, not a thread */
+    & :is(.border-top, .border-bottom, .border-start, .border-end):not(.border, .card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
+      .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
+      [class*="btn-outline-"], input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img):is(.border-3, .border-4, .border-5) {
+      &::after {
+        content: ""; position: absolute; pointer-events: none;
+        background: var(--felt-texture) 0 0 / var(--felt-texture-size); mix-blend-mode: soft-light; box-shadow: inset 0 0 1px rgb(0 0 0 / .25);
+      }
+      &.border-start::after { inset: 0 auto 0 calc(-1 * var(--_border-width)); width: var(--_border-width); }
+      &.border-end::after { inset: 0 calc(-1 * var(--_border-width)) 0 auto; width: var(--_border-width); }
+      &.border-top::after { inset: calc(-1 * var(--_border-width)) 0 auto 0; height: var(--_border-width); }
+      &.border-bottom::after { inset: auto 0 calc(-1 * var(--_border-width)) 0; height: var(--_border-width); }
+    }
+    /* neutral thread is the seam itself, lightened (with a contour and a shadow) or darkened (with a light edge),
+     * so it still reads on felt of its own tone */
+    & :is(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
+      .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
+      [class*="btn-outline-"], .border, .border-top, .border-bottom, .border-start, .border-end):not(input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img) {
+      &:is(.border-white, .border-light, .border-dark, .border-black) {
+        --felt-thread-filter-cream: var(--felt-thread-filter); --felt-thread-filter-patch: var(--felt-thread-filter); --felt-thread-strength: .9; --felt-thread-strength-patch: .9;
+      }
+      &.border-white { --felt-thread-filter: brightness(1.25) drop-shadow(0 0 .4px rgb(60 45 25 / .4)) drop-shadow(0 .8px .3px rgb(0 0 0 / .45)); }
+      &.border-light { --felt-thread-filter: brightness(1.1) sepia(.15) drop-shadow(0 0 .4px rgb(60 45 25 / .4)) drop-shadow(0 .8px .3px rgb(0 0 0 / .45)); }
+      &.border-dark { --felt-thread-filter: brightness(.1) drop-shadow(0 -.5px 0 rgb(255 255 255 / .3)) drop-shadow(0 .5px 0 rgb(255 255 255 / .12)); }
+      &.border-black { --felt-thread-filter: brightness(.03) drop-shadow(0 -.5px 0 rgb(255 255 255 / .3)) drop-shadow(0 .5px 0 rgb(255 255 255 / .12)); }
+    }
+
+    /* the seam follows the piece's corners: square pieces get a square seam, pills and round buttons one concentric with
+     * their edge (the pill seam scaled by (height / 2 - inset) / 17 for each button size, its margin with it) */
+    & :is(.card, .navbar, .alert, .list-group, .accordion, .modal-content, .toast, .page-item.active .page-link, .dropdown-menu,
+      .offcanvas, .popover, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark, .btn-light,
+      [class*="btn-outline-"], .border):not(input, select, textarea, .form-control, .form-select, .form-check-input, .btn-close, hr, .vr, table, .table, img).rounded-0 {
+      --_seam-img: url("img/seam-sq.svg"); --_seam-slice: var(--_seam-sq-slice); --_seam-width: var(--_seam-sq-width);
+    }
+    & :is(.btn-sm, .btn-group-sm > .btn):is(.btn-pill, .rounded-pill) { --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: 15.8px; --_seam-margin: 2.37px; }
+    & .btn:is(.btn-pill, .rounded-pill):not(.btn-sm, .btn-lg, .btn-group-sm > .btn, .btn-group-lg > .btn) { --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: 18.34px; --_seam-margin: 2.75px; }
+    & :is(.btn-lg, .btn-group-lg > .btn):is(.btn-pill, .rounded-pill) { --_seam-img: url("img/seam-pill.svg"); --_seam-slice: var(--_seam-pill-slice); --_seam-width: 23.56px; --_seam-margin: 3.53px; }
+    /* round buttons are 44px at every size: the same seam as .btn-icon */
+    & .btn-icon.btn-sm { --felt-seam-inset: 5px; }
+    /* a circle's seam follows it at any size: a 9-slice keeps its corners' size, so a large circle would get a rounded
+     * square. img/seam-circle.svg draws itself for the size of the box it fills (border-image's middle, no slices), so
+     * no size rule may give it a border width */
+    & :is(.btn-icon, .rounded-circle),
+    & :is(.btn-icon, .rounded-circle):is(.btn-sm, .btn-lg, .btn-group-sm > .btn, .btn-group-lg > .btn) {
+      --_seam-img: url("img/seam-circle.svg"); --_seam-slice: 0 fill; --_seam-width: 0;
     }
   }
 }

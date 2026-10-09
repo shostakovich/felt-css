@@ -1,52 +1,35 @@
 #!/usr/bin/env python3
-"""Draw the felt textures and seams in img/ as SVG, and their sizes into feltgen/stitches.json (tools/build.py writes
-them into felt.css as tokens).
+"""Draw the seams in img/ as SVG, and their sizes into feltgen/stitches.json (tools/build.py writes them into felt.css
+as tokens); with --felt PHOTO, also turn a photo of grey felt into the colours' felt, img/felt.webp.
 
-Texture felt.svg (the colours' felt): bands of feTurbulence summed on one 256 px tile. Fibre bands are bent
-by low noise (feDisplacementMap) to break up the noise's lattice and stretch its ridges into hairs; all noise
-is made on the tile and repeated with feTile, so the tile stays seamless.
-The cream and charcoal felt of the light and dark sheet (felt-light.webp, felt-dark.webp) stay photos: on phones,
-which render SVG at 3x, noise never read as calm as them. They were built from Codex photos by the photo
-pipeline in git history (tools/build_assets.py and raw/ before the SVG switch).
+Felt: all three felts are photos made with Codex, so a piece costs no more to paint than a plain image (felt drawn
+with feTurbulence was redrawn for every tile the browser rasterised). felt.webp is the colours' felt, grey around
+50 % and blended in soft-light; --felt makes it from a 1024 px photo: lit evenly, made seamless, at the drawn felt's
+contrast. The cream and charcoal felt of the light and dark sheet (felt-light.webp, felt-dark.webp) were built by the
+photo pipeline in git history (tools/build_assets.py and raw/ before the SVG switch). The photos aren't kept in the
+repo.
 
 Seams (seam-lg/md/pill/sq.svg, seam-row.svg, seam-col.svg): drawn stitches as 9-slice images for
 border-image, plus a straight row and column. The thread is near-white; felt.css tints it with
 mix-blend-mode: hard-light and filter: brightness(). thread.svg is the twist that dyed thread
 (.border-{colour} in the felt look) is multiplied with. stitch.svg is one stitch (#stitch) for sewing SVG drawings.
 
-Needs: python3. tools/calibrate_felt.py re-measures the texture's base after a change to FELT.
+Needs: python3; for --felt also numpy and ImageMagick (`magick`).
 """
 import json
 import math
 import random
+import sys
 from pathlib import Path
-from statistics import NormalDist
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "img"
 DPR = 2                          # seams are drawn for 2x screens: width/height in device px, viewBox in CSS px
 
-# --- felt
-# Felt for the web: fine, dense craft felt (like the sheets sold for crafts and the felt of Stilbag's bags), calm
-# at 1x, with single light fibres up close. Photos of real felt were the reference, not a template.
-# Band: [frequency, octaves, f(ractal)|t(urbulence), amplitude (negative: bright ridges), mean, bend, blur, gamma,
-# (cut frequency, kept share)]. The nap's ridges brighten like fibre tips; a second noise cuts them into single
-# fibres (no network of cells); a soft, blurred nap lies under the sharp one. Bases are calibrated so the tile
-# has the mean of the photo texture it replaced (calibrate_felt.py); contrast per scale matches them too
-# (sd at 3/8 px blur .013/.009).
-FELT = {
-    # grey around 50 %, soft-light on saturated colours
-    "felt": dict(base=0.4857, warp=('.035', 12), bands=[['.012', 2, 'f', 0.08],
-                 ['.05', 2, 'f', 0.06],
-                 ['.22 .32', 2, 't', -0.26, 0.6, 12, 0.25, 3, ('.3', 0.5)],
-                 ['.32 .22', 2, 't', -0.26, 0.6, 12, 0.25, 3, ('.3', 0.5)],
-                 ['.18', 2, 't', -0.08, 0.5, 10, 1.0, 2.5],
-                 ['.7', 1, 'f', 0.15, 0.5, 0, 0.45],
-                 ['.12', 2, 't', -0.1, 0.82, 18, 0.12, 6, ('.2', 0.3)]]),
-}
-TILE, PAD = 256, 32
-SUB = f'x="0" y="0" width="{TILE}" height="{TILE}"'
-GREY = '<feColorMatrix values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1"/>'
+# --- felt (photo)
+FELT_TILE = 384                # px for one tile of --felt-texture-size (256 CSS px): sharp enough at 3x, small as WebP
+FELT_CONTRAST = .0228          # standard deviation after a 1 CSS px blur, as the drawn felt it replaced
+FELT_QUALITY = 60
 
 # --- seams (CSS px)
 # Modelled on professionally sewn felt (Stilbag bags): the thread is pulled taut into a pressed groove, tone on
@@ -69,41 +52,39 @@ THREAD = ('<svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox=
           '<path d="M-1 1L1-1M0 3L3 0M2 4L4 2" stroke="#c4c4c4" stroke-width=".75"/></svg>')
 
 
-def felt(bands, base=.5, rgb=None, seed=1, warp=(".02", 10)):
-    s = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{TILE}" height="{TILE}">'
-         f'<filter id="f" filterUnits="userSpaceOnUse" x="{-PAD}" y="{-PAD}" width="{TILE+2*PAD}" height="{TILE+2*PAD}" color-interpolation-filters="sRGB">'
-         f'<feTurbulence {SUB} type="fractalNoise" baseFrequency="{warp[0]}" numOctaves="2" seed="{seed+99}" stitchTiles="stitch"/><feTile result="w"/>'
-         f'<feFlood flood-color="rgb({base*255:.1f},{base*255:.1f},{base*255:.1f})" result="a"/>']
-    for i, (freq, oct, kind, amp, *opt) in enumerate(bands):
-        mean = opt[0] if opt else (.5 if kind == "f" else .25)
-        bend = opt[1] if len(opt) > 1 else 0
-        blur = opt[2] if len(opt) > 2 else 0
-        gamma = opt[3] if len(opt) > 3 else 0
-        cut = opt[4] if len(opt) > 4 else None   # (frequency, keep): cut the ridges into single fibres
-        # negative amplitude: invert the noise instead (bright ridges); amplitudes stay positive so alpha stays 1
-        grey = GREY if amp > 0 else '<feColorMatrix values="-1 0 0 0 1 -1 0 0 0 1 -1 0 0 0 1 0 0 0 0 1"/>'
-        if amp < 0: amp, mean = -amp, 1 - mean
-        s.append(f'<feTurbulence {SUB} type="{"fractalNoise" if kind == "f" else "turbulence"}" baseFrequency="{freq}" '
-                 f'numOctaves="{oct}" seed="{seed + 7 * i}" stitchTiles="stitch"/>{grey}'
-                 + (f'<feComponentTransfer><feFuncR type="gamma" exponent="{gamma}"/><feFuncG type="gamma" exponent="{gamma}"/><feFuncB type="gamma" exponent="{gamma}"/></feComponentTransfer>' if gamma else '')
-                 + '<feTile result="n"/>')
-        if bend:
-            s.append(f'<feDisplacementMap in2="w" scale="{bend}" xChannelSelector="R" yChannelSelector="G" in="n" result="n"/>')
-        if blur:   # soft fibres: a fuzz, not a hairline
-            s.append(f'<feGaussianBlur in="n" stdDeviation="{blur}" result="n"/>')
-        if cut:    # keep the band only where a second noise is high: n*m + mean*(1-m), m a soft threshold
-            f_, keep = cut
-            t = .5 + NormalDist().inv_cdf(1 - keep) * .12          # fractalNoise R: ~N(.5, .12)
-            ramp = f'type="linear" slope="10" intercept="{-10 * t:.3g}"'
-            s.append(f'<feTurbulence {SUB} type="fractalNoise" baseFrequency="{f_}" numOctaves="1" seed="{seed + 50 + i}" stitchTiles="stitch"/>'
-                     f'<feColorMatrix values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1"/>'
-                     f'<feComponentTransfer><feFuncR {ramp}/><feFuncG {ramp}/><feFuncB {ramp}/></feComponentTransfer>'
-                     f'<feTile result="m"/><feComposite in="n" in2="m" operator="arithmetic" k1="1" k3="{-mean:.3g}" k4="{mean:.3g}" result="n"/>')
-        s.append(f'<feComposite in="a" in2="n" operator="arithmetic" k2="1" k3="{amp:.4g}" k4="{-amp * mean:.3g}" result="a"/>')
-    if rgb:
-        s.append(f'<feColorMatrix values="{rgb[0]} 0 0 0 0 0 {rgb[1]} 0 0 0 0 0 {rgb[2]} 0 0 0 0 0 1 0"/>')
-    s.append(f'</filter><rect width="{TILE}" height="{TILE}" filter="url(#f)"/></svg>')
-    return "".join(s)
+def photo_felt(src, out):
+    """A photo of grey felt as the colours' felt: lit evenly (large blotches and light falloff removed), seamless (the
+    photo blended with a copy shifted by half, weighted to the original in the middle and to the copy at the edges,
+    dividing by the weights' norm so the fibres keep their contrast where the two mix), mean 50 % and the drawn felt's
+    contrast at 1 CSS px."""
+    import subprocess
+    import tempfile
+    import numpy as np
+
+    def blur(a, sigma):   # gaussian, periodic like the tile
+        fy, fx = np.fft.fftfreq(a.shape[0])[:, None], np.fft.fftfreq(a.shape[1])[None, :]
+        return np.real(np.fft.ifft2(np.fft.fft2(a) * np.exp(-2 * (np.pi * sigma) ** 2 * (fx ** 2 + fy ** 2))))
+
+    with tempfile.TemporaryDirectory() as tmp:
+        raw = Path(tmp) / "g.gray"
+        size = subprocess.run(["magick", "identify", "-format", "%w %h", src], capture_output=True, text=True, check=True).stdout
+        w, h = map(int, size.split())
+        subprocess.run(["magick", src, "-colorspace", "Gray", "-endian", "MSB", "-depth", "16", f"gray:{raw}"], check=True)
+        g = np.fromfile(raw, dtype=">u2").reshape(h, w).astype(float) / 65535
+        n = min(w, h) // FELT_TILE * FELT_TILE
+        g = g[:n, :n]
+        g = g - blur(g, n / 3) + g.mean()
+        y, x = np.mgrid[0:n, 0:n] / n
+        k = (np.sin(np.pi * x) * np.sin(np.pi * y)) ** 1.5
+        m = g.mean()
+        g = ((g - m) * k + (np.roll(g, (n // 2, n // 2), (0, 1)) - m) * (1 - k)) / np.sqrt(k ** 2 + (1 - k) ** 2) + m
+        s = n // FELT_TILE
+        t = g.reshape(FELT_TILE, s, FELT_TILE, s).mean((1, 3))
+        t = np.clip(.5 + (t - t.mean()) * FELT_CONTRAST / blur(t, FELT_TILE / 256).std(), 0, 1)
+        (t * 65535).round().astype(">u2").tofile(raw)
+        subprocess.run(["magick", "-size", f"{FELT_TILE}x{FELT_TILE}", "-endian", "MSB", "-depth", "16", f"gray:{raw}", "-depth", "8",
+                        "-define", "webp:method=6", "-quality", str(FELT_QUALITY), out], check=True)
+    print(f"{out.name}: {out.stat().st_size} bytes")
 
 
 def f(x):   # short numbers: one decimal, no trailing or leading zeros
@@ -312,8 +293,8 @@ def write(name, text):
 
 if __name__ == "__main__":
     OUT.mkdir(exist_ok=True)
-    for name, kw in FELT.items():
-        write(f"{name}.svg", felt(**kw))
+    if "--felt" in sys.argv:
+        photo_felt(Path(sys.argv[sys.argv.index("--felt") + 1]), OUT / "felt.webp")
     tokens = {"_seam-margin": f"{MARGIN}px"}
     dy, blur, alpha = SHADOW   # CSS blurs by twice the standard deviation
     tokens |= {"stitch-length": f"{LEN}px", "stitch-pitch": f"{PERIOD}px",

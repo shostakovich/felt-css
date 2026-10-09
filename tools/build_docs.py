@@ -242,7 +242,7 @@ def expand(body):
         markup = tidy(match.group(2))
         classes = " ".join(filter(None, ["bd-example", attrs.get("class")]))
         style = f' style="{attrs["style"]}"' if "style" in attrs else ""
-        style += "".join(f' {k}="{attrs[k]}"' for k in ("data-look", "data-bs-theme") if k in attrs)
+        style += f' data-bs-theme="{attrs["data-bs-theme"]}"' if "data-bs-theme" in attrs else ""
         rendered = f'<div class="{classes}"{style}>\n{markup}\n</div>'
         code = "" if attrs.get("code") == "false" else code_box(markup, "html")
         return keep(f'<div class="bd-example-snippet">{rendered}{code}</div>')

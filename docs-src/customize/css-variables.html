@@ -29,7 +29,7 @@ description: felt-css is plain CSS: every colour, radius, space and shadow is a 
 </div>
 </example>
 <div class="bd-callout bd-callout-info">
-  <p>Variables that differ between the looks (most colours, the radii) are set on <code>:root</code> for clean and again on <code>[data-look="felt"]</code>. To change a value for one look only, override it there: <code>[data-look="felt"] { --felt-radius: 16px; }</code>.</p>
+  <p>Variables that differ between the looks (most colours, the radii) are set on <code>:root</code> for clean and again on <code>:root[data-look="felt"]</code>. To change a value for one look only, override it there: <code>:root[data-look="felt"] { --felt-radius: 16px; }</code>.</p>
 </div>
 
 <h2>Colors</h2>
