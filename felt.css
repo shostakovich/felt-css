@@ -4829,7 +4829,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn, .form-switch .form-check-input { transition: none; }
+  .btn, .form-switch .form-check-input, .form-floating > label, .accordion-button::after, .modal.fade .modal-dialog { transition: none; }
+  .dropdown-toggle:not(.btn)::after, .btn.dropdown-toggle::before, .dropstart .dropdown-toggle:not(.btn)::before { transition: none; }
   .carousel-item, .carousel-fade .active:is(.carousel-item-start, .carousel-item-end),
   .carousel-control-prev, .carousel-control-next, .carousel-indicators [data-bs-target] { transition: none; }
 }
