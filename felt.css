@@ -20,7 +20,7 @@
 /* --------------------------------------------------------------- tokens */
 @layer tokens {
   /* tokens:start */
-  /* written by tools/feltgen/tokens.py; change it there, not these 417 lines */
+  /* written by tools/feltgen/tokens.py; change it there, not these 437 lines */
   /* the clean look; colours are light-dark(light, dark) and follow color-scheme: the system's, or data-bs-theme's */
   :root {
     color-scheme: light dark;
@@ -138,7 +138,7 @@
     --felt-hover-mix: 8%;
     --felt-active-mix: 14%;
     --felt-select-mix: 18%;
-    --felt-focus-ring-color: light-dark(color-mix(in oklab, var(--felt-primary) 50%, transparent), color-mix(in oklab, var(--felt-link-color) 60%, transparent));
+    --felt-focus-ring-color: light-dark(color-mix(in oklab, var(--felt-link-color) 80%, transparent), color-mix(in oklab, var(--felt-link-color) 60%, transparent));
     --felt-focus-ring-width: .25rem;
     --felt-focus-ring-x: 0;
     --felt-focus-ring-y: 0;
@@ -208,15 +208,23 @@
     --felt-gray-800: #433d36;
     --felt-gray-900: #2b2723;
     /* theme colours */
+    --felt-secondary: light-dark(#716558, #6a5f52);
+    --felt-success: light-dark(#4e7225, #4f712c);
+    --felt-danger: light-dark(#be3f29, #b23f29);
+    --felt-info: light-dark(#227379, #276f75);
     --felt-light: light-dark(#f3ece0, #4a443d);
     --felt-light-ink: light-dark(var(--felt-navy), #efe7da);
     --felt-dark: light-dark(var(--felt-navy), #202840);
+    --felt-success-emphasis: light-dark(#324c19, #b0d18c);
+    --felt-warning-emphasis: light-dark(#5c4000, #f1cb72);
+    --felt-info-emphasis: light-dark(#174c50, #94d3d6);
+    --felt-light-emphasis: light-dark(#3f464d, #dee2e6);
     --felt-primary-text: var(--felt-link-color);
-    --felt-secondary-text: light-dark(#5c5247, #c4b9aa);
-    --felt-success-text: light-dark(#46642a, #98c26c);
-    --felt-danger-text: light-dark(#a33a25, #ef8c76);
-    --felt-warning-text: light-dark(#7b560c, var(--felt-warning));
-    --felt-info-text: light-dark(#22666b, #6cc3c8);
+    --felt-secondary-text: light-dark(#584e43, #c4b9aa);
+    --felt-success-text: light-dark(#3b581e, #98c26c);
+    --felt-danger-text: light-dark(#932b16, #ef8c76);
+    --felt-warning-text: light-dark(#6d4900, var(--felt-warning));
+    --felt-info-text: light-dark(#0f585d, #6cc3c8);
     --felt-light-fixed: #f3ece0;
     --felt-dark-fixed: var(--felt-navy);
     --felt-primary-subtle: color-mix(in oklab, var(--felt-primary) 14%, var(--felt-surface));
@@ -239,7 +247,7 @@
     --felt-body-bg: light-dark(#dbcdb7, #242220);
     --felt-body-color: light-dark(var(--felt-navy), #efe7da);
     --felt-emphasis-color: light-dark(#0e1526, #fffaf2);
-    --felt-secondary-color: light-dark(#665f50, #b8ad9c);
+    --felt-secondary-color: light-dark(#564f41, #b8ad9c);
     --felt-tertiary-color: light-dark(#8d8574, #8f8676);
     --felt-surface: light-dark(#faf5ee, #34312d);
     --felt-surface-sunk: light-dark(#ece4d4, #2d2a27);
@@ -253,14 +261,16 @@
     --felt-field-invalid: light-dark(#fdf3ee, #3a2823);
     --felt-border-color: light-dark(#c9bba3, #48423b);
     --felt-border-color-strong: light-dark(#847b6a, #857a6c);
-    --felt-link-color: light-dark(#34578c, #8fb2e8);
+    --felt-link-color: light-dark(#2e5085, #8fb2e8);
     --felt-track: light-dark(rgb(90 70 40 / .16), rgb(0 0 0 / .36));
     --felt-backdrop: light-dark(rgb(50 35 15 / .26), rgb(10 8 5 / .5));
     --felt-highlight-bg: light-dark(#f0d8a2, color-mix(in oklab, var(--felt-warning) 35%, var(--felt-surface)));
     /* form validation */
+    --felt-form-valid-color: var(--felt-success-emphasis);
+    --felt-form-valid-border-color: var(--felt-success);
     --felt-form-invalid-border-color: color-mix(in oklab, var(--felt-danger-emphasis) 80%, transparent);
     /* interaction */
-    --felt-focus-ring-color: light-dark(color-mix(in oklab, var(--felt-primary) 50%, transparent), color-mix(in oklab, var(--felt-link-color) 60%, transparent));
+    --felt-focus-ring-color: light-dark(color-mix(in oklab, var(--felt-link-color) 80%, transparent), color-mix(in oklab, var(--felt-link-color) 60%, transparent));
     /* spacing, radius and shadows */
     --felt-radius-sm: 5px;
     --felt-radius: 12px;
@@ -331,9 +341,17 @@
     --felt-gray-800: #343a40;
     --felt-gray-900: #212529;
     /* theme colours */
+    --felt-secondary: light-dark(var(--felt-taupe), #6a5f52);
+    --felt-success: light-dark(var(--felt-moss), #527530);
+    --felt-danger: light-dark(var(--felt-tomato), #b23f29);
+    --felt-info: light-dark(var(--felt-petrol), #276f75);
     --felt-light: light-dark(#f8f9fa, #3b4148);
     --felt-light-ink: light-dark(#1f2633, #e9ecef);
     --felt-dark: light-dark(#212529, #111315);
+    --felt-success-emphasis: light-dark(#36501d, #b0d18c);
+    --felt-warning-emphasis: light-dark(#6b4e12, #f1cb72);
+    --felt-info-emphasis: light-dark(#1b4f53, #94d3d6);
+    --felt-light-emphasis: light-dark(#495057, #dee2e6);
     --felt-primary-text: light-dark(var(--felt-primary), #8fb2e8);
     --felt-secondary-text: light-dark(var(--felt-secondary), #c4b9aa);
     --felt-success-text: light-dark(#4e6f2c, #98c26c);
@@ -381,9 +399,11 @@
     --felt-backdrop: light-dark(rgb(16 24 40 / .45), rgb(0 0 0 / .6));
     --felt-highlight-bg: var(--felt-warning-subtle);
     /* form validation */
+    --felt-form-valid-color: var(--felt-success-emphasis);
+    --felt-form-valid-border-color: var(--felt-success);
     --felt-form-invalid-border-color: var(--felt-danger);
     /* interaction */
-    --felt-focus-ring-color: light-dark(color-mix(in oklab, var(--felt-primary) 50%, transparent), color-mix(in oklab, var(--felt-link-color) 60%, transparent));
+    --felt-focus-ring-color: light-dark(color-mix(in oklab, var(--felt-link-color) 80%, transparent), color-mix(in oklab, var(--felt-link-color) 60%, transparent));
     /* spacing, radius and shadows */
     --felt-radius-sm: 6px;
     --felt-radius: 10px;
@@ -898,7 +918,7 @@
   }
   .card:is([class*="text-bg-"], .bg-primary, .bg-secondary, .bg-success, .bg-danger, .bg-warning, .bg-info, .bg-light, .bg-dark, .bg-black, .bg-white) { --felt-card-cap-bg: transparent; }
   .card-header, .card-footer { padding: var(--felt-card-cap-padding-y) var(--felt-card-cap-padding-x); color: var(--felt-card-cap-color); background-color: var(--felt-card-cap-bg); }
-  .card-header { border-bottom: var(--felt-card-border-width) solid var(--felt-card-border-color); }
+  .card-header { font-weight: 600; border-bottom: var(--felt-card-border-width) solid var(--felt-card-border-color); }
   .card-footer { border-top: var(--felt-card-border-width) solid var(--felt-card-border-color); margin-top: auto; }
   .card-header:first-child { border-radius: var(--felt-card-inner-border-radius) var(--felt-card-inner-border-radius) 0 0; }
   .card-footer:last-child { border-radius: 0 0 var(--felt-card-inner-border-radius) var(--felt-card-inner-border-radius); }
@@ -911,7 +931,7 @@
   /* stat / KPI */
   :where(.stat, .stat-label, .stat-value) { margin: 0; }   /* any element, and .col stat keeps the row gutter */
   .stat { display: flex; flex-direction: column; gap: .15rem; }
-  .stat-label { font-size: .8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; opacity: .75; hyphens: auto; }
+  .stat-label { font-size: .8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; hyphens: auto; }
   .stat-value { font-size: 1.75rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
 
   /* button */
@@ -973,8 +993,8 @@
   .btn-info { --felt-btn-bg: var(--felt-info); --felt-btn-color: var(--felt-info-ink); --felt-btn-border-color: transparent; }
   .btn-light { --felt-btn-bg: var(--felt-surface-raised); --felt-btn-border-color: var(--felt-border-color); --felt-btn-active-bg: color-mix(in oklab, var(--felt-btn-bg), var(--felt-hover-ink) var(--felt-select-mix)); --felt-btn-active-shadow: inset 0 1px 3px rgb(0 0 0 / .15); }
   .btn-dark { --felt-btn-bg: var(--felt-dark); --felt-btn-color: var(--felt-dark-ink); --felt-btn-border-color: light-dark(transparent, var(--felt-border-color)); }
-  .btn-outline-primary { --felt-btn-color: light-dark(var(--felt-primary), var(--felt-primary-text)); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-primary); --felt-btn-active-color: var(--felt-primary-ink); --felt-btn-active-border-color: var(--felt-primary); }
-  .btn-outline-secondary { --felt-btn-color: light-dark(var(--felt-secondary), var(--felt-secondary-text)); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-secondary); --felt-btn-active-color: var(--felt-secondary-ink); --felt-btn-active-border-color: var(--felt-secondary); }
+  .btn-outline-primary { --felt-btn-color: var(--felt-primary-text); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-primary); --felt-btn-active-color: var(--felt-primary-ink); --felt-btn-active-border-color: var(--felt-primary); }
+  .btn-outline-secondary { --felt-btn-color: var(--felt-secondary-text); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-secondary); --felt-btn-active-color: var(--felt-secondary-ink); --felt-btn-active-border-color: var(--felt-secondary); }
   .btn-outline-success { --felt-btn-color: var(--felt-success-emphasis); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-success); --felt-btn-active-color: var(--felt-success-ink); --felt-btn-active-border-color: var(--felt-success); }
   .btn-outline-danger { --felt-btn-color: var(--felt-danger-emphasis); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-danger); --felt-btn-active-color: var(--felt-danger-ink); --felt-btn-active-border-color: var(--felt-danger); }
   .btn-outline-warning { --felt-btn-color: var(--felt-warning-emphasis); --felt-btn-border-color: currentColor; --felt-btn-hover-bg: color-mix(in oklab, currentColor 10%, transparent); --felt-btn-active-bg: var(--felt-warning); --felt-btn-active-color: var(--felt-warning-ink); --felt-btn-active-border-color: var(--felt-warning); }
@@ -987,7 +1007,7 @@
     --felt-btn-hover-bg: var(--felt-surface-hover); --felt-btn-active-bg: var(--felt-surface-pressed);
     --felt-btn-active-shadow: inset 0 1px 3px rgb(0 0 0 / .15);
   }
-  .btn-link { --felt-btn-color: light-dark(var(--felt-primary), var(--felt-link-color)); text-decoration: underline; text-underline-offset: .2em; }
+  .btn-link { --felt-btn-color: var(--felt-link-color); text-decoration: underline; text-underline-offset: .2em; }
   .btn:active, .btn.active, .btn-check:checked + .btn, [class*="btn-outline-"].show {
     color: var(--felt-btn-active-color); background-color: var(--felt-btn-active-bg); border-color: var(--felt-btn-active-border-color);
     box-shadow: var(--felt-btn-active-shadow);
@@ -1229,6 +1249,7 @@
   .nav-justified > .nav-link, .nav-justified > .nav-item { flex: 1 1 0; text-align: center; }
   .nav-fill > .nav-item > .nav-link, .nav-justified > .nav-item > .nav-link { width: 100%; }
   .nav-link.flex-column { isolation: isolate; align-items: center; gap: .4rem; padding: .35rem .5rem; border-radius: var(--felt-radius); font-size: .75rem; }
+  .nav-link.flex-column > small { font-size: inherit; }   /* the tab bar's label is small already */
   .nav-pills .nav-link.flex-column:is(.active, [aria-current="page"]) { background: none; color: var(--felt-primary-text); }
   .nav-link.flex-column:is(.active, [aria-current="page"]) > :first-child { color: var(--felt-nav-pills-link-active-color); }
   .nav-link.flex-column:is(.active, [aria-current="page"])::before {
@@ -1460,6 +1481,7 @@
   .list-group-item:last-child { border-end-start-radius: inherit; border-end-end-radius: inherit; }
   .list-group-item-action { width: 100%; color: var(--felt-list-group-action-color); text-align: inherit; }
   .list-group-item-action:focus-visible { outline-offset: -3px; }
+  .list-group-item-action.active:focus-visible { outline-color: currentColor; outline-offset: -6px; }
   .list-group-item-action:not(.active):is(:hover, :focus-visible) { z-index: 1; color: var(--felt-list-group-action-hover-color); background-color: var(--felt-list-group-action-hover-bg); }
   .list-group-item-action:not(.active):active { color: var(--felt-list-group-action-active-color); background-color: var(--felt-list-group-action-active-bg); }
   .list-group-item:is(.disabled, :disabled) { color: var(--felt-list-group-disabled-color); background-color: var(--felt-list-group-disabled-bg); pointer-events: none; }
@@ -1719,7 +1741,7 @@
   .accordion-button:not(.collapsed, summary)::after, details[open] > .accordion-button::after {
     background-color: currentColor; transform: var(--felt-accordion-btn-icon-transform); mask-image: var(--felt-accordion-btn-active-icon);
   }
-  .accordion-button:focus-visible { outline: 0; box-shadow: var(--felt-accordion-btn-focus-box-shadow); }
+  .accordion-button:focus-visible, details[open] > .accordion-button:focus-visible { outline: 0; box-shadow: var(--felt-accordion-btn-focus-box-shadow); }
   .accordion-item:first-of-type .accordion-button { border-start-start-radius: var(--felt-accordion-inner-border-radius); border-start-end-radius: var(--felt-accordion-inner-border-radius); }
   .accordion-item:last-of-type :is(.accordion-button.collapsed, details:not([open]) > .accordion-button) {
     border-end-start-radius: var(--felt-accordion-inner-border-radius); border-end-end-radius: var(--felt-accordion-inner-border-radius);
@@ -2160,7 +2182,9 @@
     border: 0; border-radius: var(--felt-dropdown-item-border-radius); background: none; color: var(--felt-dropdown-link-color);
     font-weight: 500; text-align: inherit; text-decoration: none; white-space: nowrap;
   }
-  .dropdown-item:is(:hover, :focus-visible) { outline: 0; color: var(--felt-dropdown-link-hover-color); background-color: var(--felt-dropdown-link-hover-bg); }
+  .dropdown-item:is(:hover, :focus-visible) { color: var(--felt-dropdown-link-hover-color); background-color: var(--felt-dropdown-link-hover-bg); }
+  .dropdown-item:focus-visible { outline-offset: -3px; }
+  .dropdown-item.active:focus-visible { outline-color: currentColor; outline-offset: -6px; }   /* in the ink, inside the fill */
   .dropdown-item:is(.active, :active) { background-color: var(--felt-dropdown-link-active-bg); color: var(--felt-dropdown-link-active-color); }
   .dropdown-item:is(.disabled, :disabled) { background: none; color: var(--felt-dropdown-link-disabled-color); pointer-events: none; }
   /* a header sits closer to the items below it */
@@ -4216,6 +4240,10 @@
         background: none; box-shadow: none; border-color: transparent;
         &:not(:is(.active, .btn-check:checked + .btn)) {
           &::after { content: none; }
+          /* the groove darkens the felt: its labels take the deeper tone */
+          &.btn-outline-primary { --felt-btn-color: var(--felt-primary-emphasis); }
+          &.btn-outline-secondary { --felt-btn-color: var(--felt-secondary-emphasis); }
+          &.btn-outline-info { --felt-btn-color: var(--felt-info-emphasis); }
           &:hover { background-color: var(--felt-surface-hover); }
           &:active { background-color: var(--felt-surface-pressed); }
         }
@@ -4244,7 +4272,7 @@
       /* pagination: a capsule groove laid on the links themselves, so the list keeps Bootstrap's layout. Each
        * link shades only its own stretch of the groove: the top everywhere, the sides only at the two ends, and
        * not the pixel it overlaps its neighbour by. */
-      &.pagination { --felt-pagination-border-radius: var(--felt-radius-pill); }
+      &.pagination { --felt-pagination-border-radius: var(--felt-radius-pill); --felt-pagination-color: var(--felt-primary-emphasis); }
       &.page-item {
         --_groove-inset: inset 0 7px 3px -6px var(--felt-groove-shadow);
         &:first-child { --_groove-inset: inset 6px 7px 3px -6px var(--felt-groove-shadow); }
@@ -4375,7 +4403,10 @@
         mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: calc(var(--felt-thread-strength) * var(--felt-thread-strength-row));
       }
       &:is(.accordion-item + .accordion-item)::before { top: 0; }
-      &:is(.accordion-button:not(.collapsed, summary), details[open] > .accordion-button) { background-color: color-mix(in oklab, var(--felt-primary) 6%, var(--felt-surface-hover)); box-shadow: none; }
+      &:is(.accordion-button:not(.collapsed, summary), details[open] > .accordion-button) {
+        background-color: color-mix(in oklab, var(--felt-primary) 6%, var(--felt-surface-hover));
+        &:not(:focus-visible) { box-shadow: none; }
+      }
 
       /* --- table: nearly clean, a tinted head and quiet rows of stitches between the rows */
       &:is(.table > thead) { background-color: var(--felt-surface-hover); }
@@ -4430,7 +4461,7 @@
       /* the medium seam is finer than the cards' large one: a little more thread, so it carries the same weight */
       &:is(.dropdown-menu, .popover, .toast)::after { opacity: min(1, calc(var(--felt-thread-strength) * 1.2)); }
       &.popover-arrow::before { border-color: transparent; }
-      &.dropdown-item:is(:hover, :focus-visible) { background-color: var(--felt-dropdown-link-hover-bg); }
+      &.dropdown-item:is(:hover, :focus-visible):not(.active, :active) { background-color: var(--felt-dropdown-link-hover-bg); }
       &.dropdown-item:is(.active, :active) {
         background-image: var(--felt-texture); background-size: var(--felt-texture-size); background-blend-mode: soft-light;
         box-shadow: inset 0 -1px 2px rgb(0 0 0 / .12), 0 1px 2px var(--felt-groove-shadow);
@@ -4799,13 +4830,22 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn, .form-switch .form-check-input { transition: none; }
+  .btn, .form-switch .form-check-input, .form-floating > label, .accordion-button::after, .modal.fade .modal-dialog { transition: none; }
+  .dropdown-toggle:not(.btn)::after, .btn.dropdown-toggle::before, .dropstart .dropdown-toggle:not(.btn)::before { transition: none; }
   .carousel-item, .carousel-fade .active:is(.carousel-item-start, .carousel-item-end),
   .carousel-control-prev, .carousel-control-next, .carousel-indicators [data-bs-target] { transition: none; }
 }
 
-/* forced colours: a swatch keeps its colour (it is the content), and the chosen one a plain ring in the text colour */
+/* forced colours: a swatch keeps its colour (it is the content), and the chosen one a plain ring in the text colour.
+ * Masked icons (the close X) are painted in the text colour; checks and chosen buttons show the system's highlight. */
 @media (forced-colors: active) {
+  .btn-close::before { forced-color-adjust: none; background: ButtonText; }
+  .form-check-input { appearance: auto; }
+  :is(.btn-check:checked + .btn, .btn.active):not(.btn-swatch), .nav-pills .nav-link.active, .page-item.active .page-link,
+  .list-group-item.active {
+    forced-color-adjust: none; background: Highlight; color: HighlightText; border-color: Highlight;
+    &:not(.dropdown-toggle)::before { display: none; }   /* felt's patch would cover the highlight */
+  }
   .btn-swatch { forced-color-adjust: none; }
   .btn-check:checked + .btn-swatch::before { border: 2px solid CanvasText; border-image: none; filter: none; opacity: 1; }
 }

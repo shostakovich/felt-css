@@ -96,14 +96,15 @@ for step, (c, f) in enumerate(zip(CLEAN_GRAYS, FELT_GRAYS), 1):
 # ------------------------------------------------------------------ theme colours
 
 group("theme", "Theme colours", "Fills, the ink on them, and the tones derived from them. Dark mode mutes the fills a "
-      "little: they glare less and white ink stays at 4.5:1 or more.")
+      "little: they glare less and white ink stays at 4.5:1 or more. Felt deepens a few by a shade, so the ink keeps "
+      "4.5:1 under the light of a patch's dome (tools/check_contrast.py).")
 FILLS = {
     "primary": ("light-dark($denim, #385c93)", None, "#fff"),
-    "secondary": ("light-dark($taupe, #6a5f52)", None, "#fff"),
-    "success": ("light-dark($moss, #527530)", None, "#fff"),
-    "danger": ("light-dark($tomato, #b23f29)", None, "#fff"),
+    "secondary": ("light-dark($taupe, #6a5f52)", "light-dark(#716558, #6a5f52)", "#fff"),
+    "success": ("light-dark($moss, #527530)", "light-dark(#4e7225, #4f712c)", "#fff"),
+    "danger": ("light-dark($tomato, #b23f29)", "light-dark(#be3f29, #b23f29)", "#fff"),
     "warning": ("light-dark($mustard, #cf9520)", None, "#3a2a06"),
-    "info": ("light-dark($petrol, #276f75)", None, "#fff"),
+    "info": ("light-dark($petrol, #276f75)", "light-dark(#227379, #276f75)", "#fff"),
     "light": ("light-dark(#f8f9fa, #3b4148)", "light-dark(#f3ece0, #4a443d)", None),
     "dark": ("light-dark(#212529, #111315)", "light-dark($navy, #202840)", "#f8f9fa"),
 }
@@ -114,13 +115,16 @@ EMPHASIS = {
     "warning": "light-dark(#6b4e12, #f1cb72)", "info": "light-dark(#1b4f53, #94d3d6)",
     "light": "light-dark(#495057, #dee2e6)", "dark": "light-dark(#343a40, #adb5bd)",
 }
-TEXT = {   # clean, felt: coloured text on the page; felt's is a shade deeper, it sits on the darker felt page too
+# felt: a shade deeper where the tone is text in a groove too (outline buttons in toggle groups)
+FELT_EMPHASIS = {"success": "light-dark(#324c19, #b0d18c)", "warning": "light-dark(#5c4000, #f1cb72)",
+                 "info": "light-dark(#174c50, #94d3d6)", "light": "light-dark(#3f464d, #dee2e6)"}
+TEXT = {   # clean, felt: coloured text on the page; felt's is deeper, the felt photo darkens the page it sits on
     "primary": ("light-dark($primary, #8fb2e8)", "$link-color"),
-    "secondary": ("light-dark($secondary, #c4b9aa)", "light-dark(#5c5247, #c4b9aa)"),
-    "success": ("light-dark(#4e6f2c, #98c26c)", "light-dark(#46642a, #98c26c)"),
-    "danger": ("light-dark($danger, #ef8c76)", "light-dark(#a33a25, #ef8c76)"),
-    "warning": ("light-dark(#8a5f0c, $warning)", "light-dark(#7b560c, $warning)"),
-    "info": ("light-dark($info, #6cc3c8)", "light-dark(#22666b, #6cc3c8)"),
+    "secondary": ("light-dark($secondary, #c4b9aa)", "light-dark(#584e43, #c4b9aa)"),
+    "success": ("light-dark(#4e6f2c, #98c26c)", "light-dark(#3b581e, #98c26c)"),
+    "danger": ("light-dark($danger, #ef8c76)", "light-dark(#932b16, #ef8c76)"),
+    "warning": ("light-dark(#8a5f0c, $warning)", "light-dark(#6d4900, $warning)"),
+    "info": ("light-dark($info, #6cc3c8)", "light-dark(#0f585d, #6cc3c8)"),
 }
 SUBTLE = {c: (14, 32) for c in COLOURS} | {"warning": (18, 40)}
 for c in COLOURS:
@@ -129,7 +133,7 @@ for c in COLOURS:
     clean_ink, felt_ink = INK.get(c, (ink, None))
     T(f"{c}-ink", clean_ink, felt_ink, doc=f"Text and icons on the {c} fill")
 for c in COLOURS:
-    T(f"{c}-emphasis", EMPHASIS[c], doc=f"Text on {c} tints (.alert-{c}, .text-{c}-emphasis), 4.5:1 or more",
+    T(f"{c}-emphasis", EMPHASIS[c], FELT_EMPHASIS.get(c), doc=f"Text on {c} tints (.alert-{c}, .text-{c}-emphasis), 4.5:1 or more",
       bs=[f"--bs-{c}-text-emphasis"])
 for c in TONED:
     T(f"{c}-text", *TEXT[c], doc=f"{c.capitalize()} as text on the page (.text-{c}, .link-{c})")
@@ -153,7 +157,7 @@ group("body", "Body and surfaces", "The page, what lies on it, and its text.")
 T("body-bg", "light-dark(#f6f7f9, #212529)", "light-dark(#dbcdb7, #242220)", doc="Page background")
 T("body-color", "light-dark(#1f2633, #dee2e6)", "light-dark($navy, #efe7da)", doc="Body text")
 T("emphasis-color", "light-dark(#000, #fff)", "light-dark(#0e1526, #fffaf2)", doc="Strongest text (.text-body-emphasis)")
-T("secondary-color", "light-dark(#677084, #a2aab4)", "light-dark(#665f50, #b8ad9c)",
+T("secondary-color", "light-dark(#677084, #a2aab4)", "light-dark(#564f41, #b8ad9c)",
   doc="Secondary text (.text-body-secondary, .text-muted, form text)")
 T("tertiary-color", "light-dark(#8a92a3, #7d858f)", "light-dark(#8d8574, #8f8676)",
   doc="Tertiary text: disabled links and items, placeholders' neighbours (.text-body-tertiary)")
@@ -183,7 +187,7 @@ T("border-color", "light-dark(#e2e5ea, #41474f)", "light-dark(#c9bba3, #48423b)"
 T("border-color-strong", "light-dark(#858f9e, #737b84)", "light-dark(#847b6a, #857a6c)",
   doc="Control outlines that reach 3:1 (checkboxes, radios)")
 T("link-decoration", "underline", doc="Links")
-T("link-color", "light-dark($primary, #8fb2e8)", "light-dark(#34578c, #8fb2e8)", doc="Links; .link-* set it too")
+T("link-color", "light-dark($primary, #8fb2e8)", "light-dark(#2e5085, #8fb2e8)", doc="Links; .link-* set it too")
 T("track", "light-dark(#e3e7ec, #3a4047)", "light-dark(rgb(90 70 40 / .16), rgb(0 0 0 / .36))",
   doc="The empty part of progress bars, ranges and the off switch; use it for tracks of your own. "
       "Felt: one groove pressed into the felt, translucent")
@@ -214,8 +218,8 @@ T("hover-mix", "8%", doc="How much of it a hovered fill takes")
 T("active-mix", "14%", doc="How much of it a pressed fill takes")
 T("select-mix", "18%", doc="A neutral button pressed or chosen: a clear step past its hover")
 T("disabled-opacity", ".55", dark=".45", doc="Disabled controls in the clean look (felt pieces fade into the page instead)")
-T("focus-ring-color", "light-dark(color-mix(in oklab, $primary 50%, transparent), color-mix(in oklab, $link-color 60%, transparent))",
-  doc="Focus rings; .focus-ring-* set it too")
+T("focus-ring-color", "light-dark(color-mix(in oklab, $link-color 80%, transparent), color-mix(in oklab, $link-color 60%, transparent))",
+  doc="Focus rings, 3:1 or more against the page; .focus-ring-* set it too")
 T("focus-ring-width", ".25rem", doc="Focus rings of fields and .focus-ring")
 T("focus-ring-x", "0", doc=".focus-ring: horizontal offset")
 T("focus-ring-y", "0", doc=".focus-ring: vertical offset")
