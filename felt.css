@@ -4430,7 +4430,7 @@
       /* the medium seam is finer than the cards' large one: a little more thread, so it carries the same weight */
       &:is(.dropdown-menu, .popover, .toast)::after { opacity: min(1, calc(var(--felt-thread-strength) * 1.2)); }
       &.popover-arrow::before { border-color: transparent; }
-      &.dropdown-item:is(:hover, :focus-visible) { background-color: var(--felt-dropdown-link-hover-bg); }
+      &.dropdown-item:is(:hover, :focus-visible):not(.active, :active) { background-color: var(--felt-dropdown-link-hover-bg); }
       &.dropdown-item:is(.active, :active) {
         background-image: var(--felt-texture); background-size: var(--felt-texture-size); background-blend-mode: soft-light;
         box-shadow: inset 0 -1px 2px rgb(0 0 0 / .12), 0 1px 2px var(--felt-groove-shadow);
