@@ -279,7 +279,7 @@ T("select-chevron", "$_chevron-clean", "$_chevron-felt", dark="$_chevron-clean-d
 group("texture", "Felt textures", "The felt itself. Light pieces (the page, cards, light buttons) are cut from the sheet: "
       "the cream felt multiplied into their colour, charcoal felt in dark mode. Coloured pieces are patches: grey felt "
       "laid over their colour in soft-light.")
-T("texture", None, 'url("img/felt.svg")', doc="Felt of coloured patches (grey, blended in soft-light)")
+T("texture", None, 'url("img/felt.webp")', doc="Felt of coloured patches (grey, blended in soft-light)")
 T("texture-size", None, "256px", doc="Its tile size")
 T("texture-light", None, 'url("img/felt-light.webp")', doc="Cream felt, multiplied into light pieces")
 T("texture-light-size", None, "256px", doc="Its tile size")

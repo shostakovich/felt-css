@@ -280,7 +280,7 @@
     /* images */
     --felt-gradient: var(--felt-texture), var(--felt-patch-dome);
     /* felt textures */
-    --felt-texture: url("img/felt.svg");
+    --felt-texture: url("img/felt.webp");
     --felt-texture-size: 256px;
     --felt-texture-light: url("img/felt-light.webp");
     --felt-texture-light-size: 256px;
