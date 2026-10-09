@@ -4834,8 +4834,16 @@
   .carousel-control-prev, .carousel-control-next, .carousel-indicators [data-bs-target] { transition: none; }
 }
 
-/* forced colours: a swatch keeps its colour (it is the content), and the chosen one a plain ring in the text colour */
+/* forced colours: a swatch keeps its colour (it is the content), and the chosen one a plain ring in the text colour.
+ * Masked icons (the close X) are painted in the text colour; checks and chosen buttons show the system's highlight. */
 @media (forced-colors: active) {
+  .btn-close::before { forced-color-adjust: none; background: ButtonText; }
+  .form-check-input { appearance: auto; }
+  :is(.btn-check:checked + .btn, .btn.active):not(.btn-swatch), .nav-pills .nav-link.active, .page-item.active .page-link,
+  .list-group-item.active {
+    forced-color-adjust: none; background: Highlight; color: HighlightText; border-color: Highlight;
+    &:not(.dropdown-toggle)::before { display: none; }   /* felt's patch would cover the highlight */
+  }
   .btn-swatch { forced-color-adjust: none; }
   .btn-check:checked + .btn-swatch::before { border: 2px solid CanvasText; border-image: none; filter: none; opacity: 1; }
 }
