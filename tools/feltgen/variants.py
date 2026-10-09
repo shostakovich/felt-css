@@ -177,9 +177,9 @@ def offcanvas_responsive(i):
 def offcanvas_inline(i):
     """the felt layer's half of offcanvas_responsive and navbar_expand: inline, an offcanvas is no piece of felt"""
     sel = ", ".join(([f".offcanvas{i}"] if i else []) + [f".navbar-expand{i} .offcanvas"])
-    return [f"&:is({sel}) {{ background-image: none; box-shadow: none; overflow: visible; "
+    return [f"& :is({sel}) {{ background-image: none; box-shadow: none; overflow: visible; "
             "--felt-thread-filter: inherit; --_rule-piece: inherit; }",
-            f"&:is({sel})::after {{ content: none; }}"]
+            f"& :is({sel})::after {{ content: none; }}"]
 
 
 def containers():

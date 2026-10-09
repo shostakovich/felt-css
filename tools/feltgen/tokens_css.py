@@ -1,8 +1,8 @@
-"""Writes the tokens from tokens.py as CSS, so that data-look and data-bs-theme work on any element.
+"""Writes the tokens from tokens.py as CSS, so that data-bs-theme works on any element and data-look on <html>.
 
 - Tokens that are the same everywhere go on :root.
-- Tokens that differ between the looks (or are made from ones that do) go on :root (clean), [data-look="felt"] and
-  [data-look="clean"]. Colours use light-dark(), which resolves where the colour is used, so they need nothing else.
+- Tokens that differ between the looks (or are made from ones that do) go on :root (clean) and
+  :root[data-look="felt"]. Colours use light-dark(), which resolves where the colour is used, so they need nothing else.
 - Tokens that differ by colour mode but can't use light-dark() (images, filters, numbers) are recomputed on every element
   that sets a look or a theme. They pick their value with two switches that are inherited like any token: --_dark/--_light
   and --_felt/--_clean are each either empty or invalid ("space toggles"), so `var(--_felt) var(--_dark) value` is only
@@ -100,7 +100,6 @@ def grouped(pick, render):
 def token_css():
     root = grouped(lambda t: t.name not in THEMED and not t.felt_only, lambda t: [declare(t, t.values()[0])])
     felt = grouped(lambda t: t.name not in THEMED and (t.name in LOOKED or t.felt_only), lambda t: [declare(t, t.values()[2])])
-    clean = grouped(lambda t: t.name not in THEMED and t.name in LOOKED and not t.felt_only, lambda t: [declare(t, t.values()[0])])
     themed = grouped(lambda t: t.name in THEMED, switched)
     return [
         *block(":root", ["color-scheme: light dark;", LOOK_SWITCHES["clean"], THEME_SWITCHES["light"], *root],
@@ -110,8 +109,7 @@ def token_css():
         "}",
         *block('[data-bs-theme="light"]', ["color-scheme: light;", THEME_SWITCHES["light"]]),
         *block(f'[data-bs-theme="dark"], {DARK_ALIASES}', ["color-scheme: dark;", THEME_SWITCHES["dark"]]),
-        *block('[data-look="felt"]', [LOOK_SWITCHES["felt"], *felt], "the felt look, on any element"),
-        *block('[data-look="clean"]', [LOOK_SWITCHES["clean"], *clean], "and back to clean inside it"),
-        *block(f':root, [data-look], [data-bs-theme], {DARK_ALIASES}', themed,
-               "what differs by colour mode but isn't a colour: recomputed wherever the look or the theme changes"),
+        *block(':root[data-look="felt"]', [LOOK_SWITCHES["felt"], *felt], "the felt look, for the whole page"),
+        *block(f':root, [data-bs-theme], {DARK_ALIASES}', themed,
+               "what differs by colour mode but isn't a colour: recomputed wherever the theme changes"),
     ]

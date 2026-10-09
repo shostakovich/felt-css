@@ -1,8 +1,8 @@
 """The global tokens of felt.css: one source for the @layer tokens block and the token tables in the docs.
 
 Each token has a value per look (clean, felt) and, where light-dark() can't hold it (images, filters, numbers,
-blend modes), per colour mode. tools/build.py writes them into felt.css so that both work on any element:
-data-look and data-bs-theme can be set anywhere, the nearest one wins.
+blend modes), per colour mode. tools/build.py writes them into felt.css: data-look="felt" on <html> switches the
+look, data-bs-theme can be set on any element (the nearest one wins).
 
     T(name, clean, felt=None, dark=None, felt_dark=None, doc="", bs=())
 
