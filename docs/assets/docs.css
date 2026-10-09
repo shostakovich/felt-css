@@ -94,12 +94,6 @@
 .bd-example::after { content: ""; display: block; clear: both; }
 .bd-example > :last-child { margin-bottom: 0; }
 .bd-example-snippet > .bd-code { border-top: 1px solid var(--felt-border-color); }
-/* an example with a look of its own shows that look's page behind it */
-.bd-example[data-look] { border-radius: calc(var(--felt-radius-lg) - 1px) calc(var(--felt-radius-lg) - 1px) 0 0; background-color: var(--felt-body-bg); }
-.bd-example[data-look="felt"] {
-  background-image: linear-gradient(var(--felt-texture-veil) 0 0), var(--felt-texture-sheet);
-  background-size: auto, var(--felt-texture-sheet-size); background-blend-mode: normal, var(--felt-texture-sheet-blend);
-}
 .bd-example-snippet > .bd-code pre { border: 0; border-radius: 0 0 calc(var(--felt-radius-lg) - 1px) calc(var(--felt-radius-lg) - 1px); }
 
 .bd-code { position: relative; margin-block: var(--felt-space-3) var(--felt-space-4); }

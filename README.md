@@ -58,7 +58,7 @@ in the [documentation](https://felt-css.rocu.de/). `index.html` in the repo is a
 Only needed when you change felt-css itself (plain `python3`):
 
 ```sh
-python3 tools/build_assets.py          # felt and seams in img/ as SVG
+python3 tools/build_assets.py          # seams in img/ as SVG; --felt PHOTO: the colours' felt (numpy)
 python3 tools/build.py                 # the generated blocks in felt.css: tokens, grid, utilities, variants
 python3 tools/build_docs.py --strict   # docs/ from docs-src/
 python3 tools/check_contrast.py        # token contrast on the rendered felt, all four modes

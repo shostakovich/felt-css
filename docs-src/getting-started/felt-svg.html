@@ -12,7 +12,7 @@ description: Sew your own SVG drawings — gauges, rings, chart bands — with t
       <svg class="d-block" width="200" height="110" viewBox="0 0 200 110" aria-hidden="true">
         <defs>
           <pattern id="felt-gauge" width="256" height="256" patternUnits="userSpaceOnUse">
-            <image href="{{repo}}img/felt.svg" width="256" height="256"/>
+            <image href="{{repo}}img/felt.webp" width="256" height="256"/>
           </pattern>
           <filter id="gauge-blur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.5"/></filter>
         </defs>
@@ -80,10 +80,10 @@ for (let i = 0; i < count; i++) {
 <p>The stitch is near-white thread, like the seam images. Put the stitches in an <code>&lt;svg class="stitches"&gt;</code> of their own, laid over the drawing with the same <code>viewBox</code> inside a <code>.position-relative</code> wrapper. In the felt look the overlay casts the seams' shadow down the page (<code>--felt-stitch-shadow</code>) and is tinted with their <code>--felt-thread-filter</code> and <code>--felt-thread-strength</code>, so the thread is a tone of the felt underneath and follows the theme; add <code>.stitches-patch</code> when the stitches lie on a coloured patch, for the patches' lighter thread. In the clean look the overlay is hidden.</p>
 
 <h2>Felt</h2>
-<p>Coloured shapes are patches: the grey felt <code>img/felt.svg</code>, tiled at <code>--felt-texture-size</code> (<code>256px</code>) and blended <code>soft-light</code> onto the colour. In SVG, define it as a pattern and lay a copy of the shape over the coloured one with <code>.felt-texture</code>, which blends it in the felt look and hides it in the clean look:</p>
+<p>Coloured shapes are patches: the grey felt <code>img/felt.webp</code>, tiled at <code>--felt-texture-size</code> (<code>256px</code>) and blended <code>soft-light</code> onto the colour. In SVG, define it as a pattern and lay a copy of the shape over the coloured one with <code>.felt-texture</code>, which blends it in the felt look and hides it in the clean look:</p>
 <codeblock lang="html">
 <pattern id="felt" width="256" height="256" patternUnits="userSpaceOnUse">
-  <image href="img/felt.svg" width="256" height="256"/>
+  <image href="img/felt.webp" width="256" height="256"/>
 </pattern>
 <path d="…" class="felt-shadow" filter="url(#blur)"/>
 <path d="…" class="felt-edge" style="color: var(--felt-primary)"/>

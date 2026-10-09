@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Felt and clean · felt-css</title>
-  <meta name="description" content="felt-css comes in two looks. One attribute switches between them, on the whole page or on a single element, and nothing moves when you do.">
+  <meta name="description" content="felt-css comes in two looks. One attribute on the page switches between them, and nothing moves when you do.">
   <link rel="icon" href="../../assets/plush/nav_dashboard.webp">
   <link rel="stylesheet" href="../../../felt.css">
   <link rel="stylesheet" href="../../assets/docs.css">
@@ -66,18 +66,18 @@
       <div class="bd-intro">
         <p class="bd-section">Getting started</p>
         <h1>Felt and clean</h1>
-        <p class="lead">felt-css comes in two looks. One attribute switches between them, on the whole page or on a single element, and nothing moves when you do.</p>
+        <p class="lead">felt-css comes in two looks. One attribute on the page switches between them, and nothing moves when you do.</p>
         <a class="bd-source small" href="https://github.com/shostakovich/felt-css/blob/main/docs-src/getting-started/looks.html">View page source on GitHub</a>
       </div>
       
       <div class="bd-toc">
         <details class="bd-toc-details">
           <summary>On this page</summary>
-          <nav aria-label="On this page"><ul><li><a href="#switching-looks">Switching looks</a></li><li><a href="#looks-on-single-elements">Looks on single elements</a><ul><li><a href="#remembering-the-choice">Remembering the choice</a></li></ul></li><li><a href="#how-the-felt-works">How the felt works</a><ul><li><a href="#two-felt-recipes">Two felt recipes</a></li><li><a href="#thread">Thread</a></li><li><a href="#never-moves">Never moves</a></li><li><a href="#opt-out-friendly">Opt-out friendly</a></li></ul></li><li><a href="#weight">Weight</a></li><li><a href="#rebuilding-the-assets">Rebuilding the assets</a></li></ul></nav>
+          <nav aria-label="On this page"><ul><li><a href="#switching-looks">Switching looks</a><ul><li><a href="#remembering-the-choice">Remembering the choice</a></li></ul></li><li><a href="#how-the-felt-works">How the felt works</a><ul><li><a href="#two-felt-recipes">Two felt recipes</a></li><li><a href="#thread">Thread</a></li><li><a href="#never-moves">Never moves</a></li><li><a href="#opt-out-friendly">Opt-out friendly</a></li></ul></li><li><a href="#weight">Weight</a></li><li><a href="#rebuilding-the-assets">Rebuilding the assets</a></li></ul></nav>
         </details>
         <nav class="bd-toc-side" aria-label="On this page (sidebar)">
           <strong>On this page</strong>
-          <ul><li><a href="#switching-looks">Switching looks</a></li><li><a href="#looks-on-single-elements">Looks on single elements</a><ul><li><a href="#remembering-the-choice">Remembering the choice</a></li></ul></li><li><a href="#how-the-felt-works">How the felt works</a><ul><li><a href="#two-felt-recipes">Two felt recipes</a></li><li><a href="#thread">Thread</a></li><li><a href="#never-moves">Never moves</a></li><li><a href="#opt-out-friendly">Opt-out friendly</a></li></ul></li><li><a href="#weight">Weight</a></li><li><a href="#rebuilding-the-assets">Rebuilding the assets</a></li></ul>
+          <ul><li><a href="#switching-looks">Switching looks</a><ul><li><a href="#remembering-the-choice">Remembering the choice</a></li></ul></li><li><a href="#how-the-felt-works">How the felt works</a><ul><li><a href="#two-felt-recipes">Two felt recipes</a></li><li><a href="#thread">Thread</a></li><li><a href="#never-moves">Never moves</a></li><li><a href="#opt-out-friendly">Opt-out friendly</a></li></ul></li><li><a href="#weight">Weight</a></li><li><a href="#rebuilding-the-assets">Rebuilding the assets</a></li></ul>
         </nav>
       </div>
       
@@ -86,7 +86,7 @@
 <h2 id="switching-looks">Switching looks<a class="bd-anchor" href="#switching-looks" aria-label="Link to this section">#</a></h2>
 <p>Without any attribute you get the <strong>clean</strong> look: flat surfaces, hairline borders, Bootstrap-like. Add <code>data-look="felt"</code> to the <code>&lt;html&gt;</code> element and the same page is cut from wool felt and sewn together.</p>
 <div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">html</span> <span class="tok-attr">lang</span><span class="tok-punct">=</span><span class="tok-val">"en"</span> <span class="tok-attr">data-look</span><span class="tok-punct">=</span><span class="tok-val">"felt"</span><span class="tok-punct">&gt;</span></code></pre></div>
-<p>Try it with the <strong>Felt / Clean</strong> switch at the top of this page: every example in these docs follows it.</p>
+<p>The look is for the whole page: <code>data-look</code> only acts on <code>&lt;html&gt;</code>. (Colour modes are different: <a href="../color-modes/"><code>data-bs-theme</code></a> works on any element.) Try it with the <strong>Felt / Clean</strong> switch at the top of this page: every example in these docs follows it.</p>
 
 <div class="row g-3 my-4">
   <figure class="figure col-md-6 mb-0">
@@ -98,55 +98,6 @@
     <figcaption class="figure-caption">Clean</figcaption>
   </figure>
 </div>
-
-<h2 id="looks-on-single-elements">Looks on single elements<a class="bd-anchor" href="#looks-on-single-elements" aria-label="Link to this section">#</a></h2>
-<p><code>data-look</code> works on any element, like <code>data-bs-theme</code> does for colour modes. The nearest one wins, and the element with the attribute counts too. A felt card on a clean page:</p>
-<div class="bd-example-snippet"><div class="bd-example" data-look="clean">
-<div class="card" data-look="felt" style="max-width: 22rem">
-  <div class="card-header">Neue Ausgabe</div>
-  <div class="card-body">
-    <p class="card-text">Cut from felt and sewn on, on a clean page.</p>
-    <button type="button" class="btn btn-primary">Save</button>
-    <button type="button" class="btn btn-outline-secondary">Cancel</button>
-  </div>
-</div>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card"</span> <span class="tok-attr">data-look</span><span class="tok-punct">=</span><span class="tok-val">"felt"</span> <span class="tok-attr">style</span><span class="tok-punct">=</span><span class="tok-val">"max-width: 22rem"</span><span class="tok-punct">&gt;</span>
-  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-header"</span><span class="tok-punct">&gt;</span>Neue Ausgabe<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
-  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-body"</span><span class="tok-punct">&gt;</span>
-    <span class="tok-punct">&lt;</span><span class="tok-tag">p</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-text"</span><span class="tok-punct">&gt;</span>Cut from felt and sewn on, on a clean page.<span class="tok-punct">&lt;/</span><span class="tok-tag">p</span><span class="tok-punct">&gt;</span>
-    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Save<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
-    <span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-outline-secondary"</span><span class="tok-punct">&gt;</span>Cancel<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
-  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
-<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
-<p>A single felt button among clean ones:</p>
-<div class="bd-example-snippet"><div class="bd-example" data-look="clean">
-<button type="button" class="btn btn-primary" data-look="felt">Felt</button>
-<button type="button" class="btn btn-primary">Clean</button>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span> <span class="tok-attr">data-look</span><span class="tok-punct">=</span><span class="tok-val">"felt"</span><span class="tok-punct">&gt;</span>Felt<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span>
-<span class="tok-punct">&lt;</span><span class="tok-tag">button</span> <span class="tok-attr">type</span><span class="tok-punct">=</span><span class="tok-val">"button"</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"btn btn-primary"</span><span class="tok-punct">&gt;</span>Clean<span class="tok-punct">&lt;/</span><span class="tok-tag">button</span><span class="tok-punct">&gt;</span></code></pre></div></div>
-<p>And the other way round, a clean island in a felt page, for a dense table, a code block or a chart:</p>
-<div class="bd-example-snippet"><div class="bd-example" data-look="felt">
-<div class="card">
-  <div class="card-body">
-    <div class="table-responsive" data-look="clean">
-      <table class="table table-sm table-striped mb-0">
-        <thead><tr><th>Item</th><th>Amount</th></tr></thead>
-        <tbody><tr><td>Wool</td><td>12,00 €</td></tr><tr><td>Thread</td><td>3,50 €</td></tr></tbody>
-      </table>
-    </div>
-  </div>
-</div>
-</div><div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-html"><span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card"</span><span class="tok-punct">&gt;</span>
-  <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"card-body"</span><span class="tok-punct">&gt;</span>
-    <span class="tok-punct">&lt;</span><span class="tok-tag">div</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"table-responsive"</span> <span class="tok-attr">data-look</span><span class="tok-punct">=</span><span class="tok-val">"clean"</span><span class="tok-punct">&gt;</span>
-      <span class="tok-punct">&lt;</span><span class="tok-tag">table</span> <span class="tok-attr">class</span><span class="tok-punct">=</span><span class="tok-val">"table table-sm table-striped mb-0"</span><span class="tok-punct">&gt;</span>
-        <span class="tok-punct">&lt;</span><span class="tok-tag">thead</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">th</span><span class="tok-punct">&gt;</span>Item<span class="tok-punct">&lt;/</span><span class="tok-tag">th</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">th</span><span class="tok-punct">&gt;</span>Amount<span class="tok-punct">&lt;/</span><span class="tok-tag">th</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">thead</span><span class="tok-punct">&gt;</span>
-        <span class="tok-punct">&lt;</span><span class="tok-tag">tbody</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Wool<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>12,00 €<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>Thread<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span>3,50 €<span class="tok-punct">&lt;/</span><span class="tok-tag">td</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">tr</span><span class="tok-punct">&gt;</span><span class="tok-punct">&lt;/</span><span class="tok-tag">tbody</span><span class="tok-punct">&gt;</span>
-      <span class="tok-punct">&lt;/</span><span class="tok-tag">table</span><span class="tok-punct">&gt;</span>
-    <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
-  <span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span>
-<span class="tok-punct">&lt;/</span><span class="tok-tag">div</span><span class="tok-punct">&gt;</span></code></pre></div></div>
-<p>Looks and colour modes combine freely: <code>data-look="felt" data-bs-theme="dark"</code> on one card gives a charcoal felt card on a light page. The page background stays whatever the page's own look is; a felt piece brings its own felt, and a see-through one (a flush list group or accordion) is cut from the sheet when it is the felt element itself.</p>
 
 <h3 id="remembering-the-choice">Remembering the choice<a class="bd-anchor" href="#remembering-the-choice" aria-label="Link to this section">#</a></h3>
 <p>felt-css doesn't store anything itself. If you offer a switch, set the attribute before the first paint so the page doesn't flash, for example with a tiny inline script in the <code>&lt;head&gt;</code> — this is what these docs do:</p>
@@ -166,16 +117,16 @@
 <h3 id="never-moves">Never moves<a class="bd-anchor" href="#never-moves" aria-label="Link to this section">#</a></h3>
 <p>The felt layer only changes colours, textures, shadows and seams — never padding, borders or fonts. Toggling the look doesn't shift a single pixel, so you can design in clean and switch to felt at the end, or let your users choose.</p>
 <h3 id="opt-out-friendly">Opt-out friendly<a class="bd-anchor" href="#opt-out-friendly" aria-label="Link to this section">#</a></h3>
-<p>All felt rules sit in <code>@layer felt</code>, inside <code>@scope ([data-look="felt"]) to ([data-look="clean"])</code>, with the specificity of the component's own selector (<code>.card</code> stays one class). Unlayered CSS of yours always wins over the layer. To keep one element clean, give it <code>data-look="clean"</code>; to tune the felt, change its tokens (see <a href="../../customize/felt/">Felt tokens</a>).</p>
+<p>All felt rules sit in <code>@layer felt</code>, each under <code>:where(:root[data-look="felt"])</code>, with the specificity of the component's own selector (<code>.card</code> stays one class). Unlayered CSS of yours always wins over the layer. To tune the felt, change its tokens (see <a href="../../customize/felt/">Felt tokens</a>).</p>
 
 <h2 id="weight">Weight<a class="bd-anchor" href="#weight" aria-label="Link to this section">#</a></h2>
-<p><code>felt.css</code> is about 38 KB gzipped. The felt textures and seams in <code>img/</code> add about 26 KB and are only downloaded when the felt look is on.</p>
+<p><code>felt.css</code> is about 38 KB gzipped. The felt textures and seams in <code>img/</code> add about 48 KB and are only downloaded when the felt look is on.</p>
 
 <h2 id="rebuilding-the-assets">Rebuilding the assets<a class="bd-anchor" href="#rebuilding-the-assets" aria-label="Link to this section">#</a></h2>
-<p><code>tools/build_assets.py</code> draws the grey felt and the seam frames in <code>img/</code> and their sizes into <code>tools/feltgen/stitches.json</code>; <code>tools/build.py</code> writes them into <code>felt.css</code> as tokens. Want longer stitches or rounder corners? Change <code>LEN</code>, <code>PERIOD</code> or <code>SHAPES</code> at the top of the script and run it again. After changing the grey felt's recipe (<code>FELT</code>), <code>tools/calibrate_felt.py</code> prints the base that keeps its brightness.</p>
-<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-sh">python3 tools/build_assets.py     <span class="tok-com"># plain python3</span>
-python3 tools/build.py            <span class="tok-com"># the seam sizes into felt.css</span>
-python3 tools/calibrate_felt.py   <span class="tok-com"># needs Node with Playwright and ImageMagick</span></code></pre></div>
+<p><code>tools/build_assets.py</code> draws the seam frames in <code>img/</code> and their sizes into <code>tools/feltgen/stitches.json</code>; <code>tools/build.py</code> writes them into <code>felt.css</code> as tokens. Want longer stitches or rounder corners? Change <code>LEN</code>, <code>PERIOD</code> or <code>SHAPES</code> at the top of the script and run it again. The felts are photos: with <code>--felt</code> the script turns a photo of grey felt into the colours' felt (<code>img/felt.webp</code>), evenly lit, seamless and as strong as before.</p>
+<div class="bd-code"><button type="button" class="bd-copy btn btn-sm" aria-label="Copy to clipboard">Copy</button><pre><code class="language-sh">python3 tools/build_assets.py                    <span class="tok-com"># plain python3</span>
+python3 tools/build.py                           <span class="tok-com"># the seam sizes into felt.css</span>
+python3 tools/build_assets.py --felt photo.png   <span class="tok-com"># needs numpy and ImageMagick</span></code></pre></div>
 <p><code>tools/combos.html</code> shows every surface with every button, badge, border colour and seam radius, to check a change in both themes (<code>?theme=dark</code>).</p>
 
         <nav class="bd-pager" aria-label="Pages"><a class="bd-pager-prev" href="../../getting-started/introduction/"><small>Previous</small>Introduction</a><a class="bd-pager-next" href="../../getting-started/felt-svg/"><small>Next</small>Felt in SVG</a></nav>
