@@ -1480,6 +1480,7 @@
   .list-group-item:last-child { border-end-start-radius: inherit; border-end-end-radius: inherit; }
   .list-group-item-action { width: 100%; color: var(--felt-list-group-action-color); text-align: inherit; }
   .list-group-item-action:focus-visible { outline-offset: -3px; }
+  .list-group-item-action.active:focus-visible { outline-color: currentColor; outline-offset: -6px; }
   .list-group-item-action:not(.active):is(:hover, :focus-visible) { z-index: 1; color: var(--felt-list-group-action-hover-color); background-color: var(--felt-list-group-action-hover-bg); }
   .list-group-item-action:not(.active):active { color: var(--felt-list-group-action-active-color); background-color: var(--felt-list-group-action-active-bg); }
   .list-group-item:is(.disabled, :disabled) { color: var(--felt-list-group-disabled-color); background-color: var(--felt-list-group-disabled-bg); pointer-events: none; }
@@ -1739,7 +1740,7 @@
   .accordion-button:not(.collapsed, summary)::after, details[open] > .accordion-button::after {
     background-color: currentColor; transform: var(--felt-accordion-btn-icon-transform); mask-image: var(--felt-accordion-btn-active-icon);
   }
-  .accordion-button:focus-visible { outline: 0; box-shadow: var(--felt-accordion-btn-focus-box-shadow); }
+  .accordion-button:focus-visible, details[open] > .accordion-button:focus-visible { outline: 0; box-shadow: var(--felt-accordion-btn-focus-box-shadow); }
   .accordion-item:first-of-type .accordion-button { border-start-start-radius: var(--felt-accordion-inner-border-radius); border-start-end-radius: var(--felt-accordion-inner-border-radius); }
   .accordion-item:last-of-type :is(.accordion-button.collapsed, details:not([open]) > .accordion-button) {
     border-end-start-radius: var(--felt-accordion-inner-border-radius); border-end-end-radius: var(--felt-accordion-inner-border-radius);
@@ -2180,7 +2181,9 @@
     border: 0; border-radius: var(--felt-dropdown-item-border-radius); background: none; color: var(--felt-dropdown-link-color);
     font-weight: 500; text-align: inherit; text-decoration: none; white-space: nowrap;
   }
-  .dropdown-item:is(:hover, :focus-visible) { outline: 0; color: var(--felt-dropdown-link-hover-color); background-color: var(--felt-dropdown-link-hover-bg); }
+  .dropdown-item:is(:hover, :focus-visible) { color: var(--felt-dropdown-link-hover-color); background-color: var(--felt-dropdown-link-hover-bg); }
+  .dropdown-item:focus-visible { outline-offset: -3px; }
+  .dropdown-item.active:focus-visible { outline-color: currentColor; outline-offset: -6px; }   /* in the ink, inside the fill */
   .dropdown-item:is(.active, :active) { background-color: var(--felt-dropdown-link-active-bg); color: var(--felt-dropdown-link-active-color); }
   .dropdown-item:is(.disabled, :disabled) { background: none; color: var(--felt-dropdown-link-disabled-color); pointer-events: none; }
   /* a header sits closer to the items below it */
@@ -4399,7 +4402,10 @@
         mix-blend-mode: hard-light; filter: var(--felt-thread-filter); opacity: calc(var(--felt-thread-strength) * var(--felt-thread-strength-row));
       }
       &:is(.accordion-item + .accordion-item)::before { top: 0; }
-      &:is(.accordion-button:not(.collapsed, summary), details[open] > .accordion-button) { background-color: color-mix(in oklab, var(--felt-primary) 6%, var(--felt-surface-hover)); box-shadow: none; }
+      &:is(.accordion-button:not(.collapsed, summary), details[open] > .accordion-button) {
+        background-color: color-mix(in oklab, var(--felt-primary) 6%, var(--felt-surface-hover));
+        &:not(:focus-visible) { box-shadow: none; }
+      }
 
       /* --- table: nearly clean, a tinted head and quiet rows of stitches between the rows */
       &:is(.table > thead) { background-color: var(--felt-surface-hover); }
